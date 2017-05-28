@@ -1,0 +1,2 @@
+module Parents::HomeHelper
+end
