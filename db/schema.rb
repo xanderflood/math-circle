@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523201804) do
+ActiveRecord::Schema.define(version: 20170528182333) do
+
+  create_table "contact_infos", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_contact_infos_on_parent_id"
+  end
+
+  create_table "parent_profiles", force: :cascade do |t|
+    t.integer "parent_id"
+    t.index ["parent_id"], name: "index_parent_profiles_on_parent_id"
+  end
 
   create_table "parents", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -25,7 +45,9 @@ ActiveRecord::Schema.define(version: 20170523201804) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "parent_profile_id"
     t.index ["email"], name: "index_parents_on_email", unique: true
+    t.index ["parent_profile_id"], name: "index_parents_on_parent_profile_id"
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
   end
 
