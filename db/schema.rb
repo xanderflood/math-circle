@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528182333) do
+ActiveRecord::Schema.define(version: 20170528233934) do
 
   create_table "contact_infos", force: :cascade do |t|
     t.integer  "parent_id"
@@ -28,8 +28,14 @@ ActiveRecord::Schema.define(version: 20170528182333) do
   end
 
   create_table "parent_profiles", force: :cascade do |t|
-    t.integer "parent_id"
+    t.integer  "parent_id"
+    t.integer  "primary_contact_id"
+    t.integer  "energency_contact_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["energency_contact_id"], name: "index_parent_profiles_on_energency_contact_id"
     t.index ["parent_id"], name: "index_parent_profiles_on_parent_id"
+    t.index ["primary_contact_id"], name: "index_parent_profiles_on_primary_contact_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -49,6 +55,17 @@ ActiveRecord::Schema.define(version: 20170528182333) do
     t.index ["email"], name: "index_parents_on_email", unique: true
     t.index ["parent_profile_id"], name: "index_parents_on_parent_profile_id"
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "contact_info_id"
+    t.string   "accommodations"
+    t.integer  "parent_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["contact_info_id"], name: "index_students_on_contact_info_id"
+    t.index ["parent_id"], name: "index_students_on_parent_id"
   end
 
   create_table "teachers", force: :cascade do |t|

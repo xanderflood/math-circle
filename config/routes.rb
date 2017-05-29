@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '/', to: 'public/home#index'
 
     # put other public pages here
-  end
+  end 
 
   # root namespace roues 
   authenticated :teacher do
@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   end
 
   authenticated :parent do
-    root to: 'parents/home#index'
+    namespace :parent do
+      get '/', to: 'home#index'
+
+      resources :students
+
+      # root to: 'parents/home#index'
+    end
   end
 
   unauthenticated concern: :public_routes do

@@ -6,7 +6,7 @@ class CreateParentProfiles < ActiveRecord::Migration[5.0]
       t.references :primary_contact,   references: :contact_info, foreign_key: true
       t.references :energency_contact, references: :contact_info, foreign_key: true
 
-      # t.timestamps
+      t.timestamps
     end
   end
 end
