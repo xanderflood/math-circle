@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528233934) do
+ActiveRecord::Schema.define(version: 20170529015722) do
 
   create_table "contact_infos", force: :cascade do |t|
     t.integer  "parent_id"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 20170528233934) do
     t.index ["email"], name: "index_parents_on_email", unique: true
     t.index ["parent_profile_id"], name: "index_parents_on_parent_profile_id"
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
+  end
+
+  create_table "semesters", force: :cascade do |t|
+    t.string   "name"
+    t.date     "start"
+    t.date     "end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "students", force: :cascade do |t|

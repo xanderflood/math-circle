@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   # root namespace roues 
   authenticated :teacher do
-    root to: 'teachers/home#index'
+    namespace :teacher do
+      get '/', to: 'home#index'
+
+      resources :semesters
+    end
   end
 
   authenticated :parent do
