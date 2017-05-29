@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   authenticated :teacher do
     namespace :teacher do
       get '/', to: 'home#index'
-
-      resources :semesters
     end
+    
+    resources :semesters, controller: 'teacher/semesters'
   end
 
   authenticated :parent do
