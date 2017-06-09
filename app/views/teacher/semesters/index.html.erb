@@ -10,11 +10,13 @@
   </thead>
 
   <tbody>
-    <% @teacher_semesters.each do |teacher_semester| %>
+    <% @teacher_semesters.each do |semester| %>
       <tr>
-        <td><%= link_to 'Show', teacher_semester %></td>
-        <td><%= link_to 'Edit', edit_teacher_semester_path(teacher_semester) %></td>
-        <td><%= link_to 'Destroy', teacher_semester, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= semester.name %></td>
+        <td><%= semester.start %></td>
+        <td><%= semester.end %></td>
+        <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>
+        <td><%= link_to 'Destroy', teacher_semester_path(semester), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

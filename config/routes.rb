@@ -9,13 +9,14 @@ Rails.application.routes.draw do
     # put other public pages here
   end 
 
-  # root namespace roues 
   authenticated :teacher do
     namespace :teacher do
-      get '/', to: 'home#index'
+      get '/', to: 'home#index', as: 'home'
+
+      resources :semesters
+
+      resources :events
     end
-    
-    resources :semesters, controller: 'teacher/semesters'
   end
 
   authenticated :parent do
@@ -24,13 +25,11 @@ Rails.application.routes.draw do
 
       resources :students
 
-      # root to: 'parents/home#index'
+      resources :events, only: [:index, :show]
     end
   end
 
   unauthenticated concern: :public_routes do
     root to: 'public/home#index'
   end
-
-  # namespace :public, concern: :public_routes do; end
 end

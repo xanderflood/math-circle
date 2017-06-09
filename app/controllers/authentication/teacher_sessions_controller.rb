@@ -2,9 +2,9 @@ class Authentication::TeacherSessionsController < Authentication::SessionsContro
   VIEW_PATH = 'teachers/sessions'
 
   def after_sign_in_path_for(resource)
-    sign_in_url = new_teachehr_session_url
+    sign_in_url = new_teacher_session_url
     if request.referer == sign_in_url
-      teacher_path
+      teacher_home_path
     else
       stored_location_for(resource) || request.referer || root_path
     end

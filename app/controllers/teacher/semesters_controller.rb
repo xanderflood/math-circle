@@ -7,11 +7,6 @@ class Teacher::SemestersController < ApplicationController
     @teacher_semesters = Teacher::Semester.all
   end
 
-  # GET /teacher/semesters/1
-  # GET /teacher/semesters/1.json
-  def show
-  end
-
   # GET /teacher/semesters/new
   def new
     @teacher_semester = Teacher::Semester.new
@@ -28,7 +23,7 @@ class Teacher::SemestersController < ApplicationController
 
     respond_to do |format|
       if @teacher_semester.save
-        format.html { redirect_to @teacher_semester, notice: 'Semester was successfully created.' }
+        format.html { redirect_to teacher_semesters_path, notice: 'Semester was successfully created.' }
         format.json { render :show, status: :created, location: @teacher_semester }
       else
         format.html { render :new }
@@ -42,7 +37,7 @@ class Teacher::SemestersController < ApplicationController
   def update
     respond_to do |format|
       if @teacher_semester.update(teacher_semester_params)
-        format.html { redirect_to @teacher_semester, notice: 'Semester was successfully updated.' }
+        format.html { redirect_to teacher_semesters_path, notice: 'Semester was successfully updated.' }
         format.json { render :show, status: :ok, location: @teacher_semester }
       else
         format.html { render :edit }
@@ -69,6 +64,6 @@ class Teacher::SemestersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_semester_params
-      params.fetch(:teacher_semester, {})
+      params.fetch(:semester, {}).permit(:name, :start, :end)
     end
 end

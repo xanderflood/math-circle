@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529015722) do
+ActiveRecord::Schema.define(version: 20170606005001) do
+
+  create_table "attendees", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "parent_profile_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["parent_profile_id"], name: "index_attendees_on_parent_profile_id"
+    t.index ["student_id"], name: "index_attendees_on_student_id"
+  end
+
+  create_table "attendees_events", id: false, force: :cascade do |t|
+    t.integer "event_id",    null: false
+    t.integer "attendee_id", null: false
+    t.index ["attendee_id", "event_id"], name: "index_attendees_events_on_attendee_id_and_event_id"
+    t.index ["event_id", "attendee_id"], name: "index_attendees_events_on_event_id_and_attendee_id"
+  end
 
   create_table "contact_infos", force: :cascade do |t|
     t.integer  "parent_id"
@@ -25,6 +41,13 @@ ActiveRecord::Schema.define(version: 20170529015722) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_contact_infos_on_parent_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "when"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "parent_profiles", force: :cascade do |t|

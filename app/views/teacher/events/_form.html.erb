@@ -1,0 +1,27 @@
+<%= form_tag(teacher_events_path, method: :post) do %>
+  <% if teacher_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(teacher_event.errors.count, "error") %> prohibited this teacher_event from being saved:</h2>
+
+      <ul>
+      <% teacher_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :name %>
+    <%= text_field_tag 'event[name]', '', type: :text %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :name %>
+    <%= select_recurring :teacher, :event_schedule %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>`
