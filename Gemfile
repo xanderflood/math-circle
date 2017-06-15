@@ -27,18 +27,10 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 gem 'ice_cube'
-# gem 'recurring_select', path: '../../recurring_select'
+gem 'recurring_select', path: '../../recurring_select' #git: 'http://github.com/xanderflood/recurring_select'
 
-gem 'jquery-rails'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 gem 'phonelib'
 gem 'address_validator', github: 'robhurring/address-validator'

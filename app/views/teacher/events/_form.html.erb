@@ -17,11 +17,26 @@
   </div>
 
   <div class="field">
-    <%= label_tag :name %>
-    <%= select_recurring :teacher, :event_schedule %>
+    <!-- <%= label_tag :name %> -->
+    <%= select_recurring :event, :schedule %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :start_date %>
+    <%= date_select :event, :start_date %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :end_date %>
+    <%= date_select :event, :end_date %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :event_time %>
+    <%= time_select :event, :time_of_day %>
   </div>
 
   <div class="actions">
     <%= submit_tag %>
   </div>
-<% end %>`
+<% end %>

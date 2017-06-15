@@ -64,6 +64,7 @@ class Teacher::SemestersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_semester_params
+      binding.pry
       params.fetch(:semester, {}).permit(:name, :start, :end)
     end
 end

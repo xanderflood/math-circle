@@ -6,6 +6,16 @@ GIT
       builder (>= 3.0.4)
       httparty (>= 0.11.0)
 
+PATH
+  remote: ../../recurring_select
+  specs:
+    recurring_select (2.0.0)
+      coffee-rails (>= 3.1)
+      ice_cube (>= 0.11)
+      jquery-rails (>= 3.0)
+      rails (>= 3.2)
+      sass-rails (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -197,6 +207,7 @@ DEPENDENCIES
   pry
   puma (~> 3.0)
   rails (~> 5.0.3)
+  recurring_select!
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

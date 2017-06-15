@@ -24,11 +24,15 @@ class Teacher::EventsController < ApplicationController
   # POST /teacher/events
   # POST /teacher/events.json
   def create
+    occs = list_occurrences(
+      JSON.parse(params.require(:event).permit(:schedule)["schedule"]),
+      get_date(params[:event], :start_date),
+      get_date(params[:event], :end_date))
     @teacher_event = Teacher::Event.new(teacher_event_params)
 
     respond_to do |format|
       if @teacher_event.save
-        format.html { redirect_to @teacher_event, notice: 'Event was successfully created.' }
+        format.html { redirect_to teacher_event_path(@teacher_event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @teacher_event }
       else
         format.html { render :new }
@@ -69,7 +73,23 @@ class Teacher::EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_event_params
-      binding.pry
-      params.require(:teacher_event).permit(:when)
+      params.require(:event).permit(:name)
+    end
+
+    def date_keys key, n=3
+      (1..n).map { |e| "#{key}(#{e}i)" }
+    end
+
+    def get_date hash, key
+      DateTime.new *(date_keys(key).map{ |k| hash[k].to_i })
+    end
+
+    def list_occurrences schedule_hash, start_date, end_date
+      r = IceCube::Rule.from_hash(schedule_hash)
+      s = IceCube::Schedule.new
+      s.add_recurrence_rule(r)
+      s.start_time = start_date
+
+      s.occurrences(end_date)
     end
 end
