@@ -28,7 +28,13 @@ class Teacher::EventsController < ApplicationController
       JSON.parse(params.require(:event).permit(:schedule)["schedule"]),
       get_date(params[:event], :start_date),
       get_date(params[:event], :end_date))
-    @teacher_event = Teacher::Event.new(teacher_event_params)
+    # @teacher_event = Teacher::Event.new(teacher_event_params)
+    @teacher_event = Teacher::EventGroup.new(
+      name: params[:event][:name],
+      when: params[:event][:time_of_day]
+    )
+
+    occs.each { |o| @teacher_event.events.build(name: params[:event][:name], when: o) }
 
     respond_to do |format|
       if @teacher_event.save
