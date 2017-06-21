@@ -1,26 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Teacher Events</h1>
+<h1>Events</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>When</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @teacher_events.each do |teacher_event| %>
-      <tr>
-        <td><%= teacher_event.name %></td>
-        <td><%= teacher_event.when %></td>
-        <td><%= link_to 'Edit', edit_teacher_event_path(teacher_event) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'events/event_list', locals: { event_groups: @event_groups } %>
 
 <br>
 

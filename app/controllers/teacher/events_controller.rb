@@ -4,7 +4,7 @@ class Teacher::EventsController < ApplicationController
   # GET /teacher/events
   # GET /teacher/events.json
   def index
-    @teacher_events = Teacher::Event.all
+    @event_groups = EventGroup.all
   end
 
   # GET /teacher/events/1

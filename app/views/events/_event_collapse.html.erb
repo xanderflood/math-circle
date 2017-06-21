@@ -1,0 +1,22 @@
+<%
+  collapse_id = "event_collapse#{eg.id}"
+ %>
+
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#<%= collapse_id %>"><%= "#{eg.name} @ #{eg.when}" %></a>
+    </h4>
+  </div>
+
+  <div id="<%= collapse_id %>" class="panel-collapse collapse">
+    <ul class="list-group">
+      <% eg.events.each do |e| %>
+        <li class="list-group-item"><%= "#{e.name} on #{e.when}" %></li>
+      <% end %>
+    </ul>
+    <div class="panel-footer"><%= eg.events.count %> occurrences</div>
+  </div>
+
+</div>
