@@ -10,13 +10,55 @@
     </h4>
   </div>
 
-  <div id="<%= collapse_id %>" class="panel-collapse collapse">
+  <div id="<%= collapse_id %>" class="panel-collapse collapse in">
     <ul class="list-group">
-      <% eg.events.each do |e| %>
-        <li class="list-group-item"><%= "#{e.name} on #{e.when}" %></li>
+      <% eg.events.each do |event| %>
+        <div class="row">
+
+          <div class="col">
+            <%= "#{event.name}" %>
+          </div>
+
+          <div class="col-2">
+            <%= "on #{event.when}" %>
+          </div>
+
+          <div class="col-3">
+            <%= "@ #{event.time}" %>
+          </div>
+
+          <div class="col">
+            <div class="btn-group event-btn-group" data-id="<%= event.id %>" role="group" aria-label="Basic example">
+              <%= link_to(edit_teacher_event_path(event)) do %>
+                <button type="button" class="btn btn-secondary">
+                  <i class="fa fa-pencil"></i>
+                </button>
+              <% end %> 
+
+              <%= link_to(teacher_event_path(event), { method: :delete, data: { confirm: 'Are you sure?' } }) do %>
+                <button type="button" class="btn btn-secondary">
+                  <i class="fa fa-close"></i>
+                </button>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
       <% end %>
     </ul>
-    <div class="panel-footer"><%= eg.events.count %> occurrences</div>
+    <div class="panel-footer">
+        <div class="row">
+
+          <div class="col">
+            <%= eg.events.count %> occurrences
+          </div>
+
+          <div class="col-2">
+            <%= link_to 'Add', new_teacher_event_group_event_path(eg) %>
+          </div>
+
+        </div>
+    </div>
   </div>
 
 </div>

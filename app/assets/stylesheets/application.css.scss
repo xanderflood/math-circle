@@ -12,8 +12,10 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  *
  *= require recurring_select
  */
 
- @import 'bootstrap'
+ @import "bootstrap";
+ @import "font-awesome";

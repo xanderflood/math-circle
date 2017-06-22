@@ -1,10 +1,10 @@
-<%= form_tag(teacher_events_path, method: :post) do %>
-  <% if teacher_event.errors.any? %>
+<%= form_for(@event, url: url) do |f| %>
+  <% if @event.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(teacher_event.errors.count, "error") %> prohibited this teacher_event from being saved:</h2>
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this @event from being saved:</h2>
 
       <ul>
-      <% teacher_event.errors.full_messages.each do |message| %>
+      <% @event.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,28 +12,23 @@
   <% end %>
 
   <div class="field">
-    <%= label_tag :name %>
-    <%= text_field_tag 'event[name]', '', type: :text %>
+    <%= f.label :event_group %>
+    <%= text_field_tag :group, @event.event_group.name, disabled: true %>
   </div>
 
   <div class="field">
-    <!-- <%= label_tag :name %> -->
-    <%= select_recurring :event, :schedule %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= label_tag :start_date %>
-    <%= date_select :event, :start_date %>
+    <%= label_tag :when %>
+    <%= f.date_select :when %>
   </div>
 
   <div class="field">
-    <%= label_tag :end_date %>
-    <%= date_select :event, :end_date %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :event_time %>
-    <%= time_select :event, :time_of_day %>
+    <%= label_tag :time %>
+    <%= f.time_select :time %>
   </div>
 
   <div class="actions">

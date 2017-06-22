@@ -15,7 +15,11 @@ Rails.application.routes.draw do
 
       resources :semesters
 
-      resources :events
+      resources :events, only: [ :index, :edit, :update, :destroy ]
+
+      resources :event_groups do
+        resources :events, only: [ :index, :new, :create ]
+      end
     end
   end
 
@@ -25,7 +29,7 @@ Rails.application.routes.draw do
 
       resources :students
 
-      resources :events, only: [:index, :show]
+      resources :events, only: [ :index, :show ]
     end
   end
 
