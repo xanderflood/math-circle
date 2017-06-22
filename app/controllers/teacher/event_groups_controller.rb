@@ -65,7 +65,6 @@ class Teacher::EventGroupsController < ApplicationController
   # DELETE /teacher/events/1.json
   def destroy
     @teacher_event.destroy
-    binding.pry
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
@@ -75,7 +74,7 @@ class Teacher::EventGroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher_event
-      @teacher_event = Teacher::Event.find(params[:id])
+      @event_group = EventGroup.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

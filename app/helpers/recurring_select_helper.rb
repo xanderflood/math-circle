@@ -1,12 +1,5 @@
 require "ice_cube"
 
-# module FormHelper
-#   binding.pry
-#   def select_recurring(object, method, default_schedules = nil, options = {}, html_options = {})
-#     RecurringSelectHelper::RecurringSelectTag.new(object, method, self, default_schedules, options, html_options).render
-#   end
-# end
-
 module RecurringSelectHelper
   
   def select_recurring(object, method, default_schedules = nil, options = {}, html_options = {})
