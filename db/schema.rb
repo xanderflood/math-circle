@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622032633) do
+ActiveRecord::Schema.define(version: 20170701012037) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "student_id"
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 20170622032633) do
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.integer  "event_group_id"
-    t.date     "when",           default: '2017-06-20'
-    t.time     "time",           default: '2000-01-01 01:41:57'
+    t.date     "when",           default: '2017-06-30'
+    t.time     "time",           default: '2000-01-01 01:24:03'
     t.index ["event_group_id"], name: "index_events_on_event_group_id"
   end
 
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170622032633) do
     t.date     "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "state"
   end
 
   create_table "students", force: :cascade do |t|
@@ -124,11 +125,6 @@ ActiveRecord::Schema.define(version: 20170622032633) do
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_teachers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
-  end
-
-  create_table "widgeteers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
