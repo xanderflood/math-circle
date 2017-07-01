@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
       resources :semesters
 
+      resources :courses
+
       resources :events, only: [ :index, :edit, :update, :destroy ]
 
       resources :event_groups do
@@ -27,7 +29,14 @@ Rails.application.routes.draw do
     namespace :parent do
       get '/', to: 'home#index'
 
-      resources :students
+      resources :students do
+        # resources :semesters do
+        #   resources :courses do
+        #     get :registration
+        #     post :register
+        #   end
+        # end
+      end
 
       resources :events, only: [ :index, :show ]
     end

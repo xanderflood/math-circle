@@ -29,10 +29,10 @@ class Teacher::EventGroupsController < ApplicationController
       get_date(params[:event], :start_date),
       get_date(params[:event], :end_date))
     # @teacher_event = Teacher::Event.new(teacher_event_params)
-    @teacher_event = Teacher::EventGroup.new(
+    @teacher_event = Teacher::EventGroup.new({
       name: params[:event][:name],
       when: params[:event][:time_of_day]
-    )
+    }.merge!(params.require(:event).permit(:course_id, :semseter_id)))
 
     occs.each { |o| @teacher_event.events.build(name: params[:event][:name], when: o) }
 

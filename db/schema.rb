@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701012037) do
+ActiveRecord::Schema.define(version: 20170701025352) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "student_id"
@@ -43,11 +43,22 @@ ActiveRecord::Schema.define(version: 20170701012037) do
     t.index ["parent_id"], name: "index_contact_infos_on_parent_id"
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "grade"
+    t.integer  "semester_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["semester_id"], name: "index_courses_on_semester_id"
+  end
+
   create_table "event_groups", force: :cascade do |t|
     t.string   "name"
     t.time     "when"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "course_id"
+    t.index ["course_id"], name: "index_event_groups_on_course_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -90,13 +101,25 @@ ActiveRecord::Schema.define(version: 20170701012037) do
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
   end
 
+  create_table "registrees", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "event_group_id"
+    t.integer  "preference"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["event_group_id", "student_id"], name: "index_registrees_on_event_group_id_and_student_id"
+    t.index ["event_group_id"], name: "index_registrees_on_event_group_id"
+    t.index ["student_id", "event_group_id"], name: "index_registrees_on_student_id_and_event_group_id"
+    t.index ["student_id"], name: "index_registrees_on_student_id"
+  end
+
   create_table "semesters", force: :cascade do |t|
     t.string   "name"
     t.date     "start"
     t.date     "end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "state"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "state",      default: 0
   end
 
   create_table "students", force: :cascade do |t|
