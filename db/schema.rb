@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701025352) do
+ActiveRecord::Schema.define(version: 20170701195509) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "student_id"
@@ -26,6 +26,23 @@ ActiveRecord::Schema.define(version: 20170701025352) do
     t.integer "attendee_id", null: false
     t.index ["attendee_id", "event_id"], name: "index_attendees_events_on_attendee_id_and_event_id"
     t.index ["event_id", "attendee_id"], name: "index_attendees_events_on_event_id_and_attendee_id"
+  end
+
+  create_table "ballots", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "semester_id"
+    t.integer "course_id"
+    t.index ["course_id"], name: "index_ballots_on_course_id"
+    t.index ["semester_id"], name: "index_ballots_on_semester_id"
+    t.index ["student_id"], name: "index_ballots_on_student_id"
+  end
+
+  create_table "ballots_event_groups", id: false, force: :cascade do |t|
+    t.integer "ballot_id",      null: false
+    t.integer "event_group_id", null: false
+    t.integer "preference"
+    t.index ["ballot_id", "event_group_id"], name: "index_ballots_event_groups_on_ballot_id_and_event_group_id"
+    t.index ["event_group_id", "ballot_id"], name: "index_ballots_event_groups_on_event_group_id_and_ballot_id"
   end
 
   create_table "contact_infos", force: :cascade do |t|
@@ -54,10 +71,11 @@ ActiveRecord::Schema.define(version: 20170701025352) do
 
   create_table "event_groups", force: :cascade do |t|
     t.string   "name"
-    t.time     "when"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "course_id"
+    t.integer  "wday"
+    t.time     "time"
     t.index ["course_id"], name: "index_event_groups_on_course_id"
   end
 
@@ -101,18 +119,6 @@ ActiveRecord::Schema.define(version: 20170701025352) do
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
   end
 
-  create_table "registrees", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "event_group_id"
-    t.integer  "preference"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["event_group_id", "student_id"], name: "index_registrees_on_event_group_id_and_student_id"
-    t.index ["event_group_id"], name: "index_registrees_on_event_group_id"
-    t.index ["student_id", "event_group_id"], name: "index_registrees_on_student_id_and_event_group_id"
-    t.index ["student_id"], name: "index_registrees_on_student_id"
-  end
-
   create_table "semesters", force: :cascade do |t|
     t.string   "name"
     t.date     "start"
@@ -129,6 +135,7 @@ ActiveRecord::Schema.define(version: 20170701025352) do
     t.integer  "parent_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "grade"
     t.index ["contact_info_id"], name: "index_students_on_contact_info_id"
     t.index ["parent_id"], name: "index_students_on_parent_id"
   end

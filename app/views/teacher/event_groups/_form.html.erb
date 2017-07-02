@@ -1,10 +1,10 @@
-<%= form_tag(teacher_event_groups_path, method: :post) do %>
-  <% if teacher_event.errors.any? %>
+<%= form_for(@event_group, url: teacher_event_groups_path, method: :post) do |f| %>
+  <% if event_group.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(teacher_event.errors.count, "error") %> prohibited this teacher_event from being saved:</h2>
+      <h2><%= pluralize(event_group.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
-      <% teacher_event.errors.full_messages.each do |message| %>
+      <% event_group.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,39 +12,34 @@
   <% end %>
 
   <div class="field">
-    <%= label_tag :name %>
-    <%= text_field_tag 'event[name]', '', type: :text %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :semester %>
-    <%= collection_select :event, :semester_id, Semester.all, :id, :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
   
   <div class="field">
-    <%= label_tag :course %>
+    <%= f.label :course %>
     <!-- TODO: scope the courses listed here, maybe by scoping the route, or through AJAX? -->
-    <%= collection_select :event, :course_id, Course.all, :id, :name %>
+    <%= f.collection_select :course_id, Course.all, :id, :name %>
   </div>
 
   <div class="field">
-    <!-- <%= label_tag :name %> -->
-    <%= select_recurring :event, :schedule %>
+    <%= f.label :weekday %>
+    <%= f.select :wday, :collection => EventGroup.wdays.keys.to_a %>
   </div>
 
   <div class="field">
-    <%= label_tag :start_date %>
-    <%= date_select :event, :start_date %>
+    <%= f.label :time %>
+    <%= f.time_select :time %>
   </div>
 
   <div class="field">
-    <%= label_tag :end_date %>
-    <%= date_select :event, :end_date %>
+    <%= f.label :start_date %>
+    <%= f.date_select :start_date %>
   </div>
 
   <div class="field">
-    <%= label_tag :event_time %>
-    <%= time_select :event, :time_of_day %>
+    <%= f.label :end_date %>
+    <%= f.date_select :end_date %>
   </div>
 
   <div class="actions">

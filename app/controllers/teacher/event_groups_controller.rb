@@ -14,7 +14,7 @@ class Teacher::EventGroupsController < ApplicationController
 
   # GET /teacher/events/new
   def new
-    @teacher_event = Teacher::Event.new
+    @event_group = EventGroup.new
   end
 
   # GET /teacher/events/1/edit
@@ -24,25 +24,17 @@ class Teacher::EventGroupsController < ApplicationController
   # POST /teacher/events
   # POST /teacher/events.json
   def create
-    occs = list_occurrences(
-      JSON.parse(params.require(:event).permit(:schedule)["schedule"]),
-      get_date(params[:event], :start_date),
-      get_date(params[:event], :end_date))
-    # @teacher_event = Teacher::Event.new(teacher_event_params)
-    @teacher_event = Teacher::EventGroup.new({
-      name: params[:event][:name],
-      when: params[:event][:time_of_day]
-    }.merge!(params.require(:event).permit(:course_id, :semseter_id)))
-
-    occs.each { |o| @teacher_event.events.build(name: params[:event][:name], when: o) }
+    @event_group = EventGroup.new(teacher_event_params.merge(
+      start_date: get_date(params[:event_group], :start_date),
+      end_date:   get_date(params[:event_group], :end_date)))
 
     respond_to do |format|
-      if @teacher_event.save
+      if @event_group.save
         format.html { redirect_to teacher_event_groups_path, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @teacher_event }
+        format.json { render :show, status: :created, location: @event_group }
       else
         format.html { render :new }
-        format.json { render json: @teacher_event.errors, status: :unprocessable_entity }
+        format.json { render json: @event_group.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,12 +43,12 @@ class Teacher::EventGroupsController < ApplicationController
   # PATCH/PUT /teacher/events/1.json
   def update
     respond_to do |format|
-      if @teacher_event.update(teacher_event_params)
-        format.html { redirect_to @teacher_event, notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @teacher_event }
+      if @event_group.update(teacher_event_params)
+        format.html { redirect_to @event_group, notice: 'Event was successfully updated.' }
+        format.json { render :show, status: :ok, location: @event_group }
       else
         format.html { render :edit }
-        format.json { render json: @teacher_event.errors, status: :unprocessable_entity }
+        format.json { render json: @event_group.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,7 +56,7 @@ class Teacher::EventGroupsController < ApplicationController
   # DELETE /teacher/events/1
   # DELETE /teacher/events/1.json
   def destroy
-    @teacher_event.destroy
+    @event_group.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
@@ -79,7 +71,7 @@ class Teacher::EventGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_event_params
-      params.require(:event).permit(:name)
+      params.require(:event_group).permit(:name, :course_id, :wday, :time)
     end
 
     def date_keys key, n=3

@@ -1,5 +1,8 @@
 class Student < ApplicationRecord
-  belongs_to :contact_info
+  has_one :contact_info
   belongs_to :parent
   has_many :registrees
+  has_many :ballots
+
+  enum grade: GradesHelper::GRADES
 end

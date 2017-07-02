@@ -30,12 +30,13 @@ Rails.application.routes.draw do
       get '/', to: 'home#index'
 
       resources :students do
-        # resources :semesters do
-        #   resources :courses do
-        #     get :registration
-        #     post :register
-        #   end
-        # end
+        resources :ballots, except: [:edit, :show, :index] do
+          # multistep form
+          # get :start
+          # get :courses
+          # get :preference_poll
+          # post :register
+        end
       end
 
       resources :events, only: [ :index, :show ]

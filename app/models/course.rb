@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
   belongs_to :semester
-  has_many :event_groups
+  has_many :sections, class_name: "EventGroup"
 
-  enum grade: [ :nine, :ten, :twelve ]
+  enum grade: GradesHelper::GRADES
 end

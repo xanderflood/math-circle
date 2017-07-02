@@ -1,0 +1,26 @@
+$(function() {
+  $('.semester-select').change(student_semester_select.update_link);
+});
+
+window.student_semester_select = window.student_semester_select || (function() {
+
+  var _update_link = function (e) {
+    tr = $(e.target).closest('tr');
+
+    student  = tr.data('studentId');
+    semester = e.target.value;
+
+    // debugger;
+
+    tr.find('.register-link').attr("href", student_semester_select.make_link(student, semester));
+  };
+
+  var _make_link = function (student, semester) {
+    return student_semester_select_path.replace('__student_id', student).replace('__semester_id', semester);
+  };
+
+  return {
+    make_link:   _make_link,
+    update_link: _update_link
+  };
+})();

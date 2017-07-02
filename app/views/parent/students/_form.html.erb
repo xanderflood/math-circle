@@ -1,16 +1,25 @@
-<%= form_for(parent_student) do |f| %>
-  <% if parent_student.errors.any? %>
+<%= form_for(student, url: parent_students_path(student)) do |f| %>
+  <% if student.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(parent_student.errors.count, "error") %> prohibited this parent_student from being saved:</h2>
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
       <ul>
-      <% parent_student.errors.full_messages.each do |message| %>
+      <% student.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :grade %>
+    <%= f.select :grade, :collection => Student.grades.keys.to_a %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
