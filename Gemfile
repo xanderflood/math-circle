@@ -22,7 +22,6 @@ gem 'font-awesome-rails'
 
 gem 'devise'
 gem 'ice_cube'
-gem 'recurring_select', path: '../../recurring_select' #git: 'http://github.com/xanderflood/recurring_select'
 gem 'phonelib'
 gem 'address_validator', github: 'robhurring/address-validator'
 

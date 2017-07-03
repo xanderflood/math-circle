@@ -27,7 +27,7 @@
 
   <% if ballot.persisted? %>
     <div class="field">
-      <%= f.label :ballot_preferences %>
+      <%= f.label :preferences %>
 
       <table>
         <thead>
@@ -36,7 +36,7 @@
             <th colspan="1">section</th>
           </tr>
         </thead>
-e
+
         <tbody>
           <% @preferences = @ballot.preferences %>
           <% (1..@sections.count).each do |pref| %>

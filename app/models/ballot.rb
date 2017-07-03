@@ -2,93 +2,71 @@ class Ballot < ApplicationRecord
   belongs_to :student
   belongs_to :course
   belongs_to :semester
-  has_many :ballot_preferences, autosave: true
 
-  validates :student, uniqueness: { scope: :semester }
+  def preference_hash
+    JSON.parse(self["preferences"])
+  end
+
+  validates :student, uniqueness: { scope: :semester, message: "This student already has a ballot for this semester. To view it, go to your students list, and selct \"register\" beside this student's name." }
   validate :course_in_semester
-  validate :contiguous
-
-  class PreferenceValidationException < StandardError; end
+  validate :contiguous,         on: :update
+  validate :unique_sections,    on: :update
+  validate :sections_in_course, on: :update
 
   # validations
   def course_in_semester
-    course.semester == semester
+    unless course.semester == semester
+      errors.add(:course, "is from a different semester")
+    end
   end
 
   def contiguous
     last = 0
-    ballot_preferences.map(&:preference).sort.each do |i|
-      return falst if i != last + 1
-      last = i
+    pref_hash = preference_hash
+    pref_hash.map{ |k,v| k }.sort.each do |i|
+      if i.to_i != last + 1
+        errors.add(:preferences, "should not have gaps or repeated values")
+      end
+      last = i.to_i
     end
   end
 
-  # Getter and setter that avoids nils
-  def preferences
-    needed      = course.sections.count - ballot_preferences.count
-    pref_hashes = ballot_preferences.all.sort_by(&:preference).map { |p| [p.preference, { "section" => p.section_id }] }
+  def unique_sections
+    sections = preference_hash.values.map{ |p| p["section"].to_i }
 
-    Hash[pref_hashes + (1..needed).to_a.map { |i| [p.preference, { "section" => p.section_id }] }]
+    unless sections.count == sections.uniq.count
+      errors.add(:sections, "must not be repeated")
+    end
+  end
+
+  def sections_in_course
+    sections = preference_hash.values.map{ |p| p["section"].to_i }
+
+    unless sections.all? { |s| EventGroup.find(s).course == course }
+      # binding.pry
+      errors.add(:preferences, "must all be sections of the selected course")
+    end
+  rescue => e
+    # binding.pry
+    errors.add(:preferences, "must all be sections of the selected course")
+  end
+
+  # override the getter and setter to pad it out with nils
+  def preferences
+    chosen = preference_hash
+    needed = course.sections.count - chosen.count
+
+    chosen.merge Hash[(1..needed).to_a.map { |i| [(chosen.count + i).to_s, { "section" => nil }] }]
   end
 
   def preferences=(prefs)
-    b_prefs_to_save = []
-
-    prefs.each do |i, pref|
-      bp = ballot_preferences.where(preference: i.to_i).first
-
-      if bp
-        bp.section_id = pref["section"].to_i
-        binding.pry
-        raise PreferenceValidationException unless bp.save # TODO: handle errors
-        binding.pry
-      else
-        ballot_preferences.new(preference: i, section_id: pref["section"].to_i)
-        raise PreferenceValidationException unless bp.save # TODO: handle errors
-      end
+    if prefs.nil? || prefs.empty?
+      self["preferences"] = "{}"
+      return
     end
 
-    # pbp = padded_ballot_preferences
-    # pbp.each do |ballot_pref|
-      # binding.pry
-    #   ballot_pref.section_id = prefs[ballot_pref.preference.to_s]["section"].to_i
-    # end
-    # prefs.each do |i, p|
-    #   set_preference(i, p["section"].to_i)
-    # end
+    self["preferences"] = Hash[prefs.select do |i, pref|
+      pref["section"].present?
+    end].to_json
   end
-
-  def set_preference(i, section_id)
-    pref_obj = ballot_preferences.where(preference: i).first
-
-    if pref_obj
-      binding.pry
-      pref_obj.section_id = section_id
-    else
-      ballot_preferences.new(
-          section_id: section_id,
-          preference: i)
-    end
-  end
-
-  ### ### ###
-  def padded_ballot_preferences
-    needed = course.sections.count - ballot_preferences.count
-
-    ballot_preferences.all.sort_by(&:preference) + (1..needed).to_a.each do |i|
-      ballot_preferences.new(preference: ballot_preferences.count + i - 1, section_id: nil)
-    end
-  end
-
-  # def preferences=(prefs)
-  #   b_prefs_to_save = []
-  #   prefs.each do |i, p|
-  #     set_preference(i, p["section"])
-  #   end
-  # end
-
-  # business logic
-  # def ordered_preferences
-  #   ballot_preferences.all.sort_by(&:preference).map(&:section)
-  # end
 end

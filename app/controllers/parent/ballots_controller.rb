@@ -34,10 +34,6 @@ class Parent::BallotsController < ApplicationController
       prepare_for_edit
       render :new
     end
-  rescue Ballot::PreferenceValidationException
-    prepare_for_edit
-    flash[:alert] = "Invalid preferences"
-    render :new
   end
 
   # DELETE /ballots/1
@@ -63,22 +59,23 @@ class Parent::BallotsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def ballot_params
       ret = {semester_id: params["semester_id"]}
-      ret.merge(params.require(:ballot).permit(:student_id, :semester_id, :course_id, :preferences))
-      ret[:preferences] = params.require(:ballot).require(:preferences).to_unsafe_hash
+      bp  = params.require(:ballot)
+      ret.merge!(bp.permit(:student_id, :semester_id, :course_id))
+      ret[:preferences] = bp.to_unsafe_hash[:preferences]
 
       ret
     end
 
     def prepare_for_new
-      @ballot = @student.ballots.new(semester: @semester)
+      @ballot ||= @student.ballots.new(semester: @semester)
 
-      @url = parent_student_ballots_path(@ballot, student_id: @ballot.student.id, semester_id: @ballot.semester.id)
+      @url      = parent_student_ballots_path(@ballot, student_id: @ballot.student.id, semester_id: @ballot.semester.id)
     end
 
     def prepare_for_edit
       @sections   = @ballot.course.sections
       @options    = [["Select Section", nil]] + @sections.map.with_index{ |s, i| [s.description, s.id] }
-      @selections = (1..@sections.count).to_a.map { |i| @ballot.preferences[i]["section"].to_i }
+      @selections = (1..@sections.count).to_a.map { |i| @ballot.preferences[i.to_s]["section"].to_i }
 
       @url = parent_student_ballot_path(@ballot, student_id: @ballot.student.id, semester_id: @ballot.semester.id)
     end
