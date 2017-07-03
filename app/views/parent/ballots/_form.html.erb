@@ -1,4 +1,4 @@
-<%= form_for(ballot, url: parent_student_ballot_path(ballot, student_id: ballot.student.id, semester_id: ballot.semester.id)) do |f| %>
+<%= form_for(ballot, url: @url) do |f| %>
   <% if ballot.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(ballot.errors.count, "error") %> prohibited this ballot from being saved:</h2>
@@ -17,7 +17,7 @@
 
   <div class="field">
     <%= f.label :semester %>
-    <%= f.collection_select :semester_id, Semester.all, :id, :name %>
+    <%= f.collection_select :semester_id, Semester.all, :id, :name, {}, {disabled: 'diabled'} %>
   </div>
 
   <div class="field">
@@ -27,7 +27,7 @@
 
   <% if ballot.persisted? %>
     <div class="field">
-      <%= f.label :preferences %>
+      <%= f.label :ballot_preferences %>
 
       <table>
         <thead>
@@ -36,15 +36,15 @@
             <th colspan="1">section</th>
           </tr>
         </thead>
-
+e
         <tbody>
-          <% @preferences = @ballot.ordered_preferences %>
+          <% @preferences = @ballot.preferences %>
           <% (1..@sections.count).each do |pref| %>
             <tr>
               <td><%= pref %></td>
               <td>
-                <%= f.fields_for :ballot_preferences do |prefs| %>
-                  <%= prefs.select :section, options_for_select(@options, @preferences[pref]) %>
+                <%= f.fields_for "preferences[#{pref}]" do |prefs| %>
+                  <%= prefs.select :section, options_for_select(@options, @selections[pref-1]) %>
                 <% end %>
               </td>
             </tr>

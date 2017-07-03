@@ -1,21 +1,13 @@
 class BallotPreference < ApplicationRecord
-  self.table_name = "ballots_event_groups"
-
   belongs_to :ballot
-  belongs_to :semester
-  has_one :section, as: :event_group
+  belongs_to :section, class_name: "EventGroup"
 
+  validates :section,    uniqueness: { scope: :ballot }
   validates :preference, uniqueness: { scope: :ballot }
-  validate :event_in_ballot
-
-  def initialize(attributes={})
-    super
-
-    self.semester ||= ballot.semester
-  end
+  # validate :event_in_ballot
 
   # validations
   def event_in_ballot
-    event_group.course == ballot.course
+    section.course == ballot.course
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701195509) do
+ActiveRecord::Schema.define(version: 20170702034932) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "student_id"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20170701195509) do
     t.index ["event_id", "attendee_id"], name: "index_attendees_events_on_event_id_and_attendee_id"
   end
 
+  create_table "ballot_preferences", force: :cascade do |t|
+    t.integer "ballot_id"
+    t.integer "section_id"
+    t.integer "preference"
+    t.index ["ballot_id", nil], name: "index_ballot_preferences_on_ballot_id_and_event_group_id"
+    t.index ["ballot_id"], name: "index_ballot_preferences_on_ballot_id"
+    t.index ["section_id"], name: "index_ballot_preferences_on_section_id"
+    t.index [nil, "ballot_id"], name: "index_ballot_preferences_on_event_group_id_and_ballot_id"
+  end
+
   create_table "ballots", force: :cascade do |t|
     t.integer "student_id"
     t.integer "semester_id"
@@ -35,14 +45,6 @@ ActiveRecord::Schema.define(version: 20170701195509) do
     t.index ["course_id"], name: "index_ballots_on_course_id"
     t.index ["semester_id"], name: "index_ballots_on_semester_id"
     t.index ["student_id"], name: "index_ballots_on_student_id"
-  end
-
-  create_table "ballots_event_groups", id: false, force: :cascade do |t|
-    t.integer "ballot_id",      null: false
-    t.integer "event_group_id", null: false
-    t.integer "preference"
-    t.index ["ballot_id", "event_group_id"], name: "index_ballots_event_groups_on_ballot_id_and_event_group_id"
-    t.index ["event_group_id", "ballot_id"], name: "index_ballots_event_groups_on_event_group_id_and_ballot_id"
   end
 
   create_table "contact_infos", force: :cascade do |t|
