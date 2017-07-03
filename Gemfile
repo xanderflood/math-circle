@@ -7,7 +7,8 @@ end
 
 # Platform
 gem 'rails', '~> 5.0.3'
-gem 'sqlite3'
+# gem 'sqlite3'
+gem 'pg'
 gem 'puma', '~> 3.0'
 
 # Assets
