@@ -1,1 +1,4 @@
-<%= link_to 'sign out', destroy_teacher_session_path, method: :delete %>
+<% unless current_page?(teacher_home_path) %>
+  <%= link_to 'Teacher Home', teacher_home_path %> | 
+<% end %>
+<%= link_to 'Sign Out', destroy_teacher_session_path, method: :delete %>

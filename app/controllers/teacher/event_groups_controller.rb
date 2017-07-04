@@ -1,4 +1,4 @@
-class Teacher::EventGroupsController < ApplicationController
+class Teacher::EventGroupsController < Teacher::BaseController
   before_action :set_teacher_event, only: [:show, :edit, :update, :destroy]
 
   # GET /teacher/events

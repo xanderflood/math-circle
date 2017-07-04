@@ -1,4 +1,4 @@
-class Parent::StudentsController < ApplicationController
+class Parent::StudentsController < Parent::BaseController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students

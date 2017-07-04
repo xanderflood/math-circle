@@ -1,4 +1,4 @@
-class Teacher::CoursesController < ApplicationController
+class Teacher::CoursesController < Teacher::BaseController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses

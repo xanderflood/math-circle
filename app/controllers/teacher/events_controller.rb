@@ -1,4 +1,4 @@
-class Teacher::EventsController < ApplicationController
+class Teacher::EventsController < Teacher::BaseController
   before_action :set_event,       only: [ :edit, :update, :destroy ]
   before_action :set_event_group, only: [ :new,  :create, :index   ]
   

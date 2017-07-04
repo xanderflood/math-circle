@@ -1,4 +1,4 @@
-class Parent::EventsController < ApplicationController
+class Parent::EventsController < Parent::BaseController
   def index
   end
 
