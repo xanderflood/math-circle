@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   authenticated :parent do
     namespace :parent do
-      get '/', to: 'home#index'
+      get '/', to: 'home#index', as: 'home'
 
       resources :students do
         resources :ballots, except: [:edit, :show, :index] do

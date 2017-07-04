@@ -13,7 +13,11 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
 
-      <%= yield %>
+      <%= yield %> <br /> <br />
+
+      <%= render partial: 'sign_out' %> <br />
+
+      <%= link_to('Home', root_path) unless current_page?(root_path) %>
     </div>
   </body>
 </html>
