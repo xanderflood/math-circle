@@ -1,10 +1,10 @@
-<%= form_for(teacher_semester, url: teacher_semesters_path) do |f| %>
-  <% if teacher_semester.errors.any? %>
+<%= form_for(semester, url: teacher_semesters_path) do |f| %>
+  <% if semester.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(teacher_semester.errors.count, "error") %> prohibited this teacher_semester from being saved:</h2>
+      <h2><%= pluralize(semester.errors.count, "error") %> prohibited this semester from being saved:</h2>
 
       <ul>
-      <% teacher_semester.errors.full_messages.each do |message| %>
+      <% semester.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

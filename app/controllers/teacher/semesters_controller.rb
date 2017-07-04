@@ -1,15 +1,15 @@
 class Teacher::SemestersController < Teacher::BaseController
-  before_action :set_teacher_semester, only: [:show, :edit, :update, :destroy]
+  before_action :set_semester, only: [:show, :edit, :update, :destroy]
 
   # GET /teacher/semesters
   # GET /teacher/semesters.json
   def index
-    @teacher_semesters = Teacher::Semester.all
+    @semesters = Semester.all
   end
 
   # GET /teacher/semesters/new
   def new
-    @teacher_semester = Teacher::Semester.new
+    @semester = Semester.new
   end
 
   # GET /teacher/semesters/1/edit
@@ -19,15 +19,15 @@ class Teacher::SemestersController < Teacher::BaseController
   # POST /teacher/semesters
   # POST /teacher/semesters.json
   def create
-    @teacher_semester = Teacher::Semester.new(teacher_semester_params)
+    @semester = Semester.new(semester_params)
 
     respond_to do |format|
-      if @teacher_semester.save
+      if @semester.save
         format.html { redirect_to teacher_semesters_path, notice: 'Semester was successfully created.' }
-        format.json { render :show, status: :created, location: @teacher_semester }
+        format.json { render :show, status: :created, location: @semester }
       else
         format.html { render :new }
-        format.json { render json: @teacher_semester.errors, status: :unprocessable_entity }
+        format.json { render json: @semester.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -36,12 +36,12 @@ class Teacher::SemestersController < Teacher::BaseController
   # PATCH/PUT /teacher/semesters/1.json
   def update
     respond_to do |format|
-      if @teacher_semester.update(teacher_semester_params)
+      if @semester.update(semester_params)
         format.html { redirect_to teacher_semesters_path, notice: 'Semester was successfully updated.' }
-        format.json { render :show, status: :ok, location: @teacher_semester }
+        format.json { render :show, status: :ok, location: @semester }
       else
         format.html { render :edit }
-        format.json { render json: @teacher_semester.errors, status: :unprocessable_entity }
+        format.json { render json: @semester.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -49,7 +49,7 @@ class Teacher::SemestersController < Teacher::BaseController
   # DELETE /teacher/semesters/1
   # DELETE /teacher/semesters/1.json
   def destroy
-    @teacher_semester.destroy
+    @semester.destroy
     respond_to do |format|
       format.html { redirect_to teacher_semesters_url, notice: 'Semester was successfully destroyed.' }
       format.json { head :no_content }
@@ -58,12 +58,13 @@ class Teacher::SemestersController < Teacher::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_teacher_semester
-      @teacher_semester = Teacher::Semester.find(params[:id])
+    def set_semester
+      binding.pry
+      @semester = Semester.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def teacher_semester_params
+    def semester_params
       params.fetch(:semester, {}).permit(:name, :start, :end)
     end
 end

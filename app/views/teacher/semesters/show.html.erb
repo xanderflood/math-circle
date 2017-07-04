@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_teacher_semester_path(@teacher_semester) %> |
+<h1>Semester: <%= @semester.name %></h1>
+<h2><%= @semester.start %> to <%= @semester.end %>
+
+<%= link_to 'Edit', edit_teacher_semester_path(@semester) %> |
 <%= link_to 'Back', teacher_semesters_path %>
