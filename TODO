@@ -1,0 +1,94 @@
+TODO:
+-----
+
+----------
+FOR THE DEMO
+----------
+
++ Add "special?" bool column to Events, and create a new_special_event view
++ Add special event registration to the parent pages
+
+Students/parents should be able to specify that *only* one sections works for them
+
+Semesters:
++ Link to show page in index
++ Show state in index
++ List courses on show page
+
+Courses:
++ List sections
+
+Event_Groups:
++ Rewrite user-facing text for "sections" and "events"
+
+Students:
++ View
+
+Courses + Events calendar view
+
+Browse courses for semester
+
+View attendence record
+
+Contact
+
+----------
+GENERAL
+----------
+
+Student_Profile (birthdays, accomodations, grade, waiver (info appears with rollcall too, separate student/parent emails), thumbnail)
+Parent_Profile
+
+Email notifications?
++ How to schedule them before an event?
+
+Eventual:
++ See trends in student data
++ Online waiver signature
+
+----------
+TEACHER
+----------
+
+Semesters:
++ Link to show page in index
++ Show state in index
++ List courses on show page
++ State-change links on show page
+  - lottery/relottery
+  - issue lottery notifications
+
+Courses:
++ List sections
++ Transfer a student between sections (or to a different course?)
+
+Event_Groups:
++ Rewrite user-facing text for "sections" and "events"
++ View current enrolled_students
++ Take attendence
++ Email list (copy-pastable)
+rer
+Events:
++ What *is* this, view-wise? Just a calendar?
+
+Students:
++ View
++ Thumbnail
+
+----------
+PARENT
+----------
+
+Courses + Events calendar view
+
+Browse courses for semester
+
+View attendence record
+
+Contact
+
+Late registration
+
+Swap sections, if space is available
++ Otherwise, with permission
+
