@@ -37,10 +37,18 @@ th {
   padding-bottom: 5px;
 }
 
-td {
+td, th {
   padding-bottom: 7px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+// verticals border
+table { border-collapse: collapse; }
+tr { border: none; }
+td, th {
+  border-right: solid 1px; 
+  border-left: solid 1px;
 }
 
 div {
