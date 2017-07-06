@@ -12,20 +12,23 @@
 
 ActiveRecord::Schema.define(version: 20170703034309) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "attendees", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "parent_profile_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.index ["parent_profile_id"], name: "index_attendees_on_parent_profile_id"
-    t.index ["student_id"], name: "index_attendees_on_student_id"
+    t.index ["parent_profile_id"], name: "index_attendees_on_parent_profile_id", using: :btree
+    t.index ["student_id"], name: "index_attendees_on_student_id", using: :btree
   end
 
   create_table "attendees_events", id: false, force: :cascade do |t|
     t.integer "event_id",    null: false
     t.integer "attendee_id", null: false
-    t.index ["attendee_id", "event_id"], name: "index_attendees_events_on_attendee_id_and_event_id"
-    t.index ["event_id", "attendee_id"], name: "index_attendees_events_on_event_id_and_attendee_id"
+    t.index ["attendee_id", "event_id"], name: "index_attendees_events_on_attendee_id_and_event_id", using: :btree
+    t.index ["event_id", "attendee_id"], name: "index_attendees_events_on_event_id_and_attendee_id", using: :btree
   end
 
   create_table "ballots", force: :cascade do |t|
@@ -33,9 +36,9 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.integer "semester_id"
     t.integer "course_id"
     t.string  "preferences"
-    t.index ["course_id"], name: "index_ballots_on_course_id"
-    t.index ["semester_id"], name: "index_ballots_on_semester_id"
-    t.index ["student_id"], name: "index_ballots_on_student_id"
+    t.index ["course_id"], name: "index_ballots_on_course_id", using: :btree
+    t.index ["semester_id"], name: "index_ballots_on_semester_id", using: :btree
+    t.index ["student_id"], name: "index_ballots_on_student_id", using: :btree
   end
 
   create_table "contact_infos", force: :cascade do |t|
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_contact_infos_on_parent_id"
+    t.index ["parent_id"], name: "index_contact_infos_on_parent_id", using: :btree
   end
 
   create_table "courses", force: :cascade do |t|
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.integer  "semester_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["semester_id"], name: "index_courses_on_semester_id"
+    t.index ["semester_id"], name: "index_courses_on_semester_id", using: :btree
   end
 
   create_table "event_groups", force: :cascade do |t|
@@ -69,7 +72,7 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.integer  "course_id"
     t.integer  "wday"
     t.time     "time"
-    t.index ["course_id"], name: "index_event_groups_on_course_id"
+    t.index ["course_id"], name: "index_event_groups_on_course_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -79,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.integer  "event_group_id"
     t.date     "when",           default: '2017-06-30'
     t.time     "time",           default: '2000-01-01 01:24:03'
-    t.index ["event_group_id"], name: "index_events_on_event_group_id"
+    t.index ["event_group_id"], name: "index_events_on_event_group_id", using: :btree
   end
 
   create_table "parent_profiles", force: :cascade do |t|
@@ -88,9 +91,9 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.integer  "energency_contact_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.index ["energency_contact_id"], name: "index_parent_profiles_on_energency_contact_id"
-    t.index ["parent_id"], name: "index_parent_profiles_on_parent_id"
-    t.index ["primary_contact_id"], name: "index_parent_profiles_on_primary_contact_id"
+    t.index ["energency_contact_id"], name: "index_parent_profiles_on_energency_contact_id", using: :btree
+    t.index ["parent_id"], name: "index_parent_profiles_on_parent_id", using: :btree
+    t.index ["primary_contact_id"], name: "index_parent_profiles_on_primary_contact_id", using: :btree
   end
 
   create_table "parents", force: :cascade do |t|
@@ -107,9 +110,9 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "parent_profile_id"
-    t.index ["email"], name: "index_parents_on_email", unique: true
-    t.index ["parent_profile_id"], name: "index_parents_on_parent_profile_id"
-    t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_parents_on_email", unique: true, using: :btree
+    t.index ["parent_profile_id"], name: "index_parents_on_parent_profile_id", using: :btree
+    t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "semesters", force: :cascade do |t|
@@ -129,8 +132,8 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "grade"
-    t.index ["contact_info_id"], name: "index_students_on_contact_info_id"
-    t.index ["parent_id"], name: "index_students_on_parent_id"
+    t.index ["contact_info_id"], name: "index_students_on_contact_info_id", using: :btree
+    t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -146,8 +149,8 @@ ActiveRecord::Schema.define(version: 20170703034309) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_teachers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_teachers_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true, using: :btree
   end
 
 end
