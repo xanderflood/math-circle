@@ -7,7 +7,10 @@ FOR THE DEMO
 
 -----+ Style the tables!
 
-+ Add "special?" bool column to Events, and create a new_special_event view
++ Handle all empty tables with alternative messages
+
+------+ Add "special?" bool column to Events, and create a new_special_event view
++ Flesh out the teacher-side special event views
 + Add special event registration to the parent pages
 
 Students/parents should be able to specify that *only* one sections works for them

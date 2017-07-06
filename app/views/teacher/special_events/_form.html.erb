@@ -1,0 +1,47 @@
+<%= form_for(special_event, url: teacher_special_events_path(special_event)) do |f| %>
+  <% if special_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(special_event.errors.count, "error") %> prohibited this special event from being saved:</h2>
+
+      <ul>
+      <% special_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :capacity %>
+    <%= f.number_field :capacity %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start %>
+    <%= f.time_select :start %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end %>
+    <%= f.time_select :end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

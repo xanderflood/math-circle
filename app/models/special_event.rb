@@ -1,0 +1,2 @@
+class SpecialEvent < ApplicationRecord
+end

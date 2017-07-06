@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  date: 2017-07-05
+  start: 2017-07-05 21:32:00
+  end: 2017-07-05 21:32:00
+  description: MyString
+  capacity: 1
+
+two:
+  name: MyString
+  date: 2017-07-05
+  start: 2017-07-05 21:32:00
+  end: 2017-07-05 21:32:00
+  description: MyString
+  capacity: 1

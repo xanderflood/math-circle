@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
       resources :courses
 
+      resources :special_events
+
       resources :events, only: [ :index, :edit, :update, :destroy ]
 
       resources :event_groups do
