@@ -5,15 +5,17 @@ TODO:
 FOR THE DEMO
 ----------
 
+-----+ Style the tables!
+
 + Add "special?" bool column to Events, and create a new_special_event view
 + Add special event registration to the parent pages
 
 Students/parents should be able to specify that *only* one sections works for them
 
 Semesters:
-+ Link to show page in index
-+ Show state in index
-+ List courses on show page
+-----+ Link to show page in index
+-----+ Show state in index
+-----+ List courses on show page
 
 Courses:
 + List sections

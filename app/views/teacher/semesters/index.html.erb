@@ -5,14 +5,17 @@
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th colspan="1">Name</th>
+      <th colspan="1">Start date</th>
+      <th colspan="1">End date</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @semesters.each do |semester| %>
       <tr>
-        <td><%= semester.name %></td>
+        <td><%= link_to semester.name, teacher_semester_path(semester) %></td>
         <td><%= semester.start %></td>
         <td><%= semester.end %></td>
         <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>

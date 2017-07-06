@@ -13,6 +13,8 @@ class Teacher::CoursesController < Teacher::BaseController
   # GET /courses/new
   def new
     @course = Course.new
+
+    @course.semester_id = params[:semester_id] if params[:semseter_id]
   end
 
   # GET /courses/1/edit

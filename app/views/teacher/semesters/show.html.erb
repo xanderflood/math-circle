@@ -1,7 +1,49 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Semester: <%= @semester.name %></h1>
-<h2><%= @semester.start %> to <%= @semester.end %>
+<h4><%= I18n.l @semester.start %> to <%= I18n.l @semester.end %></h4>
+<h4>Currently <%= @semester.state_description %></h4>
 
+</br>
+
+<% if @semester.courses.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="1">Course Name</th>
+        <th colspan="1">Sections</th>
+        <th colspan="1">Meetings</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @semester.courses.each do |course| %>
+        <tr>
+          <td><%= link_to course.name, teacher_course_path(course) %></td>
+          <td><%= course.sections.count %></td>
+          <td>
+            <% if course.sections.any? %>
+              <% counts = course.sections.map(&:events).map(&:count) %>
+              <% max = counts.max; min = counts.min %>
+              <% if max == min %>
+                <%= max %>
+              <% else %>
+                <%= "#{min} to #{max}" %>
+              <% end %>
+            <% else %>
+              None
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  This semester does not currently have any courses scheduled. Add one below.
+<% end %>
+
+</br></br>
+
+<%= link_to 'New Course', new_teacher_course_path(semester_id: @semester.id) %> |
 <%= link_to 'Edit', edit_teacher_semester_path(@semester) %> |
 <%= link_to 'Back', teacher_semesters_path %>
