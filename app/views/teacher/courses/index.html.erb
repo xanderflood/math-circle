@@ -8,17 +8,16 @@
       <th colspan="1">name</th>
       <th colspan="1">semester</th>
       <th colspan="1">grade</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @courses.each do |course| %>
       <tr>
-        <td><%= course.name %></td>
+        <td><%= link_to course.name, teacher_course_path(course) %></td>
         <td><%= course.semester.name %></td>
         <td><%= course.grade %></td>
-        <td><%= link_to 'Show', teacher_course_path(course) %></td>
         <td><%= link_to 'Edit', edit_teacher_course_path(course) %></td>
         <td><%= link_to 'Destroy', teacher_course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

@@ -1,5 +1,9 @@
 class Semester < ApplicationRecord
+  default_scope { order(created_at: :desc) }
+
   has_many :courses
+  has_many :special_events
+
   enum state: [ :prereg, :reg, :late_reg, :archived ]
   STATE_DESCRIPTION = [
     "hidden from users",

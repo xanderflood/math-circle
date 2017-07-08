@@ -1,57 +1,58 @@
-class Teacher::EventsController < Teacher::BaseController
-  before_action :set_event,       only: [ :edit, :update, :destroy ]
-  before_action :set_event_group, only: [ :new,  :create, :index   ]
-  
+class Teacher::EventsController < ApplicationController
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+
+  # GET /events
+  # def index
+  #   @events = Event.all
+  # end
+
+  # GET /events/1
+  def show
+  end
+
+  # GET /events/new
   def new
-    @event = Event.new(event_group: @event_group)
+    @event = Event.new(section_id: params[:section_id])
   end
 
-  def create
-    @event = Event.new(event_params.merge(event_group: @event_group))
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to teacher_event_groups_path, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @teacher_event }
-      else
-        format.html { render :new }
-        format.json { render json: @teacher_event.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def index
-    @events = @event_group.events
-  end
-
+  # GET /events/1/edit
   def edit
   end
 
-  def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to teacher_event_groups_path, notice: 'Event was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+  # POST /events
+  def create
+    @event = Event.new(event_params)
+
+    if @event.save
+      redirect_to teacher_sections_path(@event.section), notice: 'Event was successfully created.'
+    else
+      render :new
     end
   end
 
+  # PATCH/PUT /events/1
+  def update
+    if @event.update(event_params)
+      redirect_to teacher_event_path(@event), notice: 'Event was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  # DELETE /events/1
   def destroy
     @event.destroy
-    respond_to do |format|
-      format.html { redirect_to :back, notice: 'Event was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to :back, notice: 'Event was successfully destroyed.'
   end
 
   private
-  def set_event
-    @event = Event.find(params[:id])
-  end
-  def set_event_group
-    @event_group = EventGroup.find(params[:event_group_id])
-  end
-  def event_params
-    params.require(:event).permit(:name, :when, :time)
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_event
+      @event = Event.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def event_params
+      params.require(:event).permit(:name, :when, :time, :section_id)
+    end
 end

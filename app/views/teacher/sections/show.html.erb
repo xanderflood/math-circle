@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= "#{@section.description}" %></h1>
+
+<p>
+  This is a section of
+  <%= @section.course.name %>
+  during semester
+  <%= @section.course.semester.name %>
+</p>
+
+</br>
+
+<% if @section.events.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="1">Meeting</th>
+        <th colspan="1"></th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @section.events.each do |event| %>
+        <tr>
+          <td><%= link_to event.description, teacher_event_path(event) %></td>
+          <td><%= link_to 'Edit', edit_teacher_event_path(event) %></td>
+          <td><%= link_to 'Delete', teacher_event_path(event), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  This section does not currently have any meetings scheduled.
+  <%= link_to 'Add a new meeting.', new_teacher_section_path(section_id: @section.id) %>
+<% end %>
+
+</br></br>
+
+<%= link_to 'New Meeting', new_teacher_event_path(section_id: @section.id) %> |
+<%= link_to 'Edit', edit_teacher_section_path(section_id: @section.id) %> |
+<%= link_to 'Back', teacher_sections_path(course_id: @section.course.id) %>

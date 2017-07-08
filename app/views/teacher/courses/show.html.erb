@@ -1,4 +1,49 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Course: <%= @course.name %></h1>
+<h4>
+  <%= I18n.l @course.semester.start %> to <%= I18n.l @course.semester.end %>
+</h4>
+<h4>Currently <%= @course.semester.state_description %></h4>
+
+<br/>
+
+<% if @course.sections.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="1">Name</th>
+        <th colspan="1">Weekday</th>
+        <th colspan="1">Time</th>
+        <th colspan="1">Meetings</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @course.sections.each do |section| %>
+        <tr>
+          <td><%= link_to section.name, teacher_section_path(section) %></td>
+          <td><%= section.wday.capitalize %></td>
+          <td><%= I18n.l section.time %></td>
+          <td>
+            <% if section.events.any? %>
+              <%= section.events.count %>
+            <% else %>
+              None
+            <% end %>
+            <%= link_to '(+)', new_teacher_event_path(section_id: section.id) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  This course does not currently have any sections scheduled.
+  <%= link_to 'Add a new section.', new_teacher_section_path(course_id: @course.id) %>
+<% end %>
+
+</br></br>
+
+<%= link_to 'New Section', new_teacher_section_path(course_id: @course.id) %> |
 <%= link_to 'Edit', edit_teacher_course_path(@course) %> |
-<%= link_to 'Back', teacher_courses_path %>
+<%= link_to 'Back', teacher_semester_path(@course.semester) %>

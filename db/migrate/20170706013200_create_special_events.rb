@@ -7,6 +7,7 @@ class CreateSpecialEvents < ActiveRecord::Migration[5.0]
       t.time :end
       t.string :description
       t.integer :capacity
+      t.references :semester
 
       t.timestamps
     end

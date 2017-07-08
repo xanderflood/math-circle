@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sections</h1>
+
+<!-- TODO: semester selector -->
+
+<%= render partial: 'sections/section_list', locals: { sections: @sections } %>
+
+<br>
+
+<%= link_to 'New Section', new_teacher_section_path %>
+

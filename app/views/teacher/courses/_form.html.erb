@@ -1,4 +1,4 @@
-<%= form_for(course, url: teacher_courses_path(course)) do |f| %>
+<%= form_for [:teacher, course] do |f| %>
   <% if course.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
@@ -12,8 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= label_tag :semester %>
-    <%= collection_select :course, :semester_id, Semester.all, :id, :name %>
+    <%= f.label :semester %>
+    <%= f.collection_select :semester_id, Semester.all, :id, :name, {}, {disabled: :disabled} %>
+    <%= f.hidden_field :semester_id %>
   </div>
 
   <div class="field">
@@ -23,7 +24,7 @@
 
   <div class="field">
     <%= f.label :grade %>
-    <%= f.select :grade, :collection => Course.grades.keys.to_a %>
+    <%= f.select :grade, collection: Course.grades.keys.to_a %>
   </div>
 
   <div class="actions">

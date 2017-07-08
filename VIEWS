@@ -1,0 +1,70 @@
+----------
+TEACHER
+----------
+
+Semester
+  new
+  edit
+  index
+  show
+
+Special Event
+  new(semester)
+  edit
+  index
+  show
+
+Course
+  new(semester)
+  edit
+  index
+  show
+
+Section
+  new(course)
+  edit
+  index
+  show
+
+Event
+
+Parent
+  edit [WITH LIMITED PERMISSIONS]
+  index
+  show
+
+Student
+  edit [WITH LIMITED PERMISSIONS]
+  index
+  show
+
+Ballot
+  edit [WITH LIMITED PERMISSIONS]
+  index
+  show
+
+----------
+PARENT
+----------
+
+Profile
+  edit
+  show
+
+Student
+  new
+  edit
+  index
+  show
+
+Semester
+  show
+
+Course
+  show
+
+Ballot
+  new(student)
+  edit
+  index
+  show

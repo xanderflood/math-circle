@@ -10,7 +10,10 @@
   <table>
     <thead>
       <tr>
-        <th colspan="1">Course Name</th>
+        <th colspan="3">Courses</th>
+      </tr>
+      <tr>
+        <th colspan="1">Name</th>
         <th colspan="1">Sections</th>
         <th colspan="1">Meetings</th>
       </tr>
@@ -39,11 +42,49 @@
     </tbody>
   </table>
 <% else %>
-  This semester does not currently have any courses scheduled. Add one below.
+  This semester does not currently have any courses scheduled.
+  <%= link_to 'Add a new course.', new_teacher_course_path(semester_id: @semester.id) %>
+<% end %>
+
+<br /><br />
+
+<% if @semester.special_events.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3">Special Events</th>
+      </tr>
+      <tr>
+        <th colspan="1">Name</th>
+        <th colspan="1">Date</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @semester.special_events.each do |special_event| %>
+        <tr>
+          <td><%= link_to special_event.name, teacher_special_events_path(special_event) %></td>
+          <td><%= special_event.date %></td>
+          <td>
+            <%= special_event.start %>
+            <% if special_event.end %>
+              to
+              <%= special_event.end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  This semester does not currently have any special events scheduled.
+  <%= link_to 'Add a new special event.', new_teacher_special_event_path(semester_id: @semester.id) %>
 <% end %>
 
 </br></br>
 
 <%= link_to 'New Course', new_teacher_course_path(semester_id: @semester.id) %> |
+<%= link_to 'New Course', new_teacher_special_event_path(semester_id: @semester.id) %> |
 <%= link_to 'Edit', edit_teacher_semester_path(@semester) %> |
 <%= link_to 'Back', teacher_semesters_path %>

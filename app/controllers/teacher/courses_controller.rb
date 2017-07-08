@@ -1,5 +1,5 @@
 class Teacher::CoursesController < Teacher::BaseController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course,   only: [:show, :edit, :update, :destroy]
 
   # GET /courses
   def index
@@ -12,9 +12,7 @@ class Teacher::CoursesController < Teacher::BaseController
 
   # GET /courses/new
   def new
-    @course = Course.new
-
-    @course.semester_id = params[:semester_id] if params[:semseter_id]
+    @course = Course.new(semester_id: params[:semester_id])
   end
 
   # GET /courses/1/edit
@@ -26,7 +24,7 @@ class Teacher::CoursesController < Teacher::BaseController
     @course = Course.new(course_params)
 
     if @course.save
-      redirect_to teacher_course_path(@course), notice: 'Course was successfully created.'
+      redirect_to teacher_semester_path(@course.semester), notice: 'Course was successfully created.'
     else
       render :new
     end

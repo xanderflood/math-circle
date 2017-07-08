@@ -12,7 +12,7 @@ class Teacher::SpecialEventsController < ApplicationController
 
   # GET /special_events/new
   def new
-    @special_event = SpecialEvent.new
+    @special_event = SpecialEvent.new(semester_id: params[:semester_id])
   end
 
   # GET /special_events/1/edit
@@ -24,7 +24,7 @@ class Teacher::SpecialEventsController < ApplicationController
     @special_event = SpecialEvent.new(special_event_params)
 
     if @special_event.save
-      redirect_to teacher_special_event_path(@special_event), notice: 'Special event was successfully created.'
+      redirect_to teacher_semester_path(@special_event.semester), notice: 'Special event was successfully created.'
     else
       render :new
     end
@@ -53,6 +53,6 @@ class Teacher::SpecialEventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def special_event_params
-      params.fetch(:special_event, {}).permit(:name, :capacity, :date, :start, :end, :description)
+      params.fetch(:special_event, {}).permit(:name, :capacity, :date, :start, :end, :description, :semester_id)
     end
 end

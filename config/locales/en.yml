@@ -2,6 +2,9 @@ en:
   date:
     formats:
       default: "%A %B %d, %Y"
-  time:
+  datetime:
     formats:
       default: "%A %B %d, %Y, @ %H:%M %P"
+  time:
+    formats:
+      default: "%H:%M %P"

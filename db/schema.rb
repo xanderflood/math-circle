@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706013200) do
+ActiveRecord::Schema.define(version: 20170708155438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,12 +77,12 @@ ActiveRecord::Schema.define(version: 20170706013200) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "event_group_id"
-    t.date     "when",           default: '2017-06-30'
-    t.time     "time",           default: '2000-01-01 01:24:03'
-    t.index ["event_group_id"], name: "index_events_on_event_group_id", using: :btree
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "section_id"
+    t.date     "when",       default: '2017-06-30'
+    t.time     "time",       default: '2000-01-01 01:24:03'
+    t.index ["section_id"], name: "index_events_on_section_id", using: :btree
   end
 
   create_table "parent_profiles", force: :cascade do |t|
@@ -131,8 +131,10 @@ ActiveRecord::Schema.define(version: 20170706013200) do
     t.time     "end"
     t.string   "description"
     t.integer  "capacity"
+    t.integer  "semester_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["semester_id"], name: "index_special_events_on_semester_id", using: :btree
   end
 
   create_table "students", force: :cascade do |t|
