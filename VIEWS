@@ -27,6 +27,8 @@ Section
   show
 
 Event
+  new(section)
+  edit
 
 Parent
   edit [WITH LIMITED PERMISSIONS]

@@ -7,23 +7,13 @@
       <th colspan="2"></th>
     </tr>
   </thead>
+
   <tbody>
     <% sections.each do |section| %>
-      <tr>
-        <td><%= section.description %></td>
-        <td><%= section.course.name %></td>
-        <td><%= section.course.semester.name %></td>
-        <td><%= link_to :edit %></td>
-        <td><%= section.course.semester.name %></td>
-      </tr>
+      <%= render partial: 'sections/section_collapse', locals: { section: section } %>
     <% end %>
   </tbody>
+
 </table>
 
 <br/><br/>
-
-<div class="panel-group" id="accordion">
-  <% sections.each do |s| %>
-    <%= render partial: 'sections/section_collapse', locals: { section: s } %>
-  <% end %>
-</div> 

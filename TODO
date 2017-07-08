@@ -13,10 +13,10 @@ Models:
 + Add a teacher to each section/meeting
 + Make decisions about names for all scheduling models, as well
 
-+ Restyle section index to use new tables (with collapses)
-  ++++ DO THIS AFTER COMMITTING BECAUSE IT MAY JUST NOT WORK
-
 + Make sure all "delete" links have a confirmation dialog
+
+------+ Restyle section index to use new tables (with collapses)
+------  ++++ DO THIS AFTER COMMITTING BECAUSE IT MAY JUST NOT WORK
 
 ------+ Make a list of individual views for testing
 ------  + DON'T need to be completely tested for demo, but

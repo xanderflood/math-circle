@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   end
 
   def description
-    if name.empty?
+    if name.nil? || name.empty?
       "#{self.when} @ #{time_str}"
     else
       "#{name} - #{self.when} @ #{time_str}"

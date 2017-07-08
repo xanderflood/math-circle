@@ -50,6 +50,9 @@ td, th {
   border-right: solid 1px; 
   border-left: solid 1px;
 }
+tr.section-row {
+  border: solid 1px;
+}
 
 div {
   &.field, &.actions {
@@ -94,4 +97,10 @@ div {
 
 label {
   display: block;
+}
+
+/* speed up collapse transition */
+.collapsing{
+  -webkit-transition:height .01s ease;
+    transition:height .01s ease
 }

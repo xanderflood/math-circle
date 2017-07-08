@@ -29,7 +29,7 @@ class EventGroup < ApplicationRecord
   end
 
   def description
-    if name.empty?
+    if name.nil? || name.empty?
       "#{wday} @ #{time_str}"
     else
       "#{name} - #{wday} @ #{time_str}"

@@ -1,5 +1,5 @@
 <h1>Edit event</h1>
 
-<%= render 'form', parent_student: @parent_student, url: teacher_event_path(@event) %>
+<%= render 'form', section: @section %>
 
-<%= link_to 'Back', teacher_sections_path %>
+<%= link_to 'Back', teacher_course_path(@section.course) %>
