@@ -9,7 +9,10 @@ class Teacher::SemestersController < Teacher::BaseController
 
   # GET /teacher/semesters/new
   def new
-    @semester = Semester.new
+    @semester = Semester.new(current: true)
+  end
+
+  def show
   end
 
   # GET /teacher/semesters/1/edit
@@ -64,6 +67,6 @@ class Teacher::SemestersController < Teacher::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def semester_params
-      params.fetch(:semester, {}).permit(:name, :start, :end)
+      params.fetch(:semester, {}).permit(:name, :start, :end, :current)
     end
 end

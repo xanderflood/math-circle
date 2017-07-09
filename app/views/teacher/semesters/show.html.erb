@@ -4,6 +4,14 @@
 <h4><%= I18n.l @semester.start %> to <%= I18n.l @semester.end %></h4>
 <h4>Currently <%= @semester.state_description %></h4>
 
+<p>
+  <% if @semester.current %>
+    This is the current semester.
+  <% else %>
+    This is not the current semester.
+  <% end %>
+</p>
+
 </br>
 
 <% if @semester.courses.any? %>
