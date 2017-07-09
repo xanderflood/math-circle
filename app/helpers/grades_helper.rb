@@ -1,3 +1,3 @@
 module GradesHelper
-  GRADES = [:nine, :ten, :twelve]
+  GRADES = [:unspecified, :A, :B, :C, :D]
 end
