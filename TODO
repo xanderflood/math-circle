@@ -66,6 +66,11 @@ Eventual:
 + See trends in student data
 + Online waiver signature
 
++ How to auto-increment grades as appropriate?
+  + Should I just implore that parents do it manually?
+  + Or provide the teachers with an "increment all grades" action
+  + This should be an option when you update the current semester
+
 ----------
 TEACHER
 ----------
