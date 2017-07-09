@@ -9,21 +9,18 @@ Semester
   show
 
 Special Event
-  new(semester)
+  new(semester - query)
   edit
-  index
   show
 
 Course
-  new(semester)
+  new(semester - query)
   edit
-  index
   show
 
 Section
   new(course)
   edit
-  index
   show
 
 Event

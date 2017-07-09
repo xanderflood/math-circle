@@ -5,15 +5,17 @@ TODO:
 FOR THE DEMO
 ----------
 
-Figure out the time zone thing
-
-Browse courses for semester
+Browse courses for semester (parent)
 
 Models:
 + Add a teacher to each section/meeting
 + Make decisions about names for all scheduling models, as well
 
 + Make sure all "delete" links have a confirmation dialog
+
++ Localize all datetimes
+
+------Figure out the time zone thing
 
 ------+ Restyle section index to use new tables (with collapses)
 ------  ++++ DO THIS AFTER COMMITTING BECAUSE IT MAY JUST NOT WORK
