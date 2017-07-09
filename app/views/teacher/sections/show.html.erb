@@ -26,7 +26,7 @@
         <tr>
           <td><%= link_to event.description, teacher_event_path(event) %></td>
           <td><%= link_to 'Edit', edit_teacher_event_path(event) %></td>
-          <td><%= link_to 'Delete', teacher_event_path(event), method: :delete %></td>
+          <td><%= link_to 'Delete', teacher_event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -40,4 +40,4 @@
 
 <%= link_to 'New Meeting', new_teacher_event_path(section_id: @section.id) %> |
 <%= link_to 'Edit', edit_teacher_section_path(section_id: @section.id) %> |
-<%= link_to 'Back', teacher_sections_path(course_id: @section.course.id) %>
+<%= link_to 'Back', teacher_course_path(@section.course) %>

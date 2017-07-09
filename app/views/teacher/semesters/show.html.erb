@@ -16,6 +16,7 @@
         <th colspan="1">Name</th>
         <th colspan="1">Sections</th>
         <th colspan="1">Meetings</th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
@@ -37,6 +38,8 @@
               None
             <% end %>
           </td>
+          <td><%= link_to 'Edit', edit_teacher_course_path(course) %></td>
+          <td><%= link_to 'Delete', teacher_course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -62,6 +65,7 @@
         <th colspan="1">Name</th>
         <th colspan="1">Date</th>
         <th colspan="1"></th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
@@ -77,6 +81,8 @@
               <%= special_event.end %>
             <% end %>
           </td>
+          <td><%= link_to 'Edit', edit_teacher_special_event_path(special_event) %></td>
+          <td><%= link_to 'Delete', teacher_special_event_path(special_event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

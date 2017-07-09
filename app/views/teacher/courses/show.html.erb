@@ -16,6 +16,7 @@
         <th colspan="1">Weekday</th>
         <th colspan="1">Time</th>
         <th colspan="1">Meetings</th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
@@ -33,6 +34,8 @@
             <% end %>
             <%= link_to '(+)', new_teacher_event_path(section_id: section.id) %>
           </td>
+          <td><%= link_to 'Edit', edit_teacher_section_path(section) %></td>
+          <td><%= link_to 'Delete', teacher_section_path(section), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
