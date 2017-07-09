@@ -4,7 +4,7 @@ en:
       default: "%A %B %d, %Y"
   datetime:
     formats:
-      default: "%A %B %d, %Y, @ %H:%M %P"
+      default: "%A %B %d, %Y, @ %I:%M %p"
   time:
     formats:
-      default: "%H:%M %P"
+      default: "%I:%M %p"

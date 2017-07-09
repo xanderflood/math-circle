@@ -16,8 +16,8 @@
     <% @semesters.each do |semester| %>
       <tr>
         <td><%= link_to semester.name, teacher_semester_path(semester) %></td>
-        <td><%= semester.start %></td>
-        <td><%= semester.end %></td>
+        <td><%= I18n.l semester.start %></td>
+        <td><%= I18n.l semester.end %></td>
         <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>
         <td><%= link_to 'Destroy', teacher_semester_path(semester), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

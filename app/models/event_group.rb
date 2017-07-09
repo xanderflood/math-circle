@@ -19,7 +19,7 @@ class EventGroup < ApplicationRecord
       end
 
       schedule.occurrences_between(sem.start, sem.end).each do |occ|
-        self.events.build(name: @name, when: occ.to_date, time: occ.to_time).save!
+        self.events.build(name: @name, when: occ.to_date, time: self.time).save!
       end
     end
   end

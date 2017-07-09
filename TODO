@@ -7,16 +7,13 @@ FOR THE DEMO
 
 Browse courses for semester (parent)
 
-+ Make sure all "delete" links have a confirmation dialog
-
-+ Localize all datetimes
-
 + Flesh out the teacher-side special event views
 + Add special event registration to the parent pages
 + Add special events to semesters
 + Add no-end-time checkbox to event form
 
 + Give event a description and show page
+  + Show abbreviated description in section show view
 
 Students/parents should be able to specify that *only* one sections works for them
 
