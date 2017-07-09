@@ -2,31 +2,36 @@
 
 <h1>Teacher Semesters</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="1">Name</th>
-      <th colspan="1">Start date</th>
-      <th colspan="1">End date</th>
-      <th colspan="1">Current</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @semesters.each do |semester| %>
+<% if Semester.any? %>
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to semester.name, teacher_semester_path(semester) %></td>
-        <td><%= I18n.l semester.start %></td>
-        <td><%= I18n.l semester.end %></td>
-        <td><%= "*" if semester.current %></td>
-        <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>
-        <td><%= link_to 'Destroy', teacher_semester_path(semester), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th colspan="1">Name</th>
+        <th colspan="1">Start date</th>
+        <th colspan="1">End date</th>
+        <th colspan="1">Current</th>
+        <th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @semesters.each do |semester| %>
+        <tr>
+          <td><%= link_to semester.name, teacher_semester_path(semester) %></td>
+          <td><%= I18n.l semester.start %></td>
+          <td><%= I18n.l semester.end %></td>
+          <td><%= "*" if semester.current %></td>
+          <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>
+          <td><%= link_to 'Destroy', teacher_semester_path(semester), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Teacher Semester', new_teacher_semester_path %>
+  <br>
+
+  <%= link_to 'New Semester', new_teacher_semester_path %>
+<% else %>
+  You have not created a semester yet.
+  <%= link_to 'Create one now.', new_teacher_semester_path %>
+<% end %>

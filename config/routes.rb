@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
       resources :special_events,              except: :index
 
+      resources :courses,                     except: :index
+
       resources :sections,                    except: :index
       resources :sections, as: :event_groups, except: :index
 
