@@ -12,12 +12,14 @@
   <% end %>
 
   <div class="field">
+    <%= f.label ballot.student.name%>
     <%= f.hidden_field :student_id, value: ballot.student.id %>
   </div>
 
   <div class="field">
     <%= f.label :semester %>
-    <%= f.collection_select :semester_id, Semester.all, :id, :name, {}, {disabled: 'diabled'} %>
+    <%= f.collection_select :semester_id, [Semester.current], :id, :name, {}, {disabled: 'diabled'} %>
+    <%= f.hidden_field :semester_id %>
   </div>
 
   <div class="field">

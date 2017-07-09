@@ -77,6 +77,8 @@ Eventual:
 TEACHER
 ----------
 
+Make ballot_preferences into serialized JSON
+
 Models:
 + Add a teacher to each section/meeting
   + Also figure out whether that eacher is a model or just an enum
