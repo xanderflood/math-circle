@@ -1,12 +1,6 @@
 class Teacher::SectionsController < Teacher::BaseController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
-  # GET /teacher/events
-  # GET /teacher/events.json
-  def index
-    @sections = EventGroup.all
-  end
-
   # GET /teacher/events/1
   # GET /teacher/events/1.json
   def show
@@ -28,7 +22,6 @@ class Teacher::SectionsController < Teacher::BaseController
 
     respond_to do |format|
       if @section.save
-        binding.pry
         format.html { redirect_to teacher_course_path(@section.course), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else

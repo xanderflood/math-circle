@@ -1,11 +1,5 @@
 class Teacher::SpecialEventsController < ApplicationController
   before_action :set_special_event, only: [:show, :edit, :update, :destroy]
-
-  # GET /special_events
-  def index
-    @special_events = SpecialEvent.all
-  end
-
   # GET /special_events/1
   def show
   end

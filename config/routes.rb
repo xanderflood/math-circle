@@ -15,11 +15,12 @@ Rails.application.routes.draw do
 
       resources :semesters
 
-      resources :special_events
+      resources :special_events,              except: :index
 
-      resources :courses
+      resources :courses,                     except: :index
 
-      resources :sections
+      resources :sections,                    except: :index
+      resources :sections, as: :event_groups, except: :index
 
       resources :events, only: [ :new, :create, :show, :edit, :update, :destroy ]
     end

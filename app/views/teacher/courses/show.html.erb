@@ -12,7 +12,7 @@
   <table>
     <thead>
       <tr>
-        <th colspan="1">Name</th>
+        <th colspan="1">Section</th>
         <th colspan="1">Weekday</th>
         <th colspan="1">Time</th>
         <th colspan="1">Meetings</th>
@@ -22,7 +22,7 @@
     <tbody>
       <% @course.sections.each do |section| %>
         <tr>
-          <td><%= link_to section.name, teacher_section_path(section) %></td>
+          <td><%= link_to section.description, teacher_section_path(section) %></td>
           <td><%= section.wday.capitalize %></td>
           <td><%= I18n.l section.time %></td>
           <td>
