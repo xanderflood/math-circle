@@ -1,5 +1,5 @@
-<h1>New Section of <%= @course.name %></h1>
+<h1>New Section of <%= @section.course.name %></h1>
 
 <%= render 'form', section: @section %>
 
-<%= link_to 'Back', teacher_course_path(params[:course_id]) %>
+<%= link_to 'Back', teacher_course_path(@section.course) %>

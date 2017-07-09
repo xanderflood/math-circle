@@ -41,12 +41,16 @@
       <% end %>
     </tbody>
   </table>
+
+  <br />
+
+  <%= link_to 'New Course', new_teacher_course_path(semester_id: @semester.id) %>
 <% else %>
   This semester does not currently have any courses scheduled.
   <%= link_to 'Add a new course.', new_teacher_course_path(semester_id: @semester.id) %>
 <% end %>
 
-<br /><br />
+<hr />
 
 <% if @semester.special_events.any? %>
   <table>
@@ -77,14 +81,16 @@
       <% end %>
     </tbody>
   </table>
+
+  <br />
+
+  <%= link_to 'New Special Event', new_teacher_special_event_path(semester_id: @semester.id) %>
 <% else %>
   This semester does not currently have any special events scheduled.
   <%= link_to 'Add a new special event.', new_teacher_special_event_path(semester_id: @semester.id) %>
 <% end %>
 
-</br></br>
+<hr />
 
-<%= link_to 'New Course', new_teacher_course_path(semester_id: @semester.id) %> |
-<%= link_to 'New Course', new_teacher_special_event_path(semester_id: @semester.id) %> |
 <%= link_to 'Edit', edit_teacher_semester_path(@semester) %> |
 <%= link_to 'Back', teacher_semesters_path %>

@@ -2,4 +2,4 @@
 
 <%= render 'form', course: @course %>
 
-<%= link_to 'Back', teacher_semester_path(params[:semester_id]) %>
+<%= link_to 'Back', teacher_semester_path(@course.semester) %>

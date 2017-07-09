@@ -4,6 +4,8 @@ class Semester < ApplicationRecord
   has_many :courses
   has_many :special_events
 
+  validates :name, presence: { allow_blank: false, message: "must be provided." }
+
   enum state: [ :prereg, :reg, :late_reg, :archived ]
   STATE_DESCRIPTION = [
     "hidden from users",

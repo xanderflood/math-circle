@@ -4,5 +4,7 @@ class Course < ApplicationRecord
   belongs_to :semester
   has_many :sections, class_name: "EventGroup"
 
+  validates :name, presence: { allow_blank: false, message: "must be provided." }
+
   enum grade: GradesHelper::GRADES
 end

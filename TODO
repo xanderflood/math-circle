@@ -70,6 +70,8 @@ Make sure registration is possible
 GENERAL
 ----------
 
++ Figure out what to do with "grades"
+
 + View sections scoped by semester
 
 + Merge the special_event and event models, using a scope (so that events have an end time)

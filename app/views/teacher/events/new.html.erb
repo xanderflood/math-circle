@@ -13,4 +13,4 @@
 
 <%= render 'form', event: @event %>
 
-<%= link_to 'Back', teacher_section_path(params[:section_id]) %>
+<%= link_to 'Back', teacher_section_path(@event.section) %>

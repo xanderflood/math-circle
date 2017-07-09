@@ -1,5 +1,5 @@
 class Teacher::CoursesController < Teacher::BaseController
-  before_action :set_course,   only: [:show, :edit, :update, :destroy]
+  before_action :set_course,      only: [:show, :edit, :update, :destroy]
 
   # GET /courses
   def index
