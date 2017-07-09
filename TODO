@@ -7,53 +7,20 @@ FOR THE DEMO
 
 Browse courses for semester (parent)
 
-Models:
-+ Add a teacher to each section/meeting
-+ Make decisions about names for all scheduling models, as well
-
 + Make sure all "delete" links have a confirmation dialog
 
 + Localize all datetimes
 
-------Figure out the time zone thing
++ Flesh out the teacher-side special event views
++ Add special event registration to the parent pages
++ Add special events to semesters
++ Add no-end-time checkbox to event form
 
-------+ Restyle section index to use new tables (with collapses)
-------  ++++ DO THIS AFTER COMMITTING BECAUSE IT MAY JUST NOT WORK
-
-------+ Make a list of individual views for testing
-------  + DON'T need to be completely tested for demo, but
-------  + DO    make a complete list
-
-------Semesters:
-------+ Link to show page in index
-------+ Show state in index
-------+ List courses on show page
-------+ List special_events
-
-------On new & edit pages for scoped models, lock the parent selectbox
-
-------Courses:
-------+ List sections
-
-------Event_Groups:
-------+ Rewrite user-facing text for "sections" and "events"
-------+ List meetings
-
-----------
-CLEANUP
-----------
++ Give event a description and show page
 
 Students/parents should be able to specify that *only* one sections works for them
 
 CHECK FOR PRYS
-
-don't allow empty names if those names are used as link text
-
-Make sure ALL LISTS are sorted sensibly (semesters in reverse chron order, etc.)
-
-+ delete all unscoped "New Model" links, replace with an explanation
-
------+ Style the tables!
 
 + Mark all required form fields (not capacity for special events, for instance)
 + Create corresponding validations
@@ -62,15 +29,11 @@ Make sure ALL LISTS are sorted sensibly (semesters in reverse chron order, etc.)
 
 Make sure registration is possible
 
-------+ Add "special?" bool column to Events, and create a new_special_event view
-+ Flesh out the teacher-side special event views
-+ Add special event registration to the parent pages
-+ Add special events to semesters
-+ Add no-end-time checkbox to event form
-
 ----------
 GENERAL
 ----------
+
++ Show current semester automatically on the homepage
 
 + Figure out what to do with "grades"
 
@@ -110,6 +73,11 @@ Eventual:
 ----------
 TEACHER
 ----------
+
+Models:
++ Add a teacher to each section/meeting
+  + Also figure out whether that eacher is a model or just an enum
++ Make decisions about names for all scheduling models, as well
 
 Semesters:
 + Link to show page in index
