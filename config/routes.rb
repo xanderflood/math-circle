@@ -33,13 +33,7 @@ Rails.application.routes.draw do
       resources :students do
         get 'catalog'
 
-        resources :ballots, except: [:edit, :show, :index] do
-          # multistep form
-          # get :start
-          # get :courses
-          # get :preference_poll
-          # post :register
-        end
+        resources :ballots, except: [:edit, :show, :index]
       end
 
       resources :events, only: [ :index, :show ]

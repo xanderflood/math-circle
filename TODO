@@ -5,12 +5,7 @@ TODO:
 FOR THE DEMO
 ----------
 
-+ Restructure ballots scaffold to use the new current semester functionality
-
-+ Flesh out the teacher-side special event views
-+ Add special event registration to the parent pages
 + Add no-end-time checkbox to event form
-
 + Give event a description and show page
   + Show abbreviated description in section show view
 
@@ -30,6 +25,9 @@ Grade should be an integer
 ----------
 GENERAL
 ----------
+
++ Flesh out the teacher-side special event views
++ Add special event registration to the parent pages
 
 + Show current semester automatically on the homepage
 

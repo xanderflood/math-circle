@@ -1,19 +1,4 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Student:</strong>
-  <%= @ballot.student %>
-</p>
-
-<p>
-  <strong>Semester:</strong>
-  <%= @ballot.semester %>
-</p>
-
-<p>
-  <strong>Course:</strong>
-  <%= @ballot.course %>
-</p>
-
 <%= link_to 'Edit', edit_ballot_path(@ballot) %> |
 <%= link_to 'Back', ballots_path %>

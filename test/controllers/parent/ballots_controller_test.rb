@@ -17,7 +17,7 @@ class Parent::BallotsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create ballot" do
     assert_difference('Ballot.count') do
-      post ballots_url, params: { ballot: { course_id: @ballot.course_id, semester_id: @ballot.semester_id, student_id: @ballot.student_id } }
+      post ballots_url, params: { ballot: {  } }
     end
 
     assert_redirected_to ballot_url(Ballot.last)
@@ -34,7 +34,7 @@ class Parent::BallotsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update ballot" do
-    patch ballot_url(@ballot), params: { ballot: { course_id: @ballot.course_id, semester_id: @ballot.semester_id, student_id: @ballot.student_id } }
+    patch ballot_url(@ballot), params: { ballot: {  } }
     assert_redirected_to ballot_url(@ballot)
   end
 

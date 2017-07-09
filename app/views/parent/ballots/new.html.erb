@@ -1,4 +1,8 @@
-<h1>New Ballot</h1>
+<% if @ballot.persisted? %>
+  <h1>Editing Pre-registration Ballot</h1>
+<% else %>
+  <h1>New Pre-registration Ballot</h1>
+<% end %>
 
 <%= render 'form', ballot: @ballot %>
 

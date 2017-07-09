@@ -21,9 +21,11 @@ class Semester < ApplicationRecord
     self.where(current: true).limit(1).first
   end
 
-  def self.course_info(grade=nil)
-    courses = Semseter.current.coures
-    courese = courses.where(grade: grade) if grade
+  def self.current_courses(grade=nil)
+    courses = Semester.current.courses
+    courses = courses.where(grade: grade) if grade
+
+    courses
   end
 
   def state_description

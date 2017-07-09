@@ -1,4 +1,4 @@
-<%= form_for(ballot, url: @url) do |f| %>
+<%= form_for([:parent, ballot.student, ballot]) do |f| %>
   <% if ballot.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(ballot.errors.count, "error") %> prohibited this ballot from being saved:</h2>
@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label ballot.student.name%>
+    <%= f.label ballot.student.name %>
     <%= f.hidden_field :student_id, value: ballot.student.id %>
   </div>
 
@@ -24,37 +24,43 @@
 
   <div class="field">
     <%= f.label :course %>
-    <%= f.collection_select :course_id, Course.all, :id, :name %>
+    <%= f.collection_select :course_id, Semester.current_courses(ballot.student.grade), :id, :name, {}, {class: 'ballot-course-selector'} %>
   </div>
 
-  <% if ballot.persisted? %>
-    <div class="field">
-      <%= f.label :preferences %>
+  <div class="field">
+    <%= link_to 'Open course catalog', parent_student_catalog_path(ballot.student), target: :_blank %>
+  </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th colspan="1">preference</th>
-            <th colspan="1">section</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @preferences = @ballot.preferences %>
-          <% (1..@sections.count).each do |pref| %>
+  <%= f.fields_for :preferences, OpenStruct.new(ballot.preferences) do |pref_fields| %>
+    <% Semester.current_courses(ballot.student.grade).each do |course| %>
+
+      <div class="field preferences-fields preferences-detach" data-course-id="<%= course.id %>">
+        <%= pref_fields.label :preferences %>
+
+        <table>
+          <thead>
             <tr>
-              <td><%= pref %></td>
-              <td>
-                <%= f.fields_for "preferences[#{pref}]" do |prefs| %>
-                  <%= prefs.select :section, options_for_select(@options, @selections[pref-1]) %>
-                <% end %>
-              </td>
+              <th colspan="1">Preference</th>
+              <th colspan="1">Section</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
 
-    </div>
+          <tbody>
+            <% @preferences = @ballot.preferences %>
+            <% (1..course.sections.count).each do |pref| %>
+              <tr>
+                <td><%= pref %></td>
+                <td>
+                  <%= pref_fields.select pref, options_for_select(course.sections.map { |section| [section.description, section.id] }, ballot.preferences[pref.to_s]), include_blank: true %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    <% end %>
   <% end %>
 
   <div class="actions">
