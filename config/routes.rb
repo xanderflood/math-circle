@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
       resources :courses,                     except: :index
 
-      resources :sections,                    except: :index
+      resources :sections#,                    except: :index
       resources :sections, as: :event_groups, except: :index
 
       resources :events, only: [ :new, :create, :show, :edit, :update, :destroy ]
@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       get '/', to: 'home#index', as: 'home'
 
       resources :students do
+        get 'catalog'
+
         resources :ballots, except: [:edit, :show, :index] do
           # multistep form
           # get :start

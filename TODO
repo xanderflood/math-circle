@@ -5,7 +5,7 @@ TODO:
 FOR THE DEMO
 ----------
 
-Browse courses for semester (parent)
++ Restructure ballots scaffold to use the new current semester functionality
 
 + Flesh out the teacher-side special event views
 + Add special event registration to the parent pages
@@ -24,6 +24,8 @@ CHECK FOR PRYS
 + Handle all empty tables with alternative messages
 
 Make sure registration is possible
+
+Grade should be an integer
 
 ----------
 GENERAL

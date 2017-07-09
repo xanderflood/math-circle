@@ -50,8 +50,11 @@ td, th {
   border-right: solid 1px; 
   border-left: solid 1px;
 }
-tr.section-row {
+tr.bordered-row {
   border: solid 1px;
+}
+tr.heavy-bordered-row {
+  border: solid 3px;
 }
 
 div {

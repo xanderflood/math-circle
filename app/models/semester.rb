@@ -17,6 +17,10 @@ class Semester < ApplicationRecord
     "archived"
   ]
 
+  def self.current
+    self.where(current: true).limit(1).first
+  end
+
   def state_description
     Semester::STATE_DESCRIPTION[state.to_i]
   end

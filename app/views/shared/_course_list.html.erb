@@ -1,0 +1,49 @@
+<table>
+  <thead>
+    <tr class="heavy-bordered-row">
+      <th>Name</th>
+      <th>Grade &amp; Semester</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% courses.each do |course| %>
+      <% multi_collapse_id = "course#{course.id}" %>
+      <tr class="heavy-bordered-row">
+        <td><%= link_to course.name, '#', class: 'multi-collapse-control', data: {multi_collapse_id: multi_collapse_id} %></td>
+        <td><%= "Grade #{course.grade} (#{course.semester.name})" %></td>
+        <td><%= link_to 'Edit', edit_teacher_course_path(course) %></td>
+        <td><%= link_to 'Delete', teacher_course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+
+      <% if course.sections.any? %>
+        <% course.sections.each do |section| %>
+          <tr class="collapse out multi-collapse-target" data-multi-collapse-id="<%= multi_collapse_id %>">
+            <td colspan=2><%= "#{section.description}" %></td>
+            <td><%= link_to 'Edit', edit_teacher_section_path(section) %></td>
+            <td><%= link_to 'Delete', teacher_section_path(section), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+
+        <tr class="collapse out multi-collapse-target bordered-row" data-multi-collapse-id="<%= multi_collapse_id %>">
+          <td colspan="4">
+            This course has <%= course.sections.count %> sections.
+            <%= link_to 'Add new', new_teacher_section_path(course_id: course.id) %>
+          </td>
+        </tr>
+
+      <% else %>
+        <tr class="collapse out multi-collapse-target bordered-row" data-multi-collapse-id="<%= multi_collapse_id %>">
+          <td colspan="4">
+            This course does not currently have any scheduled sections.
+            <%= link_to 'Schedule one.', new_teacher_section_path(course_id: course.id) %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+
+</table>
+
+<br/><br/>

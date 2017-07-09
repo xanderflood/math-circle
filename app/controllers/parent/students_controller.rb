@@ -1,9 +1,9 @@
 class Parent::StudentsController < Parent::BaseController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :catalog]
 
   # GET /students
   def index
-    @students  = Student.all
+    @students  = current_parent.students.all
     @semesters = Semester.all
   end
 
@@ -11,9 +11,13 @@ class Parent::StudentsController < Parent::BaseController
   def show
   end
 
+  def catalog
+    @courses = Semester.current.courses.where(grade: @student.grade)
+  end
+
   # GET /students/new
   def new
-    @student = Student.new
+    @student = Student.new(parent: current_parent)
   end
 
   # GET /students/1/edit
@@ -25,7 +29,7 @@ class Parent::StudentsController < Parent::BaseController
     @student = current_parent.students.new(student_params)
 
     if @student.save
-      redirect_to parent_student_path(@student), notice: 'Student was successfully created.'
+      redirect_to parent_students_path, notice: 'Student was successfully created.'
     else
       render :new
     end
@@ -49,7 +53,7 @@ class Parent::StudentsController < Parent::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
-      @student = Student.find(params[:id])
+      @student = Student.find(params[:id] || params[:student_id])
     end
 
     # Only allow a trusted parameter "white list" through.

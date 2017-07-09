@@ -1,11 +1,11 @@
 class Parent::BallotsController < Parent::BaseController
   before_action :set_student
-  before_action :set_semester, only: [:new,  :create, :update]
+  # before_action :set_semester, only: [:new,  :create, :update]
   before_action :set_ballot,   only: [:show, :update, :destroy]
 
   # GET /ballots/new
   def new
-    @ballot = @student.ballots.where(semester: @semester).first
+    @ballot = @student.ballots.where(semester: Semester.current).first
 
     if @ballot
       prepare_for_edit
@@ -53,7 +53,7 @@ class Parent::BallotsController < Parent::BaseController
     end
 
     def set_semester
-      @semester = Semester.find(params[:semester_id])
+      @semester = Semester.current
     end
 
     # Only allow a trusted parameter "white list" through.
