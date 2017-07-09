@@ -2,21 +2,21 @@ TODO:
 -----
 
 ----------
-FOR THE DEMO
+cleanup
 ----------
-
-+ Add no-end-time checkbox to event form
 
 + Mark all required form fields (not capacity for special events, for instance)
 + Create corresponding validations
 
 Make sure registration is possible
 
-Grade should be an integer
-
 ----------
 GENERAL
 ----------
+
++ Grade should be an integer
+
++ Add no-end-time checkbox to event form
 
 + Flesh out the teacher-side special event views
 + Add special event registration to the parent pages
