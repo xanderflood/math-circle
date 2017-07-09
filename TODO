@@ -6,17 +6,9 @@ FOR THE DEMO
 ----------
 
 + Add no-end-time checkbox to event form
-+ Give event a description and show page
-  + Show abbreviated description in section show view
-
-Students/parents should be able to specify that *only* one section works for them
-
-CHECK FOR PRYS
 
 + Mark all required form fields (not capacity for special events, for instance)
 + Create corresponding validations
-
-+ Handle all empty tables with alternative messages
 
 Make sure registration is possible
 

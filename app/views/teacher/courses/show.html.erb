@@ -8,6 +8,11 @@
 
 <br/>
 
+Overview:
+<%= @course.overview.present? ? @course.overview : "None" %>
+
+<br/>
+
 <% if @course.sections.any? %>
   <table>
     <thead>

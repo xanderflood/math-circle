@@ -27,6 +27,11 @@
     <%= f.select :grade, collection: Course.grades.keys.to_a %>
   </div>
 
+  <div class="field">
+    <%= f.label :overview %>
+    <%= f.text_area :overview, collection: Course.grades.keys.to_a %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

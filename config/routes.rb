@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   concern :public_routes do
     get '/', to: 'public/home#index'
 
+    resources :courses, only: :show 
+
     # put other public pages here
   end 
 
@@ -17,9 +19,7 @@ Rails.application.routes.draw do
 
       resources :special_events,              except: :index
 
-      resources :courses,                     except: :index
-
-      resources :sections#,                    except: :index
+      resources :sections,                    except: :index
       resources :sections, as: :event_groups, except: :index
 
       resources :events, only: [ :new, :create, :show, :edit, :update, :destroy ]

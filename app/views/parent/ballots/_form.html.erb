@@ -31,6 +31,10 @@
     <%= link_to 'Open course catalog', parent_student_catalog_path(ballot.student), target: :_blank %>
   </div>
 
+  <div class="field">
+    <%= f.label :no_other_sections_work %>
+    <%= f.check_box :exclusive %>
+  </div>
 
   <%= f.fields_for :preferences, OpenStruct.new(ballot.preferences) do |pref_fields| %>
     <% Semester.current_courses(ballot.student.grade).each do |course| %>

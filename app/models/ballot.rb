@@ -18,6 +18,8 @@ class Ballot < ApplicationRecord
   validate :unique_sections
   validate :sections_in_course
 
+  protected
+  
   # validations
   def course_in_semester
     errors.add(:course, "is not from the current semester.") unless course.semester == semester

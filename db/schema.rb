@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709141537) do
+ActiveRecord::Schema.define(version: 20170709201858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170709141537) do
     t.integer "semester_id"
     t.integer "course_id"
     t.string  "preferences"
+    t.boolean "exclusive"
     t.index ["course_id"], name: "index_ballots_on_course_id", using: :btree
     t.index ["semester_id"], name: "index_ballots_on_semester_id", using: :btree
     t.index ["student_id"], name: "index_ballots_on_student_id", using: :btree
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170709141537) do
     t.integer  "semester_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "overview"
     t.index ["semester_id"], name: "index_courses_on_semester_id", using: :btree
   end
 
