@@ -10,26 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709201858) do
+ActiveRecord::Schema.define(version: 20170709212431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "attendees", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "parent_profile_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["parent_profile_id"], name: "index_attendees_on_parent_profile_id", using: :btree
-    t.index ["student_id"], name: "index_attendees_on_student_id", using: :btree
-  end
-
-  create_table "attendees_events", id: false, force: :cascade do |t|
-    t.integer "event_id",    null: false
-    t.integer "attendee_id", null: false
-    t.index ["attendee_id", "event_id"], name: "index_attendees_events_on_attendee_id_and_event_id", using: :btree
-    t.index ["event_id", "attendee_id"], name: "index_attendees_events_on_event_id_and_attendee_id", using: :btree
-  end
 
   create_table "ballots", force: :cascade do |t|
     t.integer "student_id"

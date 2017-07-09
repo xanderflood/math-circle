@@ -14,6 +14,8 @@ Make sure registration is possible
 GENERAL
 ----------
 
++ Explicitly declare webserver with a Procfile
+
 + Grade should be an integer
 
 + Add no-end-time checkbox to event form
