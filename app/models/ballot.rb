@@ -43,11 +43,9 @@ class Ballot < ApplicationRecord
     sections = preference_hash.values.map{ |p| p["section"].to_i }
 
     unless sections.all? { |s| EventGroup.find(s).course == course }
-      # binding.pry
       errors.add(:preferences, "must all be sections of the selected course")
     end
   rescue => e
-    # binding.pry
     errors.add(:preferences, "must all be sections of the selected course")
   end
 

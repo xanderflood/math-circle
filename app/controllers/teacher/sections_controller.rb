@@ -25,7 +25,6 @@ class Teacher::SectionsController < Teacher::BaseController
         format.html { redirect_to teacher_course_path(@section.course), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
-        binding.pry
         format.html { render :new }
         format.json { render json: @section.errors, status: :unprocessable_entity }
       end
