@@ -14,6 +14,8 @@ Make sure registration is possible
 GENERAL
 ----------
 
++ Let students un-register
+
 + Registration page for teachers requires approval
 
 + Explicitly declare webserver with a Procfile
