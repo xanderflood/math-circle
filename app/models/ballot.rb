@@ -17,10 +17,20 @@ class Ballot < ApplicationRecord
   validate :contiguous
   validate :unique_sections
   validate :sections_in_course
+  validate :non_empty
+  validate :peferences_format
 
   protected
   
   # validations
+  def peferences_format
+    # TODO: carefully validate the format of the object
+  end
+
+  def non_empty
+    errors.add("You must select at least onesection.") unless preferences.values.compact.count > 0
+  end
+
   def course_in_semester
     errors.add(:course, "is not from the current semester.") unless course.semester == semester
   end

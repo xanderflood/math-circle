@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     namespace :teacher do
       get '/', to: 'home#index', as: 'home'
 
-      resources :semesters
+      resources :semesters do
+        get  :lottery
+        post :lottery, to: 'semesters#commit_lottery'
+      end
 
       resources :special_events,              except: :index
 

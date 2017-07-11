@@ -1,6 +1,12 @@
 class Teacher::SemestersController < Teacher::BaseController
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
 
+  def lottery
+  end
+
+  def commit_lottery
+  end
+
   # GET /teacher/semesters
   # GET /teacher/semesters.json
   def index
