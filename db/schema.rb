@@ -53,11 +53,13 @@ ActiveRecord::Schema.define(version: 20170711233951) do
 
   create_table "event_groups", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "course_id"
     t.integer  "wday"
     t.time     "time"
+    t.text     "waitlist",   default: "[]"
+    t.text     "roster",     default: "[]"
     t.index ["course_id"], name: "index_event_groups_on_course_id", using: :btree
   end
 
