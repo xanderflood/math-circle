@@ -1,14 +1,38 @@
 class EventGroup < ApplicationRecord
   default_scope{ order(created_at: :desc)}
 
+  before_save :shift_waitlist
   after_save :populate_events
 
   has_many :events, foreign_key: :section_id
   belongs_to :course
 
-  # TODO: Add validations and code to create all the child events
+  serialize :roster
+  serialize :waitlist
+
+  validate :list_formats
+  validate :not_over_full
 
   enum wday: DayHelper::DAYS
+
+  # TODO: Add validations and code to create all the child events
+
+  def full?
+    roster.count == capacity
+  end
+
+  # TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
+  def add_student(student, force=false)
+    capacity += 1 if force && full
+
+    if full?
+      waitlist << student.id
+    else
+      roster   << student.id
+    end
+
+    # TODO: NOTIFY
+  end
 
   # TODO: This is weird, but Rails complains if the section isn't saved before the events
   def populate_events
@@ -22,6 +46,26 @@ class EventGroup < ApplicationRecord
         self.events.build(name: @name, when: occ.to_date, time: self.time).save!
       end
     end
+  end
+
+  def not_over_full
+    # TODO: should check a force flag somewhere/somehow
+    errors.add(:roster, "exceeds the capacity for this section") unless roster.count <= capacity
+  end
+
+  def list_formats
+    [[waitlist, :waitlist], [roster, :roster]].each do |l|
+      errors.add(l[1], "is not formatted properly.") unless
+        l[0].is_a? Array && l[0].all? { |s| s.is_a? Integer }
+    end
+  end
+
+  def shift_waitlist
+    shifted = []
+    shifted << waitlist.shift until full? || waitlist.empty?
+
+    roster += shifted
+    # TODO: NOTIFY shifted students
   end
 
   def time_str
