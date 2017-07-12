@@ -35,66 +35,49 @@ class Semester < ApplicationRecord
   def compute_lottery
     courses.each do |course|
       # gather the lists and limits
+      sections = Hash[course.sections.map { |s| [s.id, s] }]
+
+      # TODO: make sure this sorts in the right direction
       ballots = Ballot.where(semester: Semester.current, course: course).all.sort_by do |ballot|
         [ballot.student.priority, rand]
       end
 
-      students           = ballot.map(&:student).sort_by(&:priority)
-      capacities         = Hash[course.sections.map{ |section| [section.id, section.capacity] }]
-      ballots_by_student = Hash[ballots.map { |ballot| [ballot.student_id, ballot] }]
-
-      # keep track of enrollments
-      enrollees = Hash.new; enrollees.default = []
-      waitlist  = Hash.new; enrollees.default = []
-      wait_lens = Hash.new; enrollees.default = 0
-
-      enrolled_in_non_preferred_section = []
-      waitlisted                        = []
-
       ballots.each do |ballot|
-        in_order = ballot.preferences[ballot.student_id].map { |p,s| {p: p, s: s} }.sort_by(&:p).map(&:s)
+        # TODO: this belongs in the ballot model
+        # TODO: make sure this sorts in the right direction
+        in_order = ballot.preferences[ballot.student_id].map { |p,s| {p: p, s: s} }.sort_by(:p, :desc).map(&:s)
         first_choice = in_order.first
+
+        all_section_ids      = ballot.courses.sections.map &:id
+        unwanted_section_ids = all_section_ids - in_order
 
         enrolled = false
         until in_order.empty? do
           section_id = in_order.shift
 
-          next if capacity[section_id] == 0
+          # returns true if the section was already full
+          next if sections[section_id].add_student(ballot.student, :skip)
 
-          capacity[section_id]  -= 1
-          enrollees[section_id] << student_id
           enrolled               = true
           break
         end
 
-        next unless enrolled
+        next if enrolled
 
-        unless ballot.exclusive || in_order.empty?
-          # TODO: we wanat to do this even if in_order is empty, using the *other* sections 
-          section_id = in_order.select{ |s| capacities[s] > 0 }.sample
-
-          if section_id
-            capacity[section_id]  -= 1
-            enrollees[section_id] << student_id
-            enrolled               = true
-            break
-          end
+        # if there are no other sections to add them to
+        # OR if they request not to be added to any other sections, then
+        # just add them to the waitlist of their first choice
+        available         = unwanted_section_ids.select { |i| !sections[i].full? }
+        @no_sections_left = available.empty? # TODO: RESET this and USE IT
+        if ballot.exclusive? || @no_sections_left
+          # TODO: figure out how to explain the process to parents
+          #     in their notificaion emails
+          sections[first_choice].add_student(ballot.student)
+          return
         end
 
-]        if !enrolled
-          # TODO: waitlist
-          first_choice
-
-
-
-
-
-
-
-
-
-          
-        end
+        # for non-exclusive ballots, add to a random available section
+        sections[available.sample].add_student(ballot.student)
       end
     end
   end

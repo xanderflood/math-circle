@@ -5,15 +5,17 @@ TODO:
 UPNEXT
 ----------
 
-++ Add logic to the section class to handle enrollment and a waitlist
+------++ Add logic to the section class to handle enrollment and a waitlist
 ++++ stub out email notifications when the list moves
 
 + Roll call system
 
 + Change the students list so that its format depends on the state of the current
-  semester, with a section-switch list if the lottery has run already
+ s emester, with a section-switch list if the lottery has run already
 
 + Section/waitlist switching
+
++ REAL TESTS FOR THE LOTTERY CODE
 
 ----------
 cleanup
