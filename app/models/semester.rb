@@ -1,5 +1,5 @@
 class Semester < ApplicationRecord
-  default_scope { order(created_at: :desc) }
+  default_scope { order(start: :desc) }
   after_save :only_one_current_semester
 
   has_many :courses
