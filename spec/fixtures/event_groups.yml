@@ -4,39 +4,33 @@
 # this semseter is sunday-saturday, so
 # all sections should have 16 meetings
 As18su5:
-  name:
   course: As18
   wday: sunday
   # TODO: make sure this loads correctly
   time: 5:00 pm
 
 As18sa6:
-  name:
   course: As18
   wday: saturday
   time: 6:00 pm
 
 As18tu8:
-  name:
   course: As18
   wday: tuesday
   time: 8:00 pm
 
 ### sections of As17 ###
 As17sa5:
-  name:
   course: As17
   wday: saturday # 20 meetings
   time: 5:00 pm
 
 As17su6:
-  name:
   course: As17
   wday: sunday # 20 meetings
   time: 6:00 pm
 
 As17mo8:
-  name:
   course: As17
   wday: monday # 19 meetings
   time: 8:00 pm

@@ -70,7 +70,7 @@ class EventGroup < ApplicationRecord
     shifted = []
     shifted << waitlist.shift until full? || waitlist.empty?
 
-    roster += shifted
+    self.roster += shifted
     # TODO: NOTIFY shifted students
   end
 
