@@ -1,15 +1,17 @@
 class EventGroup < ApplicationRecord
   default_scope{ order(created_at: :desc)}
 
-  before_save :shift_waitlist
-  after_save :populate_events
-
   has_many :events, foreign_key: :section_id
   belongs_to :course
 
-  serialize :roster
   serialize :waitlist
+  serialize :roster
 
+  before_save  :shift_waitlist
+  after_create :populate_events
+
+  validates :wday, presence: { allow_blank: false, message: "must be specified"}
+  validates :time, presence: { allow_blank: false, message: "must be specified"}
   validate :list_formats
   validate :not_over_full
 
