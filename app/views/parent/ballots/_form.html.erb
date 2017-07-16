@@ -36,7 +36,7 @@
     <%= f.check_box :exclusive %>
   </div>
 
-  <%= f.fields_for :preferences, OpenStruct.new(ballot.preferences) do |pref_fields| %>
+  <%= f.fields_for :preferences_hash do |pref_fields| %>
     <% Semester.current_courses(ballot.student.grade).each do |course| %>
 
       <div class="field preferences-fields preferences-detach" data-course-id="<%= course.id %>">
@@ -56,7 +56,7 @@
               <tr>
                 <td><%= pref %></td>
                 <td>
-                  <%= pref_fields.select pref, options_for_select(course.sections.map { |section| [section.description, section.id] }, ballot.preferences[pref.to_s]), include_blank: true %>
+                  <%= pref_fields.select pref, options_for_select(course.sections.map { |section| [section.description, section.id] }, ballot.preferences_hash[pref.to_s]), include_blank: true %>
                 </td>
               </tr>
             <% end %>

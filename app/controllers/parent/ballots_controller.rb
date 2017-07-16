@@ -1,6 +1,9 @@
 class Parent::BallotsController < ApplicationController
   before_action :set_ballot, only: [:show, :edit, :update, :destroy]
 
+  rescue_from Ballot::NoCoursesError, with: :no_courses
+  rescue_from Ballot::NoGradeError, with: :no_grade
+
   # GET /ballots
   # def index
   #   @ballots = Ballot.all()
@@ -56,6 +59,14 @@ class Parent::BallotsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ballot_params
-      params.fetch(:ballot, {}).permit(:semester_id, :student_id, :course_id, :exclusive, preferences: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
+      params.fetch(:ballot, {}).permit(:semester_id, :student_id, :course_id, :exclusive, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
+    end
+
+    def no_courses
+      redirect_to :back, notice: 'No courses are currently scheduled for this grade level.'
+    end
+
+    def no_courses
+      redirect_to :back, notice: 'You must specify a grade level for this student before registering.'
     end
 end
