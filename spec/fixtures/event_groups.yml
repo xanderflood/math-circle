@@ -1,36 +1,43 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-### sections of As18 ###
-# this semseter is sunday-saturday, so
-# all sections should have 16 meetings
-As18su5:
-  course: As18
-  wday: sunday
-  # TODO: make sure this loads correctly
-  time: 5:00 pm
+# ALL of this has been removed because
+# building from fixtures sidesteps all
+# the rails callbacks, making them useless
+# for event_group. This is all being done
+# with FactoryGirl instead now, but I'm
+# keeping this here for reference
 
-As18sa6:
-  course: As18
-  wday: saturday
-  time: 6:00 pm
+# ### sections of As18 ###
+# # this semseter is sunday-saturday, so
+# # all sections should have 16 meetings
+# As18su5:
+#   course: As18
+#   wday: sunday
+#   # TODO: make sure this loads correctly
+#   time: 5:00 pm
 
-As18tu8:
-  course: As18
-  wday: tuesday
-  time: 8:00 pm
+# As18sa6:
+#   course: As18
+#   wday: saturday
+#   time: 6:00 pm
 
-### sections of As17 ###
-As17sa5:
-  course: As17
-  wday: saturday # 20 meetings
-  time: 5:00 pm
+# As18tu8:
+#   course: As18
+#   wday: tuesday
+#   time: 8:00 pm
 
-As17su6:
-  course: As17
-  wday: sunday # 20 meetings
-  time: 6:00 pm
+# ### sections of As17 ###
+# As17sa5:
+#   course: As17
+#   wday: saturday # 20 meetings
+#   time: 5:00 pm
 
-As17mo8:
-  course: As17
-  wday: monday # 19 meetings
-  time: 8:00 pm
+# As17su6:
+#   course: As17
+#   wday: sunday # 20 meetings
+#   time: 6:00 pm
+
+# As17mo8:
+#   course: As17
+#   wday: monday # 19 meetings
+#   time: 8:00 pm

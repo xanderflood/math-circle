@@ -25,3 +25,11 @@ Ds18:
   grade: D
   semester: spring_2018
   overview:
+
+# courses for spring 2017
+# just for testing number-of-meetings
+As17:
+  name:
+  grade: D
+  semester: spring_2017
+  overview:
