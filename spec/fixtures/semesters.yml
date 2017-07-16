@@ -3,7 +3,9 @@
 spring_2018:
   name: Spring 2018
   start: 2018-01-14
-  end: 2018-05-28
+  end: 2018-05-05
+  state: prereg
+  current: true
 
 spring_2017:
   name: Spring 2017

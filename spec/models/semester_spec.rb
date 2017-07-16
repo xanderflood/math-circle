@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Semester, type: :model do
   fixtures :semesters
+  fixtures :courses
+  fixtures :event_groups
 
   it 'should sort in reverse chronological order by start date' do
     prev_semester = nil
@@ -34,5 +36,11 @@ RSpec.describe Semester, type: :model do
     semester = Semester.new(name: 'le semestre', start: Date.today, end: Date.today + 1)
 
     expect(semester.save).to eq true
+  end
+
+  it 'should return the correct current_semester' do
+    expect(Semester.current.current).to eq true
+
+    expect(Semester.current.name).to eq "Spring 2018"
   end
 end

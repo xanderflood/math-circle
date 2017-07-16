@@ -1,11 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  grade: 1
-  semester: one
+# courses for spring 2018
+# (semester intended for testing pre-registration)
+As18:
+  name:
+  grade: A
+  semester: spring_2018
+  overview:
 
-two:
-  name: MyString
-  grade: 1
-  semester: two
+Bs18:
+  name:
+  grade: B
+  semester: spring_2018
+  overview:
+
+Cs18:
+  name:
+  grade: C
+  semester: spring_2018
+  overview:
+
+Ds18:
+  name:
+  grade: D
+  semester: spring_2018
+  overview:
