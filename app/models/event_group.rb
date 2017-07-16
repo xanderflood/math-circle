@@ -4,8 +4,8 @@ class EventGroup < ApplicationRecord
   has_many :events, foreign_key: :section_id
   belongs_to :course
 
-  serialize :waitlist
-  serialize :roster
+  serialize :waitlist, Array
+  serialize :roster,   Array
 
   before_save  :shift_waitlist
   after_create :populate_events
@@ -62,7 +62,7 @@ class EventGroup < ApplicationRecord
   def list_formats
     [[waitlist, :waitlist], [roster, :roster]].each do |l|
       errors.add(l[1], "is not formatted properly.") unless
-        l[0].is_a? Array && l[0].all? { |s| s.is_a? Integer }
+        l[0].all? { |s| s.is_a? Integer }
     end
   end
 
