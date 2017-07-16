@@ -29,6 +29,7 @@ class Semester < ApplicationRecord
   end
 
   def state_description
+    # TODO: does to_i work here, when `state` is a symbol ??
     Semester::STATE_DESCRIPTION[state.to_i]
   end
 
@@ -43,9 +44,7 @@ class Semester < ApplicationRecord
       end
 
       ballots.each do |ballot|
-        # TODO: this belongs in the ballot model
-        # TODO: make sure this sorts in the right direction
-        in_order = ballot.preferences[ballot.student_id].map { |p,s| {p: p, s: s} }.sort_by(:p, :desc).map(&:s)
+        in_order     = ballot.preferences.clone
         first_choice = in_order.first
 
         all_section_ids      = ballot.courses.sections.map &:id
