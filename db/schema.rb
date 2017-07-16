@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20170716202505) do
     t.integer "student_id"
     t.integer "semester_id"
     t.integer "course_id"
-    t.text    "preferences", default: "{}"
     t.boolean "exclusive"
+    t.text    "preferences"
     t.index ["course_id"], name: "index_ballots_on_course_id", using: :btree
     t.index ["semester_id"], name: "index_ballots_on_semester_id", using: :btree
     t.index ["student_id"], name: "index_ballots_on_student_id", using: :btree
