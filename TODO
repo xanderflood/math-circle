@@ -101,6 +101,8 @@ Eventual:
 TEACHER
 ----------
 
+Allow teachers to register an "excusd absence" *ahead* of time, and then have it automatically populate
+
 Make ballot_preferences into serialized JSON
 
 Models:
