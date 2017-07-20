@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "teacher/rollcalls/edit", type: :view do
   before(:each) do
-    @teacher_rollcall = assign(:teacher_rollcall, Rollcall.create!())
+    @teacher_rollcall = assign(:teacher_rollcall, FactoryGirl.create(:rollcall))
   end
 
   it "renders the edit teacher_rollcall form" do
