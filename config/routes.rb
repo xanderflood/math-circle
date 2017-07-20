@@ -27,8 +27,10 @@ Rails.application.routes.draw do
       resources :sections,                    except: :index
       resources :sections, as: :event_groups, except: :index
 
-      resources :events,                      except: :index
-      resources :rollcalls,                   except: :index
+      resources :events,                      except: :index do
+        get  ':id/rollcall', to: 'rollcall#edit'
+        post ':id/rollcall', to: 'rollcall#update'
+      end
     end
   end
 
