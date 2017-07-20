@@ -1,24 +1,15 @@
 class Parent::BallotsController < ApplicationController
-  before_action :set_ballot, only: [:show, :edit, :update, :destroy]
+  before_action :set_ballot,  only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:new]
 
   rescue_from Ballot::NoCoursesError, with: :no_courses
   rescue_from Ballot::NoGradeError, with: :no_grade
 
-  # GET /ballots
-  # def index
-  #   @ballots = Ballot.all()
-  # end
-
-  # GET /ballots/1
-  # def show
-  # end
-
   # GET /ballots/new
   def new
-    begin
-      @ballot   = Ballot.where(student_id: params[:student_id]).limit(1).first
-      @ballot ||= Ballot.new(semester: Semester.current, student_id: params[:student_id])
-    end
+    redirect_to :back, notice: 'You must specify a grade level for this student before registering.' if @student.unspecified?
+    @ballot   = Ballot.where(student_id: @student.id).limit(1).first
+    @ballot ||= Ballot.new(semester: Semester.current, student_id: @student.id)
   end
 
   # GET /ballots/1/edit
@@ -55,6 +46,10 @@ class Parent::BallotsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ballot
       @ballot = Ballot.find(params[:id])
+    end
+
+    def set_student
+      @student = Student.find(params[:student_id])
     end
 
     # Only allow a trusted parameter "white list" through.
