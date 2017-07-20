@@ -3,6 +3,7 @@ class Course < ApplicationRecord
 
   belongs_to :semester
   has_many :sections, class_name: "EventGroup"
+  has_many :ballots
 
   # TODO: unrequire "name" and replace with a "description" method
   validates :name, presence: { allow_blank: false, message: "must be provided." }

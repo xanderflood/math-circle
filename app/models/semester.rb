@@ -29,8 +29,7 @@ class Semester < ApplicationRecord
   end
 
   def state_description
-    # TODO: does to_i work here, when `state` is a symbol ??
-    Semester::STATE_DESCRIPTION[state.to_i]
+    Semester::STATE_DESCRIPTION[Semester.states[state.to_i]]
   end
 
   def compute_lottery
@@ -47,7 +46,7 @@ class Semester < ApplicationRecord
         in_order     = ballot.preferences.clone
         first_choice = in_order.first
 
-        all_section_ids      = ballot.courses.sections.map &:id
+        all_section_ids      = ballot.course.sections.map &:id
         unwanted_section_ids = all_section_ids - in_order
 
         enrolled = false
@@ -72,7 +71,7 @@ class Semester < ApplicationRecord
           # TODO: figure out how to explain the process to parents
           #     in their notificaion emails
           sections[first_choice].add_student(ballot.student)
-          return
+          next
         end
 
         # for non-exclusive ballots, add to a random available section

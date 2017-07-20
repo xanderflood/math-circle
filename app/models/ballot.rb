@@ -8,19 +8,18 @@ class Ballot < ApplicationRecord
   self::MAX_PREFERENCES = 10
 
   validates :student, uniqueness: { scope: :semester, message: "This student already has a ballot for this semester. To view it, go to your students list, and selct \"register\" beside this student's name." }
-  validate :student_has_grade
   validate :course_in_semester
   validate :semester_is_current
   validate :unique_sections
   validate :sections_in_course
   validate :non_empty
 
+  before_save :set_grade
+
   class NoCoursesError < StandardError; end
   class NoGradeError < StandardError; end
 
-  def initialize(attributes={})
-    super
-
+  def set_grade
     self.course ||= Semester.current_courses(student.grade).first
     raise NoCoursesError if self.course.nil?
 
