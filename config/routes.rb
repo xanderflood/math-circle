@@ -27,7 +27,8 @@ Rails.application.routes.draw do
       resources :sections,                    except: :index
       resources :sections, as: :event_groups, except: :index
 
-      resources :events, only: [ :new, :create, :show, :edit, :update, :destroy ]
+      resources :events,                      except: :index
+      resources :rollcalls,                   except: :index
     end
   end
 
