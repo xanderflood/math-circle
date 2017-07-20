@@ -8,7 +8,7 @@ FactoryGirl.define do
     # sections
     after(:create) do |course|
       # this will be used to sequence the other attributes
-      offset = Course.grades[course.grade]
+      offset = 1 + Course.grades[course.grade]
 
       create_list(:event_group, offset,
         course: course,

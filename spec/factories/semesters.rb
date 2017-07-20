@@ -8,13 +8,18 @@ FactoryGirl.define do
     trait(:for_lottery) do
       current true
 
-      # courses
       after(:create) do |semester|
-        create_list(:course_with_ballots, 4,
-          semester: semester)
+        create_list(:course_with_ballots, 4, semester: semester)
       end
     end
 
-    factory :semester_for_lotto, traits: [:for_lottery]
+    trait(:courses) do
+      after(:create) do |semester|
+        create_list(:course, 4, semester: semester)
+      end
+    end
+
+    factory :semester_for_lottery, traits: [:for_lottery]
+    factory :semester_With_courses, traits: [:courses]
   end
 end
