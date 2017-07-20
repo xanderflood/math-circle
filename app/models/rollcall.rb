@@ -1,7 +1,11 @@
 class Rollcall < ApplicationRecord
   belongs_to :event
 
-  before_create :set_date_to_today
+  after_initialize :set_date_to_today
+
+  def self.for_event_id id
+    Rollcall.where(event_id: id).first || Rollcall.new(event_id: id)
+  end
 
   def enrollees
     Student.find event.event_group.roster

@@ -26,6 +26,7 @@ class EventGroup < ApplicationRecord
   # TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
   # mode is one of normal, force (bump capacity if full) and skip (return true if full)
   def add_student(student, mode=nil)
+    # binding.pry
     if full?
       return false  if mode == :skip
       capacity += 1 if mode == :force
@@ -36,6 +37,7 @@ class EventGroup < ApplicationRecord
     else
       roster   << student.id
     end
+    return true
 
     # TODO: NOTIFY
   end

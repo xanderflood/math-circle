@@ -35,57 +35,63 @@ class Semester < ApplicationRecord
   def compute_lottery
     courses.each do |course|
       # gather the lists and limits
-      sections = Hash[course.sections.map { |s| [s.id, s] }]
+      @sections = Hash[course.sections.map { |s| [s.id, s] }]
 
       # TODO: make sure this sorts in the right direction
-      ballots = Ballot.where(semester: Semester.current, course: course).all.sort_by do |ballot|
-        [ballot.student.priority, rand]
+      ballots = course.ballots.all.sort_by do |ballot|
+        [-ballot.student.priority, rand]
       end
 
+      # binding.pry
       ballots.each do |ballot|
-        in_order     = ballot.preferences.clone
-        first_choice = in_order.first
-
-        all_section_ids      = ballot.course.sections.map &:id
-        unwanted_section_ids = all_section_ids - in_order
-
-        enrolled = false
-        until in_order.empty? do
-          section_id = in_order.shift
-
-          # returns true if the section was already full
-          next if sections[section_id].add_student(ballot.student, :skip)
-
-          enrolled               = true
-          break
-        end
-
-        next if enrolled
-
-        # if there are no other sections to add them to
-        # OR if they request not to be added to any other sections, then
-        # just add them to the waitlist of their first choice
-        available         = unwanted_section_ids.select { |i| !sections[i].full? }
-        @no_sections_left = available.empty? # TODO: RESET this and USE IT
-        if ballot.exclusive? || @no_sections_left
-          # TODO: figure out how to explain the process to parents
-          #     in their notificaion emails
-          sections[first_choice].add_student(ballot.student)
-          next
-        end
-
-        # for non-exclusive ballots, add to a random available section
-        sections[available.sample].add_student(ballot.student)
+        lottery_for_student(ballot)
       end
     end
   end
 
   protected
-  def only_one_current_semester
-    Semester.where(current: true).where('id != ?', id).update_all(current: false) if current
-  end
+    def lottery_for_student(ballot)
+      in_order     = ballot.preferences.clone
+      first_choice = in_order.first
 
-  def end_after_start
-    errors.add(:end, 'must be later than the start date.') if self.end <= self.start
-  end
+      all_section_ids      = ballot.course.sections.map &:id
+      unwanted_section_ids = all_section_ids - in_order
+
+      enrolled = false
+      until in_order.empty? do
+        section_id = in_order.shift
+
+        # returns true if the section was already full
+        # this is nexting the inner loop :\
+        return if @sections[section_id].add_student(ballot.student, :skip)
+
+        enrolled = true
+        break
+      end
+
+      return if enrolled
+
+      # if there are no other sections to add them to
+      # OR if they request not to be added to any other sections, then
+      # just add them to the waitlist of their first choice
+      available         = unwanted_section_ids.select { |i| !@sections[i].full? }
+      @no_sections_left = available.empty? # TODO: RESET this and USE IT
+      if ballot.exclusive? || @no_sections_left
+        # TODO: figure out how to explain the process to parents
+        #     in their notificaion emails
+        @sections[first_choice].add_student(ballot.student)
+        return
+      end
+
+      # for non-exclusive ballots, add to a random available section
+      @sections[available.sample].add_student(ballot.student)
+    end
+
+    def only_one_current_semester
+      Semester.where(current: true).where('id != ?', id).update_all(current: false) if current
+    end
+
+    def end_after_start
+      errors.add(:end, 'must be later than the start date.') if self.end <= self.start
+    end
 end
