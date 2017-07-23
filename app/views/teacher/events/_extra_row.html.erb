@@ -1,7 +1,7 @@
 <tr class="attendance-row">
   <td>
     <!-- TODO: default to provided values if available -->
-    <% select_tag "", options: { include_blank: true, collection: Students }, html_options: { class: "status-select no-submit" } %>
+    <% select_tag "", options: { include_blank: true, collection: Students }, html_options: { class: "student-id no-submit" } %>
   </td>
   <td>
     <% select_tag "", options: { collection: AttendanceHelper::STATES }, html_options: { class: "status-select no-submit" } %>

@@ -3,6 +3,14 @@ class Event < ApplicationRecord
 
   belongs_to :section, class_name: "EventGroup"
 
+  def rollcall
+    Rollcall.where(event_id: self.id).first || Rollcall.new(event: self)
+  end
+
+  def rollcall_or_nil
+    Rollcall.where(event_id: self.id).first
+  end
+
   def date_str
     I18n.l self[:when]
   end

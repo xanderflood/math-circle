@@ -1,0 +1,46 @@
+<% if rollcall.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(rollcall.errors.count, "error") %> prohibited this rollcall from being saved:</h2>
+
+    <ul>
+    <% rollcall.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<table class="rollcall-table">
+  <thead>
+    <tr>
+      <td>Student</td>
+      <td>Status</td>
+    </tr>
+  </thead>
+  <tbody class="enrollees">
+    <% rollcall.enrollees.each do |student| %>
+      <%= render partial: 'enrolled_row', locals: { student: student } %>
+    <% end %>
+  </tbody>
+
+  <!--<tbody class="extras">
+    <% #if rollcall.extras.any? %>
+      <% #rollcall.extras.each do |student_id| %>
+        <% #render partial: 'extra_row', locals: { student: student } %>
+      <% #end %>
+    <% #else %>
+      <% #render partial: 'extra_row',   locals: { student: nil } %>
+    <% #end %>
+  </tbody>-->
+</table>
+
+<div class='attendance-form'>
+  <%= form_for [:teacher, :event, rollcall] do |f| %>
+    <!-- <input type="hidden" class="attendance-input" /> -->
+    <%= f.hidden_field :attendance, class: "attendance-input" %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

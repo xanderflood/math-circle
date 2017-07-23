@@ -1,9 +1,0 @@
-<tr>
-  <td>
-    <% label_tag student.name %>
-    <% hidden_tag "", student.id, class: "student-select no-submit" %>
-  </td>
-  <td>
-    <% select_tag "", options: { collection: AttendanceHelper::STATES }, html_options: { class: "status-select no-submit" } %>
-  </td>
-</tr>

@@ -25,21 +25,19 @@ class EventGroup < ApplicationRecord
 
   # TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
   # mode is one of normal, force (bump capacity if full) and skip (return true if full)
-  def add_student(student, mode=nil)
-    # binding.pry
-    if full?
-      return false  if mode == :skip
-      capacity += 1 if mode == :force
+  def add_student(student_id, force=false)
+    if force
+      capacity += 1 if full?
+      roster << student_id
+      # TODO: NOTIFY
+      return true
     end
 
-    if full?
-      waitlist << student.id
-    else
-      roster   << student.id
-    end
-    return true
+    return false if full?
 
+    roster   << student_id
     # TODO: NOTIFY
+    return true
   end
 
   # TODO: This is weird, but Rails complains if the section isn't saved before the events

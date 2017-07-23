@@ -1,5 +1,5 @@
 class Teacher::SectionsController < Teacher::BaseController
-  before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :set_section, except: [:new, :create, :index]
 
   # GET /teacher/events/1
   # GET /teacher/events/1.json
