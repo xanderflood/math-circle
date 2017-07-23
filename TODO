@@ -29,6 +29,8 @@ and find out what it means for me
 cleanup
 ----------
 
+Add a link for force-adding a student
+
 + Make sure that changing a student's grade level clears their open ballot
 
 + Give course and semester a "description"-type method that will use the name if present (& nonempty) but otherwise the grade, starting month, etc, to identify it, making names fully optional

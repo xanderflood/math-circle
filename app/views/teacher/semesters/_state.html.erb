@@ -1,0 +1,9 @@
+<h4>Currently <%= semester.state_description %></h4>
+
+<% case semester.state
+   when 'reg' %>
+   <%= link_to "Preview course lottery", teacher_semester_lottery_path(semester) %>
+<% when 'late_reg' %>
+<% when 'archived' %>
+<% end %>
+

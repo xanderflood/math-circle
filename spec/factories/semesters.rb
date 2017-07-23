@@ -3,7 +3,7 @@ FactoryGirl.define do
     name "Spring 2017"
     start "2017-01-12"
     self.end "2017-05-30"
-    state :prereg
+    state :reg
 
     trait(:for_lottery) do
       current true

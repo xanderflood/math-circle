@@ -1,10 +1,35 @@
 class Teacher::SemestersController < Teacher::BaseController
-  before_action :set_semester, only: [:show, :edit, :update, :destroy]
+  before_action :set_semester, except: [:new, :create, :index]
 
   def lottery
+    begin
+      @lottery = Lottery.new(semester: @semester)
+      @lottery.run_lottery
+    rescue => e
+      lottery_failed!(e)
+      return
+    end
+
+    unless @lottery.save
+      lottery_failed!
+      return
+    end
+
+    # otherwise, render the lottery view
   end
 
   def commit_lottery
+    @lottery = Lottery.find(params[:lottery_id])
+
+    case @lottery.commit
+    when :some_errors
+      redirect_to teacher_semester_path(@semester), notice: "Some records could not be saved properly. Information on this error has been logged."
+    when true
+      redirect_to teacher_semester_path(@semester), notice: "Lottery results successfully saved!"
+    when false
+      flash.now[:alert] = "Failed to save lottery results, please try again."
+      render :lottery
+    end
   end
 
   # GET /teacher/semesters
@@ -32,7 +57,7 @@ class Teacher::SemestersController < Teacher::BaseController
 
     respond_to do |format|
       if @semester.save
-        format.html { redirect_to teacher_semesters_path, notice: 'Semester was successfully created.' }
+        format.html { redirect_to teacher_semesters_path, alert: 'Semester was successfully created.' }
         format.json { render :show, status: :created, location: @semester }
       else
         format.html { render :new }
@@ -60,15 +85,21 @@ class Teacher::SemestersController < Teacher::BaseController
   def destroy
     @semester.destroy
     respond_to do |format|
-      format.html { redirect_to teacher_semesters_url, notice: 'Semester was successfully destroyed.' }
+      format.html { redirect_to teacher_semesters_url, error: 'Semester was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    def lottery_failed!(e=nil)
+      LotterError.save!(e)
+
+      redirect_to :back, notice: "We're sorry, something went wrong and we were unable to complete the lottery."
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_semester
-      @semester = Semester.find(params[:id])
+      @semester = Semester.find(params[:semester_id] || params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

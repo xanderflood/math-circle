@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170716234042) do
+ActiveRecord::Schema.define(version: 20170721231505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170716234042) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "overview"
+    t.text     "waitlist"
     t.index ["semester_id"], name: "index_courses_on_semester_id", using: :btree
   end
 
@@ -72,6 +73,22 @@ ActiveRecord::Schema.define(version: 20170716234042) do
     t.date     "when",       default: '2017-06-30'
     t.time     "time",       default: '2000-01-01 01:24:03'
     t.index ["section_id"], name: "index_events_on_section_id", using: :btree
+  end
+
+  create_table "lotteries", force: :cascade do |t|
+    t.integer  "semester_id"
+    t.text     "contents"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["semester_id"], name: "index_lotteries_on_semester_id", using: :btree
+  end
+
+  create_table "lottery_errors", force: :cascade do |t|
+    t.datetime "timestamp"
+    t.text     "message"
+    t.text     "backtrace"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "parent_profiles", force: :cascade do |t|
@@ -102,15 +119,6 @@ ActiveRecord::Schema.define(version: 20170716234042) do
     t.index ["email"], name: "index_parents_on_email", unique: true, using: :btree
     t.index ["parent_profile_id"], name: "index_parents_on_parent_profile_id", using: :btree
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true, using: :btree
-  end
-
-  create_table "rollcalls", force: :cascade do |t|
-    t.integer  "event_id"
-    t.text     "attendance"
-    t.date     "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_rollcalls_on_event_id", using: :btree
   end
 
   create_table "semesters", force: :cascade do |t|
@@ -166,5 +174,5 @@ ActiveRecord::Schema.define(version: 20170716234042) do
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "rollcalls", "events"
+  add_foreign_key "lotteries", "semesters"
 end

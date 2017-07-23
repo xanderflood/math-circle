@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <h1>Semester: <%= @semester.name %></h1>
 <h4><%= I18n.l @semester.start %> to <%= I18n.l @semester.end %></h4>
-<h4>Currently <%= @semester.state_description %></h4>
+
+<%= render partial: 'state', locals: { semester: @semester } %>
 
 <p>
   <% if @semester.current %>

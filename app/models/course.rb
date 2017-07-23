@@ -5,9 +5,18 @@ class Course < ApplicationRecord
   has_many :sections, class_name: "EventGroup"
   has_many :ballots
 
+  serialize :waitlist, Array
+
   # TODO: unrequire "name" and replace with a "description" method
-  validates :name, presence: { allow_blank: false, message: "must be provided." }
   validates :grade, presence: { allow_blank: false, message: "must be specified." }
 
   enum grade: GradesHelper::GRADES
+
+  def description
+    if name
+      "#{name} (grade #{grade})"
+    else
+      "grade #{grade}"
+    end
+  end
 end
