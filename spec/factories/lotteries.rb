@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :lottery do
-    semester nil
-    contents "MyText"
+    semester { FactoryGirl.create(:semester_for_lottery) }
+    contents { }
   end
 end
