@@ -121,6 +121,15 @@ ActiveRecord::Schema.define(version: 20170721231505) do
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "rollcalls", force: :cascade do |t|
+    t.integer  "event_id"
+    t.text     "attendance", default: "{}"
+    t.date     "date"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["event_id"], name: "index_rollcalls_on_event_id", using: :btree
+  end
+
   create_table "semesters", force: :cascade do |t|
     t.string   "name"
     t.date     "start"
@@ -175,4 +184,5 @@ ActiveRecord::Schema.define(version: 20170721231505) do
   end
 
   add_foreign_key "lotteries", "semesters"
+  add_foreign_key "rollcalls", "events"
 end
