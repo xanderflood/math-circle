@@ -34,7 +34,7 @@ class Semester < ApplicationRecord
 
   protected
     def only_one_current_semester
-      Semester.where(current: true).where('id != ?', id).update_all(current: false) if current
+      Semester.where('id != ?', id).update_all(current: false) if current
     end
 
     def end_after_start

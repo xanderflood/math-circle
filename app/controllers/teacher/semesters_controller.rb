@@ -4,7 +4,7 @@ class Teacher::SemestersController < Teacher::BaseController
   def lottery
     begin
       @lottery = Lottery.new(semester: @semester)
-      @lottery.run_lottery
+      @lottery.run
     rescue => e
       lottery_failed!(e)
       return

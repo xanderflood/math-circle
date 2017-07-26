@@ -80,6 +80,6 @@ class Teacher::EventsController < ApplicationController
     end
 
     def set_rollcall
-      @rollcall = @event.rollcall
+      @rollcall = @event.rollcall_or_new
     end
 end

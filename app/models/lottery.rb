@@ -1,6 +1,7 @@
 class Lottery < ApplicationRecord
   belongs_to :semester
 
+  after_initialize :set_course_rosters
   before_save :populate_contents
   serialize :contents, Hash
 
@@ -68,7 +69,7 @@ class Lottery < ApplicationRecord
 
   #### class logic
 
-  def run_lottery
+  def run
     @course_rosters = self.semester.courses.map do |course|
       CourseRoster.new(course)
     end
@@ -92,9 +93,9 @@ class Lottery < ApplicationRecord
 
     section_updates = section_updates.to_h
 
-    self.semester.update!(state: :late_reg)
-    courses  = Course.update(course_updates.keys,   course_updates.values)
+    courses  = Course.update(course_updates.keys, course_updates.values)
     sections = EventGroup.update(section_updates.keys, section_updates.values)
+    self.semester.update!(state: :late_reg)
 
     errored_courses  = courses.select   { |c| c.errors.count != 0 }
     errored_sections = sections.select { |s| s.errors.count != 0 }
@@ -112,4 +113,9 @@ class Lottery < ApplicationRecord
     LotteryError.save!(e)
     return false
   end
+
+  protected
+    def set_course_rosters
+      @course_rosters ||= []
+    end
 end

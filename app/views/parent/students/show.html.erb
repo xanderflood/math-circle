@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+Total attendance this semester: <%= @student.attendance_count %> out of <%= @student.section.rollcalls.count %>
+
 <%= link_to 'Edit', edit_parent_student_path(@student) %> |
 <%= link_to 'Back', parent_students_path %>

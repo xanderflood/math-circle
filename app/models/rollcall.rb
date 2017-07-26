@@ -20,10 +20,11 @@ class Rollcall < ApplicationRecord
     end.to_h
   end
 
-  # def extras
-  # end
+  def extras
+    attendance_hash.select { |k,v| v == AttendanceHelper }
+  end
 
-  def counts_for?(student_id)
+  def present_ish?(student_id)
     AttendanceHelper.okay.map(&:id).include? attendance_hash[student_id].to_i
   end
 

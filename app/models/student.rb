@@ -5,10 +5,12 @@ class Student < ApplicationRecord
 
   enum grade: GradesHelper::GRADES
 
-  def attendance_count(semester=Semester.current)
-    section = semester.sections.all.find { |section| section.roster.include?(id) }
+  def section
+    @section ||= semester.sections.all.find { |section| section.roster.include?(id) }
+  end
 
-    section.events.map(&:rollcall_or_nil).compact.count { |rc| rc.counts_for?(self.id) }
+  def attendance_count(semester=Semester.current)
+    section.events.map(&:rollcall).compact.count { |rc| rc.present_ih?(self.id) }
   end
 
   def ballot

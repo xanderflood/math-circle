@@ -78,6 +78,10 @@ class EventGroup < ApplicationRecord
     I18n.l self[:time]
   end
 
+  def rollcalls
+    events.map(&:rollcall).compact
+  end
+
   def description
     if name.nil? || name.empty?
       "#{wday} @ #{time_str}"

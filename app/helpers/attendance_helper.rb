@@ -1,16 +1,17 @@
 module AttendanceHelper
   STATES = [:present, :absent, :excused, :unexpected]
-
-  def self.expected
-    @@expected ||= self.to_struct_list(STATES - [:unexpected])
-  end
-
-  def self.okay
-    @@okay ||= self.to_struct_list([:present, :excused])
-  end
+  IDS    = STATES.map.with_index.to_h.freeze
 
   def self.unexpected
-    @@unexpected ||= self.to_struct_list(STATES - [:present, :absent])
+    @@unexpected ||= self.to_struct_list([:unexpected])
+  end
+
+  def self.expected
+    @@expected   ||= self.to_struct_list(STATES - [:unexpected])
+  end
+
+  def self.present_ish
+    @@okay       ||= self.to_struct_list([:present, :excused])
   end
 
   protected
