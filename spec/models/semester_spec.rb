@@ -39,8 +39,7 @@ RSpec.describe Semester, type: :model do
   end
 
   it 'should return the correct current_semester' do
-    expect(Semester.current.current).to eq true
-
-    expect(Semester.current.name).to eq "Spring 2017"
+    expect(Semester.current.current).to be true
+    expect(Semester.where(current: true).count).to eq 1
   end
 end

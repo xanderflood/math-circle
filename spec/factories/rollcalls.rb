@@ -3,7 +3,7 @@ FactoryGirl.define do
     date Date.today
 
     event do 
-      semester = create(:semester_With_courses)
+      semester = create(:semester_with_courses)
 
       semester.courses.first
         .sections.first
