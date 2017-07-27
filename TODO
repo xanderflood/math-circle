@@ -29,6 +29,8 @@ and find out what it means for me
 cleanup
 ----------
 
+Remove "exclusive" from ballotsd
+
 Add a link for force-adding a student
 
 + Make sure that changing a student's grade level clears their open ballot
