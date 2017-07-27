@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/robhurring/address-validator.git
-  revision: 6d3cae93c1cfe2fa9d01a48c271f6349726727df
-  specs:
-    address_validator (0.2.0)
-      builder (>= 3.0.4)
-      httparty (>= 0.11.0)
-
-GIT
   remote: https://github.com/twbs/bootstrap-rubygem
   revision: 7cdeca9a0e8db3bb7548d9fa5bdaad9b644fca32
   specs:
@@ -89,10 +81,9 @@ GEM
     ffi (1.9.18)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
+    geocoder (1.4.4)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    httparty (0.15.5)
-      multi_xml (>= 0.5.2)
     i18n (0.8.1)
     ice_cube (0.16.1)
     jquery-rails (4.3.1)
@@ -106,13 +97,14 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.5)
       mime-types (>= 1.16, < 4)
+    mainstreet (0.1.0)
+      geocoder
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.2)
-    multi_xml (0.6.0)
     nio4r (2.0.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
@@ -217,7 +209,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_record_query_trace
-  address_validator!
   bootstrap!
   byebug
   coffee-rails
@@ -227,6 +218,7 @@ DEPENDENCIES
   ice_cube
   jquery-rails
   listen (~> 3.0.5)
+  mainstreet
   pg
   phonelib
   pry

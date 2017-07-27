@@ -25,7 +25,7 @@ gem 'font-awesome-rails'
 gem 'devise'
 gem 'ice_cube'
 gem 'phonelib'
-gem 'address_validator', github: 'robhurring/address-validator'
+gem 'mainstreet'#, github: 'robhurring/address-validator'
 
 # Maybes
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
