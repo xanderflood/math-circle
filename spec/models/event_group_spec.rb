@@ -178,5 +178,15 @@ RSpec.describe EventGroup, type: :model do
     expect(section.events.count).to eq 19
   end
 
-  it 'should require the waitlist and roster to contain valid student ids'
+  it 'should require the waitlist and roster to contain valid student ids' do
+    student = create(:student)
+    id      = student.id
+    student.delete
+
+    section = EventGroup.create(
+      course: courses(:As18), # grabbed from fixtures
+      wday: :sunday,
+      roster: [id])
+    expect(section.save).to be false
+  end
 end

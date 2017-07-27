@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Rollcall, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
-
   it "should produce correct hashes from JSON attendance" do
     example_in = [
       { "1" => "0", "4" => "0", "72" => "0", "31" => "0", "9" => "0" },
@@ -18,7 +16,7 @@ RSpec.describe Rollcall, type: :model do
 
     example = example_in.zip(example_out)
 
-    semester = FactoryGirl.create(:semester_With_courses)
+    semester = FactoryGirl.create(:semester_with_courses)
     event = semester.courses.first.sections.first.events.first
     example.each do |k,v|
       rollcall = Rollcall.new(attendance: k)

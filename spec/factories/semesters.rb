@@ -20,6 +20,6 @@ FactoryGirl.define do
     end
 
     factory :semester_for_lottery, traits: [:for_lottery]
-    factory :semester_With_courses, traits: [:courses]
+    factory :semester_with_courses, traits: [:courses]
   end
 end
