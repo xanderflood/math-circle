@@ -2,75 +2,75 @@ TODO:
 -----
 
 ----------
-UPNEXT
+Requirements
 ----------
 
-+ Read up on this "DEPRECATION WARNING: Time columns will become time zone aware in Rails 5.1. This
-still causes `String`s to be parsed as if they were in `Time.zone`,"
-and find out what it means for me
++ parent info
++ birthday, accomodations, (grade)
 
-+ Do event_groups populate their events after *every* save?
-    Make sure this doesn't happen on update
++ student/parent/teacher mutual views
 
-------++ Add logic to the section class to handle enrollment and a waitlist
-++++ stub out email notifications when the list moves
++ thumbnail
++ waiver
 
-+ Roll call system
++ reminders
++ email list
 
-+ Change the students list so that its format depends on the state of the current
- semester, with a section-switch list if the lottery has run already
++ course and special event catalog for parents
 
-+ Section/waitlist switching
++ swaps
++ force add students
++ Late registration
 
-+ Specs for everything, including:
-+ REAL TESTS FOR THE LOTTERY CODE
++ Fix all versions
 
 ----------
 cleanup
 ----------
 
-Remove "exclusive" from ballotsd
++ Make sure registration is possible
 
-Add a link for force-adding a student
++ Let students un-register
+
++ Chec for -_save's that should be -_create's
+
++ Make sure students can't be deleted
+
++ stub out email notifications when the list moves
+  + How to schedule them before an event?
+  + Send them WHENEVER something is rescheduled
+
++ Change the students list so that its format depends on the state of the current semester, with a section-switch list if the lottery has run already
+
++ Section/waitlist switching
+  + teacher and student should both have the optoin
+  + Add a link for force-adding a student
+
++ Thumbnails
 
 + Make sure that changing a student's grade level clears their open ballot
 
 + Give course and semester a "description"-type method that will use the name if present (& nonempty) but otherwise the grade, starting month, etc, to identify it, making names fully optional
 
-+ Mark all required form fields (not capacity for special events, for instance)
-+ Create corresponding validations
-
-Make sure registration is possible
-
 ----------
 GENERAL
 ----------
-
-+ Let students un-register
 
 + Registration page for teachers requires approval
 
 + Explicitly declare webserver with a Procfile
 
-+ Grade should be an integer
-
-+ Add no-end-time checkbox to event form
-
-+ Flesh out the teacher-side special event views
 + Add special event registration to the parent pages
 
 + Show current semester automatically on the homepage
-
-+ Figure out what to do with "grades"
-
-+ View sections scoped by semester
-
-+ Merge the special_event and event models, using a scope (so that events have an end time)
 
 + Flesh out the parent and student profiles
   Students:
   + Also create generic role-indifferent partials for students and contact info objects
   + View
+  Student_Profile (birthdays, accomodations, grade, waiver (info appears with rollcall too, separate student/parent emails), thumbnail)
+  Parent_Profile
+  Online waiver signature
 
 teacher_parents:
 + scaffold
@@ -81,49 +81,17 @@ Courses + Events calendar view
 
 View attendence record
 
-+ Calendar pickers
-
-+ Refactor model list displays so that, for instance, the courses index and the semester show page don't need to duplicate code
-
-Student_Profile (birthdays, accomodations, grade, waiver (info appears with rollcall too, separate student/parent emails), thumbnail)
-Parent_Profile
-
-Email notifications?
-+ How to schedule them before an event?
-+ Send them WHENEVER something is rescheduled
-
-Eventual:
-+ See trends in student data
-+ Online waiver signature
-
-+ How to auto-increment grades as appropriate?
-  + Should I just implore that parents do it manually?
-  + Or provide the teachers with an "increment all grades" action
-  + This should be an option when you update the current semester
 
 ----------
 TEACHER
 ----------
 
-Allow teachers to register an "excusd absence" *ahead* of time, and then have it automatically populate
-
-Make ballot_preferences into serialized JSON
-
-Models:
-+ Add a teacher to each section/meeting
-  + Also figure out whether that eacher is a model or just an enum
-+ Make decisions about names for all scheduling models, as well
-
 Semesters:
-+ Link to show page in index
-+ Show state in index
-+ List courses on show page
 + State-change links on show page
   - lottery/relottery
   - issue lottery notifications
 
 Courses:
-+ List sections
 + Transfer a student between sections (or to a different course?)
 
 Event_Groups:
@@ -131,9 +99,6 @@ Event_Groups:
 + View current enrolled_students
 + Take attendence
 + Email list (copy-pastable)
-rer
-Events:
-+ What *is* this, view-wise? Just a calendar?
 
 Students:
 + View
@@ -143,15 +108,11 @@ Students:
 PARENT
 ----------
 
-Courses + Events calendar view
-
 Browse courses for semester
 
 View attendence record
 
 Contact
-
-Late registration
 
 Swap sections, if space is available
 + Otherwise, with permission
