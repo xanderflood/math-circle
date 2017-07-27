@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727002920) do
+ActiveRecord::Schema.define(version: 20170727232957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.decimal  "latitude",            precision: 15, scale: 10
+    t.decimal  "longitude",           precision: 15, scale: 10
+    t.text     "verification_info"
+    t.text     "original_attributes"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
 
   create_table "ballots", force: :cascade do |t|
     t.integer "student_id"
@@ -30,14 +44,10 @@ ActiveRecord::Schema.define(version: 20170727002920) do
     t.integer  "parent_id"
     t.string   "email"
     t.string   "phone"
-    t.string   "street1"
-    t.string   "street2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
-    t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "address_id"
+    t.index ["address_id"], name: "index_contact_infos_on_address_id", using: :btree
     t.index ["parent_id"], name: "index_contact_infos_on_parent_id", using: :btree
   end
 
@@ -184,6 +194,7 @@ ActiveRecord::Schema.define(version: 20170727002920) do
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "contact_infos", "addresses"
   add_foreign_key "lotteries", "semesters"
   add_foreign_key "rollcalls", "events"
 end
