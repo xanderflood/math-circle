@@ -23,6 +23,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :capacity %>
+    <%= f.number_field_tag :capacity, min: 1, step: 1 %>
+  </div>
+
+  <div class="field">
     <%= f.label :grade %>
     <%= f.select :grade, collection: Course.grades.keys.to_a %>
   </div>
