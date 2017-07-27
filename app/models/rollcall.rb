@@ -20,8 +20,8 @@ class Rollcall < ApplicationRecord
     end.to_h
   end
 
-  def extras
-    attendance_hash.select { |k,v| v == AttendanceHelper }
+  def unexpected
+    attendance_hash.select { |k,v| v == AttendanceHelper.IDS[:unexpected] }.keys
   end
 
   def present_ish?(student_id)
