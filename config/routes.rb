@@ -37,15 +37,14 @@ Rails.application.routes.draw do
 
   authenticated :parent do
     namespace :parent do
-      get '/', to: 'home#index', as: 'home'
+      get '/',       to: 'home#index',   as: 'home'
+      get 'catalog', to: 'home#catalog', as: 'catalog'
 
       resources :students do
-        get 'catalog'
+        # TODO: get 'attendance'
 
         resources :ballots, except: [:edit, :show, :index]
       end
-
-      resources :events, only: [ :index, :show ]
     end
   end
 
