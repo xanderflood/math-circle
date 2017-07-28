@@ -3,6 +3,11 @@ class Student < ApplicationRecord
   belongs_to :parent
   has_many :ballots
 
+  belongs_to :emergency_contact,   class_name: ContactInfo
+  belongs_to :emergency_contact_2, class_name: ContactInfo
+
+  validates_format_of :email, with: Devise::email_regexp
+
   enum grade: GradesHelper::GRADES
 
   def section

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727232957) do
+ActiveRecord::Schema.define(version: 20170728000354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,13 +104,12 @@ ActiveRecord::Schema.define(version: 20170727232957) do
 
   create_table "parent_profiles", force: :cascade do |t|
     t.integer  "parent_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "primary_contact_id"
-    t.integer  "energency_contact_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.index ["energency_contact_id"], name: "index_parent_profiles_on_energency_contact_id", using: :btree
+    t.integer  "emergency_contact_id"
+    t.integer  "emergency_contact_2_id"
     t.index ["parent_id"], name: "index_parent_profiles_on_parent_id", using: :btree
-    t.index ["primary_contact_id"], name: "index_parent_profiles_on_primary_contact_id", using: :btree
   end
 
   create_table "parents", force: :cascade do |t|
@@ -166,14 +165,15 @@ ActiveRecord::Schema.define(version: 20170727232957) do
 
   create_table "students", force: :cascade do |t|
     t.string   "name"
-    t.integer  "contact_info_id"
     t.string   "accommodations"
     t.integer  "parent_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "grade"
     t.integer  "priority"
-    t.index ["contact_info_id"], name: "index_students_on_contact_info_id", using: :btree
+    t.string   "email"
+    t.integer  "emergency_contact_id"
+    t.integer  "emergency_contact_2_id"
     t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
 

@@ -5,4 +5,6 @@ class Parent < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :students
+
+  belongs_to :parent_profile
 end
