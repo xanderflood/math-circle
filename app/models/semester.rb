@@ -5,6 +5,7 @@ class Semester < ApplicationRecord
   has_many :courses
   has_many :sections, through: :courses
   has_many :special_events
+  has_many :ballots
 
   validates :name, presence: { allow_blank: false, message: "must be provided." }
   validate :end_after_start

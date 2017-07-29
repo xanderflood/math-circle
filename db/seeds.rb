@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Teacher.create(email: "me@emory.edu")
+
+parent = Parent.create(email: "me@emory.edu")
+# TODO: create some students
+
+FactoryGirl.create(:semester_for_lottery)

@@ -2,6 +2,7 @@
 
 <% @lottery.contents.each do |course_id, course_hash| %>
   <% course = Course.find(course_id) %>
+  <h3><%= course.name %></h3>
   <div class="panel panel-default">
     <div class="panel-heading"><%= course.description %></div>
     <div class="panel-body">

@@ -92,7 +92,7 @@ class Teacher::SemestersController < Teacher::BaseController
 
   private
     def lottery_failed!(e=nil)
-      LotterError.save!(e)
+      LotteryError.save!(e)
 
       redirect_to :back, notice: "We're sorry, something went wrong and we were unable to complete the lottery."
     end

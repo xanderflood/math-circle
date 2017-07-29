@@ -14,16 +14,19 @@ class Ballot < ApplicationRecord
   validate :sections_in_course
   validate :non_empty
 
-  before_save :set_grade
+  after_initialize :require_grade
+  after_initialize :set_course
 
   class NoCoursesError < StandardError; end
   class NoGradeError < StandardError; end
 
-  def set_grade
-    self.course ||= Semester.current_courses(student.grade).first
-    raise NoCoursesError if self.course.nil?
+  def require_grade
+    raise NoGradeError if self.student.grade == GradesHelper::UNSPECIFIED.to_s
+  end
 
-    raise NoGradeError if self.student.grade == GradesHelper::UNSPECIFIED
+  def set_course
+    self.course = self.courses.first
+    raise NoCoursesError if self.course.nil?
   end
 
   def padded_size
@@ -42,9 +45,13 @@ class Ballot < ApplicationRecord
 
   def preferences_hash=(hash)
     self.preferences = hash.to_a.
+      reject  { |obj| obj[1].empty? }.
       sort_by { |obj| obj[0].to_i }.
-      map     { |obj| obj[1].to_i }.
-      compact
+      map     { |obj| obj[1].to_i }
+  end
+
+  def courses
+    @courses ||= Semester.current_courses(self.student.grade)
   end
 
   protected

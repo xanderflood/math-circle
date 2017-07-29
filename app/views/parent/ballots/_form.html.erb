@@ -37,7 +37,7 @@
   </div>
 
   <%= f.fields_for :preferences_hash do |pref_fields| %>
-    <% Semester.current_courses(ballot.student.grade).each do |course| %>
+    <% ballot.courses.each do |course| %>
 
       <div class="field preferences-fields preferences-detach" data-course-id="<%= course.id %>">
         <%= pref_fields.label :preferences %>

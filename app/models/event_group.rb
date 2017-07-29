@@ -104,7 +104,7 @@ class EventGroup < ApplicationRecord
   def attendance_csv_data
     rollcall_list = rollcalls
 
-    students = rollcall_list.map(&:student_ids).inject([], :|).each
+    students = rollcall_list.map(&:student_ids).inject([], :|)
 
     header = ["Student", "Student ID", "Total"] +
               rollcall_list.map(&:event).map(&:when).map(&:to_s)

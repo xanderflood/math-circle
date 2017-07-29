@@ -1,6 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-Total attendance this semester: <%= @student.attendance_count %> out of <%= @student.section.rollcalls.count %>
+<% if @student.enrolled? %>
+  Currently enrolled in <%= @student.section.description %>.
+<% elsif @student.waitlisted? %>
+  Currently at waitlist position <%= @student.waitlist_position %> for <%=  %>. (Your student will only be ebrolled when an opening occurs in a section listed on your student's registration ballot.)
+<% elsif @student.registered? %>
+  Currently registered. Course assignments have not yet been made.
+<% else %>
+  Not currently registered. To register for students, return to your students page and click "register".
+<% end %>
+
+<br/> <br/>
+
+<% if @student.enrolled? %>
+  Total attendance this semester: <%= @student.attendance_count %> out of <%= @student.section.rollcalls.count %>
+<% end %>
 
 <%= link_to 'Edit', edit_parent_student_path(@student) %> |
 <%= link_to 'Back', parent_students_path %>
