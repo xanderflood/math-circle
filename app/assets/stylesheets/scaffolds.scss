@@ -103,7 +103,12 @@ label {
 }
 
 /* speed up collapse transition */
-.collapsing{
+.collapsing {
   -webkit-transition:height .01s ease;
     transition:height .01s ease
+}
+
+tr.catalog-course-row {
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #333;
 }
