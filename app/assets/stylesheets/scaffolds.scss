@@ -50,11 +50,19 @@ td, th {
   border-right: solid 1px; 
   border-left: solid 1px;
 }
+th {
+  border-bottom: solid 1px;
+}
 tr.bordered-row {
   border: solid 1px;
 }
 tr.heavy-bordered-row {
   border: solid 3px;
+}
+
+tbody.alternating {
+  tr:nth-child(odd) { background: #CCC }
+  tr:nth-child(even)  { background: #FFF }
 }
 
 div {
