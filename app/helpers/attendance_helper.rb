@@ -10,8 +10,9 @@ module AttendanceHelper
     @@expected   ||= self.to_struct_list(STATES - [:unexpected])
   end
 
+  PRESENT_ISH = [:present, :excused, :unexpected]
   def self.present_ish
-    @@okay       ||= self.to_struct_list([:present, :excused])
+    @@okay       ||= self.to_struct_list(PRESENT_ISH)
   end
 
   protected

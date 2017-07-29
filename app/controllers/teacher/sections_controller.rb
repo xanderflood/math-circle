@@ -1,6 +1,12 @@
 class Teacher::SectionsController < Teacher::BaseController
   before_action :set_section, except: [:new, :create, :index]
 
+  def attendance
+    send_data @section.attendance_csv_data,
+      filename: @section.attendance_file_name,
+      type: 'text/csv'
+  end
+
   # GET /teacher/events/1
   # GET /teacher/events/1.json
   def show
@@ -58,7 +64,7 @@ class Teacher::SectionsController < Teacher::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_section
-      @section = EventGroup.find(params[:id])
+      @section = EventGroup.find(params[:id] || params[:section_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

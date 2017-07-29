@@ -24,7 +24,11 @@ Rails.application.routes.draw do
 
       resources :courses,                     except: :index
 
-      resources :sections,                    except: :index
+      resources :sections,                    except: :index do
+        get 'attendance' # download the attendance record
+      end
+
+      # TODO: is this still in use?
       resources :sections, as: :event_groups, except: :index
 
       resources :events,                      except: :index do

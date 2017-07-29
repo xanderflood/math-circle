@@ -1,3 +1,5 @@
+require 'csv'
+
 class EventGroup < ApplicationRecord
   default_scope{ order(created_at: :desc)}
 
@@ -89,6 +91,39 @@ class EventGroup < ApplicationRecord
     else
       "#{name} - #{wday} @ #{time_str}"
     end
+  end
+
+  def attendance_file_name
+    if name.nil? || name.empty?
+      "#{wday}_#{time_str}.csv"
+    else
+      "#{name}_#{wday}_#{time_str}.csv"
+    end
+  end
+
+  def attendance_csv_data
+    rollcall_list = rollcalls
+
+    students = rollcall_list.map(&:student_ids).inject([], :|).each
+
+    header = ["Student", "Student ID", "Total"] +
+              rollcall_list.map(&:event).map(&:when).map(&:to_s)
+    output = CSV.generate_line(header)
+    students.each do |id|
+      student = Student.find(id)
+
+      record = rollcall_list.map do |rollcall|
+        val = rollcall.attendance_hash[id] || 1 #default to absent
+
+        AttendanceHelper::STATES[val]
+      end
+      total = record.count { |status| AttendanceHelper::PRESENT_ISH.include?(status) }
+
+      output << CSV.generate_line([student.name, id, total] + record)
+    end
+
+    binding.pry
+    output
   end
 
   def copy_course_capacity

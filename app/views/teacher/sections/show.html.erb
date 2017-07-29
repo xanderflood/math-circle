@@ -9,7 +9,11 @@
   <%= @section.course.semester.name %>
 </p>
 
-</br>
+<br/>
+
+<%= link_to 'Download attendance record', teacher_section_attendance_path(@section) %>
+
+<br/>
 
 <% if @section.events.any? %>
   <table>

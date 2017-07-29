@@ -13,6 +13,10 @@ class Rollcall < ApplicationRecord
     Student.find event.section.roster
   end
 
+  def student_ids
+    attendance_hash.keys
+  end
+
   def attendance_hash
     @attendance_hash ||= JSON.parse(attendance).map do |k,v|
       v = v.to_i unless v.nil?
@@ -25,7 +29,7 @@ class Rollcall < ApplicationRecord
   end
 
   def present_ish?(student_id)
-    AttendanceHelper.okay.map(&:id).include? attendance_hash[student_id].to_i
+    AttendanceHelper.present_ish.map(&:id).include? attendance_hash[student_id].to_i
   end
 
   private
