@@ -5,6 +5,14 @@ TODO:
 Requirements
 ----------
 
++ Unexpected students
+
++ If "current" is checked and it wasn't already, warn the user and then reset all grades
+++++ ONLY DO THIS if the semester wasn't already current
+++++ before_update ? 
+
++ Beside student name, add a checkmark if `registered?` and a class name if `enrolled?`
+
 + parent info
 + birthday, accomodations, (grade)
 
