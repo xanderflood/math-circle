@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory(:course) do
-    semester nil
-    name "MyString"
-    overview "MyText"
     sequence(:grade) { |n| n % Course.grades.count }
+
+    name "Level #{self.grade}"
+    overview "Super cool math funstuff for ages"\
+             "#{self.grade} through #{self.grade}"
 
     # sections
     after(:create) do |course|
