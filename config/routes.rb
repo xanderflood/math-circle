@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
       resources :students do
         # TODO: get 'attendance'
+        get 'catalog'
 
         resources :ballots, except: [:edit, :show, :index]
       end
