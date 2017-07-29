@@ -122,7 +122,6 @@ class EventGroup < ApplicationRecord
       output << CSV.generate_line([student.name, id, total] + record)
     end
 
-    binding.pry
     output
   end
 
