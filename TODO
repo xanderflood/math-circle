@@ -5,6 +5,8 @@ TODO:
 Requirements
 ----------
 
++ Will new students accidentally get default attendance credit when a rollcall i re-saved?
+
 + Unexpected students
 
 + If "current" is checked and it wasn't already, warn the user and then reset all grades
