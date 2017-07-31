@@ -179,7 +179,7 @@ RSpec.describe EventGroup, type: :model do
   end
 
   it 'should require the waitlist and roster to contain valid student ids' do
-    student = create(:student)
+    student = FactoryGirl.create(:student)
     id      = student.id
     student.delete
 

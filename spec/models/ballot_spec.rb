@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Ballot, type: :model do
   it 'should reject a ballot whose preferences are not of the appropriate format' do
     semester = FactoryGirl.create(:semester_with_courses, current: true)
-    student  = FactoryGirl.create(:student)
     course   = semester.courses.first
+    student  = FactoryGirl.create(:student, grade: course.grade)
 
     expect { Ballot.new(
         semester: semester,
