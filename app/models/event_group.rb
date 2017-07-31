@@ -104,22 +104,21 @@ class EventGroup < ApplicationRecord
   def attendance_csv_data
     rollcall_list = rollcalls
 
-    students = rollcall_list.map(&:student_ids).inject([], :|)
+    students = rollcall_list.map(&:student_ids).inject([], :|).
+                map { |i| Student.find(i) }.sort_by(&:sorting_name)
 
     header = ["Student", "Student ID", "Total"] +
               rollcall_list.map(&:event).map(&:when).map(&:to_s)
     output = CSV.generate_line(header)
-    students.each do |id|
-      student = Student.find(id)
-
+    students.each do |student|
       record = rollcall_list.map do |rollcall|
-        val = rollcall.attendance_hash[id] || 1 #default to absent
+        val = rollcall.attendance_hash[student.id] || 1 #default to absent
 
         AttendanceHelper::STATES[val]
       end
       total = record.count { |status| AttendanceHelper::PRESENT_ISH.include?(status) }
 
-      output << CSV.generate_line([student.name, id, total] + record)
+      output << CSV.generate_line([student.name, student.id, total] + record)
     end
 
     output

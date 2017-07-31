@@ -1,9 +1,0 @@
-<h2>
-  Grade <%= @student.grade %> courses for <%= Semester.current.name %> 
-</h2>
-
-<% if @courses.any? %>
-  <%= render partial: 'shared/course_list', locals: { courses: @courses } %>
-<% else %>
-  There are not currently any courses scheduled.
-<% end %>

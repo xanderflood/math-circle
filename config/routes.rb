@@ -32,10 +32,14 @@ Rails.application.routes.draw do
       resources :sections, as: :event_groups, except: :index
 
       resources :events,                      except: :index do
-        get  :rollcall
-        post  :rollcall, to: 'events#create_rollcall', as: 'rollcalls'
-        patch :rollcall, to: 'events#update_rollcall'
+        # get  :rollcall
+        # post  :rollcall, to: 'events#create_rollcall', as: 'rollcalls'
+        # patch :rollcall, to: 'events#update_rollcall'
+
+        resource :rollcall, only: :show
       end
+      
+      resources :rollcalls, only: [:create, :update]
     end
   end
 
@@ -45,9 +49,6 @@ Rails.application.routes.draw do
       get 'catalog', to: 'home#catalog', as: 'catalog'
 
       resources :students do
-        # TODO: get 'attendance'
-        get 'catalog'
-
         resources :ballots, except: [:edit, :show, :index]
       end
     end

@@ -11,10 +11,6 @@ class Parent::StudentsController < Parent::BaseController
   def show
   end
 
-  def catalog
-    @courses = Semester.current.courses.where(grade: @student.grade)
-  end
-
   # GET /students/new
   def new
     @student = Student.new(parent: current_parent)

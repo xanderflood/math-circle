@@ -6,9 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Teacher.create(email: "me@emory.edu")
+Teacher.create(email: "me@emory.edu", password: "password")
 
-parent = Parent.create(email: "me@emory.edu")
+parent = Parent.create(email: "me@emory.edu", password: "password")
+FactoryGirl.create(:student, parent: parent, grade: :A, name: "Bobby McNamara")
+FactoryGirl.create(:student, parent: parent, grade: :B, name: "Tramelgren Didion")
+FactoryGirl.create(:student, parent: parent, grade: :unspecified, name: "Big Lebowski")
 # TODO: create some students
 
 FactoryGirl.create(:semester_for_lottery)

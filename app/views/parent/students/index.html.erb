@@ -8,7 +8,7 @@
       <tr>
         <th colspan="1">name</th>
         <th colspan="1">grade</th>
-        <th colspan="5"></th>
+        <th colspan="4"></th>
       </tr>
     </thead>
 
@@ -17,7 +17,6 @@
         <tr data-student-id=<%= student.id %>>
           <td><%= student.name %></td>
           <td><%= student.grade %></td>
-          <td><%= link_to 'View Courses', parent_student_catalog_path(student) %></td>
           <td><%= link_to 'Register', new_parent_student_ballot_path(student) %></td>
           <td><%= link_to 'Show', parent_student_path(student) %></td>
           <td><%= link_to 'Edit', edit_parent_student_path(student) %></td>

@@ -19,11 +19,9 @@
   </thead>
   <tbody class="enrollees alternating">
     <% rollcall.enrollees.each do |student| %>
-      <%= render partial: 'enrolled_row', locals: { student: student } %>
+      <%= render partial: 'enrolled_row', locals: { rollcall: rollcall, student: student, status: rollcall.attendance_hash[student.id] } %>
     <% end %>
-  </tbody>
 
-  <!--<tbody class="extras">
     <% #if rollcall.extras.any? %>
       <% #rollcall.extras.each do |student_id| %>
         <% #render partial: 'extra_row', locals: { student: student } %>
@@ -31,13 +29,13 @@
     <% #else %>
       <% #render partial: 'extra_row',   locals: { student: nil } %>
     <% #end %>
-  </tbody>-->
+  </tbody>
 </table>
 
 <div class='attendance-form'>
-  <%= form_for [:teacher, :event, rollcall] do |f| %>
-    <!-- <input type="hidden" class="attendance-input" /> -->
+  <%= form_for [:teacher, rollcall] do |f| %>
     <%= f.hidden_field :attendance, class: "attendance-input" %>
+    <%= f.hidden_field :event_id, value: rollcall.event_id %>
 
     <div class="actions">
       <%= f.submit %>

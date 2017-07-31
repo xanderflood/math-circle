@@ -19,7 +19,7 @@
             <th>ID</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="alternating">
           <% roster.each do |student_id| %>
             <% student = Student.find(student_id) %>
             <tr>
@@ -46,7 +46,7 @@
           <td>Preference list</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="alternating">
         <% course_hash[:waitlist].each do |student_id| %>
           <% student = Student.find(student_id) %>
           <tr>
