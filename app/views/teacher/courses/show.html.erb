@@ -26,7 +26,7 @@ Overview:
       </tr>
     </thead>
 
-    <tbody>
+    <tbody class="alternating">
       <% @course.sections.each do |section| %>
         <tr>
           <td><%= link_to section.description, teacher_section_path(section) %></td>

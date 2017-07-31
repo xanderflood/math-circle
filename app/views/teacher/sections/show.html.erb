@@ -24,7 +24,7 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody class="alternating">
       <% @section.events.each do |event| %>
         <tr>
           <td><%= link_to event.description, teacher_event_path(event) %></td>

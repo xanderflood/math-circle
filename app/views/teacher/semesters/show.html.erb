@@ -31,7 +31,7 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody class="alternating">
       <% @semester.courses.each do |course| %>
         <tr>
           <td><%= link_to course.name, teacher_course_path(course) %></td>
