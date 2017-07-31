@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :semester do
-    sequence(:name) { |n| "Spring #{2017 + n}" }
-    sequence(:start) { |n| "#{2017 + n}-01-12" }
-    sequence(:end) { |n| "#{2017 + n}-05-30" }
+    name "Spring 2016"
+    start "2017-01-12"
+    self.end "2017-05-30"
     state :reg
 
     trait(:for_lottery) do

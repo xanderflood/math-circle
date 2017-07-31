@@ -20,7 +20,7 @@
   <table>
     <thead>
       <tr>
-        <th colspan="3">Courses</th>
+        <th colspan="6">Courses</th>
       </tr>
       <tr>
         <th colspan="1">Name</th>
@@ -31,7 +31,7 @@
       </tr>
     </thead>
 
-    <tbody class="alternating">
+    <tbody class="alternating`">
       <% @semester.courses.each do |course| %>
         <tr>
           <td><%= link_to course.name, teacher_course_path(course) %></td>
