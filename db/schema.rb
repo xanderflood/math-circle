@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20170729203617) do
     t.integer "student_id"
     t.integer "semester_id"
     t.integer "course_id"
-    t.boolean "exclusive"
     t.text    "preferences"
+    t.boolean "exclusive"
     t.index ["course_id"], name: "index_ballots_on_course_id", using: :btree
     t.index ["semester_id"], name: "index_ballots_on_semester_id", using: :btree
     t.index ["student_id"], name: "index_ballots_on_student_id", using: :btree
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20170729203617) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "section_id"
-    t.date     "when",       default: '2017-06-30'
-    t.time     "time",       default: '2000-01-01 01:24:03'
+    t.date     "when",       default: '2017-07-31'
+    t.time     "time",       default: '2000-01-01 14:50:46'
     t.index ["section_id"], name: "index_events_on_section_id", using: :btree
   end
 
@@ -194,7 +194,17 @@ ActiveRecord::Schema.define(version: 20170729203617) do
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "ballots", "courses"
+  add_foreign_key "ballots", "semesters"
+  add_foreign_key "ballots", "students"
   add_foreign_key "contact_infos", "addresses"
+  add_foreign_key "contact_infos", "parents"
+  add_foreign_key "courses", "semesters"
+  add_foreign_key "event_groups", "courses"
+  add_foreign_key "events", "event_groups", column: "section_id"
   add_foreign_key "lotteries", "semesters"
+  add_foreign_key "parent_profiles", "parents"
+  add_foreign_key "parents", "parent_profiles"
   add_foreign_key "rollcalls", "events"
+  add_foreign_key "students", "parents"
 end
