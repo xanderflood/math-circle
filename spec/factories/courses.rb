@@ -13,18 +13,16 @@ FactoryGirl.define do
 
       create_list(:event_group, offset,
         course: course,
-        capacity: 30 + 2*offset)
+        capacity: 4 + 2*offset)
     end
 
     trait(:ballots) do
       after(:create) do |course|
         # generate between cap-5 and 2cap students
         total_capacity = course.sections.map(&:capacity).inject(:+)
-        num_applicants = (total_capacity - 5) + rand(20)
+        num_applicants = (total_capacity - 1) + rand(3)
 
-        create_list(:ballot, num_applicants,
-          course: course,
-          semester: course.semester)
+        create_list(:ballot, num_applicants, course: course)
       end
     end
 

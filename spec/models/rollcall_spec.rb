@@ -19,7 +19,7 @@ RSpec.describe Rollcall, type: :model do
     semester = FactoryGirl.create(:semester_with_courses)
     event = semester.courses.first.sections.first.events.first
     example.each do |k,v|
-      rollcall = Rollcall.new(attendance: k)
+      rollcall = Rollcall.new(attendance: k, event: event)
 
       expect(rollcall.attendance_hash).to eq(v)
     end

@@ -6,7 +6,6 @@ FactoryGirl.define do
     end
 
     semester { |ballot| ballot.course.semester }
-    sequence(:exclusive) { |n| (n % 2) == 0 }
 
     preferences do |ballot|
       # TODO: don't use every section all the time

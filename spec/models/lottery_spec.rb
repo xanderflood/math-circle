@@ -10,7 +10,9 @@ RSpec.describe Lottery, type: :model do
     @lottery.save!
     @lottery.reload
 
-    @ballots = Ballot.where(semester: @lottery.semester).group_by(&:course_id)
+    @ballots = @lottery.semester.courses.collect do |course|
+      [course.id, course.ballots]
+    end.to_h
   end
 
   # TODO: should/could these be validations on Lottery?

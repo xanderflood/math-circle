@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170729203617) do
     t.datetime "updated_at",                                 null: false
     t.integer  "section_id"
     t.date     "when",       default: '2017-07-31'
-    t.time     "time",       default: '2000-01-01 14:50:46'
+    t.time     "time",       default: '2000-01-01 16:22:36'
     t.index ["section_id"], name: "index_events_on_section_id", using: :btree
   end
 
