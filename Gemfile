@@ -33,6 +33,7 @@ gem 'mainstreet'#, github: 'robhurring/address-validator'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 
+gem 'factory_girl_rails', '~> 4.8'
 gem 'active_record_query_trace'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -46,7 +47,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rspec-rails', '~> 3.5'
-  gem 'factory_girl_rails', '~> 4.8'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
