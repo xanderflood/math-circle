@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170729203617) do
+ActiveRecord::Schema.define(version: 20170801235218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,14 +41,12 @@ ActiveRecord::Schema.define(version: 20170729203617) do
   end
 
   create_table "contact_infos", force: :cascade do |t|
-    t.integer  "parent_id"
     t.string   "email"
     t.string   "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "address_id"
     t.index ["address_id"], name: "index_contact_infos_on_address_id", using: :btree
-    t.index ["parent_id"], name: "index_contact_infos_on_parent_id", using: :btree
   end
 
   create_table "courses", force: :cascade do |t|
@@ -198,7 +196,6 @@ ActiveRecord::Schema.define(version: 20170729203617) do
   add_foreign_key "ballots", "semesters"
   add_foreign_key "ballots", "students"
   add_foreign_key "contact_infos", "addresses"
-  add_foreign_key "contact_infos", "parents"
   add_foreign_key "courses", "semesters"
   add_foreign_key "event_groups", "courses"
   add_foreign_key "events", "event_groups", column: "section_id"

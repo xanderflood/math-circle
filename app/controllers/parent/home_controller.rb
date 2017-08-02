@@ -1,5 +1,8 @@
 class Parent::HomeController < Parent::BaseController
   def index
+    if current_parent.profile.nil?
+      redirect_to parent_profile_path
+    end
   end
 
   def catalog

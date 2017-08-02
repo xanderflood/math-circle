@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   concern :public_routes do
     get '/', to: 'public/home#index'
 
-    resources :courses, only: :show 
+    resources :courses, only: :show
 
     # put other public pages here
   end 
@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     namespace :parent do
       get '/',       to: 'home#index',   as: 'home'
       get 'catalog', to: 'home#catalog', as: 'catalog'
+
+      resource :profile, only: [:show, :create, :update]
 
       resources :students do
         resources :ballots, except: [:edit, :show, :index]

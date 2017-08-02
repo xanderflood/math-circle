@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<h1>Editing Parent Profile</h1>
+
+<%= render 'form', profile: @parent_profile %>
+
+<%= link_to 'Show', parent_profile_path(@parent_profile) %>
+<% if @parent_profile.persisted? %>
+  | <%= link_to 'Back', parent_home_path %>
+<% end %>

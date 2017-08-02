@@ -1,19 +1,12 @@
-<% f.fields_for method do |ci| %>
+<% f.fields_for(method) do |ci| %>
   <div class="field">
-    <%= f.label :street %>
-    <%= f.text_field :street %>
-    <%= f.text_field :street2 %>
+    <%= f.label :email %>
+    <%= f.email :email %>
   </div>
 
   <div class="field">
-    <%= f.label :city %>
-    <%= f.text_field :city %>
+    <%= f.label :phone %>
+    <%= f.text_field :phone, class: "form-control bfh-phone", data_format: "+1 (ddd) ddd-dddd" %>
   </div>
-
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.subregion_select(:state_code, :US) %>
-  </div>
-
 <% end %>
 
