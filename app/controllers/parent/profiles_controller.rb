@@ -48,6 +48,8 @@ class Parent::ProfilesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def parent_profile_params
-      params.fetch(:parent_profile, {})
+      params.fetch(:parent_profile, {}).permit(
+        :parent_id,
+        primary_contact: [:email, :phone])
     end
 end

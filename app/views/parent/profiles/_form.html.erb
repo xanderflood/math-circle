@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :parent_id %>
+
+  <%= render partial: "shared/contact_info_fields", locals: { f: f, method: :primary_contact } %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,0 +1,15 @@
+<%= f.fields_for(method) do |ci| %>
+  <div class="field">
+    <%= ci.label :email %>
+    <%= ci.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= ci.label :phone %>
+    <%= ci.text_field :phone %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('.form-control.bfh-phone').bfhphone({country: 'US'});
+</script>
