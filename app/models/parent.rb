@@ -6,10 +6,10 @@ class Parent < ApplicationRecord
 
   has_many :students
 
-  belongs_to :parent_profile
+  has_one :parent_profile
   alias :profile :parent_profile
 
   def profile_or_new
-    profile || ParentProfile.new(parent: self)
+    profile || ParentProfile.new(parent_id: self.id, primary_contact: {email: self.email})
   end
 end

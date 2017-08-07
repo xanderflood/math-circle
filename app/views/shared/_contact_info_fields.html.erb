@@ -6,10 +6,34 @@
 
   <div class="field">
     <%= ci.label :phone %>
-    <%= ci.text_field :phone %>
+    <%= ci.telephone_field :phone, onkeyup: "this.value = this.value.replace(/[^0-9\-\(\)\+]/, '')" %>
+  </div>
+
+  <div>
+    <h3>Address</h3>
+
+    <div class="field">
+      <%= ci.label :street %> <br/>
+      <%= ci.text_field :street1 %>
+    </div>
+
+    <div class="field">
+      <%= ci.text_field :street2 %>
+    </div>
+
+    <div class="field">
+      <%= ci.label :city %>
+      <%= ci.text_field :city %>
+    </div>
+
+    <div class="field">
+      <%= ci.label :state %>
+      <%= ci.select :state, options_for_select(StatesHelper::US_STATES) %>
+    </div>
+
+    <div class="field">
+      <%= ci.label :zip_code %>
+      <%= ci.text_field :zip, onkeyup: "this.value = this.value.replace(/[^0-9\-]/, '')" %>
+    </div>
   </div>
 <% end %>
-
-<script type="text/javascript">
-  $('.form-control.bfh-phone').bfhphone({country: 'US'});
-</script>

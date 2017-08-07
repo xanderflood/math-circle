@@ -42,20 +42,11 @@ ActiveRecord::Schema.define(version: 20170807121445) do
   create_table "contact_infos", force: :cascade do |t|
     t.string "email"
     t.string "phone"
-    t.string "address_formatted_address"
-    t.string "address_street_number"
-    t.string "address_street_name"
-    t.string "address_street"
-    t.string "address_city"
-    t.string "address_zip_code"
-    t.string "address_department"
-    t.string "address_department_code"
-    t.string "address_state"
-    t.string "address_state_code"
-    t.string "address_country"
-    t.string "address_country_code"
-    t.float  "address_lat"
-    t.float  "address_lng"
+    t.string "street1"
+    t.string "street2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -116,7 +107,6 @@ ActiveRecord::Schema.define(version: 20170807121445) do
     t.integer  "primary_contact_id"
     t.integer  "emergency_contact_id"
     t.integer  "emergency_contact_2_id"
-    t.date     "birthdate"
     t.string   "first_name"
     t.string   "last_name"
     t.index ["parent_id"], name: "index_parent_profiles_on_parent_id", using: :btree
