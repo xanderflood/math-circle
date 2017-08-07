@@ -31,11 +31,6 @@
     <%= link_to 'Open course catalog', parent_catalog_path, target: :_blank %>
   </div>
 
-  <div class="field">
-    <%= f.label :no_other_sections_work %>
-    <%= f.check_box :exclusive %>
-  </div>
-
   <%= f.fields_for :preferences_hash do |pref_fields| %>
     <% ballot.courses.each do |course| %>
 

@@ -2,8 +2,6 @@
 still causes `String`s to be parsed as if they were in `Time.zone`,"
 and find out what it means for me
 
-Remove "exclusive" from ballots
-
 + Merge the special_event and event models, using a scope (so that events have an end time)
 
 + Calendar pickers

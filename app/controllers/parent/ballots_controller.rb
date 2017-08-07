@@ -54,7 +54,7 @@ class Parent::BallotsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ballot_params
-      params.fetch(:ballot, {}).permit(:semester_id, :student_id, :course_id, :exclusive, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
+      params.fetch(:ballot, {}).permit(:semester_id, :student_id, :course_id, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
     end
 
     def no_courses
