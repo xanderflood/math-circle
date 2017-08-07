@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801235218) do
+ActiveRecord::Schema.define(version: 20170807121445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,12 +40,22 @@ ActiveRecord::Schema.define(version: 20170801235218) do
   end
 
   create_table "contact_infos", force: :cascade do |t|
-    t.string   "email"
-    t.string   "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "address_id"
-    t.index ["address_id"], name: "index_contact_infos_on_address_id", using: :btree
+    t.string "email"
+    t.string "phone"
+    t.string "address_formatted_address"
+    t.string "address_street_number"
+    t.string "address_street_name"
+    t.string "address_street"
+    t.string "address_city"
+    t.string "address_zip_code"
+    t.string "address_department"
+    t.string "address_department_code"
+    t.string "address_state"
+    t.string "address_state_code"
+    t.string "address_country"
+    t.string "address_country_code"
+    t.float  "address_lat"
+    t.float  "address_lng"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -106,6 +116,9 @@ ActiveRecord::Schema.define(version: 20170801235218) do
     t.integer  "primary_contact_id"
     t.integer  "emergency_contact_id"
     t.integer  "emergency_contact_2_id"
+    t.date     "birthdate"
+    t.string   "first_name"
+    t.string   "last_name"
     t.index ["parent_id"], name: "index_parent_profiles_on_parent_id", using: :btree
   end
 
@@ -164,13 +177,11 @@ ActiveRecord::Schema.define(version: 20170801235218) do
     t.string   "name"
     t.string   "accommodations"
     t.integer  "parent_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "grade"
-    t.integer  "priority",               default: 0, null: false
+    t.integer  "priority",       default: 0, null: false
     t.string   "email"
-    t.integer  "emergency_contact_id"
-    t.integer  "emergency_contact_2_id"
     t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
 
@@ -194,7 +205,6 @@ ActiveRecord::Schema.define(version: 20170801235218) do
   add_foreign_key "ballots", "courses"
   add_foreign_key "ballots", "semesters"
   add_foreign_key "ballots", "students"
-  add_foreign_key "contact_infos", "addresses"
   add_foreign_key "courses", "semesters"
   add_foreign_key "event_groups", "courses"
   add_foreign_key "events", "event_groups", column: "section_id"

@@ -1,19 +1,7 @@
 TODO:
 -----
 
-----------
-Requirements
-----------
-
-+ Will new students accidentally get default attendance credit when a rollcall i re-saved?
-
-+ Unexpected students
-
-+ If "current" is checked and it wasn't already, warn the user and then reset all grades
-++++ ONLY DO THIS if the semester wasn't already current
-++++ before_update ? 
-
-+ Beside student name, add a checkmark if `registered?` and a class name if `enrolled?`
+!!!!!!NEXT TWO DAYS!!!!!!
 
 + parent info
 + birthday, accomodations, (grade)
@@ -27,6 +15,20 @@ Requirements
 + email list
 
 + course and special event catalog for parents
+
+----------
+Requirements
+----------
+
++ Will new students accidentally get default attendance credit when a rollcall is re-saved?
+
++ Unexpected students
+
++ If "current" is checked and it wasn't already, warn the user and then reset all grades
+++++ ONLY DO THIS if the semester wasn't already current
+++++ before_update ?
+
++ Beside student name, add a checkmark if `registered?` and a class name if `enrolled?`
 
 + swaps
 + force add students
