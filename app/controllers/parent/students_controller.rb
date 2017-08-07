@@ -54,6 +54,6 @@ class Parent::StudentsController < Parent::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def student_params
-      params.fetch(:student, {}).permit(:name, :grade, :accomodations)
+      params.fetch(:student, {}).permit(:last_name, :first_name, :grade, :accomodations)
     end
 end

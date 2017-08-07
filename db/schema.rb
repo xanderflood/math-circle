@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807121445) do
+ActiveRecord::Schema.define(version: 20170807224118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20170807121445) do
     t.string "city"
     t.string "state"
     t.string "zip"
+    t.string "first_name"
+    t.string "last_name"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -107,8 +109,6 @@ ActiveRecord::Schema.define(version: 20170807121445) do
     t.integer  "primary_contact_id"
     t.integer  "emergency_contact_id"
     t.integer  "emergency_contact_2_id"
-    t.string   "first_name"
-    t.string   "last_name"
     t.index ["parent_id"], name: "index_parent_profiles_on_parent_id", using: :btree
   end
 
@@ -164,7 +164,6 @@ ActiveRecord::Schema.define(version: 20170807121445) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string   "name"
     t.string   "accommodations"
     t.integer  "parent_id"
     t.datetime "created_at",                 null: false
@@ -172,6 +171,8 @@ ActiveRecord::Schema.define(version: 20170807121445) do
     t.integer  "grade"
     t.integer  "priority",       default: 0, null: false
     t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
     t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
 

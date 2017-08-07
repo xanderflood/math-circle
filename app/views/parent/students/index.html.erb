@@ -6,8 +6,9 @@
   <table>
     <thead>
       <tr>
-        <th colspan="1">name</th>
-        <th colspan="1">grade</th>
+        <th colspan="1">Name</th>
+        <th colspan="1">Grade</th>
+        <th colspan="1">Registration Priority</th>
         <th colspan="4"></th>
       </tr>
     </thead>
@@ -17,6 +18,7 @@
         <tr data-student-id=<%= student.id %>>
           <td><%= student.name %></td>
           <td><%= student.grade %></td>
+          <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
           <td><%= link_to 'Register', new_parent_student_ballot_path(student) %></td>
           <td><%= link_to 'Show', parent_student_path(student) %></td>
           <td><%= link_to 'Edit', edit_parent_student_path(student) %></td>

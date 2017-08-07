@@ -12,7 +12,7 @@ class Parent::ProfilesController < ApplicationController
     if @parent_profile.save
       redirect_to parent_home_path, notice: 'Parent profile was successfully created.'
     else
-      render :new
+      render :show
     end
   end
 
@@ -21,7 +21,7 @@ class Parent::ProfilesController < ApplicationController
     if @parent_profile.update(parent_profile_params)
       redirect_to parent_home_path, notice: 'Parent profile was successfully updated.'
     else
-      render :edit
+      render :show
     end
   end
 

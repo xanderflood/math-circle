@@ -15,14 +15,20 @@ class Student < ApplicationRecord
     @section ||= semester ? semester.sections.all.find { |section| section.roster.include?(id) } : nil
   end
 
-  # put the last name first for sorting purposes
-  def sorting_name
-    name_pieces = self.name.split " "
-    last_name = name_pieces.pop
-
-    ([last_name] + name_pieces).join " "
+  def name
+    [self.first_name, self.last_name].join " "
   end
 
+  def name=(val)
+    parts = val.split " "
+    self.first_name = parts.first
+    self.last_name  = parts.last
+  end
+
+  # put the last name first for sorting purposes
+  def sorting_name
+    [self.last_name, self.first_name].join " "
+  end
 
   def waitlist_course
     semester = Semester.current

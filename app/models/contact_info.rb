@@ -4,5 +4,5 @@ class ContactInfo < ApplicationRecord
   belongs_to :address
 
   validates :phone, phone: true
-  validates_format_of :email, with: Devise::email_regexp
+  validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
 end

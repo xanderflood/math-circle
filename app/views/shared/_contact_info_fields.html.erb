@@ -1,14 +1,40 @@
 <%= f.fields_for(method) do |ci| %>
+  <%
+    local_assigns[:copy] ||= false
+    if local_assigns[:copy]
+      field_class = :disable_for_duplication
+      disabled = !ci.object.persisted?
+    else
+      field_class = nil
+      disabled = false
+    end
+  %>
+
   <h2><%= ci.label method %></h2>
+
+<!--   <div class="field">
+    <%= label_tag 'Use primary contact' %>
+    <%= check_box_tag 'copy_primary', onchange: "", value: disabled if local_assigns[:copy] %>
+  </div> -->
+
+  <div class="field">
+    <%= ci.label :first_name %>
+    <%= ci.text_field :first_name, disabled: disabled, class: field_class %>
+  </div>
+
+  <div class="field">
+    <%= ci.label :last_name %>
+    <%= ci.text_field :last_name, disabled: disabled, class: field_class %>
+  </div>
 
   <div class="field">
     <%= ci.label :email %>
-    <%= ci.email_field :email %>
+    <%= ci.email_field :email, disabled: disabled, class: field_class %>
   </div>
 
   <div class="field">
     <%= ci.label :phone %>
-    <%= ci.telephone_field :phone, onkeyup: "this.value = this.value.replace(/[^0-9\-\(\)\+]/, '')" %>
+    <%= ci.telephone_field :phone, disabled: disabled, class: field_class, onkeyup: "this.value = this.value.replace(/[^0-9\-\(\)\+]/, '')" %>
   </div>
 
   <div>
@@ -16,26 +42,26 @@
 
     <div class="field">
       <%= ci.label :street %> <br/>
-      <%= ci.text_field :street1 %>
+      <%= ci.text_field :street1, disabled: disabled, class: field_class %>
     </div>
 
     <div class="field">
-      <%= ci.text_field :street2 %>
+      <%= ci.text_field :street2, disabled: disabled, class: field_class %>
     </div>
 
     <div class="field">
       <%= ci.label :city %>
-      <%= ci.text_field :city %>
+      <%= ci.text_field :city, disabled: disabled, class: field_class %>
     </div>
 
     <div class="field">
       <%= ci.label :state %>
-      <%= ci.select :state, options_for_select(StatesHelper::US_STATES) %>
+      <%= ci.select :state, options_for_select(StatesHelper::US_STATES), disabled: disabled, class: field_class %>
     </div>
 
     <div class="field">
       <%= ci.label :zip_code %>
-      <%= ci.text_field :zip, onkeyup: "this.value = this.value.replace(/[^0-9\-]/, '')" %>
+      <%= ci.text_field :zip, disabled: disabled, class: field_class, onkeyup: "this.value = this.value.replace(/[^0-9\-]/, '')" %>
     </div>
   </div>
 <% end %>
