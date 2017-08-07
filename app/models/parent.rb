@@ -10,6 +10,9 @@ class Parent < ApplicationRecord
   alias :profile :parent_profile
 
   def profile_or_new
-    profile || ParentProfile.new(parent_id: self.id, primary_contact: {email: self.email})
+    profile || ParentProfile.new(parent_id: self.id,
+      primary_contact_attributes:     {email: self.email},
+      emergency_contact_attributes:   {},
+      emergency_contact_2_attributes: {})
   end
 end

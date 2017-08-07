@@ -1,4 +1,6 @@
 <%= f.fields_for(method) do |ci| %>
+  <h2><%= ci.label method %></h2>
+
   <div class="field">
     <%= ci.label :email %>
     <%= ci.email_field :email %>

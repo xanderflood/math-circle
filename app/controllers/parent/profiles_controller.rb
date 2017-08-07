@@ -9,7 +9,6 @@ class Parent::ProfilesController < ApplicationController
   def create
     @parent_profile = ParentProfile.new(parent_profile_params)
 
-    binding.pry
     if @parent_profile.save
       redirect_to parent_home_path, notice: 'Parent profile was successfully created.'
     else
@@ -38,6 +37,8 @@ class Parent::ProfilesController < ApplicationController
         :parent_id,
         :first_name,
         :last_name,
-        primary_contact: [:email, :phone, :street1, :street2, :city, :state, :zip])
+        primary_contact_attributes:     [:email, :phone, :street1, :street2, :city, :state, :zip],
+        emergency_contact_attributes:   [:email, :phone, :street1, :street2, :city, :state, :zip],
+        emergency_contact_2_attributes: [:email, :phone, :street1, :street2, :city, :state, :zip])
     end
 end
