@@ -1,0 +1,3 @@
+<% contents = emails.compact.uniq.join(",") %>
+
+<%= text_field_tag "email_list", contents, onfocus: "$(this).select();" %>

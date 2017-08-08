@@ -42,6 +42,21 @@
 
 </br></br>
 
+<% unless @section.roster.empty? %>
+  <% students = Student.find(@section.roster) %>
+  <div class="email-list">
+    Student email list:
+    <%= render partial: 'teacher/shared/email_list', locals: { emails: students.map(&:email) } %>
+  </div>
+
+  <div class="email-list">
+    Parent email list:
+    <%= render partial: 'teacher/shared/email_list', locals: { emails: students.map(&:parent).map(&:email) } %>
+  </div>
+<% end %>
+
+</br></br>
+
 <%= link_to 'New Meeting', new_teacher_event_path(section_id: @section.id) %> |
 <%= link_to 'Edit', edit_teacher_section_path(section_id: @section.id) %> |
 <%= link_to 'Back', teacher_course_path(@section.course) %>

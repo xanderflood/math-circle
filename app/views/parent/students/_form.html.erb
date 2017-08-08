@@ -22,6 +22,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
     <%= f.label :math_circle_level %>
     <%= f.select :grade, collection: Student::DISPLAY_GRADES %>
     <small>Note: Level D is only available with special permision from a Math Circle instructor. If you'd like to register your student for Level D, please select another level, and then contact Math Circle.</small>
