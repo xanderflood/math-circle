@@ -19,7 +19,13 @@
           <td><%= student.name %></td>
           <td><%= student.grade %></td>
           <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
-          <td><%= link_to 'Register', new_parent_student_ballot_path(student) %></td>
+          <td>
+            <% if student.school_grade <= 5 %>
+              <%= link_to 'Register', new_parent_student_ballot_path(student) %>
+            <% else %>
+              (Contact Math-Circle to register elementary school students.)
+            <% end %>
+          </td>
           <td><%= link_to 'Show', parent_student_path(student) %></td>
           <td><%= link_to 'Edit', edit_parent_student_path(student) %></td>
           <td><%= link_to 'Destroy', parent_student_path(student), method: :delete, data: { confirm: 'Are you sure?' } %></td>

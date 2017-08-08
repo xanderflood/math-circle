@@ -3,13 +3,16 @@ TODO:
 
 !!!!!!NEXT TWO DAYS!!!!!!
 
-+ teacher/students#index,show,edit,register mutual views
-+ parent/student#show view needs to display some actual info
-
 + grade registration restrictions
+  + TEST IT
+
++ Add student info to the student show
 
 + waiver
   + show waiver status on rollcall page
+
++ teacher/students#index,show,edit,register mutual views
++ parent/student#show view needs to display some actual info
 
 =================================
 

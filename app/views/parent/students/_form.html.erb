@@ -28,7 +28,12 @@
 
   <div class="field">
     <%= f.label :math_circle_level %>
-    <%= f.select :grade, collection: Student::DISPLAY_GRADES %>
+    <% if f.object.grade == "D" %>
+      <%= f.select :grade, collection: Student.grades.keys.to_a %>
+    <% else %>
+      <%= f.select :grade, collection: Student::DISPLAY_GRADES %>
+    <% end %>
+
     <small>Note: Level D is only available with special permision from a Math Circle instructor. If you'd like to register your student for Level D, please select another level, and then contact Math Circle.</small>
   </div>
 
