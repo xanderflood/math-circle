@@ -58,5 +58,9 @@ Rails.application.routes.draw do
 
   unauthenticated concern: :public_routes do
     root to: 'public/home#index'
+
+    devise_scope :teacher do
+      get 'teacher', to: 'authentication/teacher_sessions#new'
+    end
   end
 end
