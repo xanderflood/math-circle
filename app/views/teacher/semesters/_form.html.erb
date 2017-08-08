@@ -1,4 +1,4 @@
-<%= form_for([:teacher, semester]) do |f| %>
+<%= form_for([:teacher, semester], html: { class: "semester-form" }) do |f| %>
   <% if semester.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(semester.errors.count, "error") %> prohibited this semester from being saved:</h2>
@@ -28,7 +28,10 @@
 
   <div class="field">
     <%= f.label :set_as_current %>
-    <%= f.check_box :current %>
+    <%= f.check_box :current, class: "new-current-value" %>
+
+    <% is_cur = (f.object == Semester.current) %>
+    <%= hidden_field_tag :current, is_cur, disabled: true, class: "original-current-value" %>
   </div>
 
   <div class="actions">

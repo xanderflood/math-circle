@@ -1,5 +1,6 @@
 class Semester < ApplicationRecord
   default_scope { order(start: :desc) }
+  before_save :maybe_erase_student_levels, if: :current_changed?
   after_save :only_one_current_semester
 
   has_many :courses
@@ -27,6 +28,12 @@ class Semester < ApplicationRecord
     courses = courses.where(grade: grade) if grade
 
     courses
+  end
+
+  def maybe_erase_student_levels
+    return unless self.current == true
+
+    Student.update_all(grade: :unspecified)
   end
 
   def roster
