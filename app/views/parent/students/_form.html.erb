@@ -17,14 +17,39 @@
   </div>
 
   <div class="field">
-    <%= f.label :list_name %>
-    <%= f.text_field :list_name %>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
   </div>
 
   <div class="field">
-    <%= f.label :grade %>
-    <%= f.select :grade, collection: Student.grades.keys.to_a %>
+    <%= f.label :math_circle_level %>
+    <%= f.select :grade, collection: Student::DISPLAY_GRADES %>
+    <small>Note: Level D is only available with special permision from a Math Circle instructor. If you'd like to register your student for Level D, please select another level, and then contact Math Circle.</small>
   </div>
+
+  <div class="field">
+    <%= f.label :school %>
+    <%= f.text_field :school %>
+  </div>
+
+  <div class="field">
+    <%= f.label :school_grade %>
+    <%= f.select :school_grade, collection: (1..12).map{ |i| [i, i] } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :highest_math_class %>
+    <%= f.text_field :highest_math_class %>
+  </div>
+
+  <div class="field">
+    <%= f.label :accommodations %>
+    <%= f.text_field :accommodations %>
+  </div>
+
+  <!-- waiver checkbox -->
+  <!-- thumbnail upload -->
+
   <div class="actions">
     <%= f.submit %>
   </div>

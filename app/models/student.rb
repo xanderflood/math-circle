@@ -3,12 +3,20 @@ class Student < ApplicationRecord
   belongs_to :parent
   has_many :ballots
 
-  belongs_to :emergency_contact,   class_name: ContactInfo
-  belongs_to :emergency_contact_2, class_name: ContactInfo
-
-  validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
+  belongs_to :contact_info
+  accepts_nested_attributes_for :contact_info, update_only: true
+  # belongs_to :emergency_contact,   class_name: ContactInfo
+  # belongs_to :emergency_contact_2, class_name: ContactInfo
 
   enum grade: GradesHelper::GRADES
+  DISPLAY_GRADES = self.grades.reject{ |k,v| k == "D" }.keys.to_a
+
+  validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
+  validates :school_grade, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 1,
+    less_than_or_equal_to: 12
+  }
 
   def section
     semester = Semester.current

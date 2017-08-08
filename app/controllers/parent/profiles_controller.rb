@@ -35,10 +35,8 @@ class Parent::ProfilesController < ApplicationController
     def parent_profile_params
       params.fetch(:parent_profile, {}).permit(
         :parent_id,
-        :first_name,
-        :last_name,
-        primary_contact_attributes:     [:email, :phone, :street1, :street2, :city, :state, :zip],
-        emergency_contact_attributes:   [:email, :phone, :street1, :street2, :city, :state, :zip],
-        emergency_contact_2_attributes: [:email, :phone, :street1, :street2, :city, :state, :zip])
+        primary_contact_attributes:     ContactInfo::FIELDS,
+        emergency_contact_attributes:   ContactInfo::FIELDS,
+        emergency_contact_2_attributes: ContactInfo::FIELDS)
     end
 end
