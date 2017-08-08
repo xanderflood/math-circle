@@ -19,6 +19,8 @@ TODO:
 + waiver
   + show waiver status on rollcall page
 
++ Reset grade levels when a new current semester is designated (if approved)
+
 =================================
 
 
@@ -58,7 +60,7 @@ cleanup
 
 + Let students un-register
 
-+ Chec for -_save's that should be -_create's
++ Check for -_save's that should be -_create's
 
 + Make sure students can't be deleted
 

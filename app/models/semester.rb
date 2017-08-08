@@ -29,6 +29,15 @@ class Semester < ApplicationRecord
     courses
   end
 
+  def rosters
+  end
+
+  def waitlists
+  end
+
+  def all_students
+  end
+
   def state_description
     Semester::STATE_DESCRIPTION[Semester.states[state]]
   end

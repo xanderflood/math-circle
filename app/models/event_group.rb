@@ -22,6 +22,10 @@ class EventGroup < ApplicationRecord
 
   # TODO: Add validations and code to create all the child events
 
+  def all_students
+    roster + waitlist
+  end
+
   def full?
     roster.count == capacity
   end

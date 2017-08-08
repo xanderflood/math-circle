@@ -43,16 +43,15 @@
 </br></br>
 
 <% unless @section.roster.empty? %>
-  <% students = Student.find(@section.roster) %>
-  <div class="email-list">
-    Student email list:
-    <%= render partial: 'teacher/shared/email_list', locals: { emails: students.map(&:email) } %>
-  </div>
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @section.roster } %>
+<% end %>
 
-  <div class="email-list">
-    Parent email list:
-    <%= render partial: 'teacher/shared/email_list', locals: { emails: students.map(&:parent).map(&:email) } %>
-  </div>
+<% unless @section.waitlist.empty? %>
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @section.waitlist } %>
+<% end %>
+
+<% unless @section.roster.empty? || @section.waitlist.empty? %>
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @section.all_students } %>
 <% end %>
 
 </br></br>

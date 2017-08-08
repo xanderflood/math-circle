@@ -12,6 +12,15 @@ class Course < ApplicationRecord
 
   enum grade: GradesHelper::GRADES
 
+  def rosters
+  end
+
+  def waitlists
+  end
+
+  def all_students
+  end
+
   def description
     if name
       "#{name} (grade #{grade})"
