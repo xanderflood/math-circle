@@ -108,6 +108,16 @@
   <%= link_to 'Add a new special event.', new_teacher_special_event_path(semester_id: @semester.id) %>
 <% end %>
 
+</br></br>
+
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @semester.roster } %>
+
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @semester.waitlist } %>
+
+<%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @semester.all_students } %>
+
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Registeree", ids: @semester.registrees } %>
+
 <hr />
 
 <%= link_to 'Edit', edit_teacher_semester_path(@semester) %> |

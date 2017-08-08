@@ -29,13 +29,20 @@ class Semester < ApplicationRecord
     courses
   end
 
-  def rosters
+  def roster
+    self.courses.map(&:roster).inject([], :+)
   end
 
-  def waitlists
+  def waitlist
+    self.courses.map(&:waitlist).inject([], :+)
   end
 
   def all_students
+    self.courses.map(&:all_students).inject([], :+)
+  end
+
+  def registrees
+    self.ballots.map(&:student_id)
   end
 
   def state_description

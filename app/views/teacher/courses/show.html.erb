@@ -54,6 +54,14 @@ Overview:
 
 </br></br>
 
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @course.roster } %>
+
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @course.waitlist } %>
+
+<%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @course.all_students } %>
+
+</br></br>
+
 <%= link_to 'New Section', new_teacher_section_path(course_id: @course.id) %> |
 <%= link_to 'Edit', edit_teacher_course_path(@course) %> |
 <%= link_to 'Back', teacher_semester_path(@course.semester) %>

@@ -42,17 +42,11 @@
 
 </br></br>
 
-<% unless @section.roster.empty? %>
-  <%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @section.roster } %>
-<% end %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @section.roster } %>
 
-<% unless @section.waitlist.empty? %>
-  <%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @section.waitlist } %>
-<% end %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @section.waitlist } %>
 
-<% unless @section.roster.empty? || @section.waitlist.empty? %>
-  <%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @section.all_students } %>
-<% end %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @section.all_students } %>
 
 </br></br>
 

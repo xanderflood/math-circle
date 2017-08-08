@@ -12,13 +12,16 @@ class Course < ApplicationRecord
 
   enum grade: GradesHelper::GRADES
 
-  def rosters
+  def roster
+    self.sections.map(&:roster).inject([], :+)
   end
 
-  def waitlists
+  def waitlist
+    self.sections.map(&:waitlist).inject([], :+)
   end
 
   def all_students
+    self.sections.map(&:all_students).inject([], :+)
   end
 
   def description
