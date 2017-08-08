@@ -3,14 +3,6 @@ TODO:
 
 !!!!!!NEXT TWO DAYS!!!!!!
 
-+ email list
-  ------+ create an email list partial
-  ------+ then create email list methods all over
-  + then put all the final views together
-  ------+ section
-  + course
-  + semester
-
 + teacher/students#index,show,edit,register mutual views
 + parent/student#show view needs to display some actual info
 
