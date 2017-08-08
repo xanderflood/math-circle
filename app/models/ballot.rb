@@ -14,8 +14,8 @@ class Ballot < ApplicationRecord
   validate :sections_in_course
   validate :non_empty
 
-  after_initialize :require_grade
-  after_initialize :set_course
+  after_create :require_grade
+  after_create :set_course
 
   class NoCoursesError < StandardError; end
   class NoGradeError < StandardError; end
