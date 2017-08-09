@@ -6,6 +6,9 @@
     <%= hidden_field_tag "", student.id, class: "student-id no-submit" %>
   </td>
   <td>
+    <%= (student.waiver ? "Yes" : "No") %>
+  </td>
+  <td>
     <% # default to absent %>
     <% selected = (rollcall.attendance_hash[student.id] || AttendanceHelper.IDS[:absent]) %>
     <%= select_tag "", options_from_collection_for_select(AttendanceHelper.expected, :id, :name, selected), { class: "status-select no-submit" } %>
