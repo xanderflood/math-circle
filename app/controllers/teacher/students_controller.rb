@@ -3,8 +3,7 @@ class Teacher::StudentsController < ApplicationController
 
   # GET /students
   def index
-    @students = Student.order(:last_name, :first_name).all
-    @semesters = Semester.all
+    @students = Student.order(:last_name, :first_name).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /students/1
