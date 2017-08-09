@@ -1,4 +1,5 @@
 <% unless current_page?(parent_home_path) %>
   <%= link_to 'Parent Home', parent_home_path %> | 
 <% end %>
-<%= link_to 'Sign Out', destroy_parent_session_path, method: :delete %>
+<%= link_to 'Sign Out', destroy_parent_session_path, method: :delete %> |
+<%= link_to "Change your password", edit_parent_registration_path %>
