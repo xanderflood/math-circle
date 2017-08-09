@@ -19,13 +19,7 @@ TODO:
 Requirements
 ----------
 
-+ Will new students accidentally get default attendance credit when a rollcall is re-saved?
-
 + Unexpected students
-
-+ If "current" is checked and it wasn't already, warn the user and then reset all grades
-++++ ONLY DO THIS if the semester wasn't already current
-++++ before_update ?
 
 + Beside student name, add a checkmark if `registered?` and a class name if `enrolled?`
 
@@ -39,13 +33,9 @@ Requirements
 cleanup
 ----------
 
-+ Make sure registration is possible
-
 + Let students un-register
 
 + Check for -_save's that should be -_create's
-
-+ Make sure students can't be deleted
 
 + stub out email notifications when the list moves
   + How to schedule them before an event?
@@ -54,37 +44,21 @@ cleanup
 + Change the students list so that its format depends on the state of the current semester, with a section-switch list if the lottery has run already
 
 + Section/waitlist switching
-  + teacher and student should both have the optoin
+  + teacher and student should both have the option
   + Add a link for force-adding a student
 
 + Thumbnails
 
 + Make sure that changing a student's grade level clears their open ballot
 
-+ Give course and semester a "description"-type method that will use the name if present (& nonempty) but otherwise the grade, starting month, etc, to identify it, making names fully optional
 
 ----------
 GENERAL
 ----------
 
-+ Registration page for teachers requires approval
-
-+ Explicitly declare webserver with a Procfile
-
 + Add special event registration to the parent pages
 
 + Show current semester automatically on the homepage
-
-+ Flesh out the parent and student profiles
-  Students:
-  + Also create generic role-indifferent partials for students and contact info objects
-  + View
-  Student_Profile (birthdays, accomodations, grade, waiver (info appears with rollcall too, separate student/parent emails), thumbnail)
-  Parent_Profile
-  Online waiver signature
-
-teacher_parents:
-+ scaffold
 
 Contact
 
@@ -97,34 +71,33 @@ View attendence record
 TEACHER
 ----------
 
-Semesters:
-+ State-change links on show page
-  - lottery/relottery
-  - issue lottery notifications
-
 Courses:
 + Transfer a student between sections (or to a different course?)
-
-Event_Groups:
-+ Rewrite user-facing text for "sections" and "events"
-+ View current enrolled_students
-+ Take attendence
-+ Email list (copy-pastable)
-
-Students:
-+ View
-+ Thumbnail
 
 ----------
 PARENT
 ----------
 
-Browse courses for semester
-
-View attendence record
-
-Contact
-
 Swap sections, if space is available
-+ Otherwise, with permission
 
+----------
+BACKLOG
+----------
+
++ Read up on this "DEPRECATION WARNING: Time columns will become time zone aware in Rails 5.1. This
+still causes `String`s to be parsed as if they were in `Time.zone`,"
+and find out what it means for me
+
++ Merge the special_event and event models, using a scope (so that events have an end time)
+
++ Calendar pickers
+
+Eventual:
++ See trends in student data
+
+Allow teachers to register an "excused absence" *ahead* of time, and then have it automatically populate
+
++ Mark all required form fields (not capacity for special events, for instance)
++ Create corresponding validations
+
++ mailchimp integration
