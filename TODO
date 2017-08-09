@@ -8,6 +8,7 @@ TODO:
   + post search
 
 + course and special event catalog for parents
+  + gem "simple_calendar", "~> 2.0"
 
 =================================
 

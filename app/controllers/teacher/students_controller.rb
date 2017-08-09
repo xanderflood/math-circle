@@ -3,7 +3,7 @@ class Teacher::StudentsController < ApplicationController
 
   # GET /students
   def index
-    @students = Student.all
+    @students = Student.order(:last_name, :first_name).all
     @semesters = Semester.all
   end
 

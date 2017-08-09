@@ -5,6 +5,12 @@
 <table>
   <thead>
     <tr>
+      <td>Name</td>
+      <td>ID</td>
+      <td>Grade</td>
+      <td>Level</td>
+      <td>Waiver</td>
+      <td>Photo permission</td>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,6 +18,12 @@
   <tbody>
     <% @students.each do |student| %>
       <tr>
+        <td><%= student.name %></td>
+        <td><%= student.id %></td>
+        <td><%= student.grade %></td>
+        <td><%= student.level %></td>
+        <td><%= student.waiver ? "Yes" : "No" %></td>
+        <td><%= student.photo_permission ? "Yes" : "No" %></td>
         <td><%= link_to 'Show', teacher_student_path(student) %></td>
         <td><%= link_to 'Edit', edit_teacher_student_path(student) %></td>
         <td><%= link_to 'Destroy', teacher_student_path(student), method: :delete, data: { confirm: 'Are you sure?' } %></td>
