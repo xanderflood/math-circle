@@ -5,12 +5,15 @@ TODO:
 
 + show waiver status on rollcall page
 
-+ teacher/students#index,show,edit,register mutual views
++ teacher/students
+  + index
+  + post search
 
 + course and special event catalog for parents
 
 =================================
 
++ teacher/students#register
 + thumbnail
 + reminders
 
