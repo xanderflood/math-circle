@@ -62,6 +62,8 @@ class Parent::StudentsController < Parent::BaseController
         :accommodations,
         :school,
         :school_grade,
-        :highest_math_class)
+        :highest_math_class,
+        :waiver,
+        :photo_permission)
     end
 end

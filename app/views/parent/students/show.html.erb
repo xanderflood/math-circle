@@ -10,6 +10,60 @@
   Not currently registered. To register for students, return to your students page and click "register".
 <% end %>
 
+<% if @student.priority.is_a?(Integer) && @student.priority > 0 %>
+  This student has priority status for registration.
+<% end %>
+
+<br/> <br/>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name:</th>
+      <th><%= @student.name %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Email:</td>
+      <td><%= @student.email %></td>
+    </tr>
+    <tr>
+      <td>Level:</td>
+      <td><%= @student.grade %></td>
+    </tr>
+    <tr>
+      <td>School:</td>
+      <td><%= @student.school %></td>
+    </tr>
+    <tr>
+      <td>Grade:</td>
+      <td><%= @student.school_grade %></td>
+    </tr>
+    <tr>
+      <td>School:</td>
+      <td><%= @student.school %></td>
+    </tr>
+    <tr>
+      <td>Highest math class:</td>
+      <td><%= @student.highest_math_class %></td>
+    </tr>
+    <tr>
+      <td>Waiver signed:</td>
+      <td><%= (@student.waiver ? "Yes" : "No" ) %></td>
+    </tr>
+    <tr>
+      <td>Photography permission:</td>
+      <td><%= (@student.photo_permission ? "Yes" : "No" ) %></td>
+    </tr>
+    <tr>
+      <td>Accommodations:</td>
+      <td><%= @student.accommodations %></td>
+    </tr>
+  </tbody>
+</table>
+
 <br/> <br/>
 
 <% if @student.enrolled? %>
