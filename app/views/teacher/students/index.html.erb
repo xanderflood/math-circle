@@ -2,7 +2,7 @@
 
 <h1>Students</h1>
 
-<% will_paginate @users %>
+<%= will_paginate @users %>
 
 <table>
   <thead>
@@ -22,8 +22,8 @@
       <tr>
         <td><%= student.name %></td>
         <td><%= student.id %></td>
+        <td><%= student.school_grade %></td>
         <td><%= student.grade %></td>
-        <td><%= student.level %></td>
         <td><%= student.waiver ? "Yes" : "No" %></td>
         <td><%= student.photo_permission ? "Yes" : "No" %></td>
         <td><%= link_to 'Show', teacher_student_path(student) %></td>
@@ -34,6 +34,6 @@
   </tbody>
 </table>
 
-<% will_paginate @users %>
+<%= will_paginate @users %>
 
 <br>
