@@ -1,4 +1,4 @@
-<%= form_for([:parent, student]) do |f| %>
+<%= form_for([role, student]) do |f| %>
   <% if student.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
@@ -53,21 +53,11 @@
   </div>
 
   <div class="field">
-    I agree to the terms of the <%= link_to "Emory Math Circle student waiver" %>.
-    <%= f.check_box :waiver %>
-  </div>
-
-  <div class="field">
-    I give permission for my student to be photographed by the Emory Math Circle for promotional materials.
-    <%= f.check_box :highest_math_class %>
-  </div>
-
-  <div class="field">
     <%= f.label :accommodations %>
     <%= f.text_field :accommodations %>
   </div>
 
-  <!-- TODO: thumbnail upload -->
+  <%= render partial: 'form_extras', locals: { f: f } %>
 
   <div class="actions">
     <%= f.submit %>

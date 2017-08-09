@@ -1,6 +1,6 @@
 <h1>Editing Student</h1>
 
-<%= render 'form', student: @student %>
+<%= render 'shared/students/form', role: :parent, student: @student %>
 
 <%= link_to 'Show', parent_student_path(@student) %> |
 <%= link_to 'Back', parent_students_path %>
