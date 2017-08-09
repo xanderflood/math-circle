@@ -40,6 +40,8 @@ Rails.application.routes.draw do
       end
       
       resources :rollcalls, only: [:create, :update]
+
+      resources :students, except: [:new, :create]
     end
   end
 
