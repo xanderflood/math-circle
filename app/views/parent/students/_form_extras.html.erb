@@ -1,11 +1,15 @@
 <div class="field">
-  I agree to the terms of the Emory Math Circle <%= link_to "student waiver" %>.
+  I agree to the terms of the Emory Math Circle <%= link_to "student waiver", docs_waiver_path %>.
   <%= f.check_box :waiver, disabled: f.object.waiver %>
 </div>
 
 <div class="field">
   I give permission for my student to be photographed by the Emory Math Circle for promotional materials.
   <%= f.check_box :photo_permission, disabled: f.object.photo_permission %>
+</div>
+
+<div class="field">
+  <b>Note:</b> once given, the above permissions cannot be revoked. See the <%= link_to "student waiver", docs_waiver_path %> for details.
 </div>
 
 <!-- TODO: thumbnail upload -->

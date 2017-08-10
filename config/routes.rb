@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'docs/waiver'
+
   devise_for :parents, controllers: { sessions: 'authentication/parent_sessions' }
   devise_for :teachers, controllers: { sessions: 'authentication/teacher_sessions' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -7,8 +9,6 @@ Rails.application.routes.draw do
     get '/', to: 'public/home#index'
 
     resources :courses, only: :show
-
-    # put other public pages here
   end 
 
   authenticated :teacher do
@@ -61,4 +61,6 @@ Rails.application.routes.draw do
       get 'teacher', to: 'authentication/teacher_sessions#new'
     end
   end
+  
+  get 'docs/waiver'
 end
