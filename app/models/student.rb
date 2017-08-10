@@ -11,7 +11,7 @@ class Student < ApplicationRecord
   enum grade: GradesHelper::GRADES
   DISPLAY_GRADES = self.grades.reject{ |k,v| k == "D" }.keys.to_a
 
-  validates_with :permissions_are_irrevocable
+  validate :permissions_are_irrevocable
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
   validates :school_grade, numericality: {
     only_integer: true,
