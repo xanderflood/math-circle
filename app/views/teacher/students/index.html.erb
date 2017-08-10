@@ -7,17 +7,17 @@
 <table>
   <thead>
     <tr>
-      <td>Name</td>
-      <td>ID</td>
-      <td>Grade</td>
-      <td>Level</td>
-      <td>Waiver</td>
-      <td>Photo permission</td>
+      <th>Name</th>
+      <th>ID</th>
+      <th>Grade</th>
+      <th>Level</th>
+      <th>Waiver</th>
+      <th>Photo permission</th>
       <th colspan="2"></th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="alternating">
     <% @students.each do |student| %>
       <tr>
         <td><%= student.name %></td>
