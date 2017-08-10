@@ -11,12 +11,19 @@ class Student < ApplicationRecord
   enum grade: GradesHelper::GRADES
   DISPLAY_GRADES = self.grades.reject{ |k,v| k == "D" }.keys.to_a
 
+  validates_with :permissions_are_irrevocable
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
   validates :school_grade, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: 12
   }
+
+  def permissions_are_irrevocable
+    [:waiver, :photo_permission].each do |p|
+      errors.add(p, "cannot be revoked.") if self.send(:"#{p}_changed?") && !self.send(p)
+    end
+  end
 
   def section
     semester = Semester.current
