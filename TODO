@@ -3,6 +3,11 @@ TODO:
 
 !!!!!!NEXT TWO DAYS!!!!!!
 
++ Waiver + photo permission are irrevocable
+https://stackoverflow.com/questions/12337398/rails-compare-old-value-and-new-value-during-validation-for-edit
+
++ Remove teacher login
+
 + teacher/students
   + post search
 
