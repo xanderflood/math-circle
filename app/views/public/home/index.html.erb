@@ -1,11 +1,3 @@
-<% if current_teacher %>
-  <%= link_to 'Teacher portal', teacher_home_path %>
-<% else %>
-  <%= link_to 'Teacher sign-in', new_teacher_session_path %>
-<% end %>
-
-<br \> <br \>
-
 <% if current_parent %>
   <%= link_to 'Parent portal', parent_home_path %>
 <% else %>
