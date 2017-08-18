@@ -27,6 +27,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :birthdate %>
+    <%= f.date_select :birthdate %>
+  </div>
+
+  <div class="field">
     <%= f.label :math_circle_level %>
     <% if f.object.grade == "D" %>
       <%= f.select :grade, collection: Student.grades.keys.to_a %>

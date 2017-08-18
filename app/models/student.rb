@@ -13,6 +13,7 @@ class Student < ApplicationRecord
 
   validate :permissions_are_irrevocable
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
+  validates :birthdate, presence: true
   validates :school_grade, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 1,

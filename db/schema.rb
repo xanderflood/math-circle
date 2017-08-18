@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817234521) do
+ActiveRecord::Schema.define(version: 20170818004127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20170817234521) do
     t.string   "highest_math_class"
     t.boolean  "photo_permission",   default: false, null: false
     t.boolean  "waiver",             default: false, null: false
+    t.date     "birthdate"
     t.index ["contact_info_id"], name: "index_students_on_contact_info_id", using: :btree
     t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
