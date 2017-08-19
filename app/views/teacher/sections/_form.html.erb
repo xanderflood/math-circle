@@ -4,7 +4,7 @@
       <h2><%= pluralize(section.errors.count, "error") %> prohibited this section from being saved:</h2>
 
       <ul>
-      <% section.errors.messages.each do |message| %>
+      <% section.errors.messages.values.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

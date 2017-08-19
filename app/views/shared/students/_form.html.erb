@@ -4,7 +4,7 @@
       <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
       <ul>
-      <% student.errors.messages.each do |message| %>
+      <% student.errors.messages.values.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -34,6 +34,7 @@
   <div class="field">
     <%= f.label "Math-Circle level" %>
     <%= f.select :level, collection: Student.levels.keys.to_a %>
+    <small>Note: Changing a student's Math-Circle level will un-register them if they have registered for this semester.</small>
   </div>
 
   <div class="field">

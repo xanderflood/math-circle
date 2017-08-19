@@ -21,7 +21,7 @@ class Ballot < ApplicationRecord
   class NoLevelError < StandardError; end
 
   def require_level
-    raise NoLevelError if self.student.grade == 'unspecified'
+    raise NoLevelError if self.student.level == 'unspecified'
   end
 
   def set_course

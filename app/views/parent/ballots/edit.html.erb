@@ -2,5 +2,5 @@
 
 <%= render 'form', ballot: @ballot %>
 
-<%= link_to 'Show', @ballot %> |
-<%= link_to 'Back', parent_students_path %>
+`<%= link_to 'Back', parent_students_path %> |
+<%= link_to 'Delete registration', parent_student_ballot_path, method: :delete %>

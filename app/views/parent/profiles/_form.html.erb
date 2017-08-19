@@ -4,7 +4,7 @@
       <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
 
       <ul>
-      <% profile.errors.messages.each do |message| %>
+      <% profile.errors.messages.values.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -76,6 +76,11 @@
       <%= f.label :ec1_relation %>
       <%= f.text_field :ec1_relation %>
     </div>
+
+    <div class="field">
+      <%= f.label :ec1_phone %>
+      <%= f.text_field :ec1_phone %>
+    </div>
   </div>
   
   <div class="emergency-fields emergency-2">
@@ -92,6 +97,11 @@
     <div class="field">
       <%= f.label :ec2_relation %>
       <%= f.text_field :ec2_relation %>
+    </div>
+
+    <div class="field">
+      <%= f.label :ec2_phone %>
+      <%= f.text_field :ec2_phone %>
     </div>
   </div>
 

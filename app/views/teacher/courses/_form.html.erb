@@ -4,7 +4,7 @@
       <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
 
       <ul>
-      <% course.errors.messages.each do |message| %>
+      <% course.errors.messages.values.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

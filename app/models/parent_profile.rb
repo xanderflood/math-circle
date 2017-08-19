@@ -4,14 +4,14 @@ class ParentProfile < ApplicationRecord
   after_initialize :default_email
 
   validates :first_name, presence: true, length: { minimum: 3 }
-  validates :last_name, presence: true, length: { minimum: 3 }
+  validates :last_name,  presence: true, length: { minimum: 3 }
 
   validates :phone, phone: true
   validates :email, format: { with: EmailHelper::OPTIONAL_EMAIL }
 
   validates :street1, presence: true
   validates :city, presence: true
-  enum state: StatesHelper::US_STATES
+  enum state: StatesHelper::US_STATES.map(&:last)
   validates :zip, format: { with: StatesHelper::ZIPCODE_REGEXP }
 
   [1, 2].each do |i|

@@ -4,7 +4,7 @@
       <h2><%= pluralize(ballot.errors.count, "error") %> prohibited this ballot from being saved:</h2>
 
       <ul>
-      <% ballot.errors.messages.each do |message| %>
+      <% ballot.errors.messages.values.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
