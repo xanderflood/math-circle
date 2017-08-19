@@ -58,12 +58,11 @@ class Parent::StudentsController < Parent::BaseController
         :last_name,
         :first_name,
         :email,
-        :grade,
+        :level,
         :accommodations,
         :school,
         :school_grade,
         :highest_math_class,
-        :waiver,
-        :photo_permission)
+        :waiver_submitted)
     end
 end

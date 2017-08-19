@@ -21,6 +21,6 @@ Teacher.create(email: "test@emory.edu", password: "password")
 parent = Parent.create(email: "test@emory.edu", password: "password")
 
 # students
-FactoryGirl.create(:student, parent: parent, grade: :A, name: "Bobby McNamara")
-FactoryGirl.create(:student, parent: parent, grade: :B, name: "Tramelgren Didion")
-FactoryGirl.create(:student, parent: parent, grade: :unspecified, name: "Big Lebowski")
+FactoryGirl.create(:student, parent: parent, level: :A, name: "Bobby McNamara")
+FactoryGirl.create(:student, parent: parent, level: :B, name: "Tramelgren Didion")
+FactoryGirl.create(:student, parent: parent, level: :unspecified, name: "Big Lebowski")

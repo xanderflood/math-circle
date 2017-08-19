@@ -8,16 +8,16 @@ RSpec.describe Course, type: :model do
   it 'should reject a course without a valid semester' do
     course = Course.new(
       name: "test_course",
-      grade: :A)
+      level: :A)
   end
 
-  it 'should reject a course without a valid grade' do
+  it 'should reject a course without a valid level' do
     [:not_valid, 10, "not valid"].each do |grade|
       expect do
         course = Course.new(
           semester: Semester.first,
           name: "test_course",
-          grade: grade)
+          level: level)
       end.to raise_error(ArgumentError)
     end
 
@@ -28,11 +28,11 @@ RSpec.describe Course, type: :model do
     expect(course.save).to eq(false)
   end
 
-  it 'should accept a course with a valid semester and grade' do
+  it 'should accept a course with a valid semester and level' do
     course = Course.new(
       semester: Semester.first,
       name: "test_course",
-      grade: :A)
+      level: :A)
 
     expect(course.save).to eq(true)
   end

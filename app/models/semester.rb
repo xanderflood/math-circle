@@ -23,9 +23,9 @@ class Semester < ApplicationRecord
     self.where(current: true).limit(1).first
   end
 
-  def self.current_courses(grade=nil)
+  def self.current_courses(level=nil)
     courses = Semester.current.courses
-    courses = courses.where(grade: grade) if grade
+    courses = courses.where(level: level) if level
 
     courses
   end
@@ -33,7 +33,7 @@ class Semester < ApplicationRecord
   def maybe_erase_student_levels
     return unless self.current == true
 
-    Student.update_all(grade: :unspecified)
+    Student.update_all(level: :unspecified)
   end
 
   def roster

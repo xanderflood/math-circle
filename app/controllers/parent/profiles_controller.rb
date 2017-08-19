@@ -33,24 +33,10 @@ class Parent::ProfilesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def parent_profile_params
-      params.fetch(:parent_profile, {}).permit(
-        :parent_id,
-        :first_name
-        :last_name,
-        :email,
-        :phone,
-        :street1,
-        :street2,
-        :city,
-        :state,
-        :zip,
-        :ec1_first_name,
-        :ec1_last_name,
-        :ec1_relation,
-        :ec1_phone,
-        :ec2_first_name,
-        :ec2_last_name,
-        :ec2_relation,
-        :ec2_phone)
+      params.fetch(:parent_profile, {}).permit(:parent_id,
+              :first_name, :last_name, :email, :phone,
+              :street1, :street2, :city, :state, :zip,
+              :ec1_first_name, :ec1_last_name, :ec1_relation, :ec1_phone,
+              :ec2_first_name, :ec2_last_name, :ec2_relation, :ec2_phone)
     end
 end

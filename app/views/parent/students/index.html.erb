@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th colspan="1">Name</th>
-        <th colspan="1">Grade</th>
+        <th colspan="1">Level</th>
         <th colspan="1">Registration Priority</th>
         <th colspan="3"></th>
       </tr>
@@ -17,15 +17,15 @@
       <% @students.sort_by(&:name).each do |student| %>
         <tr data-student-id=<%= student.id %>>
           <td><%= student.name %></td>
-          <td><%= student.grade %></td>
+          <td><%= student.level %></td>
           <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
           <td>
-            <% if student.grade && student.grade != "unspecified" && student.school_grade && student.school_grade >= 6 %>
+            <% if student.level && student.level != "unspecified" && student.school_grade && student.school_grade >= 6 %>
               <%= link_to 'Register', new_parent_student_ballot_path(student) %>
             <% elsif student.school_grade && student.school_grade <= 5 %>
               (Contact Math-Circle to register elementary school students.)
             <% else %>
-              Click edit and enter your grade and math circle level.
+              Click edit, and enter your grade and math circle level.
             <% end %>
           </td>
           <td><%= link_to 'Show', parent_student_path(student) %></td>

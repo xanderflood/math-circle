@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "teacher/students/show", type: :view do
   before(:each) do
-    @teacher_student = assign(:teacher_student, Student.create!())
+    @student = assign(:student, create(:student))
   end
 
   it "renders attributes in <p>" do

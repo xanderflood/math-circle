@@ -4,25 +4,25 @@
 # (semester intended for testing pre-registration)
 As18:
   name:
-  grade: A
+  level: A
   semester: spring_2018
   overview:
 
 Bs18:
   name:
-  grade: B
+  level: B
   semester: spring_2018
   overview:
 
 Cs18:
   name:
-  grade: C
+  level: C
   semester: spring_2018
   overview:
 
 Ds18:
   name:
-  grade: D
+  level: D
   semester: spring_2018
   overview:
 
@@ -30,6 +30,6 @@ Ds18:
 # just for testing number-of-meetings
 As17:
   name:
-  grade: D
+  level: D
   semester: spring_2017
   overview:

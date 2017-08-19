@@ -5,9 +5,9 @@
 <table>
   <thead>
     <tr>
-      <th colspan="1">name</th>
-      <th colspan="1">semester</th>
-      <th colspan="1">grade</th>
+      <th colspan="1">Name</th>
+      <th colspan="1">Semester</th>
+      <th colspan="1">Level</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
       <tr>
         <td><%= link_to course.name, teacher_course_path(course) %></td>
         <td><%= course.semester.name %></td>
-        <td><%= course.grade %></td>
+        <td><%= course.level %></td>
         <td><%= link_to 'Edit', edit_teacher_course_path(course) %></td>
         <td><%= link_to 'Destroy', teacher_course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

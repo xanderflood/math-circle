@@ -2,23 +2,19 @@ class Student < ApplicationRecord
   belongs_to :parent
   has_many :ballots
 
-  enum grade: GradesHelper::GRADES
-  DISPLAY_GRADES = self.grades.reject{ |k,v| k == "D" }.keys.to_a
+  enum level: LevelsHelper::LEVELS
 
-  validate :permissions_are_irrevocable
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
   validates :birthdate, presence: true
+  validates :waiver_submitted, inclusion: {
+      in: [true],
+      message: "Please confirm that you've submitted a waiver with WaiverForever."
+    }
   validates :school_grade, numericality: {
-    only_integer: true,
-    greater_than_or_equal_to: 1,
-    less_than_or_equal_to: 12
-  }
-
-  def permissions_are_irrevocable
-    [:waiver, :photo_permission].each do |p|
-      errors.add(p, "cannot be revoked.") if self.send(:"#{p}_changed?") && !self.send(p)
-    end
-  end
+      only_integer: true,
+      greater_than_or_equal_to: 1,
+      less_than_or_equal_to: 12
+    }
 
   def section
     semester = Semester.current

@@ -4,7 +4,7 @@
       <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
       <ul>
-      <% student.errors.full_messages.each do |message| %>
+      <% student.errors.messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -32,14 +32,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :math_circle_level %>
-    <% if f.object.grade == "D" %>
-      <%= f.select :grade, collection: Student.grades.keys.to_a %>
-    <% else %>
-      <%= f.select :grade, collection: Student::DISPLAY_GRADES %>
-    <% end %>
-
-    <small>Note: Level D is only available with special permision from a Math Circle instructor. If you'd like to register your student for Level D, please select another level, and then contact Math Circle.</small>
+    <%= f.label "Math-Circle level" %>
+    <%= f.select :level, collection: Student.levels.keys.to_a %>
   </div>
 
   <div class="field">

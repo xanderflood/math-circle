@@ -4,7 +4,7 @@
       <h2><%= pluralize(special_event.errors.count, "error") %> prohibited this special event from being saved:</h2>
 
       <ul>
-      <% special_event.errors.full_messages.each do |message| %>
+      <% special_event.errors.messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

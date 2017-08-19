@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :ballot do
     initialize_with do
-      student = FactoryGirl.create(:student, grade: attributes[:grade])
+      student = FactoryGirl.create(:student, level: attributes[:level])
       new(attributes.merge({ student: student }))
     end
 

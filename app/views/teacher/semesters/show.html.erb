@@ -24,7 +24,7 @@
       </tr>
       <tr>
         <th colspan="1">Name</th>
-        <th colspan="1">Grade</th>
+        <th colspan="1">Level</th>
         <th colspan="1">Sections</th>
         <th colspan="1">Meetings</th>
         <th colspan="2"></th>
@@ -35,7 +35,7 @@
       <% @semester.courses.each do |course| %>
         <tr>
           <td><%= link_to course.name, teacher_course_path(course) %></td>
-          <td><%= course.grade %></td>
+          <td><%= course.level %></td>
           <td><%= course.sections.count %></td>
           <td>
             <% if course.sections.any? %>

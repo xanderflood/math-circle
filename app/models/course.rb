@@ -8,9 +8,10 @@ class Course < ApplicationRecord
   serialize :waitlist, Array
 
   # TODO: unrequire "name" and replace with a "description" method
-  validates :grade, presence: { allow_blank: false, message: "must be specified." }
+  validates :level, presence:  { allow_blank: false, message: "You must select a Math-Circle level for this course." },
+                    exclusion: { in: ['unspecified'], message: "You must select a Math-Circle level for this course." }
 
-  enum grade: GradesHelper::GRADES
+  enum level: LevelsHelper::LEVELS
 
   def roster
     self.sections.map(&:roster).inject([], :+)
@@ -26,9 +27,9 @@ class Course < ApplicationRecord
 
   def description
     if name
-      "#{name} (grade #{grade})"
+      "#{name} (level #{level})"
     else
-      "grade #{grade}"
+      "level #{level}"
     end
   end
 end

@@ -3,7 +3,7 @@
     <h2><%= pluralize(rollcall.errors.count, "error") %> prohibited this rollcall from being saved:</h2>
 
     <ul>
-    <% rollcall.errors.full_messages.each do |message| %>
+    <% rollcall.errors.messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
     </ul>

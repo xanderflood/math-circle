@@ -1,10 +1,13 @@
 FactoryGirl.define do
   factory :student do
-    grade :A
+    level :A
     sequence(:email) { |n| "student#{n}@email.com" }
 
     sequence(:first_name) { |n| "Henderleigh-#{n}" }
     sequence(:last_name) { |n| ["McNabb", "Trufflestein", "Kombucha", "Cookbook"].sample }
+
+    birthdate { Date.today }
+    waiver_submitted true
 
     school_grade(10)
 

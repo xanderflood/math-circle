@@ -14,14 +14,14 @@ class Ballot < ApplicationRecord
   validate :sections_in_course
   validate :non_empty
 
-  after_initialize :require_grade, :if => :new_record?
+  after_initialize :require_level, :if => :new_record?
   after_initialize :set_course,    :if => :new_record?
 
   class NoCoursesError < StandardError; end
-  class NoGradeError < StandardError; end
+  class NoLevelError < StandardError; end
 
-  def require_grade
-    raise NoGradeError if self.student.grade == GradesHelper::UNSPECIFIED.to_s
+  def require_level
+    raise NoLevelError if self.student.grade == 'unspecified'
   end
 
   def set_course
@@ -51,7 +51,7 @@ class Ballot < ApplicationRecord
   end
 
   def courses
-    @courses ||= Semester.current_courses(self.student.grade)
+    @courses ||= Semester.current_courses(self.student.level)
   end
 
   protected

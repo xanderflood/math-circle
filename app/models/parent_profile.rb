@@ -1,7 +1,7 @@
 class ParentProfile < ApplicationRecord
   belongs_to :parent
 
-  after_initialze :default_email
+  after_initialize :default_email
 
   validates :first_name, presence: true, length: { minimum: 3 }
   validates :last_name, presence: true, length: { minimum: 3 }

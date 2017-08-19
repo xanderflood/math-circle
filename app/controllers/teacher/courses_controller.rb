@@ -48,6 +48,6 @@ class Teacher::CoursesController < Teacher::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params.fetch(:course, {}).permit(:name, :grade, :capacity, :semester_id, :overview)
+      params.fetch(:course, {}).permit(:name, :level, :capacity, :semester_id, :overview)
     end
 end

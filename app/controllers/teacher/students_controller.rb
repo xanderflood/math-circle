@@ -41,11 +41,12 @@ class Teacher::StudentsController < ApplicationController
         :last_name,
         :first_name,
         :email,
-        :grade,
+        :level,
         :accommodations,
         :school,
         :school_grade,
         :highest_math_class,
-        :priority)
+        :priority,
+        :waiver_confirmed)
     end
 end

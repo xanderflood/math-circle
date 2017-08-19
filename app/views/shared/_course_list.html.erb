@@ -2,7 +2,8 @@
   <thead>
     <tr class="heavy-bordered-row">
       <th>Name</th>
-      <th>Grade &amp; Semester</th>
+      <th>Level</th>
+      <th>Semester</th>
       <th>Overview</th>
     </tr>
   </thead>
@@ -12,7 +13,8 @@
       <% multi_collapse_id = "course#{course.id}" %>
       <tr class="heavy-bordered-row">
         <td><%= link_to course.name, '#', class: 'multi-collapse-control', data: {multi_collapse_id: multi_collapse_id} %></td>
-        <td><%= "Grade #{course.grade} (#{course.semester.name})" %></td>
+        <td>Level <%= course.level %></td>
+        <td><%= course.semester.name %></td>
         <td><%= course.overview.present? ? course.overview : "None" %></td>
       </tr>
 

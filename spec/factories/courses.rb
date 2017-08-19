@@ -1,15 +1,15 @@
 FactoryGirl.define do
   factory(:course) do
-    sequence(:grade) { |n| n % Course.grades.count }
+    sequence(:level) { |n| 1 + (n % (Course.levels.count-1)) }
 
-    name { "Level #{self.grade}" }
+    name { "Level #{self.level}" }
     overview { "Super cool math funstuff for ages"\
-               "#{self.grade} through #{self.grade}" }
+               "#{self.level} through #{self.level}" }
 
     # sections
     after(:create) do |course|
       # this will be used to sequence the other attributes
-      offset = 1 + Course.grades[course.grade]
+      offset = 1 + Course.levels[course.level]
 
       create_list(:event_group, offset,
         course: course,

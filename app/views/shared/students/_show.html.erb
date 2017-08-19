@@ -36,7 +36,7 @@
     </tr>
     <tr>
       <td>Level:</td>
-      <td><%= @student.grade %></td>
+      <td><%= @student.level %></td>
     </tr>
     <tr>
       <td>School:</td>
@@ -51,12 +51,8 @@
       <td><%= @student.highest_math_class %></td>
     </tr>
     <tr>
-      <td>Waiver signed:</td>
-      <td><%= (@student.waiver ? "Yes" : "No" ) %></td>
-    </tr>
-    <tr>
-      <td>Photography permission:</td>
-      <td><%= (@student.photo_permission ? "Yes" : "No" ) %></td>
+      <td>Waiver confirmed:</td>
+      <td><%= (@student.waiver_confirmed ? "Yes" : "No" ) %></td>
     </tr>
     <tr>
       <td>Accommodations:</td>

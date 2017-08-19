@@ -3,11 +3,10 @@ class Parent::BallotsController < ApplicationController
   before_action :set_student, only: [:new]
 
   rescue_from Ballot::NoCoursesError, with: :no_courses
-  rescue_from Ballot::NoGradeError,   with: :no_grade
+  rescue_from Ballot::NoLevelError,   with: :no_level
 
   # GET /ballots/new
   def new
-    # redirect_to :back, notice: 'You must specify a grade level for this student before registering.' if @student.unspecified?
     @ballot   = Ballot.where(student_id: @student.id).limit(1).first
     @ballot ||= Ballot.new(semester: Semester.current, student_id: @student.id)
   end
@@ -58,10 +57,10 @@ class Parent::BallotsController < ApplicationController
     end
 
     def no_courses
-      redirect_to :back, notice: 'No courses are currently scheduled for this grade level.'
+      redirect_to :back, notice: 'No courses are currently scheduled for this Math-Circle level.'
     end
 
-    def no_grade
-      redirect_to :back, notice: 'You must specify a grade level for this student before registering.'
+    def no_level
+      redirect_to :back, notice: 'You must specify a Math-Circle level for this student before registering.'
     end
 end
