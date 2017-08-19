@@ -7,6 +7,10 @@ class Parent::BallotsController < ApplicationController
 
   # GET /ballots/new
   def new
+    if @student.grade < 6 || @student.level == 'D'
+      redirect_to :back, notice: 'Elementary students and students registering for level D will need to contact Math-Circle directly to register.'
+    end
+
     @ballot   = Ballot.where(student_id: @student.id).limit(1).first
     @ballot ||= Ballot.new(semester: Semester.current, student_id: @student.id)
   end
