@@ -1,12 +1,6 @@
 class Student < ApplicationRecord
-  has_one :contact_info
   belongs_to :parent
   has_many :ballots
-
-  belongs_to :contact_info
-  accepts_nested_attributes_for :contact_info, update_only: true
-  # belongs_to :emergency_contact,   class_name: ContactInfo
-  # belongs_to :emergency_contact_2, class_name: ContactInfo
 
   enum grade: GradesHelper::GRADES
   DISPLAY_GRADES = self.grades.reject{ |k,v| k == "D" }.keys.to_a
