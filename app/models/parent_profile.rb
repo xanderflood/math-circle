@@ -11,8 +11,8 @@ class ParentProfile < ApplicationRecord
 
   validates :street1, presence: true
   validates :city, presence: true
-  enum state: StateHelper::US_STATES
-  validates :zip, format: { with: StateHelper::ZIPCODE_REGEXP }
+  enum state: StatesHelper::US_STATES
+  validates :zip, format: { with: StatesHelper::ZIPCODE_REGEXP }
 
   [1, 2].each do |i|
     validates :"ec#{i}_first_name", presence: true, length: { minimum: 3 }
