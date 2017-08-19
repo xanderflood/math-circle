@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818225729) do
+ActiveRecord::Schema.define(version: 20170819010039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,14 +187,12 @@ ActiveRecord::Schema.define(version: 20170818225729) do
     t.string   "email"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "contact_info_id"
     t.string   "school"
     t.integer  "school_grade"
     t.string   "highest_math_class"
     t.boolean  "photo_permission",   default: false, null: false
     t.boolean  "waiver",             default: false, null: false
     t.date     "birthdate"
-    t.index ["contact_info_id"], name: "index_students_on_contact_info_id", using: :btree
     t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
 
@@ -225,6 +223,5 @@ ActiveRecord::Schema.define(version: 20170818225729) do
   add_foreign_key "parent_profiles", "parents"
   add_foreign_key "parents", "parent_profiles"
   add_foreign_key "rollcalls", "events"
-  add_foreign_key "students", "contact_infos"
   add_foreign_key "students", "parents"
 end
