@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818004127) do
+ActiveRecord::Schema.define(version: 20170818225729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,11 +104,25 @@ ActiveRecord::Schema.define(version: 20170818004127) do
 
   create_table "parent_profiles", force: :cascade do |t|
     t.integer  "parent_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "primary_contact_id"
-    t.integer  "emergency_contact_id"
-    t.integer  "emergency_contact_2_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "ec1_first_name"
+    t.string   "ec1_last_name"
+    t.string   "ec1_relation"
+    t.string   "ec1_phone"
+    t.string   "ec2_first_name"
+    t.string   "ec2_last_name"
+    t.string   "ec2_relation"
+    t.string   "ec2_phone"
     t.index ["parent_id"], name: "index_parent_profiles_on_parent_id", using: :btree
   end
 

@@ -1,4 +1,6 @@
 module StatesHelper
+  ZIPCODE_REGEXP = /^[0-9]{5}(?:-[0-9]{4})?$/
+
   US_STATES = [ ['Alabama', 'AL'],
                 ['Alaska', 'AK'],
                 ['Arizona', 'AZ'],

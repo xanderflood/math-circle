@@ -11,6 +11,8 @@ TODO:
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
 
++ a helper/partial thing called "object table" or something that handles empty lists gracefully
+
 =================================
 
 + teacher/students#register

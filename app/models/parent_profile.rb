@@ -1,12 +1,27 @@
 class ParentProfile < ApplicationRecord
   belongs_to :parent
 
-  belongs_to :primary_contact,     class_name: ContactInfo, foreign_key: :primary_contact_id
-  belongs_to :emergency_contact,   class_name: ContactInfo, foreign_key: :emergency_contact_id
-  belongs_to :emergency_contact_2, class_name: ContactInfo, foreign_key: :emergency_contact_2_id
+  after_initialze :default_email
 
-  # accepts_nested_attributes_for :primary_contact, :emergency_contact, :emergency_contact_2, update_only: true
-  accepts_nested_attributes_for :primary_contact, update_only: true
-  accepts_nested_attributes_for :emergency_contact, update_only: true
-  accepts_nested_attributes_for :emergency_contact_2, update_only: true
+  validates :first_name, presence: true, length: { minimum: 3 }
+  validates :last_name, presence: true, length: { minimum: 3 }
+
+  validates :phone, phone: true
+  validates :email, format: { with: EmailHelper::OPTIONAL_EMAIL }
+
+  validates :street1, presence: true
+  validates :city, presence: true
+  enum state: StateHelper::US_STATES
+  validates :zip, format: { with: StateHelper::ZIPCODE_REGEXP }
+
+  [1, 2].each do |i|
+    validates :"ec#{i}_first_name", presence: true, length: { minimum: 3 }
+    validates :"ec#{i}_last_name", presence: true, length: { minimum: 3 }
+    validates :"ec#{i}_relation", presence: true, length: { minimum: 3 }
+    validates :"ec#{i}_phone", presence: true, phone: true
+  end
+
+  def name; [self.first_name, self.last_name].join(" "); end
+
+  def default_email; self.email ||= self.parent.email; end
 end
