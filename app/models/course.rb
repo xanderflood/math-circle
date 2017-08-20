@@ -8,8 +8,8 @@ class Course < ApplicationRecord
   serialize :waitlist, Array
 
   # TODO: unrequire "name" and replace with a "description" method
-  validates :level, presence:  { allow_blank: false, message: "You must select a Math-Circle level for this course." },
-                    exclusion: { in: ['unspecified'], message: "You must select a Math-Circle level for this course." }
+  validates :level, presence:  { allow_blank: false, message: "must be specified." },
+                    exclusion: { in: ['unspecified'], message: "must be specified." }
 
   enum level: LevelsHelper::LEVELS
 

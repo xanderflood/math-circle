@@ -63,7 +63,7 @@ class EventGroup < ApplicationRecord
 
   def not_over_full
     # TODO: should check a force flag somewhere/somehow
-    errors.add(:roster, "exceeds the capacity for this section") unless roster.count <= capacity
+    errors.add(:roster, "exceeds the capacity for this section.") unless roster.count <= capacity
   end
 
   def list_formats

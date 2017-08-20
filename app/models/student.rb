@@ -10,7 +10,7 @@ class Student < ApplicationRecord
   validates :birthdate, presence: true
   validates :waiver_submitted, inclusion: {
       in: [true],
-      message: "Please confirm that you've submitted a waiver with WaiverForever."
+      message: " is required."
     }
   validates :school_grade, numericality: {
       only_integer: true,

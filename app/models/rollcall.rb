@@ -4,7 +4,7 @@ class Rollcall < ApplicationRecord
   after_initialize :set_date_to_today
   after_initialize :initialize_attendance
 
-  validates :event, uniqueness: { message: "This event already has a rollcall record." }
+  validates :event, uniqueness: { message: "already has a rollcall record." }
 
   def initialize_attendance
     # if this is being initialized for the first time (so attendance is nil)

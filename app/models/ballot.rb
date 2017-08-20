@@ -10,7 +10,7 @@ class Ballot < ApplicationRecord
 
   self::MAX_PREFERENCES = 10
 
-  validates :student, uniqueness: { scope: :semester, message: "This student already has a ballot for this semester. To view it, go to your students list, and selct \"register\" beside this student's name." }
+  validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and selct \"register\" beside this student's name." }
   validate :course_in_semester
   validate :semester_is_current
   validate :unique_sections
@@ -73,7 +73,7 @@ class Ballot < ApplicationRecord
   end
 
   def unique_sections
-    errors.add(:sections, "must not be repeated") unless self.preferences.count == self.preferences.uniq.count
+    errors.add(:sections, "must not be repeated.") unless self.preferences.count == self.preferences.uniq.count
   end
 
   def sections_in_course
