@@ -34,6 +34,11 @@
     <%= hidden_field_tag :current, is_cur, disabled: true, class: "original-current-value" %>
   </div>
 
+  <div class="field">
+    <%= f.label 'Open for lottery registration:' %>
+    <%= f.check_box :lottery_open, disabled: !f.object.current? %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
