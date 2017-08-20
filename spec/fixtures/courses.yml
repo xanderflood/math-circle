@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 # courses for spring 2018
-# (semester intended for testing pre-registration)
+# (semester intended for testing lottery registration)
 As18:
   name:
   level: A

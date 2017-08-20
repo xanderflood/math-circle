@@ -37,7 +37,9 @@ Rails.application.routes.draw do
       
       resources :rollcalls, only: [:create, :update]
 
-      resources :students, except: [:new, :create]
+      resources :students, except: [:new, :create] do
+        resource :ballot, except: [:show, :index]
+      end
     end
   end
 

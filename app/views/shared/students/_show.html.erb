@@ -51,8 +51,12 @@
       <td><%= @student.highest_math_class %></td>
     </tr>
     <tr>
+      <td>Waiver submitted:</td>
+      <td><%= (@student.waiver_submitted? ? "Yes" : "No" ) %></td>
+    </tr>
+    <tr>
       <td>Waiver confirmed:</td>
-      <td><%= (@student.waiver_confirmed ? "Yes" : "No" ) %></td>
+      <td><%= (@student.waiver_confirmed? ? "Yes" : "No" ) %></td>
     </tr>
     <tr>
       <td>Accommodations:</td>

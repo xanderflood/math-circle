@@ -13,7 +13,7 @@ class Semester < ApplicationRecord
 
   enum state: [ :reg, :late_reg, :archived ]
   STATE_DESCRIPTION = [
-    "open for registration",
+    "open for lottery registration",
     "open for late registration",
     "closed",
     "archived"

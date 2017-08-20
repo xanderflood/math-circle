@@ -1,4 +1,7 @@
 class Ballot < ApplicationRecord
+  # makes form_for work with a singleton resource
+  model_name.instance_variable_set(:@route_key, 'ballot')
+
   belongs_to :student
   belongs_to :course
   belongs_to :semester
