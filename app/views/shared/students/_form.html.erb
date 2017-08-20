@@ -4,7 +4,7 @@
       <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
       <ul>
-      <% student.errors.messages.values.each do |message| %>
+      <% student.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
