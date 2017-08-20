@@ -22,17 +22,21 @@
           <td><%= student.school_grade %></td>
           <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
           <td>
-            <% if student.level == 'unspecified' %>
-              Before you can register, you'll need to
-              <%= link_to "enter your grade and Math-Circle level", edit_parent_student_path(student) %>.
-            <% elsif student.ballot %>
-              <%= link_to 'Edit registration', edit_parent_student_ballot_path(student) %>
-            <% else %>
-              <% if student.school_grade <= 5 || (student.level && student.D?) %>
-                (Contact Math-Circle to register elementary school students and level D students.)
+            <% if Semester.current.lottery_open? %>
+              <% if student.level == 'unspecified' %>
+                Before you can register, you'll need to
+                <%= link_to "enter your grade and Math-Circle level", edit_parent_student_path(student) %>.
+              <% elsif student.ballot %>
+                <%= link_to 'Edit registration', edit_parent_student_ballot_path(student) %>
               <% else %>
-                <%= link_to 'Register', new_parent_student_ballot_path(student) %>
+                <% if student.school_grade <= 5 || (student.level && student.D?) %>
+                  (Contact Math-Circle to register elementary school students and level D students.)
+                <% else %>
+                  <%= link_to 'Register', new_parent_student_ballot_path(student) %>
+                <% end %>
               <% end %>
+            <% else %>
+              Lottery registration has been closed. Normal registration will resume after class assignments are made.
             <% end %>
           </td>
           <td><%= link_to 'Show', parent_student_path(student) %></td>
