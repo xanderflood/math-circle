@@ -4,6 +4,8 @@ class Student < ApplicationRecord
 
   enum level: LevelsHelper::LEVELS
 
+  after_update :maybe_clear_ballot
+
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
   validates :birthdate, presence: true
   validates :waiver_submitted, inclusion: {
@@ -15,6 +17,12 @@ class Student < ApplicationRecord
       greater_than_or_equal_to: 1,
       less_than_or_equal_to: 12
     }
+
+  def maybe_clear_ballot
+    if self.school_grade_changed? || self.level_changed?
+      self.ballot.destroy if self.ballot
+    end
+  end
 
   def section
     semester = Semester.current
@@ -65,6 +73,6 @@ class Student < ApplicationRecord
   end
 
   def ballot
-    Ballot.where(student: self, semester: Semester.current).first
+    @ballot ||= Ballot.where(student: self, semester: Semester.current).first
   end
 end
