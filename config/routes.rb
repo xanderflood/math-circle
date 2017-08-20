@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       resources :rollcalls, only: [:create, :update]
 
       resources :students, except: [:new, :create] do
+        collection do
+          post 'search'
+        end
+
         resource :ballot, except: [:show, :index]
       end
     end

@@ -29,6 +29,11 @@ class Teacher::StudentsController < ApplicationController
     redirect_to students_url, notice: 'Student was successfully destroyed.'
   end
 
+  def search
+    @students = Student.where("first_name ILIKE ?", "%#{params[:search][:first_name]}%")
+                       .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
