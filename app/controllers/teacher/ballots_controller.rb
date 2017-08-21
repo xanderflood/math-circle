@@ -34,7 +34,7 @@ class Teacher::BallotsController < ApplicationController
     if @ballot.update(ballot_params)
       redirect_to teacher_students_path, notice: 'Ballot was successfully updated.'
     else
-      render :new
+      render :edit
     end
   end
 
