@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
       resources :students, except: [:new, :create] do
         collection do
-          post 'search'
+          get 'search'
         end
 
         resource :ballot, except: [:show, :index]
