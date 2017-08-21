@@ -12,17 +12,11 @@ class Lottery < ApplicationRecord
       @course        = course
       self.id        = course.id
       @waitlist      = []
-      @open_sections = course.sections.select { |s| s.capacity != 0 }.map(&:id)
 
       @section_rosters = course.sections.map do |section|
         [section.id, SectionRoster.new(section)]
       end.to_h
 
-      # run the lottery:
-      add_all_students
-    end
-
-    def add_all_students
       # sort descending by priority, break ties randomly
       @course.ballots.all.sort_by do |ballot|
         [-ballot.student.priority, rand]
@@ -30,15 +24,14 @@ class Lottery < ApplicationRecord
     end
 
     def add_student(ballot)
-      section_id = (@open_sections & ballot.preferences).first
+      enrolled = false
+      ballot.preferences.each do |pref|
+        enrolled = @section_rosters[pref].add_student(ballot.student_id)
 
-      if section_id
-        if @section_rosters[section_id].add_student(ballot.student_id)
-          @open_sections.delete(section_id)
-        end
-      else
-        @waitlist << ballot.student_id
+        break if enrolled
       end
+
+      @waitlist << ballot.student_id unless enrolled
     end
 
     def to_h
@@ -60,10 +53,11 @@ class Lottery < ApplicationRecord
 
     # this should not be called if @section is already full
     def add_student(student_id)
-      self.roster << student_id
+      return false unless @space > 0
 
+      self.roster << student_id
       @space -= 1
-      return @space == 0
+      return true
     end
   end
 

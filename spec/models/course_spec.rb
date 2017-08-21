@@ -12,7 +12,7 @@ RSpec.describe Course, type: :model do
   end
 
   it 'should reject a course without a valid level' do
-    [:not_valid, 10, "not valid"].each do |grade|
+    [:not_valid, 10, "not valid"].each do |level|
       expect do
         course = Course.new(
           semester: Semester.first,

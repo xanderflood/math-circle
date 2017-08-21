@@ -2,14 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Lottery, type: :model do
   before(:all) do
-    # set up the semester
-    @lottery = FactoryGirl.build(:lottery)
-    @lottery.run
-    @lottery.save!
-    @lottery.commit
-    @lottery.save!
-    @lottery.reload
+    @semester = Semester.find_by(name: "semester_for_lottery")
+    @lottery = Lottery.find_by(semester: @semester)
 
+    # If this fails because lottery is nil, you have to `rake db:seed RAILS_ENV=test`
     @ballots = @lottery.semester.courses.collect do |course|
       [course.id, course.ballots]
     end.to_h

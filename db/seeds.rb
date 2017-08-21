@@ -7,14 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # attendance example (executed lottery)
+puts "+++ Buidling a run-lottery example +++"
 lottery = FactoryGirl.create(:lottery)
+puts "  Running the lottery"
 lottery.run
 lottery.save!
 lottery.commit
 lottery.save!
 
 # lottery example
+puts "+++ Buidling an un-run-lottery example +++"
 FactoryGirl.create(:semester_for_lottery, name: "Fall 2017")
+
+puts "+++ Setting up preview accounts +++"
 
 # logins
 Teacher.create(email: "test@emory.edu", password: "password")

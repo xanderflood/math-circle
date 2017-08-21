@@ -13,7 +13,7 @@ FactoryGirl.define do
 
       create_list(:event_group, offset,
         course: course,
-        capacity: 4 + 2*offset)
+        capacity: course.capacity)
     end
 
     trait(:ballots) do

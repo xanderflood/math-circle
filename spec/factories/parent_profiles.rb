@@ -1,5 +1,30 @@
 FactoryGirl.define do
   factory :parent_profile do
-    parent { create(:parent) }
+    initialize_with do
+      new(attributes.merge({ parent: create(:parent) }))
+    end
+
+    first_name "Parent"
+    last_name "McParentus"
+
+    email "parent@parent.parent"
+    phone "248-555-5555"
+
+    street1 "1600 Pennsylvania Ave"
+    street2 ""
+    city "Washington"
+    state "DC"
+    zip "20500"
+
+    ec1_first_name "test"
+    ec1_last_name "test"
+    ec1_relation "test"
+    ec1_phone "248-555-5555"
+    ec2_first_name "test"
+    ec2_last_name "test"
+    ec2_relation "test"
+    ec2_phone "248-555-5555"
+
+    # parent { create(:parent) }
   end
 end

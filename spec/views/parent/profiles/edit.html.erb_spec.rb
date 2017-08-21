@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "parent/profiles/edit", type: :view do
+RSpec.describe "parent/profile/edit", type: :view do
   before(:each) do
     @parent_profile = assign(:parent_profile, create(:parent_profile))
   end
