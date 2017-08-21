@@ -57,6 +57,7 @@ class Parent::StudentsController < Parent::BaseController
       params.fetch(:student, {}).permit(
         :last_name,
         :first_name,
+        :birthdate,
         :email,
         :level,
         :accommodations,

@@ -45,6 +45,7 @@ class Teacher::StudentsController < ApplicationController
       params.fetch(:student, {}).permit(
         :last_name,
         :first_name,
+        :birthdate,
         :email,
         :level,
         :accommodations,
