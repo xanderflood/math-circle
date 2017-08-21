@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= f.label :birthdate %>
-    <%= f.date_select :birthdate %>
+    <%= f.date_select :birthdate, start_year: Time.now.year - 20 %>
   </div>
 
   <div class="field">
