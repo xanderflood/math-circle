@@ -3,7 +3,7 @@ require 'csv'
 class EventGroup < ApplicationRecord
   default_scope{ order(created_at: :desc)}
 
-  has_many :events, foreign_key: :section_id
+  has_many :events, foreign_key: :section_id, dependent: :destroy
   belongs_to :course
 
   serialize :waitlist, Array
