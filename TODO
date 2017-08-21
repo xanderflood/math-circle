@@ -3,11 +3,6 @@ TODO:
 
 !!!!!!NEXT TWO DAYS!!!!!!
 
-+ Remove teacher login
-
-+ teacher/students
-  + post search
-
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
 
@@ -15,7 +10,6 @@ TODO:
 
 =================================
 
-+ teacher/students#register
 + thumbnail
 + reminders
 
@@ -25,10 +19,7 @@ Requirements
 
 + Unexpected students
 
-+ Beside student name, add a checkmark if `registered?` and a class name if `enrolled?`
-
 + swaps
-+ force add students
 + Late registration
 
 + Fix all versions
@@ -37,24 +28,15 @@ Requirements
 cleanup
 ----------
 
-+ Let students un-register
-
-+ Check for -_save's that should be -_create's
-
 + stub out email notifications when the list moves
   + How to schedule them before an event?
   + Send them WHENEVER something is rescheduled
-
-+ Change the students list so that its format depends on the state of the current semester, with a section-switch list if the lottery has run already
 
 + Section/waitlist switching
   + teacher and student should both have the option
   + Add a link for force-adding a student
 
 + Thumbnails
-
-+ Make sure that changing a student's grade level clears their open ballot
-
 
 ----------
 GENERAL
@@ -69,7 +51,6 @@ Contact
 Courses + Events calendar view
 
 View attendence record
-
 
 ----------
 TEACHER

@@ -9,7 +9,7 @@ class EventGroup < ApplicationRecord
   serialize :waitlist, Array
   serialize :roster,   Array
 
-  after_save   :copy_course_capacity
+  after_create :copy_course_capacity
   before_save  :shift_waitlist
   after_create :populate_events
 
