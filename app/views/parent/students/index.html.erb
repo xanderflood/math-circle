@@ -10,6 +10,7 @@
         <th colspan="1">Level</th>
         <th colspan="1">Grade</th>
         <th colspan="1">Registration Priority</th>
+        <th colspan="1">Waiver confirmed</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
           <td><%= student.level %></td>
           <td><%= student.school_grade %></td>
           <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
+          <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
           <td>
             <% if Semester.current.lottery_open? %>
               <% if student.level == 'unspecified' %>
