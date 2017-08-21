@@ -1,7 +1,26 @@
 TODO:
 -----
 
-!!!!!!NEXT TWO DAYS!!!!!!
+- fix lottery specs
+
+- special event registration
+- normal registration
+- update Student#registered? to not just check ballots
+- photos
+- start & end dates
+
+- include a student's class history in app/views/shared/_show.html.erb
+- delete unused views (lots of teacher/**/index's, for instance)
+- collapsify the lottery view to make it easier to use
+- show accomadations on rollcall screen
+- change "destroy" to delete
+- check all delete endpoints
+- re-test all rollcall stuff
+- redirect namepace to sign-in
+
+- ask where waiver confirmation should block the user
+
+========================================
 
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
