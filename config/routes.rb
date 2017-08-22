@@ -64,7 +64,17 @@ Rails.application.routes.draw do
     root to: 'public/home#index'
 
     devise_scope :teacher do
-      get 'teacher', to: 'authentication/teacher_sessions#new'
+      scope :teacher do
+        root        to: 'authentication/teacher_sessions#new'
+        get '*all', to: 'authentication/teacher_sessions#new'
+      end
+    end
+
+    devise_scope :parent do
+      scope :parent do
+        root        to: 'authentication/parent_sessions#new'
+        get '*all', to: 'authentication/parent_sessions#new'
+      end
     end
   end
   
