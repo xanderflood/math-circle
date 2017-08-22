@@ -10,6 +10,7 @@ class Semester < ApplicationRecord
 
   validates :name, presence: { allow_blank: false, message: "must be provided." }
   validate :end_after_start
+  validate :not_both_registration_and_lottery
 
   enum state: [ :reg, :late_reg, :archived ]
   STATE_DESCRIPTION = [
@@ -63,5 +64,11 @@ class Semester < ApplicationRecord
 
     def end_after_start
       errors.add(:end, 'must be later than the start date.') if self.end <= self.start
+    end
+
+    def not_both_registration_and_lottery
+      if self.lottery_open? && self.registration_open?
+        self.errors.add(:base, "Can't open normal registration while lottery registration is still open.")
+      end
     end
 end

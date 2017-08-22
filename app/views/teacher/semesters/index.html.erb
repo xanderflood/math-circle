@@ -10,6 +10,7 @@
         <th colspan="1">Start date</th>
         <th colspan="1">End date</th>
         <th colspan="1">Current</th>
+        <th colspan="1">Registration</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -21,6 +22,15 @@
           <td><%= I18n.l semester.start %></td>
           <td><%= I18n.l semester.end %></td>
           <td><%= "*" if semester.current %></td>
+          <td>
+            <% if semester.registration_open? %>
+              Post-lottery
+            <% elsif semester.lottery_open? %>
+              Lottery
+            <% else %>
+              Closed
+            <% end %>
+          </td>
           <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>
           <td><%= link_to 'Destroy', teacher_semester_path(semester), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

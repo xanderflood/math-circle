@@ -36,7 +36,12 @@
 
   <div class="field">
     <%= f.label 'Open for lottery registration:' %>
-    <%= f.check_box :lottery_open, disabled: !f.object.current? %>
+    <%= f.check_box :lottery_open %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Open for post-lottery registration:' %>
+    <%= f.check_box :registration_open %>
   </div>
 
   <div class="actions">

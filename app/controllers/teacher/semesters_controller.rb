@@ -104,6 +104,6 @@ class Teacher::SemestersController < Teacher::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def semester_params
-      params.fetch(:semester, {}).permit(:name, :start, :end, :current, :lottery_open)
+      params.fetch(:semester, {}).permit(:name, :start, :end, :current, :lottery_open, :registration_open)
     end
 end
