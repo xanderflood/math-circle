@@ -25,6 +25,23 @@ class Registree < ApplicationRecord
     @courses ||= Semester.current_courses(self.student.level)
   end
 
+  # write a concern or a class method to do:
+  # preferences :preferences
+  def preferences_hash
+    self.preferences ||= []
+    Hash[(0..padded_size-1).collect do |i|
+      [(i+1).to_s, self.preferences[i].to_s]
+    end]
+  end
+
+  def preferences_hash=(hash)
+    self.preferences = hash.to_a.
+      reject  { |obj| obj[1].empty? }.
+      sort_by { |obj| obj[0].to_i }.
+      map     { |obj| obj[1].to_i }
+  end
+
+
   # callbacks
   class NoCoursesError < StandardError; end
   class NoLevelError < StandardError; end

@@ -1,8 +1,3 @@
-<!-- use this for PARENT scaffold, not TEACHER -->
-<%section_states = registree.course.sections.map do |section|
-    [section.id, section.full?]
-  end %>
-
 <%= form_for([:teacher, registree.student, registree]) do |f| %>
   <% if registree.errors.any? %>
     <div id="error_explanation">
@@ -35,6 +30,9 @@
     </div>
   </div>
 
+  <div class="preferences">
+    <%= render partial: "shared/preferences", locals: { f: f, target: registree, sections: registree.course.sections.select(&:full?) } %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

@@ -1,0 +1,26 @@
+<%= f.fields_for :preferences_hash do |pref_fields| %>
+
+  <%= pref_fields.label :preferences %>
+
+  <table>
+    <thead>
+      <tr>
+        <th colspan="1">Preference</th>
+        <th colspan="1">Section</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @preferences = target.preferences %>
+      <% (1..sections.count).each do |pref| %>
+        <tr>
+          <td><%= pref %></td>
+          <td>
+            <% options = options_for_select(sections.map { |s| [s.description, s.id] }, target.preferences_hash[pref.to_s]) %>
+            <%= pref_fields.select pref, options, include_blank: true %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
