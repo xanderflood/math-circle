@@ -10,12 +10,11 @@ class Ballot < ApplicationRecord
 
   self::MAX_PREFERENCES = 10
 
-  validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and selct \"register\" beside this student's name." }
-  validate :course_in_semester
-  validate :semester_is_current
-  validate :unique_sections
-  validate :sections_in_course
+  validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }
   validate :non_empty
+  validate :unique_sections
+  validate :course_in_semester
+  validate :sections_in_course
 
   after_initialize :require_level, :if => :new_record?
   after_initialize :set_course,    :if => :new_record?
@@ -30,6 +29,10 @@ class Ballot < ApplicationRecord
   def set_course
     self.course = self.courses.first
     raise NoCoursesError if self.course.nil?
+  end
+
+  def courses
+    @courses ||= Semester.current_courses(self.student.level)
   end
 
   def padded_size
@@ -53,10 +56,6 @@ class Ballot < ApplicationRecord
       map     { |obj| obj[1].to_i }
   end
 
-  def courses
-    @courses ||= Semester.current_courses(self.student.level)
-  end
-
   protected
   
   # validations
@@ -64,16 +63,12 @@ class Ballot < ApplicationRecord
     errors.add(:ballot, "must have at least one selection.") unless self.preferences.count > 0
   end
 
-  def course_in_semester
-    errors.add(:course, "is not from the current semester.") unless self.course.semester == self.semester
-  end
-
-  def semester_is_current
-    errors.add(:semester, "is not current.") unless self.semester.current
-  end
-
   def unique_sections
     errors.add(:sections, "must not be repeated.") unless self.preferences.count == self.preferences.uniq.count
+  end
+
+  def course_in_semester
+    errors.add(:course, "is not from the current semester.") unless self.course.semester == self.semester
   end
 
   def sections_in_course

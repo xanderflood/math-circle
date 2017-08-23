@@ -1,0 +1,42 @@
+<!-- use this for PARENT scaffold, not TEACHER -->
+<%section_states = registree.course.sections.map do |section|
+    [section.id, section.full?]
+  end %>
+
+<%= form_for([:teacher, registree.student, registree]) do |f| %>
+  <% if registree.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(registree.errors.count, "error") %> prohibited this registree from being saved:</h2>
+
+      <ul>
+      <% registree.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :semester_id %>
+  <%= f.hidden_field :student_id %>
+  <%= f.hidden_field :course_id %>
+
+  <div class="sections">
+    <%= f.label :section %>
+    <% registree.course.sections.each do |section| %>
+      <div class="field">
+        <%= f.label section.description %>
+        <%= "(full)" if section.full? %>
+        <%= f.radio_button :section_id, section.id %>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= f.label "Waitlist" %>
+      <%= f.radio_button :section_id, nil, class: "waitlist-radio-button", checked: registree.section.nil? %>
+    </div>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

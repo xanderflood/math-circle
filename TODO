@@ -1,7 +1,10 @@
 TODO:
 -----
 
-- fix lottery specs
+- fix registration to allow several courses of the same grade
+- factor the common code in ballot/registree into a concern
+
+- confirm before deleting a ballot or registree
 
 - special event registration
 - normal registration
@@ -12,7 +15,7 @@ TODO:
 - include a student's class history in app/views/shared/_show.html.erb
 - delete unused views (lots of teacher/**/index's, for instance)
 - collapsify the lottery view to make it easier to use
-- show accomadations on rollcall screen
+- show accomodations on rollcall screen
 - change "destroy" to delete
 - check all delete endpoints
 - re-test all rollcall stuff

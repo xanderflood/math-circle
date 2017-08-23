@@ -38,8 +38,17 @@
               <% else %>
                 <%= link_to 'Register', new_teacher_student_ballot_path(student) %>
               <% end %>
+            <% elsif Semester.current.registration_open? %>
+              <% if student.level == 'unspecified' %>
+                Before you can register, you'll need to
+                <%= link_to "enter your grade and Math-Circle level", edit_teacher_student_path(student) %>.
+              <% elsif student.registree %>
+                <%= link_to 'Edit registration', edit_teacher_student_registree_path(student) %>
+              <% else %>
+                <%= link_to 'Register', new_teacher_student_registree_path(student) %>
+              <% end %>
             <% else %>
-              Lottery registration has been closed. Normal registration will resume after class assignments are made.
+              Registration is currently closed.
             <% end %>
           </td>
 

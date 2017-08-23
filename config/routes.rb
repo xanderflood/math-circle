@@ -42,7 +42,8 @@ Rails.application.routes.draw do
           get 'search'
         end
 
-        resource :ballot, except: [:show, :index]
+        resource :ballot,    except: [:show, :index]
+        resource :registree, except: [:show, :index]
       end
     end
   end

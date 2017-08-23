@@ -73,6 +73,14 @@ class Student < ApplicationRecord
   end
 
   def ballot
-    @ballot ||= Ballot.where(student: self, semester: Semester.current).first
+    @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
+  end
+
+  def registree
+    @registree ||= Registree.find_by(student: self, semester: Semester.current)
+  end
+
+  def ready_to_register?
+    self.level != "unspecified" || self.grade <= 5
   end
 end
