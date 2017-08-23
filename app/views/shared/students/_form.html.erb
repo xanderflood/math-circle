@@ -54,8 +54,8 @@
   </div>
 
   <div class="field">
-    <%= f.label "If the student requires any accommodations to participate in math circle, please describe them here:" %>
-    <%= f.text_field :accommodations %>
+    <%= f.label "If the student requires any accommodations to participate in math circle, please describe them here:" %><br/>
+    <%= f.text_area :accommodations, cols: 40, rows: 4 %>
   </div>
 
   <%= render partial: 'form_extras', locals: { f: f } %>
