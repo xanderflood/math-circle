@@ -1,4 +1,4 @@
-class Teacher::RegistreesController < RegistreesController
+class Parent::RegistreesController < RegistreesController
   before_action :set_student
   before_action :set_registree, only: [:show, :edit, :update, :destroy]
 
@@ -13,7 +13,7 @@ class Teacher::RegistreesController < RegistreesController
     @registree = Registree.new(registree_params)
 
     if @registree.save
-      redirect_to teacher_students_path, notice: 'Registree was successfully created.'
+      redirect_to parent_students_path, notice: 'Registree was successfully created.'
     else
       render :new
     end
@@ -21,7 +21,7 @@ class Teacher::RegistreesController < RegistreesController
 
   def update
     if @registree.update(registree_params)
-      redirect_to teacher_students_path, notice: 'Registree was successfully updated.'
+      redirect_to parent_students_path, notice: 'Registree was successfully updated.'
     else
       render :edit
     end
@@ -29,13 +29,13 @@ class Teacher::RegistreesController < RegistreesController
 
   def destroy
     @registree.destroy
-    redirect_to teacher_students_path, notice: 'Registree was successfully destroyed.'
+    redirect_to parent_students_path, notice: 'Registree was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_registree
-      @registree = Registree.find_by(student_id: student_id, semester: Semester.current)
+      @registree = @student.registree
     end
 
     def set_student

@@ -19,10 +19,15 @@ class Registree < ApplicationRecord
   after_initialize :require_level, :if => :new_record?
   after_initialize :set_semester,  :if => :new_record?
   after_initialize :set_course,    :if => :new_record?
+  after_initialize :set_section,   :if => :new_record?
 
   # methods
   def courses
     @courses ||= Semester.current_courses(self.student.level)
+  end
+
+  def sections
+    @sections ||= self.course.sections
   end
 
   # write a concern or a class method to do:
@@ -51,12 +56,16 @@ class Registree < ApplicationRecord
   end
 
   def set_semester
-    self.semester = Semester.current
+    self.semester ||= Semester.current
   end
 
   def set_course
-    self.course = self.courses.first
+    self.course ||= self.courses.first
     raise NoCoursesError if self.course.nil?
+  end
+
+  def set_section
+    self.section ||= self.sections.first
   end
 
   def section_xor_preferences

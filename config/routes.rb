@@ -56,7 +56,8 @@ Rails.application.routes.draw do
       resource :profile, only: [:show, :create, :update]
 
       resources :students do
-        resource :ballot, except: [:show, :index]
+        resource :ballot,    except: [:show, :index]
+        resource :registree, except: [:show, :index]
       end
     end
   end

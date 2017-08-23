@@ -1,6 +1,6 @@
 <h1>Manage Registration</h1>
 
-<%= render 'form', registree: @registree %>
+<%= render 'form', registree: @registree, role: :teacher %>
 
 <%= link_to 'Back', teacher_students_path %> |
-<%= link_to 'Unregister', teacher_student_registree_path(@registree), method: :delete %>
+<%= link_to 'Unregister', teacher_student_registree_path(@registree.student), method: :delete %>

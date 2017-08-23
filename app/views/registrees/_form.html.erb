@@ -1,4 +1,4 @@
-<%= form_for([:teacher, registree.student, registree]) do |f| %>
+<%= form_for([role, registree.student, registree]) do |f| %>
   <% if registree.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(registree.errors.count, "error") %> prohibited this registree from being saved:</h2>
@@ -21,20 +21,24 @@
       <div class="field">
         <%= f.label section.description %>
         <%= "(full)" if section.full? %>
-        <%= f.radio_button :section_id, section.id %>
+        <%= f.radio_button :section_id, section.id,
+              disabled: (role == :parent) && section.full? %>
       </div>
     <% end %>
-    <div class="field">
-      <%= f.label "Waitlist" %>
-      <%= f.radio_button :section_id, nil, class: "waitlist-radio-button", checked: registree.section.nil? %>
-    </div>
-  </div>
 
-  <div class="preferences">
-    <%= render partial: "shared/preferences", locals: { f: f, target: registree, sections: registree.course.sections.select(&:full?) } %>
+    <% unless registree.course.sections.none?(&:full?) %>
+      <div class="field">
+        <%= f.label "Waitlist" %>
+        <%= f.radio_button :section_id, nil, class: "waitlist-radio-button", checked: registree.section.nil? %>
+      </div>
+
+      <div class="preferences">
+        <%= render partial: "shared/preferences", locals: { f: f, target: registree, sections: registree.course.sections.select(&:full?) } %>
+      </div>
+    <% end %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Register' %>
   </div>
 <% end %>

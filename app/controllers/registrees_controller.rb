@@ -1,0 +1,2 @@
+class RegistreesController < ApplicationController
+end

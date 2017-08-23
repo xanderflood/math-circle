@@ -1,13 +1,29 @@
 TODO:
 -----
 
+FINISHING REGISTRATION:
+-----------------------
+- create a Ballot#to_registree method
+  - refactor Lottery#commit to use this
+- fully replace waitlist & roster with registree join tables
+- implement waitlist logic
+
+- look into ActiveMailer and MailChimp
+  - https://github.com/amro/gibbon
+  - scheduled job gem?
+  - http://guides.rubyonrails.org/action_mailer_basics.html
+  - Need a StudentMailer and ParentMailer? Or just one?
+
+-----------
+
 - fix registration to allow several courses of the same grade
-- factor the common code in ballot/registree into a concern
+- refactor the common code in ballot/registree model into a concern
+
+- also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
 
 - confirm before deleting a ballot or registree
 
 - special event registration
-- normal registration
 - update Student#registered? to not just check ballots
 - photos
 - start & end dates
