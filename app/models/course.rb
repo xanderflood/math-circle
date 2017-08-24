@@ -17,10 +17,6 @@ class Course < ApplicationRecord
     self.sections.map(&:roster).inject([], :+)
   end
 
-  def waitlist
-    self.sections.map(&:waitlist).inject([], :+)
-  end
-
   def all_students
     self.sections.map(&:all_students).inject([], :+)
   end

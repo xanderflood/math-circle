@@ -56,6 +56,16 @@ class Ballot < ApplicationRecord
       map     { |obj| obj[1].to_i }
   end
 
+  def registree
+    Registree.find_by(student: self.student,
+      semester: self.semester, course: self.course)
+  end
+
+  def registree_or_new
+    registree || Registree.new(student: self.student,
+      semester: self.semester, course: self.course)
+  end
+
   protected
   
   # validations

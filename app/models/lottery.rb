@@ -91,9 +91,36 @@ class Lottery < ApplicationRecord
     sections = EventGroup.update(section_updates.keys, section_updates.values)
     self.semester.update!(state: :late_reg)
 
-    errored_courses  = courses.select   { |c| c.errors.count != 0 }
+    # create registrees
+    errored_registrees = []
+    courses.each do |course|
+      course.sections.each do |section|
+        section.roster.each do |student_id|
+          registree = Student.find(student_id).ballot.registree_or_new
+
+          registree.section = section
+
+          unless registree.save
+            errored_registrees << registree.save
+          end
+        end
+      end
+
+      course.waitlist.each do |student_id|
+        ballot    = Student.find(student_id).ballot
+        registree = ballot.registree_or_new
+
+        registree.section     = nil
+        registree.preferences = ballot.preferences
+
+        errored_registrees << registree.save unless registree.save
+      end
+    end
+
+    errored_courses  = courses.select  { |c| c.errors.count != 0 }
     errored_sections = sections.select { |s| s.errors.count != 0 }
-    errored          = errored_courses | errored_sections
+
+    errored = errored_courses | errored_sections | errored_registrees
 
     if errored.any?
       message = errored.map { |obj| obj.errors.first.message }.join "\n"

@@ -3,10 +3,26 @@ TODO:
 
 FINISHING REGISTRATION:
 -----------------------
+
+
+
+
+
+- manually check that the registrees agree with the roster/waitlist attributes
+- then commit
+- then phase out the other ones?
+- remove Registree#correct? as well
+
+
+
+
+
 - create a Ballot#to_registree method
   - refactor Lottery#commit to use this
 - fully replace waitlist & roster with registree join tables
 - implement waitlist logic
+
+- Remove waitlist logic from event_group
 
 - look into ActiveMailer and MailChimp
   - https://github.com/amro/gibbon
