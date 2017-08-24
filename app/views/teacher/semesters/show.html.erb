@@ -126,6 +126,7 @@
 
 <%= render partial: 'teacher/shared/email_list', locals: { title: "All", students: @semester.all_students } %>
 
+<!-- this should be state-dependent -->
 <%= render partial: 'teacher/shared/email_list', locals: { title: "Lottery", students: @semester.registrees } %>
 
 <hr />

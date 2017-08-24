@@ -1,7 +1,5 @@
 class Semester < ApplicationRecord
   default_scope { order(start: :desc) }
-  before_save :maybe_erase_student_levels, if: :current_changed?
-  after_save :only_one_current_semester
 
   has_many :courses
   has_many :sections, through: :courses
@@ -12,7 +10,35 @@ class Semester < ApplicationRecord
   validate :end_after_start
   validate :not_both_registration_and_lottery
 
-  enum state: [ :reg, :late_reg, :archived ]
+  before_save :maybe_erase_student_levels, if: :current_changed?
+  after_save :only_one_current_semester
+
+  state_machine initial: :hidden do
+    # put state callbacks here, like: (email notifications, for instance)
+
+    # example:
+    # before_transition :parked => any - :parked, :do => :put_on_seatbelt
+    # after_transition any => :parked do |vehicle, transition|
+    #   vehicle.seatbelt = 'off'
+    # end
+    # around_transition :benchmark
+
+    event :publish { transition       hidden: :lottery_open }
+    event :hide    { transition lottery_open: :hidden       }
+
+    event :close_lottery { transition                    lottery_open:    :lottery_closed }
+    event :open_lottery  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
+
+    # These need notifications
+    event :run               { transition [:lottery_closed, :lottery_done] => :lottery_done      }
+    event :run_and_open      { transition [:lottery_closed, :lottery_done] => :registration_open }
+
+    event :open_registration { transition [:lottery_closed, :lottery_done] => :registration_open,
+                                                                   closed:    :registration_open }
+
+    event :close { transition registration_open: :closed }
+  end
+
   STATE_DESCRIPTION = [
     "open for lottery registration",
     "open for late registration",
@@ -21,7 +47,7 @@ class Semester < ApplicationRecord
   ]
 
   def self.current
-    self.where(current: true).limit(1).first
+    self.where.not(state: 'hidden').limit(1).first
   end
 
   def self.current_courses(level=nil)
@@ -38,18 +64,23 @@ class Semester < ApplicationRecord
   end
 
   def roster
-    self.courses.map(&:roster).inject([], :+)
+    @roster ||= self.courses.map(&:roster).inject([], :+)
   end
 
   def waitlist
-    self.courses.map(&:waitlist).inject([], :+)
+    @waitlist ||= self.courses.map(&:waitlist).inject([], :+)
+  end
+
+  def lottery_students
+
   end
 
   def all_students
-    self.courses.map(&:all_students).inject([], :+)
+    # if self.
+    @all_students ||= roster + waitlist
   end
 
-  def registrees
+  def everyone
     self.ballots.map(&:student_id)
   end
 
@@ -58,17 +89,12 @@ class Semester < ApplicationRecord
   end
 
   protected
-    def only_one_current_semester
-      Semester.where('id != ?', id).update_all(current: false) if current
-    end
+  ### callbacks ###
+  def only_one_current_semester
+    Semester.where.not(id: self.id).update_all(current: false) if current
+  end
 
-    def end_after_start
-      errors.add(:end, 'must be later than the start date.') if self.end <= self.start
-    end
-
-    def not_both_registration_and_lottery
-      if self.lottery_open? && self.registration_open?
-        self.errors.add(:base, "Can't open normal registration while lottery registration is still open.")
-      end
-    end
+  def end_after_start
+    errors.add(:end, 'must be later than the start date.') if self.end <= self.start
+  end
 end

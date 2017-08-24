@@ -30,6 +30,7 @@ gem 'ice_cube'
 gem 'phonelib'
 gem 'mainstreet'#, github: 'robhurring/address-validator'
 gem 'will_paginate'
+gem 'state_machines-activerecord'
 
 # Maybes
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

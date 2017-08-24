@@ -4,6 +4,11 @@ TODO:
 FINISHING REGISTRATION:
 -----------------------
 
+SEMESTER STATE MACHINE:
+- rewrite all code that referenced current, lottery_open, and registration_open
+- create a little partial for each event
+- given the state, list out the partial for each available event
+- make maybe_erase_student_levels and only_one_current_semester into state_machine callbacks?
 
 - remove Registree#correct? as well
 
@@ -21,11 +26,12 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
   - scheduled job gem?
   - http://guides.rubyonrails.org/action_mailer_basics.html
   - Need a StudentMailer and ParentMailer? Or just one?
+  + How to schedule them before an event?
+  + Send them WHENEVER something is rescheduled
 
 -----------
 
 - refactor the common code in ballot/registree model into a concern
-
 - also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
 
 - confirm before deleting a ballot or registree
@@ -48,61 +54,30 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 
 - ask where waiver confirmation should block the user
 
-========================================
-
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
-
-----------
-Requirements
-----------
 
 + Unexpected students
 
 + Fix all versions
 
-----------
-cleanup
-----------
-
-+ stub out email notifications when the list moves
-  + How to schedule them before an event?
-  + Send them WHENEVER something is rescheduled
-
-+ Thumbnails
-
-----------
-GENERAL
-----------
-
-+ Add special event registration to the parent pages
-
-+ Show current semester automatically on the homepage
-
-Contact
-
 View attendence record
+
++ Mark all required form fields (not capacity for special events, for instance)
 
 ----------
 BACKLOG
 ----------
 
-+ Unauthenticated users hitting any path in the teacher or parent namespace should be redirected to a sign-in page
++ Contact?
+
++ Show current semester automatically on the homepage
 
 + Read up on this "DEPRECATION WARNING: Time columns will become time zone aware in Rails 5.1. This
 still causes `String`s to be parsed as if they were in `Time.zone`,"
 and find out what it means for me
 
-+ Merge the special_event and event models, using a scope (so that events have an end time)
-
-+ Calendar pickers
-
 Eventual:
 + See trends in student data
-
-Allow teachers to register an "excused absence" *ahead* of time, and then have it automatically populate
-
-+ Mark all required form fields (not capacity for special events, for instance)
-+ Create corresponding validations
 
 - fix registration to allow several courses of the same grade
