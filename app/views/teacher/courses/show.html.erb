@@ -54,11 +54,11 @@ Overview:
 
 </br></br>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @course.roster } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", students: @course.roster } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @course.waitlist } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", students: @course.waitlist } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @course.all_students } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "All", students: @course.all_students } %>
 
 </br></br>
 

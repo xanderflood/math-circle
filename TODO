@@ -5,22 +5,21 @@ FINISHING REGISTRATION:
 -----------------------
 
 
-
-
-
-- manually check that the registrees agree with the roster/waitlist attributes
-- then commit
-- then phase out the other ones?
 - remove Registree#correct? as well
 
+- create an after_save callback on Registree that calls a method on the course to shift everything around
+- where do validations like not_over_full? go?
 
+TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
 
-
+- create a full lottery scaffold so the teacher can browse options?
 
 - create a Ballot#to_registree method
   - refactor Lottery#commit to use this
 - fully replace waitlist & roster with registree join tables
 - implement waitlist logic
+
+- Make sure the registrees email list (on semester) is built in a way that makes sense 
 
 - Remove waitlist logic from event_group
 

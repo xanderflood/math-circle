@@ -5,20 +5,22 @@ class Course < ApplicationRecord
   has_many :sections, class_name: "EventGroup"
   has_many :ballots
 
-  serialize :waitlist, Array
-
-  # TODO: unrequire "name" and replace with a "description" method
   validates :level, presence:  { allow_blank: false, message: "must be specified." },
                     exclusion: { in: ['unspecified'], message: "must be specified." }
 
   enum level: LevelsHelper::LEVELS
 
+  ### methods ###
   def roster
-    self.sections.map(&:roster).inject([], :+)
+    @roster ||= self.sections.map(&:roster).inject([], :+)
+  end
+
+  def waitlist
+    @waitlist ||= Registree.where(course: self, section: nil).includes(:student).map(&:student)
   end
 
   def all_students
-    self.sections.map(&:all_students).inject([], :+)
+    @all_students ||= roster + waitlist
   end
 
   def description

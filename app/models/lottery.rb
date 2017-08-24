@@ -1,10 +1,39 @@
 class Lottery < ApplicationRecord
   belongs_to :semester
 
-  after_initialize :set_course_rosters
-  before_save :populate_contents
   serialize :contents, Hash
 
+  after_initialize :run, if: :new_record?
+
+  ### methods ###
+  def commit
+    errors = []
+
+    self.contents.each do |student_id, section_id|
+      ballot    = Ballot.find_by(student_id: student_id)
+      registree = ballot.registree_or_new
+
+      registree.section_id  = section_id
+      registree.preferences = ballot.preferences unless section_id
+
+      errors << registree unless registree.save
+    end
+
+    if errors.any?
+      message = errors.map { |reg| reg.errors.first.message }.join "\n"
+      LotteryError.new(message: message).save
+
+      return :some_errors
+    end
+
+    return true
+  rescue => e
+    LotteryError.save!(e)
+    return false
+  end
+
+  protected
+  ### lottery logic ###
   class CourseRoster
     attr_accessor :id
 
@@ -35,10 +64,11 @@ class Lottery < ApplicationRecord
     end
 
     def to_h
-      {
-        rosters: @section_rosters.map { |id, sr| [id, sr.roster] }.to_h,
-        waitlist: @waitlist
-      }
+      enrolled = @section_rosters.each do |id, sr|
+        sr.roster.map{ |student| [student, section_id] }
+      end.inject([], :+)
+
+      Hash[enrolled + @waitlist.map{ |w| [w, nil] }]
     end
   end
 
@@ -61,82 +91,12 @@ class Lottery < ApplicationRecord
     end
   end
 
-  #### class logic
-
+  ### callbacks ###
   def run
     @course_rosters = self.semester.courses.map do |course|
       CourseRoster.new(course)
     end
+
+    self.contents = @course_rosters.map(&:to_h).inject([], :+)
   end
-
-  def populate_contents
-    self.contents = @course_rosters.map do |cr|
-      [cr.id, cr.to_h]
-    end.to_h
-  end
-
-  def commit
-    section_updates = []
-    course_updates = self.contents.map do |course_id, course|
-      section_updates += course[:rosters].map do |section_id, roster|
-        [section_id, { roster: roster }]
-      end
-
-      [course_id, { waitlist: course[:waitlist] }]
-    end.to_h
-
-    section_updates = section_updates.to_h
-
-    courses  = Course.update(course_updates.keys, course_updates.values)
-    sections = EventGroup.update(section_updates.keys, section_updates.values)
-    self.semester.update!(state: :late_reg)
-
-    # create registrees
-    errored_registrees = []
-    courses.each do |course|
-      course.sections.each do |section|
-        section.roster.each do |student_id|
-          registree = Student.find(student_id).ballot.registree_or_new
-
-          registree.section = section
-
-          unless registree.save
-            errored_registrees << registree.save
-          end
-        end
-      end
-
-      course.waitlist.each do |student_id|
-        ballot    = Student.find(student_id).ballot
-        registree = ballot.registree_or_new
-
-        registree.section     = nil
-        registree.preferences = ballot.preferences
-
-        errored_registrees << registree.save unless registree.save
-      end
-    end
-
-    errored_courses  = courses.select  { |c| c.errors.count != 0 }
-    errored_sections = sections.select { |s| s.errors.count != 0 }
-
-    errored = errored_courses | errored_sections | errored_registrees
-
-    if errored.any?
-      message = errored.map { |obj| obj.errors.first.message }.join "\n"
-      LotteryError.new(message: message).save
-
-      return :some_errors
-    end
-
-    return true
-  rescue => e
-    LotteryError.save!(e)
-    return false
-  end
-
-  protected
-    def set_course_rosters
-      @course_rosters ||= []
-    end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822222202) do
+ActiveRecord::Schema.define(version: 20170824011549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20170822222202) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "overview"
-    t.text     "waitlist"
     t.integer  "capacity",    default: 10, null: false
     t.index ["semester_id"], name: "index_courses_on_semester_id", using: :btree
   end
@@ -58,8 +57,6 @@ ActiveRecord::Schema.define(version: 20170822222202) do
     t.integer  "course_id"
     t.integer  "wday"
     t.time     "time"
-    t.text     "waitlist"
-    t.text     "roster"
     t.integer  "capacity",   default: 0, null: false
     t.index ["course_id"], name: "index_event_groups_on_course_id", using: :btree
   end

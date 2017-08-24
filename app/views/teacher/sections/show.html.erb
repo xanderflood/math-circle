@@ -42,11 +42,7 @@
 
 </br></br>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @section.roster } %>
-
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @section.waitlist } %>
-
-<%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @section.all_students } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", students: @section.roster } %>
 
 </br></br>
 

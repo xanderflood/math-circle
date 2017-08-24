@@ -120,13 +120,13 @@
 
 </br></br>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", ids: @semester.roster } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", students: @semester.roster } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", ids: @semester.waitlist } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", students: @semester.waitlist } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "All", ids: @semester.all_students } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "All", students: @semester.all_students } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Lottery", ids: @semester.registrees } %>
+<%= render partial: 'teacher/shared/email_list', locals: { title: "Lottery", students: @semester.registrees } %>
 
 <hr />
 
