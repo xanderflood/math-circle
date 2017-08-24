@@ -14,14 +14,7 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 
 - create a full lottery scaffold so the teacher can browse options?
 
-- create a Ballot#to_registree method
-  - refactor Lottery#commit to use this
-- fully replace waitlist & roster with registree join tables
-- implement waitlist logic
-
 - Make sure the registrees email list (on semester) is built in a way that makes sense 
-
-- Remove waitlist logic from event_group
 
 - look into ActiveMailer and MailChimp
   - https://github.com/amro/gibbon
@@ -31,7 +24,6 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 
 -----------
 
-- fix registration to allow several courses of the same grade
 - refactor the common code in ballot/registree model into a concern
 
 - also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
@@ -45,12 +37,14 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 
 - include a student's class history in app/views/shared/_show.html.erb
 - delete unused views (lots of teacher/**/index's, for instance)
+
++ a helper/partial thing called "object table" or something that handles empty lists gracefully
 - collapsify the lottery view to make it easier to use
+
 - show accomodations on rollcall screen
 - change "destroy" to delete
 - check all delete endpoints
 - re-test all rollcall stuff
-- redirect namepace to sign-in
 
 - ask where waiver confirmation should block the user
 
@@ -59,21 +53,11 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
 
-+ a helper/partial thing called "object table" or something that handles empty lists gracefully
-
-=================================
-
-+ thumbnail
-+ reminders
-
 ----------
 Requirements
 ----------
 
 + Unexpected students
-
-+ swaps
-+ Late registration
 
 + Fix all versions
 
@@ -84,10 +68,6 @@ cleanup
 + stub out email notifications when the list moves
   + How to schedule them before an event?
   + Send them WHENEVER something is rescheduled
-
-+ Section/waitlist switching
-  + teacher and student should both have the option
-  + Add a link for force-adding a student
 
 + Thumbnails
 
@@ -101,22 +81,7 @@ GENERAL
 
 Contact
 
-Courses + Events calendar view
-
 View attendence record
-
-----------
-TEACHER
-----------
-
-Courses:
-+ Transfer a student between sections (or to a different course?)
-
-----------
-PARENT
-----------
-
-Swap sections, if space is available
 
 ----------
 BACKLOG
@@ -140,4 +105,4 @@ Allow teachers to register an "excused absence" *ahead* of time, and then have i
 + Mark all required form fields (not capacity for special events, for instance)
 + Create corresponding validations
 
-+ mailchimp integration
+- fix registration to allow several courses of the same grade
