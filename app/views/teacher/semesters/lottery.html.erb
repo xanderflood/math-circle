@@ -1,6 +1,6 @@
 <h1>Lottery results for <%= @semester.name %></h1>
 
-<% @lottery.contents.each do |course_id, course_hash| %>
+<% @lottery.to_h.each do |course_id, course_hash| %>
   <% course = Course.find(course_id) %>
   <h3><%= course.name %></h3>
   <div class="panel panel-default">
@@ -64,12 +64,12 @@
   </div>
 <% end %>
 
+<br/>
+
 <div class="panel panel-default">
   <div class="panel-body">
-    <%= form_tag url: teacher_semester_lottery_path(@semester), method: :post do %>
-      <%= hidden_field_tag :lottery_id, @lottery.id %>
-      <%= submit_tag 'Save these lottery results' %>
+    <%= form_tag teacher_semester_act_path(@semester, 'run', @lottery), method: :post do %>
+      <%= submit_tag 'Save these lottery results.' %>
     <% end %>
-
   </div>
 </div>

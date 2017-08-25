@@ -6,26 +6,6 @@
 
 <%= render partial: 'state', locals: { semester: @semester } %>
 
-<p>
-  <% if @semester.current %>
-    This is the current semester.
-  <% else %>
-    This is not the current semester.
-  <% end %>
-</p>
-
-<p>
-  <% if @semester.registration_open? %>
-    Currently open for post-lottery registration.
-  <% elsif @semester.lottery_open? %>
-    Currently open for lottery registration.
-  <% else %>
-    Registration is closed.
-  <% end %>
-</p>
-
-</br>
-
 <% if @semester.courses.any? %>
   <table>
     <thead>
@@ -125,9 +105,7 @@
 <%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", students: @semester.waitlist } %>
 
 <%= render partial: 'teacher/shared/email_list', locals: { title: "All", students: @semester.all_students } %>
-
 <!-- this should be state-dependent -->
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Lottery", students: @semester.registrees } %>
 
 <hr />
 

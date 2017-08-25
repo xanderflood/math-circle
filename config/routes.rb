@@ -16,8 +16,9 @@ Rails.application.routes.draw do
       get '/', to: 'home#index', as: 'home'
 
       resources :semesters do
+        post 'act/:transition(/:lottery_id)', action: 'act', as: 'act'
+        
         get  :lottery
-        post :lottery, to: 'semesters#commit_lottery'
       end
 
       resources :special_events,              except: :index

@@ -4,7 +4,6 @@ class Teacher::SemestersController < Teacher::BaseController
   def lottery
     begin
       @lottery = Lottery.new(semester: @semester)
-      @lottery.run
     rescue => e
       lottery_failed!(e)
       return
@@ -16,6 +15,21 @@ class Teacher::SemestersController < Teacher::BaseController
     end
 
     # otherwise, render the lottery view
+  end
+
+  def act
+    unless SemesterStateHelper::TRANSITIONS.include?(params[:transition])
+      redirect_to :back, notice: "Semester state transition not found."
+      return
+    end
+
+    @semester.target_lottery = Lottery.find(params[:lottery_id]) if params[:transition] = "run"
+
+    if @semester.send(params[:transition])
+      redirect_to teacher_semester_path(@semester), notice: SemesterStateHelper::TRANSITION_SUCCESS[params[:transition]]
+    else
+      redirect_to :back, notice: "Invalid semester state transition."
+    end
   end
 
   def commit_lottery

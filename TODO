@@ -4,6 +4,8 @@ TODO:
 FINISHING REGISTRATION:
 -----------------------
 
+https://github.com/state-machines/state_machines-activerecord
+
 SEMESTER STATE MACHINE:
 - rewrite all code that referenced current, lottery_open, and registration_open
 - create a little partial for each event
@@ -26,8 +28,15 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
   - scheduled job gem?
   - http://guides.rubyonrails.org/action_mailer_basics.html
   - Need a StudentMailer and ParentMailer? Or just one?
+
   + How to schedule them before an event?
   + Send them WHENEVER something is rescheduled
+  https://github.com/collectiveidea/delayed_job
+- semester start & end dates
+
+- put student names all over
+
+- use the bootstrap card class all over
 
 -----------
 
@@ -39,7 +48,6 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 - special event registration
 - update Student#registered? to not just check ballots
 - photos
-- start & end dates
 
 - include a student's class history in app/views/shared/_show.html.erb
 - delete unused views (lots of teacher/**/index's, for instance)
@@ -81,3 +89,5 @@ Eventual:
 + See trends in student data
 
 - fix registration to allow several courses of the same grade
+
+- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off, right?

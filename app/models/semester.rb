@@ -6,45 +6,35 @@ class Semester < ApplicationRecord
   has_many :special_events
   has_many :ballots
 
+  attr_accessor :transition_errors
+  attr_accessor :target_lottery
+
   validates :name, presence: { allow_blank: false, message: "must be provided." }
   validate :end_after_start
-  validate :not_both_registration_and_lottery
 
-  before_save :maybe_erase_student_levels, if: :current_changed?
+  # before_save :maybe_erase_student_levels, if: :current_changed?
   after_save :only_one_current_semester
 
-  state_machine initial: :hidden do
-    # put state callbacks here, like: (email notifications, for instance)
+  state_machine(initial: :hidden) do
+    # TODO: put email callbacks here
 
-    # example:
-    # before_transition :parked => any - :parked, :do => :put_on_seatbelt
-    # after_transition any => :parked do |vehicle, transition|
-    #   vehicle.seatbelt = 'off'
-    # end
-    # around_transition :benchmark
+    before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
 
-    event :publish { transition       hidden: :lottery_open }
-    event :hide    { transition lottery_open: :hidden       }
+    event(:publish) { transition         hidden:    :lottery_open }
+    event(:hide)    { transition all - [:hidden] => :hidden       }
 
-    event :close_lottery { transition                    lottery_open:    :lottery_closed }
-    event :open_lottery  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
+    event(:close_lottery) { transition                    lottery_open:    :lottery_closed }
+    event(:open_lottery)  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
 
     # These need notifications
-    event :run               { transition [:lottery_closed, :lottery_done] => :lottery_done      }
-    event :run_and_open      { transition [:lottery_closed, :lottery_done] => :registration_open }
+    event(:run) { transition [:lottery_closed, :lottery_done] => :lottery_done }
 
-    event :open_registration { transition [:lottery_closed, :lottery_done] => :registration_open,
-                                                                   closed:    :registration_open }
+    event(:skip_lottery)      { transition lottery_closed: :registration_open }
+    event(:open_registration) { transition   lottery_done: :registration_open,
+                                                   closed: :registration_open }
 
-    event :close { transition registration_open: :closed }
+    event(:close_registration) { transition registration_open: :closed }
   end
-
-  STATE_DESCRIPTION = [
-    "open for lottery registration",
-    "open for late registration",
-    "closed",
-    "archived"
-  ]
 
   def self.current
     self.where.not(state: 'hidden').limit(1).first
@@ -62,6 +52,8 @@ class Semester < ApplicationRecord
 
     Student.update_all(level: :unspecified)
   end
+
+  def current?; self.state != 'hidden'; end
 
   def roster
     @roster ||= self.courses.map(&:roster).inject([], :+)
@@ -85,16 +77,20 @@ class Semester < ApplicationRecord
   end
 
   def state_description
-    Semester::STATE_DESCRIPTION[Semester.states[state]]
+    SemesterStateHelper::STATE_DESCRIPTIONS[self.state]
   end
 
   protected
   ### callbacks ###
   def only_one_current_semester
-    Semester.where.not(id: self.id).update_all(current: false) if current
+    Semester.where.not(id: self.id).update_all(state: 'hidden') if current?
   end
 
   def end_after_start
     errors.add(:end, 'must be later than the start date.') if self.end <= self.start
+  end
+
+  def commit_lottery
+    @target_lottery.commit
   end
 end

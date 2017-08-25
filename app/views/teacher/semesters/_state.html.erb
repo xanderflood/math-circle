@@ -1,9 +1,9 @@
-<h4>Currently <%= semester.state_description %></h4>
+<div class="semester-state">
+  <%= semester.state_description %>
 
-<% case semester.state
-   when 'reg' %>
-   <%= link_to "Preview course lottery", teacher_semester_lottery_path(semester) %>
-<% when 'late_reg' %>
-<% when 'archived' %>
-<% end %>
-
+  <% semester.state_events.each do |event| %>
+    <div class="semester-transition card" data-event="<%= event %>">
+      <%= render partial: "teacher/semesters/transitions/#{event}", locals: { semester: @semester } %>
+    </div>
+  <% end %>
+</div>
