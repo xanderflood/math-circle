@@ -12,13 +12,12 @@ class Semester < ApplicationRecord
   validates :name, presence: { allow_blank: false, message: "must be provided." }
   validate :end_after_start
 
-  # before_save :maybe_erase_student_levels, if: :current_changed?
-  after_save :only_one_current_semester
-
   state_machine(initial: :hidden) do
     # TODO: put email callbacks here
 
     before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
+    before_transition                          hidden:    :lottery_open, do: :reset_all_levels
+    before_transition                          hidden:    :lottery_open, do: :hide_other_semesters
 
     event(:publish) { transition         hidden:    :lottery_open }
     event(:hide)    { transition all - [:hidden] => :hidden       }
@@ -26,7 +25,6 @@ class Semester < ApplicationRecord
     event(:close_lottery) { transition                    lottery_open:    :lottery_closed }
     event(:open_lottery)  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
 
-    # These need notifications
     event(:run) { transition [:lottery_closed, :lottery_done] => :lottery_done }
 
     event(:skip_lottery)      { transition lottery_closed: :registration_open }
@@ -45,12 +43,6 @@ class Semester < ApplicationRecord
     courses = courses.where(level: level) if level
 
     courses
-  end
-
-  def maybe_erase_student_levels
-    return unless self.current == true
-
-    Student.update_all(level: :unspecified)
   end
 
   def current?; self.state != 'hidden'; end
@@ -82,8 +74,12 @@ class Semester < ApplicationRecord
 
   protected
   ### callbacks ###
-  def only_one_current_semester
-    Semester.where.not(id: self.id).update_all(state: 'hidden') if current?
+  def reset_all_levels
+    Student.update_all(level: :unspecified)
+  end
+
+  def hide_other_semesters
+    Semester.where.not(id: self.id).all.each { |s| s.hide }
   end
 
   def end_after_start
