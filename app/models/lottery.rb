@@ -3,7 +3,7 @@ class Lottery < ApplicationRecord
 
   serialize :contents, Hash
 
-  after_initialize :run, if: :new_record?
+  before_create :compute_contents
 
   ### methods ###
   def commit
@@ -121,7 +121,7 @@ class Lottery < ApplicationRecord
   end
 
   ### callbacks ###
-  def run
+  def compute_contents
     @course_rosters = self.semester.courses.map do |course|
       CourseRoster.new(course)
     end

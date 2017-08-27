@@ -15,6 +15,7 @@ class Registree < ApplicationRecord
   validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }
   validate :preferences_nonempty_and_unique
   validate :course_in_semester
+  validate :student_waived, if: :new_record?
 
   after_initialize :require_level, :if => :new_record?
   after_initialize :set_semester,  :if => :new_record?
@@ -88,5 +89,9 @@ class Registree < ApplicationRecord
 
   def course_in_semester
     errors.add(:course, "is not from the current semester.") unless self.course.semester == self.semester
+  end
+
+  def student_waived
+    errors.add(:base, "You can not register until your waiver has been processed.") if self.student.waiver_confirmed?
   end
 end

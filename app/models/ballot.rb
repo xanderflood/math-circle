@@ -15,9 +15,10 @@ class Ballot < ApplicationRecord
   validate :unique_sections
   validate :course_in_semester
   validate :sections_in_course
+  validate :student_waived, if: :new_record?
 
-  after_initialize :require_level, :if => :new_record?
-  after_initialize :set_course,    :if => :new_record?
+  after_initialize :require_level, if: :new_record?
+  after_initialize :set_course,    if: :new_record?
 
   class NoCoursesError < StandardError; end
   class NoLevelError < StandardError; end
@@ -27,7 +28,7 @@ class Ballot < ApplicationRecord
   end
 
   def set_course
-    self.course = self.courses.first
+    self.course ||= self.courses.first
     raise NoCoursesError if self.course.nil?
   end
 
@@ -69,6 +70,10 @@ class Ballot < ApplicationRecord
   protected
   
   # validations
+  def student_waived
+    errors.add(:base, "You can not register until your waiver has been processed.") if self.student.waiver_confirmed?
+  end
+
   def non_empty
     errors.add(:ballot, "must have at least one selection.") unless self.preferences.count > 0
   end
@@ -78,6 +83,7 @@ class Ballot < ApplicationRecord
   end
 
   def course_in_semester
+    binding.pry unless self.course.semester == self.semester
     errors.add(:course, "is not from the current semester.") unless self.course.semester == self.semester
   end
 

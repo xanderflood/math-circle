@@ -3,10 +3,10 @@ FactoryGirl.define do
     name "Spring 2016"
     start "2017-01-12"
     self.end "2017-05-30"
-    state :reg
+    state :hidden
 
     trait(:for_lottery) do
-      current true
+      state :lottery_closed
 
       after(:create) do |semester|
         create_list(:course_with_ballots, 4, semester: semester)
@@ -14,6 +14,8 @@ FactoryGirl.define do
     end
 
     trait(:courses) do
+      state :lottery_open
+
       after(:create) do |semester|
         create_list(:course, 4, semester: semester)
       end

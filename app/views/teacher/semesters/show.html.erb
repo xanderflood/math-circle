@@ -100,12 +100,16 @@
 
 </br></br>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", students: @semester.roster } %>
+<!-- if hidden, no emails -->
+<% if @semester.lottery_open? || @semester.lottery_closed? %>
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "Applicatants", students: @semester.applicants } %>
+<% elsif @semester.lottery_done? || @semester.registration_open? || @semester.closed? %>
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", students: @semester.roster } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", students: @semester.waitlist } %>
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "Waitlist", students: @semester.waitlist } %>
 
-<%= render partial: 'teacher/shared/email_list', locals: { title: "All", students: @semester.all_students } %>
-<!-- this should be state-dependent -->
+  <%= render partial: 'teacher/shared/email_list', locals: { title: "All", students: @semester.all_students } %>
+<% end %>
 
 <hr />
 

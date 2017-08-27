@@ -10,14 +10,11 @@
 puts "+++ Buidling a run-lottery example +++"
 lottery = FactoryGirl.create(:lottery)
 puts "  Running the lottery"
-lottery.run
-lottery.save!
 lottery.commit
-lottery.save!
 
 # lottery example
 puts "+++ Buidling an un-run-lottery example +++"
-FactoryGirl.create(:semester_for_lottery, name: "Fall 2017")
+FactoryGirl.create(:semester_for_lottery, name: "Semester with ballots")
 
 puts "+++ Setting up preview accounts +++"
 

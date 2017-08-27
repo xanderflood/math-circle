@@ -12,6 +12,7 @@ class Semester < ApplicationRecord
   validates :name, presence: { allow_blank: false, message: "must be provided." }
   validate :end_after_start
 
+  ### state tracking ###
   state_machine(initial: :hidden) do
     # TODO: put email callbacks here
 
@@ -27,7 +28,6 @@ class Semester < ApplicationRecord
 
     event(:run) { transition [:lottery_closed, :lottery_done] => :lottery_done }
 
-    event(:skip_lottery)      { transition lottery_closed: :registration_open }
     event(:open_registration) { transition   lottery_done: :registration_open,
                                                    closed: :registration_open }
 
@@ -47,6 +47,11 @@ class Semester < ApplicationRecord
 
   def current?; self.state != 'hidden'; end
 
+  ### methods ###
+  def applicants
+    self.ballots.map(&:student)
+  end
+
   def roster
     @roster ||= self.courses.map(&:roster).inject([], :+)
   end
@@ -55,17 +60,8 @@ class Semester < ApplicationRecord
     @waitlist ||= self.courses.map(&:waitlist).inject([], :+)
   end
 
-  def lottery_students
-
-  end
-
   def all_students
-    # if self.
     @all_students ||= roster + waitlist
-  end
-
-  def everyone
-    self.ballots.map(&:student_id)
   end
 
   def state_description

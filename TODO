@@ -4,15 +4,14 @@ TODO:
 FINISHING REGISTRATION:
 -----------------------
 
+- Deal with the double notices
+
 https://github.com/state-machines/state_machines-activerecord
 
 SEMESTER STATE MACHINE:
 - rewrite all code that referenced current, lottery_open, and registration_open
-- create a little partial for each event
-- given the state, list out the partial for each available event
-- make maybe_erase_student_levels and only_one_current_semester into state_machine callbacks?
 
-- remove Registree#correct? as well
+- remove Registree#correct? as wellr
 
 - create an after_save callback on Registree that calls a method on the course to shift everything around
 - where do validations like not_over_full? go?
@@ -90,4 +89,4 @@ Eventual:
 
 - fix registration to allow several courses of the same grade
 
-- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off, right?
+- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off

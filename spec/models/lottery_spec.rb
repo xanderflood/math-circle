@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Lottery, type: :model do
   before(:all) do
-    @semester = Semester.find_by(name: "semester_for_lottery")
+    @semester = Semester.find_by(name: "Semster with lottery done")
     @lottery = Lottery.find_by(semester: @semester)
 
     # If this fails because lottery is nil, you have to `rake db:seed RAILS_ENV=test`
@@ -18,7 +18,7 @@ RSpec.describe Lottery, type: :model do
 
       enrolled_students = (course.sections.map(&:roster).inject([], :+) + course.waitlist).sort
 
-      expect(balloted_students).to eq enrolled_students
+      expect(balloted_students).to eq enrolled_students.map(&:id)
     end
   end
 
