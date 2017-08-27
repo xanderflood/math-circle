@@ -7,6 +7,7 @@ class Parent < ApplicationRecord
   has_many :students
 
   has_one :parent_profile
+
   alias :profile :parent_profile
 
   def profile_or_new

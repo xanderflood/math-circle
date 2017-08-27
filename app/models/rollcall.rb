@@ -2,22 +2,15 @@ class Rollcall < ApplicationRecord
   belongs_to :event
 
   after_initialize :set_date_to_today
-  after_initialize :initialize_attendance
+  after_initialize :initialize_attendance, if: :new_record?
 
   validates :event, uniqueness: { message: "already has a rollcall record." }
-
-  def initialize_attendance
-    # if this is being initialized for the first time (so attendance is nil)
-    # set everything to present
-    if self.attendance == "{}"
-      self.attendance = enrollees.map { |e| [e.id, 0] }.to_h.to_json
-    end
-  end
 
   def self.for_event_id id
     Rollcall.where(event_id: id).first || Rollcall.new(event_id: id)
   end
 
+  ### methods ###
   def enrollees
     Student.find(event.section.roster).sort_by(&:sorting_name)
   end
@@ -41,7 +34,12 @@ class Rollcall < ApplicationRecord
   end
 
   private
-    def set_date_to_today
-      self.date = Date.today
-    end
+  ### callbacks ###
+  def set_date_to_today
+    self.date = Date.today
+  end
+
+  def initialize_attendance
+    self.attendance = enrollees.map { |e| [e.id, 0] }.to_h.to_json
+  end
 end

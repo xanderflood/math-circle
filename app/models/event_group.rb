@@ -72,6 +72,10 @@ class EventGroup < ApplicationRecord
 
   ### callbacks ###
   protected
+  def copy_course_capacity
+    capacity = course.capacity if course
+  end
+
   def populate_events
     if self.wday
       sem = self.course.semester
@@ -83,9 +87,5 @@ class EventGroup < ApplicationRecord
         self.events.build(name: @name, when: occ.to_date, time: self.time).save!
       end
     end
-  end
-
-  def copy_course_capacity
-    capacity = course.capacity if course
   end
 end

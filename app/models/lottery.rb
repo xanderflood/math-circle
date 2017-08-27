@@ -56,11 +56,6 @@ class Lottery < ApplicationRecord
   end
 
   protected
-
-  def student_course(student)
-    Student.find(student).ballot.course_id
-  end
-
   ### lottery logic ###
   # NOT ACCESSIBLE except on new records
   class CourseRoster

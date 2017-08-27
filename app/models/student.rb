@@ -18,10 +18,13 @@ class Student < ApplicationRecord
       less_than_or_equal_to: 12
     }
 
-  def maybe_clear_ballot
-    if self.school_grade_changed? || self.level_changed?
-      self.ballot.destroy if self.ballot
-    end
+  ### non-rails associations ###
+  def ballot
+    @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
+  end
+
+  def registree
+    @registree ||= Registree.find_by(student: self, semester: Semester.current)
   end
 
   def section
@@ -29,6 +32,12 @@ class Student < ApplicationRecord
     @section ||= semester ? semester.sections.all.find { |section| section.roster.include?(id) } : nil
   end
 
+  def waitlist_course
+    semester = Semester.current
+    @waitlist_course ||= semester ? semester.courses.all.find { |course| course.waitlist.include?(id) } : nil
+  end
+
+  ### methods ###
   def name
     [self.first_name, self.last_name].join " "
   end
@@ -39,14 +48,8 @@ class Student < ApplicationRecord
     self.last_name  = parts.last
   end
 
-  # put the last name first for sorting purposes
   def sorting_name
     [self.last_name, self.first_name].join " "
-  end
-
-  def waitlist_course
-    semester = Semester.current
-    @waitlist_course ||= semester ? semester.courses.all.find { |course| course.waitlist.include?(id) } : nil
   end
 
   def waitlisted?
@@ -61,26 +64,26 @@ class Student < ApplicationRecord
     semester = Semester.current
     return false if semester.nil?
 
-    semester.ballots.where(student_id: id).first
+    !semester.ballots.where(student_id: id).first.nil?
   end
 
   def enrolled?
     !section.nil?
   end
 
+  def ready_to_register?
+    self.level != "unspecified" || self.grade <= 5
+  end
+
   def attendance_count(semester=Semester.current)
     section.events.map(&:rollcall).compact.count { |rc| rc.present_ih?(self.id) }
   end
 
-  def ballot
-    @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
-  end
-
-  def registree
-    @registree ||= Registree.find_by(student: self, semester: Semester.current)
-  end
-
-  def ready_to_register?
-    self.level != "unspecified" || self.grade <= 5
+  protected
+  ### callbacks ###
+  def maybe_clear_ballot
+    if self.school_grade_changed? || self.level_changed?
+      self.ballot.destroy if self.ballot
+    end
   end
 end

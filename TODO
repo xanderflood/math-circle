@@ -11,14 +11,12 @@ https://github.com/state-machines/state_machines-activerecord
 SEMESTER STATE MACHINE:
 - rewrite all code that referenced current, lottery_open, and registration_open
 
-- remove Registree#correct? as wellr
+- remove Registree#correct? as well
 
 - create an after_save callback on Registree that calls a method on the course to shift everything around
 - where do validations like not_over_full? go?
 
 TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
-
-- create a full lottery scaffold so the teacher can browse options?
 
 - Make sure the registrees email list (on semester) is built in a way that makes sense 
 
@@ -90,3 +88,5 @@ Eventual:
 - fix registration to allow several courses of the same grade
 
 - rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off
+
+- create a full lottery scaffold so the teacher can browse options?

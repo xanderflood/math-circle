@@ -47,14 +47,6 @@ class Registree < ApplicationRecord
       map     { |obj| obj[1].to_i }
   end
 
-  def correct?
-    if section
-      return section.roster.include? student.id
-    else
-      return course.waitlist.include? student.id
-    end
-  end
-
   # callbacks
   class NoCoursesError < StandardError; end
   class NoLevelError < StandardError; end

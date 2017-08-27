@@ -5,13 +5,10 @@ class Event < ApplicationRecord
 
   has_one :rollcall, dependent: :destroy
 
+  ### methods ###
   def rollcall_or_new
-    Rollcall.where(event_id: self.id).first || Rollcall.new(event: self)
+    Rollcall.find_by(event_id: self.id) || Rollcall.new(event: self)
   end
-
-  # def rollcall
-  #   Rollcall.where(event_id: self.id).first
-  # end
 
   def date_str
     I18n.l self[:when]

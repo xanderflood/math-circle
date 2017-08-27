@@ -7,7 +7,7 @@ class Ballot < ApplicationRecord
   belongs_to :semester
 
   serialize :preferences, Array
-
+ 
   self::MAX_PREFERENCES = 10
 
   validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }
@@ -20,18 +20,7 @@ class Ballot < ApplicationRecord
   after_initialize :require_level, if: :new_record?
   after_initialize :set_course,    if: :new_record?
 
-  class NoCoursesError < StandardError; end
-  class NoLevelError < StandardError; end
-
-  def require_level
-    raise NoLevelError if self.student.level == 'unspecified'
-  end
-
-  def set_course
-    self.course ||= self.courses.first
-    raise NoCoursesError if self.course.nil?
-  end
-
+  ### methods ###
   def courses
     @courses ||= Semester.current_courses(self.student.level)
   end
@@ -68,12 +57,20 @@ class Ballot < ApplicationRecord
   end
 
   protected
-  
-  # validations
-  def student_waived
-    errors.add(:base, "You can not register until your waiver has been processed.") if self.student.waiver_confirmed?
+  ### callbacks ###
+  class NoCoursesError < StandardError; end
+  class NoLevelError < StandardError; end
+
+  def require_level
+    raise NoLevelError if self.student.level == 'unspecified'
   end
 
+  def set_course
+    self.course ||= self.courses.first
+    raise NoCoursesError if self.course.nil?
+  end
+
+  # validations
   def non_empty
     errors.add(:ballot, "must have at least one selection.") unless self.preferences.count > 0
   end
@@ -93,5 +90,9 @@ class Ballot < ApplicationRecord
     end
   rescue => e
     errors.add(:preferences, "must all be sections of the selected course.")
+  end
+
+  def student_waived
+    errors.add(:base, "You can not register until your waiver has been processed.") if self.student.waiver_confirmed?
   end
 end
