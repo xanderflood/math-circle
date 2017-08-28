@@ -133,20 +133,6 @@ ActiveRecord::Schema.define(version: 20170823220614) do
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "registrees", force: :cascade do |t|
-    t.integer  "semester_id", null: false
-    t.integer  "student_id",  null: false
-    t.integer  "course_id",   null: false
-    t.integer  "section_id"
-    t.text     "preferences"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["course_id"], name: "index_registrees_on_course_id", using: :btree
-    t.index ["section_id"], name: "index_registrees_on_section_id", using: :btree
-    t.index ["semester_id"], name: "index_registrees_on_semester_id", using: :btree
-    t.index ["student_id"], name: "index_registrees_on_student_id", using: :btree
-  end
-
   create_table "rollcalls", force: :cascade do |t|
     t.integer  "event_id"
     t.text     "attendance", default: "{}"
@@ -160,12 +146,11 @@ ActiveRecord::Schema.define(version: 20170823220614) do
     t.string   "name"
     t.date     "start"
     t.date     "end"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "state",             default: 0
-    t.boolean  "current",           default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "state",        default: 0
+    t.boolean  "current",      default: false
     t.boolean  "lottery_open"
-    t.boolean  "registration_open"
   end
 
   create_table "special_events", force: :cascade do |t|
@@ -226,9 +211,6 @@ ActiveRecord::Schema.define(version: 20170823220614) do
   add_foreign_key "lotteries", "semesters"
   add_foreign_key "parent_profiles", "parents"
   add_foreign_key "parents", "parent_profiles"
-  add_foreign_key "registrees", "courses"
-  add_foreign_key "registrees", "semesters"
-  add_foreign_key "registrees", "students"
   add_foreign_key "rollcalls", "events"
   add_foreign_key "students", "parents"
 end
