@@ -4,10 +4,6 @@ TODO:
 FINISHING REGISTRATION:
 -----------------------
 
-- Deal with the double notices
-
-https://github.com/state-machines/state_machines-activerecord
-
 SEMESTER STATE MACHINE:
 - rewrite all code that referenced current, lottery_open, and registration_open
 
@@ -18,8 +14,6 @@ SEMESTER STATE MACHINE:
 
 TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
 
-- Make sure the registrees email list (on semester) is built in a way that makes sense 
-
 - look into ActiveMailer and MailChimp
   - https://github.com/amro/gibbon
   - scheduled job gem?
@@ -29,16 +23,12 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
   + How to schedule them before an event?
   + Send them WHENEVER something is rescheduled
   https://github.com/collectiveidea/delayed_job
-- semester start & end dates
 
 - put student names all over
 
-- use the bootstrap card class all over
+- Deal with the double notices
 
 -----------
-
-- refactor the common code in ballot/registree model into a concern
-- also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
 
 - confirm before deleting a ballot or registree
 
@@ -49,15 +39,10 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 - include a student's class history in app/views/shared/_show.html.erb
 - delete unused views (lots of teacher/**/index's, for instance)
 
-+ a helper/partial thing called "object table" or something that handles empty lists gracefully
-- collapsify the lottery view to make it easier to use
-
 - show accomodations on rollcall screen
 - change "destroy" to delete
 - check all delete endpoints
 - re-test all rollcall stuff
-
-- ask where waiver confirmation should block the user
 
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
@@ -90,3 +75,13 @@ Eventual:
 - rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off
 
 - create a full lottery scaffold so the teacher can browse options?
+
+- use the bootstrap card class all over
+
+- refactor the common code in ballot/registree model into a concern
+- also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
+
++ a helper/partial thing called "object table" or something that handles empty lists gracefully
+- collapsify the lottery view to make it easier to use
+
+- semester start & end dates
