@@ -1,11 +1,12 @@
 FactoryGirl.define do
   factory :parent_profile do
     initialize_with do
-      new(attributes.merge({ parent: create(:parent) }))
+      attributes[:parent] = create(:parent) unless attributes.key? :parent
+      new(attributes)
     end
 
-    first_name "Parent"
-    last_name "McParentus"
+    first_name { "#{rand}Parent" }
+    last_name { "#{rand}McParentus" }
 
     email "parent@parent.parent"
     phone "248-555-5555"
