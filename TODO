@@ -1,6 +1,38 @@
 TODO:
 -----
 
+
+
+
+TEACHER/PARENT SCAFFOLD:
+  - SHOULD I REFACTOR IT FROM PARENT/PROFILE?
+
+  OR
+  --
+
+  - create a "parent" scaffold that actually displays ParentProfiles. Refactor the singleton scaffold to be shared, though:
+    Is there anything in there that teachers shouldn't be able to edit?
+    Doesn't appear so, so:
+      - move the form into a shared folder and point them both to it
+      - refactor it to use a "role" local
+      - duplicate it into a "show" view
+      - duplicate the teacher/students index-and-search setup
+    Create a teacher/parents/students scaffolds and
+      - refactor the index into a shared folder
+      - link the parents and students together (in both directions)
+
+  - Refactor both views before installing anything related to the teacher-side scaffold
+  - then `rails g scaffold_controller teacher/parent --model-name=parent --no-helper`
+
+
+
+
+
+
+
+
+
+
 FINISHING REGISTRATION:
 -----------------------
 

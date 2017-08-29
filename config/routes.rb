@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       
       resources :rollcalls, only: [:create, :update]
 
+      resources :parents,  except: [:new, :create]
+
       resources :students, except: [:new, :create] do
         collection do
           get 'search'
