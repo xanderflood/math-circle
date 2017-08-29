@@ -1,4 +1,6 @@
-<%= form_for([:parent, profile], url: parent_profile_path) do |f| %>
+<% role_opts ||= {} %>
+
+<%= form_for([role, profile], role_opts) do |f| %>
   <% if profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
