@@ -1,4 +1,4 @@
-class Teacher::EventsController < ApplicationController
+class Teacher::EventsController < Teacher::BaseController
   before_action :set_event, except: [:new, :create, :index]
   before_action :set_rollcall, only: [:rollcall, :create_rollcall, :update_rollcall]
 

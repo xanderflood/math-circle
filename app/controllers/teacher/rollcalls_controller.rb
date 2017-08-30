@@ -1,4 +1,4 @@
-class Teacher::RollcallsController < ApplicationController
+class Teacher::RollcallsController < Teacher::BaseController
   before_action :set_event
   before_action :set_rollcall
 
