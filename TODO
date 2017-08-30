@@ -1,50 +1,21 @@
 TODO:
 -----
 
-ISSUE: not all teacher-scoped views have "back" links, see parent and student indices for instance
-- make sure NOTHING inherits from ApplicationController directly except the scope controllers
-(The above two are actually the same issue)
-
-Make sure all role-scoped views have a "back" button, unless back would lead to the role-homepage
-
 +!+!+!+!+!+ refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
 
-TEACHER/PARENT SCAFFOLD:
-  - SHOULD I REFACTOR IT FROM PARENT/PROFILE?
 
-  OR
-  --
 
-  - create a "parent" scaffold that actually displays ParentProfiles. Refactor the singleton scaffold to be shared, though:
-    Is there anything in there that teachers shouldn't be able to edit?
-    Doesn't appear so, so:
-      - move the form into a shared folder and point them both to it
-      - refactor it to use a "role" local
-      - duplicate it into a "show" view
-      - duplicate the teacher/students index-and-search setup
+
+
     Create a teacher/parents/students scaffolds and
       - refactor the index into a shared folder
       - link the parents and students together (in both directions)
-
-  - Refactor both views before installing anything related to the teacher-side scaffold
-  - then `rails g scaffold_controller teacher/parent --model-name=parent --no-helper`
-
-
-
-
-
-
 
 
 
 
 FINISHING REGISTRATION:
 -----------------------
-
-SEMESTER STATE MACHINE:
-- rewrite all code that referenced current, lottery_open, and registration_open
-
-- remove Registree#correct? as well
 
 - create an after_save callback on Registree that calls a method on the course to shift everything around
 - where do validations like not_over_full? go?
