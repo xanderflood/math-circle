@@ -1,4 +1,4 @@
-class Teacher::SpecialEventsController < ApplicationController
+class Teacher::SpecialEventsController < Teacher::BaseController
   before_action :set_special_event, only: [:show, :edit, :update, :destroy]
   # GET /special_events/1
   def show

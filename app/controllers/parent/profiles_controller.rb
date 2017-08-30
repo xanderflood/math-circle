@@ -1,4 +1,4 @@
-class Parent::ProfilesController < ApplicationController
+class Parent::ProfilesController < Parent::BaseController
   before_action :set_parent_profile, only: [:show, :update]
 
   # GET /parent_profiles/1

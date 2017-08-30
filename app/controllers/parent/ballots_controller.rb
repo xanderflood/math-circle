@@ -1,4 +1,4 @@
-class Parent::BallotsController < ApplicationController
+class Parent::BallotsController < Parent::BaseController
   before_action :set_ballot,  only: [:edit, :update, :destroy]
   before_action :set_student, only: [:edit, :new]
 
