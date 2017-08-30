@@ -1,0 +1,59 @@
+<h1><%= @profile.name %>'s contact information</h1>
+
+<table>
+  <thead ><tr>
+    <th colspan="2">Personal Contact Information</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td>Email:</td>
+      <td><%= @profile.email %></td>
+    </tr>
+    <tr>
+      <td>Phone:</td>
+      <td><%= @profile.phone %></td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td><%= @profile.address %></td>
+    </tr>
+  </tbody>
+
+  <thead><tr>
+    <th colspan="2">Emergency Contact 1</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td>Name:</td>
+      <td><%= "#{@profile.ec1_first_name} #{@profile.ec1_last_name}" %></td>
+    </tr>
+    <tr>
+      <td>Relation:</td>
+      <td><%= @profile.ec1_relation %></td>
+    </tr>
+    <tr>
+      <td>Phone:</td>
+      <td><%= @profile.ec1_phone %></td>
+    </tr>
+  </tbody>
+
+  <thead><tr>
+    <th colspan="2">Emergency Contact 2</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td>Name:</td>
+      <td><%= "#{@profile.ec2_first_name} #{@profile.ec2_last_name}" %></td>
+    </tr>
+    <tr>
+      <td>Relation:</td>
+      <td><%= @profile.ec2_relation %></td>
+    </tr>
+    <tr>
+      <td>Phone:</td>
+      <td><%= @profile.ec2_phone %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Back', teacher_parents_path %>

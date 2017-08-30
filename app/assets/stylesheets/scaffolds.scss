@@ -52,7 +52,9 @@ td, th {
 }
 th {
   border-bottom: solid 1px;
+  border-top: solid 1px;
 }
+tbody { border-bottom: solid 1px}
 tr.bordered-row {
   border: solid 1px;
 }

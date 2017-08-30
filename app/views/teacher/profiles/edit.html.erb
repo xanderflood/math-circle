@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<h1>Editing Parent Profile</h1>
+
+<%= render 'shared/profiles/form', role: :teacher, profile: @parent_profile %>
+
+<% if @parent_profile.persisted? %>
+  <%= link_to 'Back', teacher_parents_path %>
+<% end %>

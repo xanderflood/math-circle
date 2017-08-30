@@ -4,7 +4,7 @@
 
 <%= will_paginate @students %>
 
-<%= render partial: 'search_form' %>
+<%= render partial: 'teacher/shared/search_form', locals: { model: :students } %>
 
 <% if @students.any? %>
   <table>

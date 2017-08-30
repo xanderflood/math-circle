@@ -1,8 +1,13 @@
 TODO:
 -----
 
+ISSUE: not all teacher-scoped views have "back" links, see parent and student indices for instance
+- make sure NOTHING inherits from ApplicationController directly except the scope controllers
+(The above two are actually the same issue)
 
+Make sure all role-scoped views have a "back" button, unless back would lead to the role-homepage
 
++!+!+!+!+!+ refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
 
 TEACHER/PARENT SCAFFOLD:
   - SHOULD I REFACTOR IT FROM PARENT/PROFILE?
@@ -117,3 +122,7 @@ Eventual:
 - collapsify the lottery view to make it easier to use
 
 - semester start & end dates
+
+- as mentioned HERE:
+  http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
+  you can get around the params[:ballot_id] vs params[:id] by explicitly marking the routes as member routes

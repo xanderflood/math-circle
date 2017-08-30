@@ -24,4 +24,14 @@ class ParentProfile < ApplicationRecord
   def name; [self.first_name, self.last_name].join(" "); end
 
   def default_email; self.email ||= self.parent.email; end
+
+  def address
+    return @address if @address
+
+    @address  = [self.street1]
+    @address << self.street2 if self.street2
+    @address << "#{self.city}, #{self.state} #{self.zip}"
+
+    @address = @address.join "\n"
+  end
 end

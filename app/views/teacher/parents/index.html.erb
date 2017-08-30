@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Parents</h1>
+
+<%= will_paginate @profiles %>
+
+<small>Note: if a parent has created an account, but has not yet filled out their profile, they will not appear on this list. They can log in, but will be unable to add or register students until they've created a profile with their contact and emergency contact information.</small>
+
+<%= render partial: 'teacher/shared/search_form', locals: { model: :parents } %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profiles.each do |profile| %>
+      <tr>
+        <td><%= profile.name %></td>
+        <td><%= link_to 'Show', teacher_parent_profile_path(profile.parent) %></td>
+        <td><%= link_to 'Edit', edit_teacher_parent_profile_path(profile.parent) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= will_paginate @profiles %>

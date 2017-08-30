@@ -1,0 +1,22 @@
+<% if @profiles.empty? %>
+  No students matched your search. Please check your query and try again.
+<% else %>
+  <table>
+    <thead>
+      <tr><%= @profiles.count %> results:</tr>
+      <tr>
+        <th>Name</th>
+        <th colspan="2">ID</th>
+      </tr>
+    </thead>
+    <tbody class="alternating">
+      <% @profiles.each do |profile| %>
+        <tr>
+          <td><%= profile.name %></td>
+          <td><%= link_to 'Show', teacher_parent_profile_path(profile.parent) %></td>
+          <td><%= link_to 'Edit', edit_teacher_parent_profile_path(profile.parent) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
