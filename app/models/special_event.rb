@@ -6,9 +6,15 @@ class SpecialEvent < ApplicationRecord
 
   def unlimited?; self.capacity == 0; end
 
+  def fetch_registree(parent)
+    registrees.find_by(parent: parent) ||
+      registrees.new(parent: parent)
+  end
+
   def register(parent, quantity)
-    self.special_registrees.new(
-      parent: parent,
-      value: quantity)
+    registree = fetch_registree(parent)
+    registree.value = quantity
+
+    registree.save
   end
 end
