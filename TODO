@@ -1,6 +1,8 @@
 TODO:
 -----
 
+SpecialEvent#register needs to UPDATE instead of CREATE sometimes
+
 +!+!+!+!+!+ refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
 
 

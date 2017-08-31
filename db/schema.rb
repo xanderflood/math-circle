@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824024731) do
+ActiveRecord::Schema.define(version: 20170831015543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,16 @@ ActiveRecord::Schema.define(version: 20170824024731) do
     t.index ["semester_id"], name: "index_special_events_on_semester_id", using: :btree
   end
 
+  create_table "special_registrees", force: :cascade do |t|
+    t.integer  "parent_id",        null: false
+    t.integer  "special_event_id", null: false
+    t.integer  "value",            null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["parent_id"], name: "index_special_registrees_on_parent_id", using: :btree
+    t.index ["special_event_id"], name: "index_special_registrees_on_special_event_id", using: :btree
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "accommodations"
     t.integer  "parent_id"
@@ -224,5 +234,7 @@ ActiveRecord::Schema.define(version: 20170824024731) do
   add_foreign_key "registrees", "semesters"
   add_foreign_key "registrees", "students"
   add_foreign_key "rollcalls", "events"
+  add_foreign_key "special_registrees", "parents"
+  add_foreign_key "special_registrees", "special_events"
   add_foreign_key "students", "parents"
 end
