@@ -1,20 +1,17 @@
 class Teacher::StudentsController < Teacher::BaseController
+  before_action :set_parent, only: [:create]
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
-  # GET /students
   def index
     @students = Student.order(:last_name, :first_name).paginate(page: params[:page], per_page: 50)
   end
 
-  # GET /students/1
   def show
   end
 
-  # GET /students/1/edit
   def edit
   end
 
-  # PATCH/PUT /students/1
   def update
     if @student.update(student_params)
       redirect_to teacher_student_path(@student), notice: 'Student was successfully updated.'
@@ -23,7 +20,17 @@ class Teacher::StudentsController < Teacher::BaseController
     end
   end
 
-  # DELETE /students/1
+  def create
+    @student = @parent.students.new(student_params)
+    @student.waiver_force = true
+
+    if @student.save
+      redirect_to teacher_student_path(@student), notice: 'Student was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def destroy
     @student.destroy
     redirect_to students_url, notice: 'Student was successfully destroyed.'
@@ -35,12 +42,14 @@ class Teacher::StudentsController < Teacher::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def set_parent
+      @parent = Parent.find(params[:parent_id])
+    end
+
     def set_student
       @student = Student.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def student_params
       params.fetch(:student, {}).permit(
         :last_name,

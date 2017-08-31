@@ -35,18 +35,19 @@ Rails.application.routes.draw do
       resources :events,                      except: :index do
         resource :rollcall, only: :show
       end
-      
+
       resources :rollcalls, only: [:create, :update]
 
-      resources :parents,  only: [:index] do
+      resources :parents,   only: [:index] do
         collection do
           get 'search'
         end
 
-        resource :profile, only: [:show, :edit, :update]
+        resources :students, only: [:index, :new], controller: 'parents/students'
+        resource :profile,   only: [:show, :edit, :update]
       end
 
-      resources :students, except: [:new, :create] do
+      resources :students, except: [:new] do
         collection do
           get 'search'
         end

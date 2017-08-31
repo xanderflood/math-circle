@@ -1,5 +1,7 @@
 <h1><%= @profile.name %>'s contact information</h1>
 
+<%= link_to 'View Students', teacher_parent_students_path(@profile.parent) %>
+
 <table>
   <thead ><tr>
     <th colspan="2">Personal Contact Information</th>

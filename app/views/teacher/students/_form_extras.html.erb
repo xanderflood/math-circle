@@ -4,6 +4,11 @@
 </div>
 
 <div class="field">
-  <%= f.label :waiver_confirmation %>
+  <%= f.label :waiver_submitted %>
+  <%= f.check_box :waiver_submitted, disabled: true %>
+</div>
+
+<div class="field">
+  <%= f.label :waiver_received %>
   <%= f.check_box :waiver_confirmed, {} %>
 </div>

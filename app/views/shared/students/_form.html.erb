@@ -1,3 +1,4 @@
+<% parent_id ||= nil %>
 <%= form_for([role, student]) do |f| %>
   <% if student.errors.any? %>
     <div id="error_explanation">
@@ -10,6 +11,8 @@
       </ul>
     </div>
   <% end %>
+
+  <%= hidden_field_tag(:parent_id, parent_id) if parent_id %>
 
   <div class="field">
     <%= f.label :first_name %>
@@ -58,7 +61,8 @@
     <%= f.text_field :accommodations %>
   </div>
 
-  <%= render partial: 'form_extras', locals: { f: f } %>
+  <% form_extras ||= 'form_extras' %>
+  <%= render partial: form_extras, locals: { f: f } %>
 
   <div class="actions">
     <%= f.submit %>

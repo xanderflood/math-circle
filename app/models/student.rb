@@ -4,6 +4,8 @@ class Student < ApplicationRecord
 
   enum level: LevelsHelper::LEVELS
 
+  attr_accessor :waiver_force
+
   after_update :maybe_clear_ballot
 
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
@@ -11,7 +13,7 @@ class Student < ApplicationRecord
   validates :waiver_submitted, inclusion: {
       in: [true],
       message: " is required."
-    }
+    }, unless: :waiver_force
   validates :school_grade, numericality: {
       only_integer: true,
       greater_than_or_equal_to: 1,
