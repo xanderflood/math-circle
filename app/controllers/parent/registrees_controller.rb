@@ -1,4 +1,4 @@
-class Parent::RegistreesController < RegistreesController
+class Parent::RegistreesController < Parent::BaseController
   before_action :set_student
   before_action :set_registree, only: [:show, :edit, :update, :destroy]
 

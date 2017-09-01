@@ -1,4 +1,4 @@
-class Teacher::RegistreesController < RegistreesController
+class Teacher::RegistreesController < Teacher::BaseController
   before_action :set_student
   before_action :set_registree, only: [:show, :edit, :update, :destroy]
 

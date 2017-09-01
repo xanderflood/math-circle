@@ -63,6 +63,10 @@ Rails.application.routes.draw do
       get '/',       to: 'home#index',   as: 'home'
       get 'catalog', to: 'home#catalog', as: 'catalog'
 
+      resources :special_events, only: [:index] do
+        resource :registree, only: [:create, :update, :destroy]
+      end
+
       resource :profile, only: [:show, :create, :update]
 
       resources :students do

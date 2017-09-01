@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Special Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @special_events.each do |special_event| %>
+      <tr>
+        <td><%= @special_event.name %></td>
+        <td><%= @special_event.when %></td>
+        <td>
+          TODO: case logic here <br/>
+          <%= link_to 'Show', [:parent, special_event] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Special Event', new_special_event_path %>

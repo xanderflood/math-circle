@@ -1,0 +1,22 @@
+<%= form_tag([:parent, special_event]) do %>
+  <% if special_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(special_event.errors.count, "error") %> prohibited this special_event from being saved:</h2>
+
+      <ul>
+      <% special_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag "How many people will you bring, including yourself?" %>
+    <%= number_field_tag '' %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>

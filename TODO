@@ -1,17 +1,17 @@
 TODO:
 -----
 
-SpecialEvent#register needs to UPDATE instead of CREATE sometimes
-
 +!+!+!+!+!+ refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
 
 
-
+figure out teacher-side start/end stuff
 
 
     Create a teacher/parents/students scaffolds and
       - refactor the index into a shared folder
       - link the parents and students together (in both directions)
+
+Add a registrees list to the teacher-side of special_events
 
 
 Link students to parents

@@ -4,7 +4,21 @@ class SpecialEvent < ApplicationRecord
   has_many :special_registrees
   has_many :parents, through: :special_registrees
 
+  validates :start, presence: {
+    message: "must be provided if an end time is provided."
+  }, if: :end_present?
+
   def unlimited?; self.capacity == 0; end
+
+  def total; self.registrees.map(&:value).inject(0, :+); end
+
+  def when
+    @when = ["#{I18n.l self.date}"]
+    @when << "@ #{I18n.l self.start}" if self.start
+    @when << "- #{I18n.l self.end}"   if self.end
+
+    @when.join(" ")
+  end
 
   def fetch_registree(parent)
     registrees.find_by(parent: parent) ||

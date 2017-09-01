@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Register for <%= @special_event.name %></h1>
+
+<%= render 'form', registree: @registree %>
+
+<%= link_to 'Back', parent_special_events_path %>
