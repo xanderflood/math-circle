@@ -6,7 +6,7 @@
     <%= hidden_field_tag "", student.id, class: "student-id no-submit" %>
   </td>
   <td>
-    <%= (student.waiver ? "Yes" : "No") %>
+    <%= (student.waiver_confirmed? ? "Yes" : "No") %>
   </td>
   <td>
     <% # default to absent %>
