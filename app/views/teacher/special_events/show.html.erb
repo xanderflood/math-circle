@@ -51,7 +51,7 @@
   <tbody>
     <% @special_event.registrees.each do |r| %>
       <tr>
-        <td><%= r.parent.name %></td>
+        <td><%= link_to r.parent.name, teacher_parent_profile_path(r.parent) %></td>
         <td><%= r.value %></td>
       </tr>
     <% end %>

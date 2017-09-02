@@ -41,6 +41,10 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 FINISHING REGISTRATION:
 -----------------------
 
+- If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
+
+- Better tracking of "Back" link, or else clearer naming
+
 - Bring back 'current' and make it a separate thing from semester state so that teachers can work freely on old semesters
 
 - create an after_save callback on Registree that calls a method on the course to shift everything around
