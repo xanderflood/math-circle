@@ -2,11 +2,14 @@ class SpecialEvent < ApplicationRecord
   belongs_to :semester
 
   has_many :special_registrees
+  alias_attribute :registrees, :special_registrees
   has_many :parents, through: :special_registrees
 
   def unlimited?; self.capacity.nil? || self.capacity == 0; end
 
   def total; self.special_registrees.map(&:value).inject(0, :+); end
+
+  def space; self.capacity - self.total; end
 
   def when
     @when = ["#{I18n.l self.date}"]

@@ -10,6 +10,8 @@ class Parent < ApplicationRecord
 
   alias :profile :parent_profile
 
+  def name; self.profile.name; end
+
   def profile_or_new
     profile || ParentProfile.new(parent_id: self.id)
   end

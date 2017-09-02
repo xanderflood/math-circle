@@ -1,4 +1,59 @@
 <p id="notice"><%= notice %></p>
 
+<table>
+  <thead>
+    <tr>
+      <th>Name:</th>
+      <th><%= @special_event.name %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Start:</td>
+      <td><%= I18n.l @special_event.start %></td>
+    </tr>
+    <tr>
+      <td>End:</td>
+      <td><%= I18n.l @special_event.end %></td>
+    </tr>
+    <tr>
+      <td>Description:</td>
+      <td><%= @special_event.description %></td>
+    </tr>
+    <tr>
+      <td>Capacity:</td>
+      <td><%= @special_event.unlimited? ? "None" : @special_event.capacity %></td>
+    </tr>
+    <tr>
+      <td>Reserved spots:</td>
+      <td><%= @special_event.total %></td>
+    </tr>
+    <tr>
+      <td>Available space:</td>
+      <td><%= @special_event.space %></td>
+    </tr>
+  </tbody>
+</table>
+
+<br/> <br/>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Size of reservation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @special_event.registrees.each do |r| %>
+      <tr>
+        <td><%= r.parent.name %></td>
+        <td><%= r.value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 <%= link_to 'Edit', edit_teacher_special_event_path(@special_event) %> |
 <%= link_to 'Back', teacher_semester_path(@special_event.semester) %>
