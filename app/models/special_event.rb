@@ -4,9 +4,11 @@ class SpecialEvent < ApplicationRecord
   has_many :special_registrees
   has_many :parents, through: :special_registrees
 
-  def unlimited?; self.capacity == 0; end
+  def unlimited?; self.capacity.nil? || self.capacity == 0; end
 
-  def total; self.registrees.map(&:value).inject(0, :+); end
+  def total; self.special_registrees.map(&:value).inject(0, :+); end
+
+  def space; self.capacity - self.total; end
 
   def when
     @when = ["#{I18n.l self.date}"]
@@ -17,12 +19,12 @@ class SpecialEvent < ApplicationRecord
   end
 
   def fetch_registree(parent)
-    registrees.find_by(parent: parent) ||
-      registrees.new(parent: parent)
+    self.special_registrees.where(parent: parent).first ||
+      self.special_registrees.new(parent: parent)
   end
 
   def register(parent, quantity)
-    registree = fetch_registree(parent)
+    registree = self.fetch_registree(parent)
     registree.value = quantity
 
     registree.save

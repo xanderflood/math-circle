@@ -64,7 +64,7 @@ Rails.application.routes.draw do
       get 'catalog', to: 'home#catalog', as: 'catalog'
 
       resources :special_events, only: [:index] do
-        resource :registree, only: [:create, :update, :destroy]
+        resource :special_registree, except: [:index, :new, :edit]
       end
 
       resource :profile, only: [:show, :create, :update]

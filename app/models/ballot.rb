@@ -7,7 +7,7 @@ class Ballot < ApplicationRecord
   belongs_to :semester
 
   serialize :preferences, Array
- 
+
   self::MAX_PREFERENCES = 10
 
   validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }

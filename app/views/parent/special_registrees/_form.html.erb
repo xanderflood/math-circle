@@ -1,0 +1,22 @@
+<%= form_for([:parent, registree.special_event, registree]) do |f| %>
+  <% if registree.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(registree.errors.count, "error") %> prohibited this registree from being saved:</h2>
+
+      <ul>
+      <% registree.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "How many people will be in your party, including yourself?" %>
+    <%= f.number_field :value %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>

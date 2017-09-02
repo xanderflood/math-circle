@@ -17,8 +17,11 @@
         <td><%= special_event.name %></td>
         <td><%= special_event.when %></td>
         <td>
-          TODO: case logic here <br/>
-          <%= link_to 'Show', [:parent, special_event] %>
+          <% if special_event.special_registrees.find_by(parent: current_parent) %>
+            <%= link_to 'Update RSVP', [:parent, special_event, :special_registree] %>
+          <% else %>
+            <%= link_to 'RSVP', [:parent, special_event, :special_registree] %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -26,5 +29,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Special Event', new_special_event_path %>
