@@ -46,6 +46,10 @@ class Semester < ApplicationRecord
     courses
   end
 
+  def self.current_special_events
+    self.current.special_events.where('date >= ?', Date.today).all
+  end
+
   def current?; Semester.current == self; end
 
   ### methods ###

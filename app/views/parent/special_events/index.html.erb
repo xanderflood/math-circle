@@ -2,36 +2,40 @@
 
 <h1>Special Events</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Event</th>
-      <th></th>
-      <th></th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @special_events.each do |special_event| %>
+<% if @special_events.any? %>
+  <table>
+    <thead>
       <tr>
-        <td><%= special_event.name %></td>
-        <td><%= special_event.when %></td>
-        <td><%= special_event.description %></td>
-        <% spec_reg = special_event.special_registrees.find_by(parent: current_parent)%>
-        <% if spec_reg %>
-          <td>RSVP'd for <%= spec_reg.value %></td>
-          <td>
-            <%= link_to 'Update RSVP', [:parent, special_event, :special_registree] %>
-          </td>
-        <% else %>
-          <td colspan="2">
-            <%= link_to 'RSVP', [:parent, special_event, :special_registree] %>
-          </td>
-        <% end %>
+        <th>Event</th>
+        <th></th>
+        <th></th>
+        <th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @special_events.each do |special_event| %>
+        <tr>
+          <td><%= special_event.name %></td>
+          <td><%= special_event.when %></td>
+          <td><%= special_event.description %></td>
+          <% spec_reg = special_event.special_registrees.find_by(parent: current_parent)%>
+          <% if spec_reg %>
+            <td>RSVP'd for <%= spec_reg.value %></td>
+            <td>
+              <%= link_to 'Update RSVP', [:parent, special_event, :special_registree] %>
+            </td>
+          <% else %>
+            <td colspan="2">
+              <%= link_to 'RSVP', [:parent, special_event, :special_registree] %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  There are currently no upcoming special events.
+<% end %>
 
 <br>

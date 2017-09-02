@@ -26,23 +26,25 @@
     <%= f.date_select :end %>
   </div>
 
-  <div class="field">
-    <%= f.label :set_as_current %>
-    <%= f.check_box :current, class: "new-current-value" %>
+  <% comment do %>
+    <div class="field">
+      <%= f.label :set_as_current %>
+      <%= f.check_box :current, class: "new-current-value" %>
 
-    <% is_cur = (f.object == Semester.current) %>
-    <%= hidden_field_tag :current, is_cur, disabled: true, class: "original-current-value" %>
-  </div>
+      <% is_cur = (f.object == Semester.current) %>
+      <%= hidden_field_tag :current, is_cur, disabled: true, class: "original-current-value" %>
+    </div>
 
-  <div class="field">
-    <%= f.label 'Open for lottery registration:' %>
-    <%= f.check_box :lottery_open %>
-  </div>
+    <div class="field">
+      <%= f.label 'Open for lottery registration:' %>
+      <%= f.check_box :lottery_open %>
+    </div>
 
-  <div class="field">
-    <%= f.label 'Open for post-lottery registration:' %>
-    <%= f.check_box :registration_open %>
-  </div>
+    <div class="field">
+      <%= f.label 'Open for post-lottery registration:' %>
+      <%= f.check_box :registration_open %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>

@@ -7,6 +7,7 @@ class SpecialRegistree < ApplicationRecord
 
   validate :check_value
   validate :check_event_capacity, unless: :unlimited?
+  validate :not_passed
 
   def unlimited?; self.special_event.unlimited?; end
 
@@ -28,6 +29,13 @@ class SpecialRegistree < ApplicationRecord
       space = self.special_event.capacity - event_occupancy
 
       errors.add(:base, "This event has only #{space} spaces left.")
+    end
+  end
+
+  ### validations ###
+  def not_passed
+    if self.special_event.date < Date.today
+      self.errors.add(:base, "This event has already taken place.")
     end
   end
 end
