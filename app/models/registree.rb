@@ -33,6 +33,12 @@ class Registree < ApplicationRecord
 
   # write a concern or a class method to do:
   # preferences :preferences
+  def padded_size
+    # TODO: if I can port this to JavaScript, I can use it
+    # [self.course.sections.count, MAX_PREFERENCES].min
+    self.course.sections.count
+  end
+
   def preferences_hash
     self.preferences ||= []
     Hash[(0..padded_size-1).collect do |i|
