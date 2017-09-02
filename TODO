@@ -13,8 +13,6 @@ A signed-in teacher who hits a nonexistent teacher route gets sent to the sign-i
 
 Change the stuff to require a waiver to be submitted before registration (if the student was force-created by a teacher, for instance)
 
-Student name validations
-
 Check all the error blocks in forms to make sure the model names don't have underscores.
 
 =============

@@ -9,6 +9,8 @@ class Student < ApplicationRecord
   after_update :maybe_clear_ballot
 
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :birthdate, presence: true
   validates :waiver_submitted, inclusion: {
       in: [true],
