@@ -1,5 +1,13 @@
 <h1>Lottery results for <%= @semester.name %></h1>
 
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= form_tag teacher_semester_act_path(@semester, 'run', @lottery), method: :post do %>
+      <%= submit_tag 'Save these lottery results.' %>
+    <% end %>
+  </div>
+</div>
+
 <% @lottery.to_h.each do |course_id, course_hash| %>
   <% course = Course.find(course_id) %>
   <h3><%= course.name %></h3>
@@ -65,11 +73,3 @@
 <% end %>
 
 <br/>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <%= form_tag teacher_semester_act_path(@semester, 'run', @lottery), method: :post do %>
-      <%= submit_tag 'Save these lottery results.' %>
-    <% end %>
-  </div>
-</div>

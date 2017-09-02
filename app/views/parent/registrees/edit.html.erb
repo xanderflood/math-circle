@@ -1,6 +1,6 @@
-<h1>Manage Registration</h1>
+<h1>Manage Registration for <%= @registree.student.name %></h1>
 
-<%= render 'form', registree: @registree, role: :parent %>
+<%= render 'shared/registrees/form', registree: @registree, role: :parent %>
 
 <%= link_to 'Back', parent_students_path %> |
 <%= link_to 'Unregister', parent_student_registree_path(@registree.student), method: :delete %>

@@ -29,8 +29,8 @@ class Semester < ApplicationRecord
 
     event(:run) { transition [:lottery_closed, :lottery_done] => :lottery_done }
 
-    event(:open_registration) { transition   lottery_done: :registration_open,
-                                                   closed: :registration_open }
+    event(:open_registration) { transition lottery_done: :registration_open,
+                                                 closed: :registration_open }
 
     event(:close_registration) { transition registration_open: :closed }
   end
@@ -46,7 +46,7 @@ class Semester < ApplicationRecord
     courses
   end
 
-  def current?; self.state != 'hidden'; end
+  def current?; Semester.current == self; end
 
   ### methods ###
   def applicants

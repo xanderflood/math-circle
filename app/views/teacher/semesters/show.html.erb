@@ -74,7 +74,7 @@
     <tbody>
       <% @semester.special_events.each do |special_event| %>
         <tr>
-          <td><%= link_to special_event.name, teacher_special_events_path(special_event) %></td>
+          <td><%= link_to special_event.name, teacher_special_event_path(special_event) %></td>
           <td><%= I18n.l special_event.date %></td>
           <td>
             <%= special_event.start %>

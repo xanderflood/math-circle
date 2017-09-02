@@ -14,8 +14,8 @@
   <tbody>
     <% @special_events.each do |special_event| %>
       <tr>
-        <td><%= @special_event.name %></td>
-        <td><%= @special_event.when %></td>
+        <td><%= special_event.name %></td>
+        <td><%= special_event.when %></td>
         <td>
           TODO: case logic here <br/>
           <%= link_to 'Show', [:parent, special_event] %>

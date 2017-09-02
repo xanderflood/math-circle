@@ -7,7 +7,7 @@
 <% elsif @student.registered? %>
   Currently registered. Course assignments have not yet been made.
 <% else %>
-  Not currently registered. To register for students, return to your students page and click "register".
+  Not currently registered. To register this student, return to your students page and click "register".
 <% end %>
 
 <% if @student.priority.is_a?(Integer) && @student.priority > 0 %>

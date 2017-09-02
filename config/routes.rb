@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get '/', to: 'public/home#index'
 
     resources :courses, only: :show
-  end 
+  end
 
   authenticated :teacher do
     namespace :teacher do
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
       resources :semesters do
         post 'act/:transition(/:lottery_id)', action: 'act', as: 'act'
-        
+
         get  :lottery
       end
 
@@ -93,6 +93,6 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   get 'docs/waiver'
 end

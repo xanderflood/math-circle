@@ -25,6 +25,7 @@ class Teacher::SemestersController < Teacher::BaseController
 
     @semester.target_lottery = Lottery.find(params[:lottery_id]) if params[:transition] == "run"
 
+    binding.pry
     if @semester.send(params[:transition])
       redirect_to teacher_semester_path(@semester), notice: SemesterStateHelper::TRANSITION_SUCCESS[params[:transition]]
     else
