@@ -8,8 +8,6 @@ class SpecialEvent < ApplicationRecord
 
   def total; self.special_registrees.map(&:value).inject(0, :+); end
 
-  def space; self.capacity - self.total; end
-
   def when
     @when = ["#{I18n.l self.date}"]
     @when << "@ #{I18n.l self.start}" if self.start

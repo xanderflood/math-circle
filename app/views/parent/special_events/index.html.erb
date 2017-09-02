@@ -8,6 +8,7 @@
       <th>Event</th>
       <th></th>
       <th></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -16,13 +17,19 @@
       <tr>
         <td><%= special_event.name %></td>
         <td><%= special_event.when %></td>
-        <td>
-          <% if special_event.special_registrees.find_by(parent: current_parent) %>
+        <td><%= special_event.description %></td>
+        <% spec_reg = special_event.special_registrees.find_by(parent: current_parent)%>
+        <% if spec_reg %>
+          <td>RSVP'd for <%= spec_reg.value %></td>
+          <td>
             <%= link_to 'Update RSVP', [:parent, special_event, :special_registree] %>
-          <% else %>
+          </td>
+        <% else %>
+          <td></td>
+          <td>
             <%= link_to 'RSVP', [:parent, special_event, :special_registree] %>
-          <% end %>
-        </td>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
