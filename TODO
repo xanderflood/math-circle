@@ -5,20 +5,18 @@ TODO:
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
-Add state logic to the special_events in the form of validations on special_registree
+Add waitlist logic
 
-Check that full sections aren't available for registration
-
-A signed-in teacher who hits a nonexistent teacher route gets sent to the sign-in page. handle this neatly with a 404 instead
-
-Change the stuff to require a waiver to be submitted before registration (if the student was force-created by a teacher, for instance)
-
-Check all the error blocks in forms to make sure the model names don't have underscores.
+- create an after_save callback on Registree that calls a method on the course to shift everything around
+- where do validations like not_over_full? go?
 
 =============
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
+A signed-in teacher who hits a nonexistent teacher route gets sent to the sign-in page. handle this neatly with a 404 instead
+
+Check all the error blocks in forms to make sure the model names don't have underscores.
 
 
 
@@ -38,17 +36,15 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 
 
 
-FINISHING REGISTRATION:
 -----------------------
+
+Change the stuff to require a waiver to be submitted before registration (if the student was force-created by a teacher, for instance)
 
 - If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
 
 - Better tracking of "Back" link, or else clearer naming
 
 - Bring back 'current' and make it a separate thing from semester state so that teachers can work freely on old semesters
-
-- create an after_save callback on Registree that calls a method on the course to shift everything around
-- where do validations like not_over_full? go?
 
 TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
 
