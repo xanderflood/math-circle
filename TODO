@@ -5,11 +5,7 @@ TODO:
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
-Fix the "show" link on parent/special_events/index, to point conditionally to the parent/special_event/registrees endpoints
-
 Add state logic to the special_events in the form of validations on special_registree
-
-special events need a teacher/show page. display attendees? and description
 
 Check that full sections aren't available for registration
 
