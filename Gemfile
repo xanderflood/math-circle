@@ -32,6 +32,8 @@ gem 'mainstreet'#, github: 'robhurring/address-validator'
 gem 'will_paginate'
 gem 'state_machines-activerecord'
 
+gem 'sendgrid-ruby'
+
 # Maybes
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
