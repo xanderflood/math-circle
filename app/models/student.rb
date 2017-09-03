@@ -27,6 +27,18 @@ class Student < ApplicationRecord
     @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
   end
 
+  def enrollment_status
+    if self.registree
+      if self.registree.section
+        "#{self.registree.course.name} - #{self.registree.section.description}"
+      else
+        "#{self.registree.course.name} - waitlist"
+      end
+    else
+      "Not registered"
+    end
+  end
+
   def registree
     @registree ||= Registree.find_by(student: self, semester: Semester.current)
   end

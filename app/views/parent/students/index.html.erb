@@ -11,6 +11,9 @@
         <th colspan="1">Grade</th>
         <th colspan="1">Registration Priority</th>
         <th colspan="1">Waiver confirmed</th>
+        <% if Semester.current.registrees.any? %>
+          <th>Enrollment status</th>
+        <% end %>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -23,6 +26,9 @@
           <td><%= student.school_grade %></td>
           <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
           <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
+          <% if Semester.current.registrees.any? %>
+            <td><%= student.enrollment_status %></td>
+          <% end %>
           <td>
             <% if Semester.current.lottery_open? %>
               <% if student.level == 'unspecified' %>
