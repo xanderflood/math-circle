@@ -72,7 +72,7 @@ class EventGroup < ApplicationRecord
 
   def shift
     until self.full? || self.course.waitlist_registrees.empty?
-      self.course.waitlist_registrees.first.shift(self)
+      self.course.waitlist_registrees.find{ |reg| reg.preferences.include? self.id }.shift(self)
     end
   end
 
