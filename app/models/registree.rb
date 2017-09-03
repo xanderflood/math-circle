@@ -23,6 +23,7 @@ class Registree < ApplicationRecord
   after_initialize :set_section,   :if => :new_record?
 
   after_save :shift_course
+  after_destroy :shift_course
 
   # methods
   def courses

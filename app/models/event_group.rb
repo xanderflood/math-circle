@@ -71,8 +71,8 @@ class EventGroup < ApplicationRecord
   end
 
   def shift
-    until self.full? || self.waitlist.empty?
-      self.waitlist.first.shift(self)
+    until self.full? || self.course.waitlist_registrees.empty?
+      self.course.waitlist_registrees.first.shift(self)
     end
   end
 

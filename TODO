@@ -6,8 +6,6 @@ TODO:
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
-A signed-in teacher who hits a nonexistent teacher route gets sent to the sign-in page. handle this neatly with a 404 instead
-
 Check all the error blocks in forms to make sure the model names don't have underscores.
 
 - grep for TODOs
@@ -32,9 +30,11 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 
 - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
 
+- write a migration for the existing Math Circle data
 
 
 
+If you try to run a lottery on a non-current semester, you get a failure at lottery.rb:50 because the ballots from the current semester are being loaded
 
 
 

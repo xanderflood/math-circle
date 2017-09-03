@@ -17,8 +17,12 @@ class Course < ApplicationRecord
     @roster ||= self.sections.map(&:roster).inject([], :+)
   end
 
+  def waitlist_registrees
+    @waitlist_registrees ||= Registree.where(course: self, section: nil).includes(:student)
+  end
+
   def waitlist
-    @waitlist ||= Registree.where(course: self, section: nil).includes(:student).map(&:student)
+    @waitlist ||= waitlist_registrees.map(&:student)
   end
 
   def all_students

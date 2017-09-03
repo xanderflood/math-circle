@@ -6,7 +6,7 @@ FactoryGirl.define do
     state :hidden
 
     trait(:for_lottery) do
-      state :lottery_closed
+      state :lottery_open
 
       after(:create) do |semester|
         create_list(:course_with_ballots, 4, semester: semester)
