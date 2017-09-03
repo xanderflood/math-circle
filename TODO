@@ -30,7 +30,7 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 
 
 
-
+- destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
 
 
 

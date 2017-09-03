@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+
   get 'docs/waiver'
 
   devise_for :parents, controllers: { sessions: 'authentication/parent_sessions' }
@@ -55,6 +57,8 @@ Rails.application.routes.draw do
         resource :ballot,    except: [:show, :index]
         resource :registree, except: [:show, :index]
       end
+
+      get '*path', to: 'errors#not_found'
     end
   end
 
@@ -73,6 +77,8 @@ Rails.application.routes.draw do
         resource :ballot,    except: [:show, :index]
         resource :registree, except: [:show, :index]
       end
+
+      get '*path', to: 'errors#not_found'
     end
   end
 
