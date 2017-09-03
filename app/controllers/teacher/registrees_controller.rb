@@ -10,7 +10,6 @@ class Teacher::RegistreesController < Teacher::BaseController
   end
 
   def create
-    binding.pry
     @registree = Registree.new(registree_params)
 
     if @registree.save

@@ -78,7 +78,6 @@ class Ballot < ApplicationRecord
   end
 
   def course_in_semester
-    binding.pry unless self.course.semester == self.semester
     errors.add(:course, "is not from the current semester.") unless self.course.semester == self.semester
   end
 
