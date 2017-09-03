@@ -26,8 +26,6 @@ class Ballot < ApplicationRecord
   end
 
   def padded_size
-    # TODO: if I can port this to JavaScript, I can use it
-    # [self.course.sections.count, MAX_PREFERENCES].min
     self.course.sections.count
   end
 

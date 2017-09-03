@@ -10,6 +10,8 @@ class Course < ApplicationRecord
 
   enum level: LevelsHelper::LEVELS
 
+  after_update :shift
+
   ### methods ###
   def roster
     @roster ||= self.sections.map(&:roster).inject([], :+)
@@ -30,4 +32,7 @@ class Course < ApplicationRecord
       "level #{level}"
     end
   end
+
+  # this is a callback, but also a public method used
+  def shift; self.sections.each(&:shift); end
 end

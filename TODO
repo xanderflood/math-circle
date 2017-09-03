@@ -1,14 +1,6 @@
 TODO:
 -----
 
-=============
-THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
-=============
-
-Add waitlist logic
-
-- create an after_save callback on Registree that calls a method on the course to shift everything around
-- where do validations like not_over_full? go?
 
 =============
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
@@ -18,8 +10,23 @@ A signed-in teacher who hits a nonexistent teacher route gets sent to the sign-i
 
 Check all the error blocks in forms to make sure the model names don't have underscores.
 
+- grep for TODOs
 
+- go over specs
+  - clean up specs?
 
+- write specs for waitlist logic
+- test it manually too
+
+- make sure that EventGroup#waitlist.first is what it should be
+  (i.e. make sure that new waitlisters are added to the end)
+  (write a spec too)
+
+- make sure EventGroup#waitlist is implemented efficiently
+
+=============
+THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
+=============
 
 
 

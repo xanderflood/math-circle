@@ -22,6 +22,8 @@ class Registree < ApplicationRecord
   after_initialize :set_course,    :if => :new_record?
   after_initialize :set_section,   :if => :new_record?
 
+  after_save :shift_course
+
   # methods
   def courses
     @courses ||= Semester.current_courses(self.student.level)
@@ -34,8 +36,6 @@ class Registree < ApplicationRecord
   # write a concern or a class method to do:
   # preferences :preferences
   def padded_size
-    # TODO: if I can port this to JavaScript, I can use it
-    # [self.course.sections.count, MAX_PREFERENCES].min
     self.course.sections.count
   end
 
@@ -51,6 +51,10 @@ class Registree < ApplicationRecord
       reject  { |obj| obj[1].empty? }.
       sort_by { |obj| obj[0].to_i }.
       map     { |obj| obj[1].to_i }
+  end
+
+  def shift(section)
+    self.update(section: section)
   end
 
   # callbacks
@@ -91,5 +95,12 @@ class Registree < ApplicationRecord
 
   def student_waived
     errors.add(:base, "You can not register until your waiver has been processed.") if self.student.waiver_confirmed?
+  end
+
+  def shift_course
+    self.course.shift
+  rescue => e
+    # TODO is this a good long-term idea?
+    LotteryError.save!(e)
   end
 end

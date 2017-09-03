@@ -70,6 +70,12 @@ class EventGroup < ApplicationRecord
     output
   end
 
+  def shift
+    until self.full? || self.waitlist.empty?
+      self.waitlist.first.shift(self)
+    end
+  end
+
   ### callbacks ###
   protected
   def copy_course_capacity
