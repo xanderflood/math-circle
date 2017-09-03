@@ -53,7 +53,7 @@ class Student < ApplicationRecord
   end
 
   def sorting_name
-    [self.last_name, self.first_name].join " "
+    [self.first_name, self.last_name].join " "
   end
 
   def waitlisted?

@@ -12,7 +12,7 @@ class Rollcall < ApplicationRecord
 
   ### methods ###
   def enrollees
-    Student.find(event.section.roster).sort_by(&:sorting_name)
+    event.section.roster.sort_by(&:sorting_name)
   end
 
   def student_ids
