@@ -3,7 +3,7 @@ class Teacher::StudentsController < Teacher::BaseController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   def index
-    @students = Student.order(:last_name, :first_name).paginate(page: params[:page], per_page: 50)
+    @students = Student.order(:first_name, :last_name).paginate(page: params[:page], per_page: 50)
   end
 
   def show

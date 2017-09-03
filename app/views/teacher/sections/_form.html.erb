@@ -22,6 +22,11 @@
     <%= f.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= f.label :capacity %>
+    <%= f.number_field :capacity %>
+  </div>
+
   <% unless section.persisted? %>
     <div class="field">
       <%= f.label :weekday %>

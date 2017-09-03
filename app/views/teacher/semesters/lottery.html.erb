@@ -24,6 +24,7 @@
           </tr>
           <tr>
             <th>Student</th>
+            <th>Grade</th>
             <th>ID</th>
           </tr>
         </thead>
@@ -32,6 +33,7 @@
             <% student = Student.find(student_id) %>
             <tr>
               <td><%= student.name %></td>
+              <td><%= student.school_grade %></td>
               <td><%= student_id %></td>
             </tr>
           <% end %>
@@ -46,27 +48,29 @@
 
     <div class="panel-body">
 
-    <table>
-      <thead>
-        <tr>
-          <td>Student</td>
-          <td>Priority</td>
-          <td>Preference list</td>
-        </tr>
-      </thead>
-      <tbody class="alternating">
-        <% course_hash[:waitlist].each do |student_id| %>
-          <% student = Student.find(student_id) %>
+      <table>
+        <thead>
           <tr>
-            <td><%= "#{student.name} (#{student.id})" %></td>
-            <td><%= student.priority %></td>
-            <td><%= student.ballot.preferences.map do |section_id|
-                      EventGroup.find(section_id).description
-                    end.join(", ") %></td>
+            <td>Student</td>
+            <th>Grade</th>
+            <td>Priority</td>
+            <td>Preference list</td>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody class="alternating">
+          <% course_hash[:waitlist].each do |student_id| %>
+            <% student = Student.find(student_id) %>
+            <tr>
+              <td><%= "#{student.name} (#{student.id})" %></td>
+              <td><%= student.school_grade %></td>
+              <td><%= student.priority > 0 ? "Yes" : "No" %></td>
+              <td><%= student.ballot.preferences.map do |section_id|
+                        EventGroup.find(section_id).description
+                      end.join(", ") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
     </div>
   </div>
