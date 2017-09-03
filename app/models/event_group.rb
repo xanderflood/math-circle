@@ -70,9 +70,15 @@ class EventGroup < ApplicationRecord
     output
   end
 
+  def waitlist
+    self.course.waitlist_registrees.select { |reg| reg.preferences.include? self.id }
+  end
+
   def shift
-    until self.full? || self.course.waitlist_registrees.empty?
-      self.course.waitlist_registrees.find{ |reg| reg.preferences.include? self.id }.shift(self)
+    # should never shift by more than one
+    # TODO: is that thread-safe?
+    unless self.full? || (nw = waitlist.first).nil?
+      nw.shift(self)
     end
   end
 
