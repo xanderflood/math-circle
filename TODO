@@ -13,6 +13,8 @@ Check all the error blocks in forms to make sure the model names don't have unde
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
+- warn students that moving to the waitlist will relinquish their current spot
+
 - clean up specs?
 
 - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
@@ -24,9 +26,9 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 
 - Add the waitlist into teacher views, and waitlist position into parent views
 
-- Lotteyr fails if not all waivers have been processed!!!!
+- Lottery fails if not all waivers have been processed!!!!
 
-
+- write a spec for when you move a student FROM A FULL SECTION to the waitlist for that courses. They should not be able to "prefer" the section they're already in, because it won't be full starting in a moment
 
 -----------------------
 
