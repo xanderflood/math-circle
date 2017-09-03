@@ -9,10 +9,13 @@ class Registree < ApplicationRecord
   belongs_to :section, class_name: "EventGroup"
   serialize :preferences, Array
 
+  # only used internally on new records
+  attr_accessor :waitlisted
+
   ### callbacks ###
   before_save :section_xor_preferences
 
-  validates :student, uniqueness: { scope: :semester, message: "already has a ballot for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }
+  validates :student, uniqueness: { scope: :semester, message: "has already registered for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }
   validate :preferences_nonempty_and_unique
   validate :course_in_semester
   validate :student_waived, if: :new_record?
@@ -32,6 +35,17 @@ class Registree < ApplicationRecord
 
   def sections
     @sections ||= self.course.sections
+  end
+
+  # override to handle wiatlist
+  def section_id= id
+    if id == "waitlist"
+      super nil
+
+      self.waitlisted = true # make sure the nil isn't overwritten
+    else
+      super id
+    end
   end
 
   # write a concern or a class method to do:
@@ -76,6 +90,7 @@ class Registree < ApplicationRecord
   end
 
   def set_section
+    return if self.waitlisted # nil section could be intentional
     self.section ||= self.sections.first
   end
 

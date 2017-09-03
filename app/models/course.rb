@@ -18,7 +18,9 @@ class Course < ApplicationRecord
   end
 
   def waitlist_registrees
-    @waitlist_registrees ||= Registree.where(course: self, section: nil).includes(:student)
+    @waitlist_registrees ||= Registree.where(course: self, section: nil)
+                              .order(updated_at: :asc)
+                              .includes(:student)
   end
 
   def waitlist

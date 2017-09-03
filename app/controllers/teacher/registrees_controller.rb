@@ -10,6 +10,7 @@ class Teacher::RegistreesController < Teacher::BaseController
   end
 
   def create
+    binding.pry
     @registree = Registree.new(registree_params)
 
     if @registree.save
@@ -48,6 +49,6 @@ class Teacher::RegistreesController < Teacher::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def registree_params
-      params.require(:registree).permit(:student_id, :course_id, :section_id, :student_id, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
+      params.require(:registree).permit(:student_id, :semester_id, :course_id, :section_id, :student_id, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
     end
 end

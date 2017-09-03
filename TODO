@@ -1,7 +1,6 @@
 TODO:
 -----
 
-
 =============
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
@@ -13,14 +12,9 @@ Check all the error blocks in forms to make sure the model names don't have unde
 - go over specs
   - clean up specs?
 
-- write specs for waitlist logic
-- test it manually too
-
 - make sure that EventGroup#waitlist.first is what it should be
   (i.e. make sure that new waitlisters are added to the end)
   (write a spec too)
-
-- make sure EventGroup#waitlist is implemented efficiently
 
 =============
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
@@ -32,18 +26,20 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 
 - write a migration for the existing Math Circle data
 
+- write specs for waitlist logic
+- write a spec to ensure that new waitlist registrees are added to the BACK of the list
 
-
-If you try to run a lottery on a non-current semester, you get a failure at lottery.rb:50 because the ballots from the current semester are being loaded
-
-
-
+- Add the waitlist into teacher views, and waitlist position into parent views
 
 
 
 
 
 -----------------------
+
+- make sure EventGroup#waitlist is implemented efficiently
+
+If you try to run a lottery on a non-current semester, you get a failure at lottery.rb:50 because the ballots from the current semester are being loaded
 
 Change the stuff to require a waiver to be submitted before registration (if the student was force-created by a teacher, for instance)
 

@@ -29,7 +29,7 @@
     <% unless registree.course.sections.none?(&:full?) %>
       <div class="field">
         <%= f.label "Waitlist" %>
-        <%= f.radio_button :section_id, nil, class: "waitlist-radio-button", checked: registree.section.nil? %>
+        <%= f.radio_button :section_id, "waitlist", class: "waitlist-radio-button", checked: registree.section.nil? %>
       </div>
 
       <div class="preferences">

@@ -16,7 +16,7 @@ class EventGroup < ApplicationRecord
 
   ### methods ###
   def full?
-    roster.count == capacity
+    roster.count >= capacity
   end
 
   def time_str
