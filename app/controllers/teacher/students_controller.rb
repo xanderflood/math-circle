@@ -33,7 +33,7 @@ class Teacher::StudentsController < Teacher::BaseController
 
   def destroy
     @student.destroy
-    redirect_to students_url, notice: 'Student was successfully destroyed.'
+    redirect_to teacher_students_url, notice: 'Student was successfully destroyed.'
   end
 
   def search

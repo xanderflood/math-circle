@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
       resources :rollcalls, only: [:create, :update]
 
-      resources :parents,   only: [:index] do
+      resources :parents,   only: [:index, :destroy] do
         collection do
           get 'search'
         end

@@ -10,7 +10,7 @@
         <th>Grade</th>
         <th>Level</th>
         <th>Waiver</th>
-        <th colspan="3"></th>
+        <th colspan="4"></th>
       </tr>
     </thead>
     <tbody class="alternating">
@@ -48,6 +48,7 @@
 
           <td><%= link_to 'Show', teacher_student_path(student) %></td>
           <td><%= link_to 'Edit', edit_teacher_student_path(student) %></td>
+          <td><%= link_to 'Delete', teacher_student_path(student), method: :delete %></td>
         </tr>
       <% end %>
     </tbody>

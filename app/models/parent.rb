@@ -4,9 +4,8 @@ class Parent < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :students
-
-  has_one :parent_profile
+  has_many :students, dependent: :destroy
+  has_one :parent_profile, dependent: :destroy
 
   alias :profile :parent_profile
 

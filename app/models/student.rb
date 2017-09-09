@@ -1,6 +1,8 @@
 class Student < ApplicationRecord
   belongs_to :parent
-  has_many :ballots
+
+  has_many :ballots, dependent: :destroy
+  has_many :registrees, dependent: :destroy
 
   enum level: LevelsHelper::LEVELS
 
