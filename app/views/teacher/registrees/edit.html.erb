@@ -3,4 +3,4 @@
 <%= render 'shared/registrees/form', registree: @registree, role: :teacher %>
 
 <%= link_to 'Back', teacher_students_path %> |
-<%= link_to 'Unregister', teacher_student_registree_path(@registree.student), method: :delete %>
+<%= link_to 'Unregister', teacher_student_registree_path(@registree.student), method: :delete, data: { confirm: 'Are you sure?' %>

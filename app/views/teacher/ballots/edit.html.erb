@@ -3,4 +3,4 @@
 <%= render 'form', ballot: @ballot %>
 
 <%= link_to 'Back', teacher_students_path %> |
-<%= link_to 'Delete registration', teacher_student_ballot_path, method: :delete %>
+<%= link_to 'Delete registration', teacher_student_ballot_path, method: :delete, data: { confirm: 'Are you sure?' %>

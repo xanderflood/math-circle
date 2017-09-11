@@ -1,0 +1,27 @@
+<h1>Parent Schedule</h1>
+
+<% if current_parent.schedule.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Reservation</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_parent.schedule.each do |event_hash| %>
+        <tr>
+          <td><%= event_hash[:reason] %></td>
+          <td><%= event_hash[:reservation] ? "#{event_hash[:reservation]} people" : "N/A" %></td>
+          <td>
+            <%= I18n.l event_hash[:date] %>
+            <%= "@ #{I18n.l event_hash[:time]}" if event_hash[:time] %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  You don't currently have any events in your schedule.
+<% end %>

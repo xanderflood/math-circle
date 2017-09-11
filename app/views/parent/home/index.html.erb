@@ -1,12 +1,9 @@
-<!-- TODO: link to manage your own profile %> -->
-
 <%= link_to 'Students', parent_students_path %> <br/> <br/>
 
 <%= link_to('Current Courses', parent_catalog_path) if Semester.current %> <br/> <br/>
 
 <%= link_to('Special Events', parent_special_events_path) if Semester.current %> <br/> <br/>
 
-<%= link_to('Edit Profile', parent_profile_path) %>
+<%= link_to('Edit Profile', parent_profile_path) %> <br /> <br />
 
-<%= #link_to 'Courses', parent_course_path
-%>
+<%= link_to('Your Schedule', parent_schedule_path) %>

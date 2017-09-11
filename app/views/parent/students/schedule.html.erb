@@ -1,0 +1,22 @@
+<h1><%= @student.name %>'s schedule</h1>
+
+(This page only displays the schedule for this student. You can <%= link_to "view your full schedule here", parent_schedule_path %>, including all of your registered students and special events.)
+
+<% if @student.registree.section %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @student.registree.section.events.each do |event| %>
+        <tr>
+          <td><%= I18n.l event.when %> @ <%= I18n.l event.time %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  This student is currently on the waitlist for the course <%= @student.registree.course.name %>.
+<% end %>

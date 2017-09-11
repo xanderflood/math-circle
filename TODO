@@ -1,6 +1,11 @@
 TODO:
 -----
 
+Add confirmation to all delete links.
+And registration form submissions that could result in un-enrollment.
+
+Get rid of the word "Collection" from the top of select_boxes!
+
 =============
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
@@ -13,15 +18,11 @@ Check all the error blocks in forms to make sure the model names don't have unde
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
-- show students the specific schedule for their course
-
 - warn students that moving to the waitlist will relinquish their current spot
 
 - clean up specs?
 
 - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
-
-- write a migration for the existing Math Circle data
 
 - write specs for waitlist logic
 - write a spec to ensure that new waitlist registrees are added to the BACK of the list

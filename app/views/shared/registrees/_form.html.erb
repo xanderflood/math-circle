@@ -37,6 +37,7 @@
         <%= f.radio_button :section_id, "waitlist", class: "waitlist-radio-button", checked: registree.section.nil? %>
       </div>
 
+      (Preferences are only used if you select "Waitlist" above.)
       <div class="preferences">
         <%= render partial: "shared/preferences", locals: { f: f, target: registree, sections: full_sections } %>
       </div>

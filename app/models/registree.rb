@@ -91,7 +91,8 @@ class Registree < ApplicationRecord
 
   def set_section
     return if self.waitlisted # nil section could be intentional
-    self.section ||= self.sections.first
+
+    self.section ||= self.sections.reject(&:full?).first
   end
 
   def section_xor_preferences

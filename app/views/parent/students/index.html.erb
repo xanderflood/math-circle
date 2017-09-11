@@ -14,7 +14,7 @@
         <% if Semester.current.registrees.any? %>
           <th>Enrollment status</th>
         <% end %>
-        <th colspan="3"></th>
+        <th colspan="4"></th>
       </tr>
     </thead>
 
@@ -27,7 +27,7 @@
           <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
           <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
           <% if Semester.current.registrees.any? %>
-            <td><%= student.enrollment_status %></td>
+            <td><%= link_to "#{student.enrollment_status} (Click for schedule)", schedule_parent_student_path(student) %></td>
           <% end %>
           <td>
             <% if Semester.current.lottery_open? %>
@@ -62,6 +62,7 @@
           </td>
           <td><%= link_to 'Show', parent_student_path(student) %></td>
           <td><%= link_to 'Edit', edit_parent_student_path(student) %></td>
+          <td><%= link_to 'Delete', parent_student_path(student), method: :delete, data: { confirm: 'Are you sure?' %></td>
         </tr>
       <% end %>
     </tbody>

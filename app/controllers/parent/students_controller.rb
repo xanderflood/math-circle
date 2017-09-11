@@ -1,5 +1,5 @@
 class Parent::StudentsController < Parent::BaseController
-  before_action :set_student, only: [:show, :edit, :update, :destroy, :catalog]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :catalog, :schedule]
 
   # GET /students
   def index
@@ -43,7 +43,10 @@ class Parent::StudentsController < Parent::BaseController
   # DELETE /students/1
   def destroy
     @student.destroy
-    redirect_to students_url, notice: 'Student was successfully destroyed.'
+    redirect_to parent_students_url, notice: 'Student was successfully destroyed.'
+  end
+
+  def schedule
   end
 
   private

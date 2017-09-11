@@ -5,6 +5,6 @@
 <%= render 'form', registree: @special_registree %>
 
 <% if @special_registree.persisted? %>
-  <%= link_to 'Cancel your reservation', parent_special_event_special_registree_path, method: :delete %> |
+  <%= link_to 'Cancel your reservation', parent_special_event_special_registree_path, method: :delete, data: { confirm: 'Are you sure?' %> |
 <% end %>
 <%= link_to 'Back', parent_special_events_path %>

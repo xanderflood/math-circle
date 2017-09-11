@@ -13,4 +13,10 @@ class Parent::HomeController < Parent::BaseController
       redirect_to :back, notice: "There is no semester currently underway."
     end
   end
+
+  def schedule
+    @events = current_parent.students
+                .map(&:registree).map(&:section)
+                .compact.map(&:events).inject([], :+)
+  end
 end

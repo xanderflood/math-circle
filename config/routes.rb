@@ -64,8 +64,9 @@ Rails.application.routes.draw do
 
   authenticated :parent do
     namespace :parent do
-      get '/',       to: 'home#index',   as: 'home'
-      get 'catalog', to: 'home#catalog', as: 'catalog'
+      get '/',        to: 'home#index',    as: 'home'
+      get 'catalog',  to: 'home#catalog',  as: 'catalog'
+      get 'schedule', to: 'home#schedule', as: 'schedule'
 
       resources :special_events, only: [:index] do
         resource :special_registree, except: [:index, :new, :edit]
@@ -74,6 +75,8 @@ Rails.application.routes.draw do
       resource :profile, only: [:show, :create, :update]
 
       resources :students do
+        get 'schedule', on: :member
+
         resource :ballot,    except: [:show, :index]
         resource :registree, except: [:show, :index]
       end
