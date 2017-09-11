@@ -40,6 +40,6 @@ class Rollcall < ApplicationRecord
   end
 
   def initialize_attendance
-    self.attendance = enrollees.map { |e| [e.id, 0] }.to_h.to_json
+    self.attendance = enrollees.map { |e| [e.id, 1] }.to_h.to_json
   end
 end
