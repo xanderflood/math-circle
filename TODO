@@ -1,7 +1,6 @@
 TODO:
 -----
 
-Add confirmation to all delete links.
 And registration form submissions that could result in un-enrollment.
 
 Get rid of the word "Collection" from the top of select_boxes!
@@ -11,8 +10,6 @@ THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
 =============
 
 Check all the error blocks in forms to make sure the model names don't have underscores.
-
-- grep for TODOs
 
 =============
 THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY

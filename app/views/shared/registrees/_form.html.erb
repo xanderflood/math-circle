@@ -28,8 +28,6 @@
 
     <% full_sections = registree.course.sections.select(&:full?) %>
     <% full_sections.delete(registree.section) if registree.section && registree.persisted? %>
-    <!-- a student can't waitlist themselves for the section they're already in - it won't be full once they're done, and we'll get an infinite loop -->
-    <!-- TODO: better solution? -->
 
     <% if full_sections.any? %>
       <div class="field">
