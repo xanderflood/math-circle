@@ -1,5 +1,5 @@
 <% unless current_page?(teacher_home_path) %>
   <%= link_to 'Teacher Home', teacher_home_path %> |
 <% end %>
-<%= link_to 'Sign Out', destroy_teacher_session_path, method: :delete, data: { confirm: 'Are you sure?' %> |
+<%= link_to 'Sign Out', destroy_teacher_session_path, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to "Change your password", edit_teacher_registration_path %>
