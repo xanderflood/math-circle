@@ -1,4 +1,4 @@
-<h1><%= @profile.name %>'s contact information</h1>
+<h1><%= @profile.name || @profile.parent.name %>'s contact information</h1>
 
 <%= link_to 'View Students', teacher_parent_students_path(@profile.parent) %>
 
