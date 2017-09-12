@@ -1,4 +1,4 @@
-<h1>New Student for <%= @parent.profile.name %></h1>
+<h1>New Student for <%= @parent.name %></h1>
 
 <%= render 'shared/students/form', role: :teacher, student: @student, form_extras: 'teacher/students/form_extras', parent_id: @student.parent_id %>
 

@@ -28,7 +28,7 @@
           <td><%= student.school_grade %></td>
           <td><%= student.level %></td>
           <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
-          <td><%= link_to student.parent.profile.name, teacher_parent_profile_path(student.parent) %></td>
+          <td><%= link_to student.parent.name, teacher_parent_profile_path(student.parent) %></td>
 
           <td>
             <% if Semester.current.lottery_open? %>
