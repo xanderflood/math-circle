@@ -18,7 +18,7 @@ class Registree < ApplicationRecord
   validates :student, uniqueness: { scope: :semester, message: "has already registered for this semester. To view it, go to your students list, and select \"register\" beside this student's name." }
   validate :preferences_nonempty_and_unique
   validate :course_in_semester
-  validate :student_waived, if: :new_record?
+  # validate :student_waived, if: :new_record?
 
   after_initialize :require_level, :if => :new_record?
   after_initialize :set_semester,  :if => :new_record?
