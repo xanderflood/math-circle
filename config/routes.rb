@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
       resources :students, except: [:new] do
         collection do
+          get 'search_form'
           get 'search'
         end
 

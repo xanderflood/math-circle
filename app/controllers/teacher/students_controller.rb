@@ -41,6 +41,9 @@ class Teacher::StudentsController < Teacher::BaseController
                        .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
   end
 
+  def search_form
+  end
+
   private
     def set_parent
       @parent = Parent.find(params[:parent_id])
