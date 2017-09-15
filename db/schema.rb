@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20170915223510) do
     t.date     "date"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.text     "unregistered_students", default: "[]"
+    t.text     "unregistered_students"
     t.index ["event_id"], name: "index_rollcalls_on_event_id", using: :btree
   end
 

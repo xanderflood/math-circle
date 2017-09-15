@@ -1,5 +1,5 @@
 class AddUnregisteredStudentsToRollcalls < ActiveRecord::Migration[5.0]
   def change
-    add_column :rollcalls, :unregistered_students, :text, default: "[]"
+    add_column :rollcalls, :unregistered_students, :text
   end
 end
