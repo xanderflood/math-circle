@@ -1,0 +1,13 @@
+<% student_name ||= "" %>
+
+<tr class="attendance-row unregistered-row">
+  <td>
+    <%= text_field_tag "", student_name, class: "student-name" %>
+  </td>
+  <td></td>
+  <td></td>
+  <td>
+    <%= select_tag "", options_from_collection_for_select(AttendanceHelper.unexpected, :id, :name, AttendanceHelper::IDS[:unexpected]), { class: "status-select no-submit" } %>
+  </td>
+  <td><%= link_to "Delete", "javascript:void(0);", class: "delete-row" %></td>
+</tr>

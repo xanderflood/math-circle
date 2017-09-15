@@ -13,23 +13,48 @@
 <table class="rollcall-table">
   <thead>
     <tr>
-      <td>Student</td>
-      <td>Waiver Confirmed</td>
-      <td>Status</td>
+      <th>Student</th>
+      <th>ID #</th>
+      <th>Waiver Confirmed</th>
+      <th colspan="2">Status</th>
     </tr>
+    <tr><th colspan="5">Roster</th></tr>
   </thead>
   <tbody class="enrollees alternating">
     <% rollcall.enrollees.each do |student| %>
       <%= render partial: 'enrolled_row', locals: { rollcall: rollcall, student: student, status: rollcall.attendance_hash[student.id] } %>
     <% end %>
+  </tbody>
 
-    <% #if rollcall.extras.any? %>
-      <% #rollcall.extras.each do |student_id| %>
-        <% #render partial: 'extra_row', locals: { student: student } %>
-      <% #end %>
-    <% #else %>
-      <% #render partial: 'extra_row',   locals: { student: nil } %>
-    <% #end %>
+  <thead>
+    <tr><th colspan="5">Unexpected students</th></tr>
+  </thead>
+  <tbody class="extras alternating">
+    <!-- Loop over keys in the attendance_hash who are not on the roster -->
+    <% roster_ids = rollcall.event.section.roster.map(&:id) %>
+    <% (rollcall.attendance_hash.keys - roster_ids).each do |student_id| %>
+      <%= render partial: 'unexpected_row', locals: { student_id: student_id } %>
+    <% end %>
+    <% rollcall.unregistered_students.each do |student_name| %>
+      <%= render partial: 'unregistered_row', locals: { student_name: student_name } %>
+    <% end %>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <td colspan="2">
+        <%= button_tag "New unexpected student" %>
+      </td>
+      <td></td>
+      <td colspan="2">
+        <%= button_tag "New unregistered student" %>
+      </td>
+    </tr>
+  </tbody>
+
+  <tbody class="extras models">
+    <%= render partial: 'unexpected_row' %>
+    <%= render partial: 'unregistered_row' %>
   </tbody>
 </table>
 
