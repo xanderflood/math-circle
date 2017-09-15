@@ -6,11 +6,17 @@ class Rollcall < ApplicationRecord
 
   validates :event, uniqueness: { message: "already has a rollcall record." }
 
+  serialize :unregistered_students, Array
+
   def self.for_event_id id
     Rollcall.where(event_id: id).first || Rollcall.new(event_id: id)
   end
 
   ### methods ###
+  def unregistered=(val)
+    self.unregistered_students = JSON.parse(val)
+  end
+
   def enrollees
     event.section.roster.sort_by(&:sorting_name)
   end
