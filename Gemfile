@@ -41,7 +41,7 @@ gem 'sendgrid-ruby'
 # gem 'jbuilder', '~> 2.5'
 
 gem 'factory_girl_rails', '~> 4.8'
-gem 'active_record_query_trace'
+# gem 'active_record_query_trace'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
