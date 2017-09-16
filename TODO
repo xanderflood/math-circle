@@ -1,34 +1,26 @@
 TODO:
 -----
 
-And registration form submissions that could result in un-enrollment.
-
-Get rid of the word "Collection" from the top of select_boxes!
-
-=============
-THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
-=============
-
-Check all the error blocks in forms to make sure the model names don't have underscores.
-
-=============
-THIS IS THE SHIT THAT NEEDS TO BE DONE TODAY
-=============
-
+==================================
+Dangerous ops and warnings:
+- Hide and other semester state actions
+- Registration form submissions that could result in un-enrollment.
 - warn students that moving to the waitlist will relinquish their current spot
+- destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
+
++ implement rollcall extras
+==================================
 
 - clean up specs?
-
-- destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
 
 - write specs for waitlist logic
 - write a spec to ensure that new waitlist registrees are added to the BACK of the list
 
 - Add the waitlist into teacher views, and waitlist position into parent views
 
-- Lottery fails if not all waivers have been processed!!!!
-
 - write a spec for when you move a student FROM A FULL SECTION to the waitlist for that courses. They should not be able to "prefer" the section they're already in, because it won't be full starting in a moment
+
+Get rid of the word "Collection" from the top of select_boxes!
 
 -----------------------
 

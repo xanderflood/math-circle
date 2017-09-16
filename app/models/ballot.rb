@@ -15,7 +15,7 @@ class Ballot < ApplicationRecord
   validate :unique_sections
   validate :course_in_semester
   validate :sections_in_course
-  validate :student_waived, if: :new_record?
+  # validate :student_waived, if: :new_record?
 
   after_initialize :require_level, if: :new_record?
   after_initialize :set_course,    if: :new_record?

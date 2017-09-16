@@ -22,7 +22,7 @@ class Semester < ApplicationRecord
     before_transition                          hidden:    :lottery_open, do: :hide_other_semesters
 
     event(:publish) { transition         hidden:    :lottery_open }
-    event(:hide)    { transition all - [:hidden] => :hidden       }
+    # event(:hide)    { transition all - [:hidden] => :hidden       }
 
     event(:close_lottery) { transition                    lottery_open:    :lottery_closed }
     # event(:open_lottery)  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
