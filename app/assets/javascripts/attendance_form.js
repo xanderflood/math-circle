@@ -7,20 +7,34 @@ $(function() {
   $(".attendance-form .actions input").click(function(e) {
     var table = $(e.target);
 
-    // build the data to be submitted
+    // // build the data to be submitted for registered students // //
     var attendance = {};
-    $(".attendance-row").each(function(i, row) {
+    $("table.rollcall-table tbody.enrollees .attendance-row").each(function(i, row) {
+      var student_id = $(row).find(".student-id").val();
+      var status_val = $(row).find(".status-select").val();
+      attendance[student_id] = status_val;
+    });
+    $("table.rollcall-table tbody.extras .unexpected-row").each(function(i, row) {
       var student_id = $(row).find(".student-id").val();
       var status_val = $(row).find(".status-select").val();
       attendance[student_id] = status_val;
     });
 
+    // // and then for unregistered ones // //
+    var unregisteredNames = [];
+    $("table.rollcall-table tbody.extras .unregistered-row").each(function(i, row) {
+      var student_name = $(row).find(".student-name").val();
+      unregisteredNames.push(student_name);
+    });
+
     // disable the fake form fields
     table.find(".no-submit").prop("disabled", true);
 
-    // put it in the hidden field (.attendance-input)
+    // put it in the hidden fields
     $(".attendance-form .attendance-input")
       .val(JSON.stringify(attendance));
+    $(".attendance-form .unregistered-input")
+      .val(JSON.stringify(unregisteredNames));
 
     return true;
   });

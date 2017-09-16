@@ -17,6 +17,10 @@ class Rollcall < ApplicationRecord
     self.unregistered_students = JSON.parse(val)
   end
 
+  def unregistered
+    self.unregistered_students.to_json
+  end
+
   def enrollees
     event.section.roster.sort_by(&:sorting_name)
   end

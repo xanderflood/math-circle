@@ -61,6 +61,7 @@
 <div class='attendance-form'>
   <%= form_for [:teacher, rollcall] do |f| %>
     <%= f.hidden_field :attendance, class: "attendance-input" %>
+    <%= f.hidden_field :unregistered, class: "unregistered-input" %>
     <%= f.hidden_field :event_id, value: rollcall.event_id %>
 
     <div class="actions">

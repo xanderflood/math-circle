@@ -8,7 +8,9 @@ class Teacher::RollcallsController < Teacher::BaseController
 
   # POST /events/1/rollcall
   def create
-    @rollcall.attendance = rollcall_params[:attendance]
+    rp = rollcall_params
+    @rollcall.attendance   = rp[:attendance]
+    @rollcall.unregistered = rp[:unregistered]
 
     if @rollcall.save
       redirect_to teacher_section_path(@rollcall.event.section), notice: "Attendance record saved."
@@ -40,6 +42,6 @@ class Teacher::RollcallsController < Teacher::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def rollcall_params
-      params.fetch(:rollcall, {}).permit(:attendance)
+      params.fetch(:rollcall, {}).permit(:attendance, :unregistered)
     end
 end
