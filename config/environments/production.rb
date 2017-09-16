@@ -1,8 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  
-  ActiveRecordQueryTrace.enabled = true
-  ActiveRecordQueryTrace.level = :full
+
+  # ActiveRecordQueryTrace.enabled = true
+  # ActiveRecordQueryTrace.level = :full
 
   # Code is not reloaded between requests.
   config.cache_classes = true
