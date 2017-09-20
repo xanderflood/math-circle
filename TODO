@@ -1,42 +1,30 @@
 TODO:
 -----
 
-==================================
-Dangerous ops and warnings:
-- Hide and other semester state actions
-- Registration form submissions that could result in un-enrollment.
-- warn students that moving to the waitlist will relinquish their current spot
-- destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
+0 show accomodations on rollcall screen
+- check all delete endpoints
+- re-test all rollcall stuff
+- Refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
+- Mark all required form fields (not capacity for special events, for instance)
 
-+ implement rollcall extras
-==================================
+1 Add the waitlist into teacher views, and waitlist position into parent views
 
-- clean up specs?
+2 Deal with the double notices
 
-- write specs for waitlist logic
-- write a spec to ensure that new waitlist registrees are added to the BACK of the list
+3 Dangerous ops and warnings:
+  - Hide and other semester state actions
+  - Registration form submissions that could result in un-enrollment.
+  - warn students that moving to the waitlist will relinquish their current spot
+  - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
+  - inform teachers that force-adding a student -permenantly- increases the capacity of the section
+  - confirm before deleting a ballot or registree
 
-- Add the waitlist into teacher views, and waitlist position into parent views
+4 clean up and expand specs
+  - write specs for waitlist logic
+  - write a spec to verify that new waitlist registrees are added to the BACK of the list
+  - write a spec for when you move a student FROM A FULL SECTION to the waitlist for that courses. They should not be able to "prefer" the section they're already in, because it won't be full starting in a moment
 
-- write a spec for when you move a student FROM A FULL SECTION to the waitlist for that courses. They should not be able to "prefer" the section they're already in, because it won't be full starting in a moment
-
-Get rid of the word "Collection" from the top of select_boxes!
-
------------------------
-
-- make sure EventGroup#waitlist is implemented efficiently
-
-If you try to run a lottery on a non-current semester, you get a failure at lottery.rb:50 because the ballots from the current semester are being loaded
-
-Change the stuff to require a waiver to be submitted before registration (if the student was force-created by a teacher, for instance)
-
-- If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
-
-- Better tracking of "Back" link, or else clearer naming
-
-- Bring back 'current' and make it a separate thing from semester state so that teachers can work freely on old semesters
-
-TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
+5 put student names all over
 
 - look into ActiveMailer and MailChimp
   - https://github.com/amro/gibbon
@@ -46,52 +34,40 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
 
   + How to schedule them before an event?
   + Send them WHENEVER something is rescheduled
-  https://github.com/collectiveidea/delayed_job
+  https://github.com/collectiveidea/delayed_job]
 
-- put student names all over
+6 Semester state stuff:
+  + Bring back 'current' and make it a separate thing from semester state so that teachers can work freely on old semesters
+  + If you try to run a lottery on a non-current semester, you get a failure at lottery.rb:50 because the ballots from the current semester are being loaded
+  + If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
 
-- Deal with the double notices
+7 factor out a "_register_link" partial that contains all the semester case logic, and put it on the student show page as well as the indexes
+  + factor out the user role while you're at it
 
------------
-
-+!+!+!+!+!+ refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
-
-+ factor out a "_register_link" partial that contains all the semester case logic, and put it on the student show page as well as the indexes
-  + factor out the user role while your at it
+8 View attendence record for parents?
+  Include a student's class history in app/views/shared/_show.html.erb
 
 
-Set maximum column sizes so the tables stay regular
+-----------------------
+UNPRIORITIZED
+-----------------------
 
-- confirm before deleting a ballot or registree
+- make sure EventGroup#waitlist is implemented efficiently
+
+- Get rid of the word "Collection" from the top of select_boxes!
+
+- Better tracking of "Back" link, or else clearer naming
 
 - special event registration
 - update Student#registered? to not just check ballots
 - photos
 
-- include a student's class history in app/views/shared/_show.html.erb
-- delete unused views (lots of teacher/**/index's, for instance)
-
-- show accomodations on rollcall screen
-- change "destroy" to delete
-- check all delete endpoints
-- re-test all rollcall stuff
-
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
 
-+ Unexpected students
-
 + Fix all versions
 
-View attendence record
-
-+ Mark all required form fields (not capacity for special events, for instance)
-
-----------
-BACKLOG
-----------
-
-+ Contact?
++ create a full lottery scaffold so the teacher can browse options?
 
 + Show current semester automatically on the homepage
 
@@ -99,24 +75,41 @@ BACKLOG
 still causes `String`s to be parsed as if they were in `Time.zone`,"
 and find out what it means for me
 
-Eventual:
-+ See trends in student data
-
 - fix registration to allow several courses of the same grade
 
-- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off
+- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just provide a clear rationale and then pick up where it left off
 
-- create a full lottery scaffold so the teacher can browse options?
+----------
+BACKLOG
+----------
+
++ Contact?
+
++ See trends in student data
+
++ semester start & end dates
+
+----------
+Aesthetics
+----------
+
+- Set maximum column sizes so the tables stay regular
 
 - use the bootstrap card class all over
 
-- refactor the common code in ballot/registree model into a concern
-- also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
-
-+ a helper/partial thing called "object table" or something that handles empty lists gracefully
 - collapsify the lottery view to make it easier to use
 
-- semester start & end dates
+----------
+CLEANUP
+----------
+
+- delete unused views (lots of teacher/**/index's, for instance)
+
+- also refactor common stuff in views and controllers between parent and teacher (especially in the ballot registree scaffolds)
+
+- refactor the common code in ballot/registree model into a concern
+
++ a helper/partial thing called "object table" or something that handles empty lists gracefully
 
 - as mentioned HERE:
   http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
