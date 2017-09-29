@@ -1,0 +1,16 @@
+<% if student.waitlisted? %>
+  <thead><tr><th colspan="2">Waitlist positions</th></tr></thead>
+  <tbody>
+    <% student.registree.preferences.each do |i| %>
+      <% section = EventGroup.find(i) %>
+      <tr>
+        <td><%= section.description %></td>
+        <td>
+          <% pos = student.waitlist_index(section) %>
+          <%= (pos == 0) ? "No" : pos %>
+          students ahead of you.
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

@@ -63,6 +63,8 @@
       <td><%= @student.accommodations %></td>
     </tr>
   </tbody>
+
+  <%= render partial: 'shared/students/enrollment_info', locals: { student: @student } %>
 </table>
 
 <br/> <br/>

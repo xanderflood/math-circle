@@ -47,7 +47,8 @@ class Student < ApplicationRecord
 
   def waitlist_position(section=nil)
     if self.waitlisted? && section
-      section.waitlist.index(self) if section.waitlist.include? self
+      student_ids = section.waitlist.map(&:student_id)
+      student_ids.index(self.id) if student_ids.include?(self.id)
     elsif self.waitlisted?
       self.course.waitlist.index(self)
     end
