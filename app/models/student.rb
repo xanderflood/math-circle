@@ -25,8 +25,36 @@ class Student < ApplicationRecord
     }
 
   ### non-rails associations ###
-  def ballot
-    @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
+  def ballot; @ballot ||= Ballot.find_by(student: self, semester: Semester.current); end
+  def registree; @registree ||= Registree.find_by(student: self, semester: Semester.current); end
+
+  def section; self.registree.section; end
+  def course; self.registree.course; end
+
+  ### methods ###
+  def sorting_name; [self.first_name, self.last_name].join(" "); end
+  def name; [self.first_name, self.last_name].join(" "); end
+  def name=(val)
+    parts = val.split " "
+    self.first_name = parts.first
+    self.last_name  = parts.last
+  end
+
+  def ready_to_register?; self.level != "unspecified" || self.grade <= 5;    end
+  def registered?; Semester.current && self.ballot    && !self.ballot.nil?;  end
+  def waitlisted?; Semester.current && self.registree &&  self.section.nil?; end
+  def enrolled?;   Semester.current && self.registree && !self.section.nil?; end
+
+  def waitlist_position(section=nil)
+    if self.waitlisted? && section
+      section.waitlist.index(self) if section.waitlist.include? self
+    elsif self.waitlisted?
+      self.course.waitlist.index(self)
+    end
+  end
+
+  def attendance_count(semester=Semester.current)
+    section.events.map(&:rollcall).compact.count { |rc| rc.present_ih?(self.id) }
   end
 
   def enrollment_status
@@ -39,62 +67,6 @@ class Student < ApplicationRecord
     else
       "Not registered"
     end
-  end
-
-  def registree
-    @registree ||= Registree.find_by(student: self, semester: Semester.current)
-  end
-
-  def section
-    semester = Semester.current
-    @section ||= semester ? semester.sections.all.find { |section| section.roster.include?(id) } : nil
-  end
-
-  def waitlist_course
-    semester = Semester.current
-    @waitlist_course ||= semester ? semester.courses.all.find { |course| course.waitlist.include?(id) } : nil
-  end
-
-  ### methods ###
-  def name
-    [self.first_name, self.last_name].join " "
-  end
-
-  def name=(val)
-    parts = val.split " "
-    self.first_name = parts.first
-    self.last_name  = parts.last
-  end
-
-  def sorting_name
-    [self.first_name, self.last_name].join " "
-  end
-
-  def waitlisted?
-    !self.waitlist_course.nil?
-  end
-
-  def waitlist_position
-    self.waitlist_course.waitlist.index(id) if waitlisted?
-  end
-
-  def registered?
-    semester = Semester.current
-    return false if semester.nil?
-
-    !semester.ballots.where(student_id: id).first.nil?
-  end
-
-  def enrolled?
-    !section.nil?
-  end
-
-  def ready_to_register?
-    self.level != "unspecified" || self.grade <= 5
-  end
-
-  def attendance_count(semester=Semester.current)
-    section.events.map(&:rollcall).compact.count { |rc| rc.present_ih?(self.id) }
   end
 
   protected
