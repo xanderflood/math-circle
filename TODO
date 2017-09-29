@@ -7,8 +7,6 @@ TODO:
 - Refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
 - Mark all required form fields (not capacity for special events, for instance)
 
-1 Add the waitlist into teacher views, and waitlist position into parent views
-
 2 Deal with the double notices
 
 3 Dangerous ops and warnings:
