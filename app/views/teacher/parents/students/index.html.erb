@@ -5,59 +5,12 @@
 <% if @students.any? %>
   <table>
     <thead>
-      <tr>
-        <th colspan="1">Name</th>
-        <th colspan="1">Level</th>
-        <th colspan="1">Grade</th>
-        <th colspan="1">Registration Priority</th>
-        <th colspan="1">Waiver confirmed</th>
-        <th colspan="4"></th>
-      </tr>
+      <tr><%= render partial: 'teacher/students/header' %></tr>
     </thead>
 
     <tbody>
       <% @students.sort_by(&:name).each do |student| %>
-        <tr data-student-id=<%= student.id %>>
-          <td><%= student.name %></td>
-          <td><%= student.level %></td>
-          <td><%= student.school_grade %></td>
-          <td><%= (student.priority == 0) ? "No" : "Yes" %></td>
-          <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
-          <td>
-            <% if Semester.current.lottery_open? %>
-              <% if student.level == 'unspecified' %>
-                Before you can register, you'll need to
-                <%= link_to "enter your grade and Math-Circle level", edit_teacher_student_path(student) %>.
-              <% elsif student.ballot %>
-                <%= link_to 'Edit registration', edit_teacher_student_ballot_path(student) %>
-              <% else %>
-                <% if student.school_grade <= 5 || (student.level && student.D?) %>
-                  (Contact Math-Circle to register elementary school students and level D students.)
-                <% else %>
-                  <%= link_to 'Register', new_teacher_student_ballot_path(student) %>
-                <% end %>
-              <% end %>
-            <% elsif Semester.current.registration_open? %>
-              <% if student.level == 'unspecified' %>
-                Before you can register, you'll need to
-                <%= link_to "enter your grade and Math-Circle level", edit_teacher_student_path(student) %>.
-              <% elsif student.registree %>
-                <%= link_to 'Edit registration', edit_teacher_student_registree_path(student) %>
-              <% else %>
-                <% if student.school_grade <= 5 || (student.level && student.D?) %>
-                  (Contact Math-Circle to register elementary school students and level D students.)
-                <% else %>
-                  <%= link_to 'Register', new_teacher_student_registree_path(student) %>
-                <% end %>
-              <% end %>
-            <% else %>
-              Registration is currently closed.
-            <% end %>
-          </td>
-          <td><%= link_to 'Show', teacher_student_path(student) %></td>
-          <td><%= link_to 'Edit', edit_teacher_student_path(student) %></td>
-          <td><%= link_to 'Delete', teacher_student_path(student), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <tr><%= render partial: 'teacher/students/row', locals: { student: student } %></tr>
       <% end %>
     </tbody>
   </table>
