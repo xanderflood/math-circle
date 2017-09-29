@@ -42,6 +42,10 @@
 
 </br></br>
 
+<%= render partial: 'students_panel', locals: { section: @section } %>
+
+</br></br>
+
 <%= render partial: 'teacher/shared/email_list', locals: { title: "Roster", students: @section.roster } %>
 
 </br></br>

@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header" role="tab" id="headingOne"><h5 class="mb-0">
+    <a data-toggle="collapse" data-parent="#accordion" href="#roster_collapse" aria-expanded="true" aria-controls="collapseOne">Roster</a>
+  </h5></div>
+
+  <div id="roster_collapse" class="collapse" role="tabpanel"><div class="card-block">
+    <% if section.roster.empty? %>
+      No students enrolled.
+    <% else %>
+      <table>
+        <thead><tr><th>Student</th><th>ID</th></tr></thead>
+        <tbody><% section.roster.each do |student| %>
+          <tr>
+            <td><%= link_to student.name, teacher_student_path(student) %></td>
+            <td><%= student.id %></td>
+          </tr>
+        <% end %></tbody>
+      </table>
+    <% end %>
+  </div></div>
+
+  <div class="card-header" role="tab" id="headingOne"><h5 class="mb-0">
+    <a data-toggle="collapse" data-parent="#accordion" href="#waitlist_collapse" aria-expanded="true" aria-controls="collapseOne">Waitlist</a>
+  </h5></div>
+
+  <div id="waitlist_collapse" class="collapse" role="tabpanel"><div class="card-block">
+    <% if section.waitlist.empty? %>
+      No students on the waitlist.
+    <% else %>
+      <table>
+        <thead><tr><th></th><th>Student</th><th>ID</th></tr></thead>
+        <tbody><% section.waitlist.each_with_index do |registree, i| %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= link_to registree.student.name, teacher_student_path(registree.student) %></td>
+            <td><%= registree.student.id %></td>
+          </tr>
+        <% end %></tbody>
+      </table>
+    <% end %>
+  </div></div>
+</div>
