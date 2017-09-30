@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <% if @student.enrolled? %>
   Currently enrolled in <%= @student.section.description %>.
 <% elsif @student.waitlisted? %>
