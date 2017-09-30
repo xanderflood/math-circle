@@ -8,8 +8,8 @@ FactoryGirl.define do
     semester { |ballot| ballot.course.semester }
 
     preferences do |ballot|
-      # TODO: don't use every section all the time
-      ballot.course.section_ids.shuffle
+      bs = ballot.course.section_ids.shuffle
+      bs.first(rand(bs.count - 2) + 1)
     end
   end
 end

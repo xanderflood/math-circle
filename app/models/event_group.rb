@@ -76,7 +76,7 @@ class EventGroup < ApplicationRecord
 
   def shift
     # should never shift by more than one
-    # TODO: is that thread-safe?
+    # TODO: is this thread-safe?
     unless self.full? || (nw = waitlist.first).nil?
       nw.shift(self)
     end

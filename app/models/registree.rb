@@ -117,7 +117,6 @@ class Registree < ApplicationRecord
   def shift_course
     self.course.shift
   rescue => e
-    # TODO is this a good long-term idea?
     LotteryError.save!(e)
   end
 end
