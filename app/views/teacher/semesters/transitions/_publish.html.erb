@@ -1,3 +1,3 @@
-<%= link_to 'Publish and open lottery registration.', teacher_semester_act_path(semester, 'publish'), method: :post %>
+<%= link_to 'Publish and open lottery registration.', teacher_semester_act_path(semester, 'publish'), method: :post, data: { confirm: 'Are you sure you want to publish this semester and open lottery registration?' } %>
 
 <small>Note: Publishing this semester will hide the currently open semester, if there is one.</small>

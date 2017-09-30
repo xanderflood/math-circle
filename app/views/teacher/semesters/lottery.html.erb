@@ -3,7 +3,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <%= form_tag teacher_semester_act_path(@semester, 'run', @lottery), method: :post do %>
-      <%= submit_tag 'Save these lottery results.' %>
+      <%= submit_tag 'Save these lottery results.', data: { confirm: 'Are you sure you want to enroll students based on these lottery results?' } %>
     <% end %>
   </div>
 </div>

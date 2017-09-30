@@ -6,10 +6,7 @@ TODO:
 - re-test all rollcall stuff
 - Mark all required form fields (not capacity for special events, for instance)
 
-2 Deal with the double notices
-
 3 Dangerous ops and warnings:
-  - Hide and other semester state actions
   - Registration form submissions that could result in un-enrollment.
   - warn students that moving to the waitlist will relinquish their current spot
   - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
