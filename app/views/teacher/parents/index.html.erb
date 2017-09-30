@@ -29,7 +29,7 @@
 
   <tbody>
     <% @profiles.each do |profile| %>
-      <tr><%= render partial: 'teacher/students/row', locals: { profile: profile } %></tr>
+      <tr><%= render partial: 'teacher/parents/row', locals: { profile: profile } %></tr>
     <% end %>
   </tbody>
 </table>
