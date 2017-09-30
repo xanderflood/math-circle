@@ -4,7 +4,6 @@ TODO:
 0 show accomodations on rollcall screen
 - check all delete endpoints
 - re-test all rollcall stuff
-- Refactor the index/search views to use a common row partial, to avoid duplication of this VERY important code
 - Mark all required form fields (not capacity for special events, for instance)
 
 2 Deal with the double notices
