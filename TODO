@@ -8,10 +8,8 @@ TODO:
 
 3 Dangerous ops and warnings:
   - Registration form submissions that could result in un-enrollment.
-  - warn students that moving to the waitlist will relinquish their current spot
   - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
   - inform teachers that force-adding a student -permenantly- increases the capacity of the section
-  - confirm before deleting a ballot or registree
 
 4 clean up and expand specs
   - write specs for waitlist logic
