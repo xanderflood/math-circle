@@ -1,6 +1,6 @@
 # lotto-ticket
 
-A class scheduling and registration platform. Built on Rails 5, and relies on Postgres as currently written.
+A class scheduling and registration platform. Built on Rails 5, and relies on Postgres as currently written. It was originally created for Emory University's Math-Circle program, a K-12 after school math enrichment program run by graduate students in the Department of Math and CS.
 
 ## Postgres setup
 
@@ -68,8 +68,12 @@ Then you'll want to create a "teacher" account, which is the administrative role
 
 Visit `http://localhost:3000/` and log in using these credentials. From the teacher portal, you can manage the following information:
 
-- Semesters: are the most fundamental grouping. A semester has a lifecycle that teachers can manage from this portal. When first created, a semester is hidden from users until the teacher opens registration. Then, the teacher can close the registration process and initiate the lottery to make class assignements. The lottery results can be re-viewed and re-run before committing to them, but at this time it is not possible to edit them directly.
+- Semesters: are the most fundamental grouping. A semester has a lifecycle that teachers can manage from this portal. When first created, a semester is hidden from users until the teacher opens registration. Then, the teacher can close the registration process and initiate the lottery to make class assignements. The lottery results can be re-viewed and re-run before committing to them, but at this time it is not possible to edit them directly. Only one semester at a time can be marked "active," meaning that it is visible to parents.
 - Sections: are individual classes with a particular student roster. When creating a section, you specify a weekday and time, but the individual meetings can then be managed separately, and irregular meetings are not an issue.
 - Courses: group together sections that cover the same content.
 - Parents/students: are the other users. Teachers can view and manage these, but new ones can only be created from the parent portal.
 
+As currently implemented, there is not accessible teacher registration page. The parent registration page is publically accessible, and after creating an account, parents can:
+
+- Add and manage multiple students, including emergency contacts, registration info, and special needs.
+- For each student, when a semester is marked active, the parent can select one course and submit their lottery preferences, a ranked list of that course's sections.
