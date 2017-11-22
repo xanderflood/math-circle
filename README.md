@@ -11,12 +11,12 @@ On Debian systems, you can install Postgres before bundling by executing:
 
 There are many ways to set up postgres for your dev environement, but here's a brief outline of how I do it.
 
-First, change the authentication mode for the postgres role corresponding to the Linux user who will be running your application:
+First, create a postgres superuser corresponding to the Linux user who will be running your application, and configure it's authentication:
 
     xflood$ sudo su - postgres;
     postgres$ createuser --superuser xflood
     postgres$ exit
-    xflood$ vim /etc/postgresql/9.5/main/pg_hba.conf
+    xflood$ nano /etc/postgresql/9.5/main/pg_hba.conf
 
 Scroll to the bottom of this file, and below the line
 
@@ -26,17 +26,12 @@ add
 
     local   all             xflood                                  trust
 
-Restart postgres:
+Restart postgres using one of the following, depending on whether you are using `systemd` (such as on newer versions of Ubuntu) or `upstart` (such as versions of Ubuntu prior to 15):
 
     sudo systemctl restart postgresql
-
-on systems using `systemd`, such as newer versions of Ubuntu, or
-
     sudo restart postgresql
 
-if you're using `upstart`.
-
-Now check that your application user is able to execute the following without using `sudo`:
+if you're using `upstart`. Now check that your application user is able to execute the following without using `sudo`:
 
     psql --dbname=postgres
 
@@ -46,7 +41,7 @@ If this works, then you should be able to run
 
 to finish the process.
 
-For beginners, be warned that this setup is not secure, and shouldn't be used in a production environment. The app is designed to be easily deployed to a Heroku server, so while you can use the postgresql role corresponding your linux user, you can also override this by setting the environment variables `PG_USERNAME` and `PG_PASSWORD`. The cleanest way to do this is to create a file called `config/db.env` (which is `.gitignore`d by this repository) and place in it:
+For beginners, be warned that this setup is not secure, and shouldn't be used in a production environment. The app is designed to be easily deployed to a Heroku server, so while you can use the postgresql role corresponding your linux user, you can also override this by setting the environment variables `PG_USERNAME` and `PG_PASSWORD`. (This is what Heroku does to impose it's own database config.) The cleanest way to do this is to create a file called `config/db.env` (which is `.gitignore`d by this repository) and add the following text:
 
     export PG_USERNAME=my_postgres_user
     export PG_PASSWORD=secure_password
