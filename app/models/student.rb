@@ -94,7 +94,7 @@ class Student < ApplicationRecord
   end
 
   def attendance_count(semester=Semester.current)
-    section.events.map(&:rollcall).compact.count { |rc| rc.present_ih?(self.id) }
+    section.events.map(&:rollcall).compact.count { |rc| rc.present_ish?(self.id) }
   end
 
   protected
