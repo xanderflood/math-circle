@@ -45,6 +45,12 @@ class Student < ApplicationRecord
     @registree ||= Registree.find_by(student: self, semester: Semester.current)
   end
 
+  #
+  # These two functions sometimes return nil even when
+  #   `self.registrees` would indicate otherwise. When
+  #   exactly will these two disagree?
+  #
+
   def section
     semester = Semester.current
     @section ||= semester ? semester.sections.all.find { |section| section.roster.include?(id) } : nil
@@ -93,8 +99,17 @@ class Student < ApplicationRecord
     self.level != "unspecified" || self.grade <= 5
   end
 
+  # returns false if section is nil
   def attendance_count(semester=Semester.current)
-    section.events.map(&:rollcall).compact.count { |rc| rc.present_ish?(self.id) }
+    self
+    .registree
+    .section
+    .events
+    .map(&:rollcall)
+    .compact
+    .count do |rc|
+      rc.present_ish?(self.id)
+    end rescue false
   end
 
   protected
