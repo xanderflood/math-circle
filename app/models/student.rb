@@ -46,7 +46,7 @@ class Student < ApplicationRecord
   end
 
   #
-  # These two functions sometimes return nil even when
+  # TODO: These two functions sometimes return nil even when
   #   `self.registrees` would indicate otherwise. When
   #   exactly will these two disagree?
   #
