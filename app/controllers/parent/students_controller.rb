@@ -25,6 +25,12 @@ class Parent::StudentsController < Parent::BaseController
     @student = current_parent.students.new(student_params)
 
     if @student.save
+      begin
+        RemindersMailer.after_profile(@student.parent).deliver_now!
+      rescue => e
+        LotteryError.save!(e)
+      end
+
       redirect_to parent_students_path, notice: 'Student was successfully created.'
     else
       render :new

@@ -1,0 +1,47 @@
+class Teacher::PrioritiesController < ApplicationController
+  before_action :set_threshold
+  before_action :set_last_semester
+
+  DEFAULT_THRESHOLD = 4
+
+  def manage
+  end
+
+  def reset
+    unless @threshold = ensure_int(@threshold)
+      flash[:alert] = "Please choose a threshold that is an integer."
+      render :manage
+      return
+    end
+
+    table = Rollcall.attendance_table(@last_semester)
+
+    Student.where("id NOT IN (?)", table.keys)
+    .update_all(priority: false)
+
+    table.each do |id, att|
+      Student.find(id).update!(priority: (att >= @threshold))
+    end
+
+    redirect_to teacher_home_path, notice: "Student priorities have been reset."
+  end
+
+  private
+  def set_threshold
+    @threshold = params[:threshold] || DEFAULT_THRESHOLD
+  end
+
+  def set_last_semester
+    ss = Semester.all
+    @last_semester = ss[-2]
+
+    unless @last_semester
+      flash[:alert] = "There is only one semester. In order to reset student priorities, you need to have a past semester."
+      render :manage
+    end
+  end
+
+  def ensure_int str
+    Integer(str) rescue false
+  end
+end

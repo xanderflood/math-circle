@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'errors/not_found'
 
   get 'docs/waiver'
@@ -21,6 +22,12 @@ Rails.application.routes.draw do
         post 'act/:transition(/:lottery_id)', action: 'act', as: 'act'
 
         get  :lottery
+
+        # resetting priorities
+        collection do
+          get 'priorities/manage'
+          post 'priorities/reset'
+        end
       end
 
       resources :special_events,              except: :index

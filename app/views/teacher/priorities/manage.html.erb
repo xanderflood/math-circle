@@ -1,0 +1,17 @@
+<h1>Reset Registration Priorities</h1>
+
+<p class="alert">This will use the attendance data from the second-to-the-last semester. It should be used after creating a new semester, not before.</p>
+
+<%= form_tag(priorities_reset_teacher_semesters_path) do %>
+
+  <div class="field">
+    <%= label_tag :attendance_threshold %>
+    <%= number_field_tag :threshold, @threshold, step: 1, min: 0 %>
+  </div>
+
+  <p>Students who attended at least this number of classes in the most recent semester will receive priority status for the next semester.</p>
+
+  <div class="actions">
+    <%= submit_tag "Apply" %>
+  </div>
+<% end %>

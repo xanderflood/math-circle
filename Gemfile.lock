@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/ryanb/letter_opener.git
+  revision: befbe9812860ac29760a3171273569d6dca8101e
+  specs:
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
+
+GIT
   remote: https://github.com/twbs/bootstrap-rubygem
   revision: bd3d58a56c46d1f87785298706b136b73c192b8b
   specs:
@@ -47,6 +54,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (7.1.4)
     autoprefixer-rails (7.1.2.3)
       execjs
@@ -102,6 +111,8 @@ GEM
     json (2.1.0)
     jt-rails-address (1.3.1)
       graticule (> 2.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -131,6 +142,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    public_suffix (3.0.1)
     puma (3.8.2)
     rack (2.0.3)
     rack-protection (2.0.0)
@@ -252,6 +264,7 @@ DEPENDENCIES
   ice_cube
   jquery-rails
   jt-rails-address (~> 1.0)
+  letter_opener!
   listen (~> 3.0.5)
   mainstreet
   pg
@@ -275,4 +288,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.15.2
+   1.16.0

@@ -16,7 +16,7 @@ class Student < ApplicationRecord
   validates :birthdate, presence: true
   validates :waiver_submitted, inclusion: {
       in: [true],
-      message: " is required."
+      message: "is required"
     }, unless: :waiver_force
   validates :school_grade, numericality: {
       only_integer: true,
@@ -44,6 +44,12 @@ class Student < ApplicationRecord
   def registree
     @registree ||= Registree.find_by(student: self, semester: Semester.current)
   end
+
+  #
+  # TODO: These two functions sometimes return nil even when
+  #   `self.registrees` would indicate otherwise. When
+  #   exactly will these two disagree?
+  #
 
   def section
     semester = Semester.current
@@ -93,8 +99,17 @@ class Student < ApplicationRecord
     self.level != "unspecified" || self.grade <= 5
   end
 
+  # returns false if section is nil
   def attendance_count(semester=Semester.current)
-    section.events.map(&:rollcall).compact.count { |rc| rc.present_ih?(self.id) }
+    self
+    .registree
+    .section
+    .events
+    .map(&:rollcall)
+    .compact
+    .count do |rc|
+      rc.present_ish?(self.id)
+    end rescue false
   end
 
   protected

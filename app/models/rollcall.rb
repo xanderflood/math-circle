@@ -40,7 +40,22 @@ class Rollcall < ApplicationRecord
   end
 
   def present_ish?(student_id)
-    AttendanceHelper.present_ish.map(&:id).include? attendance_hash[student_id].to_i
+    AttendanceHelper.present_ish? attendance_hash[student_id].to_i
+  end
+
+  def self.attendance_table(semester)
+    table = Hash.new(0)
+
+    self
+    .joins(event: {section: :course})
+    .where('courses.semester_id': semester.id)
+    .each do |rc|
+      rc.attendance_hash.each do |sid, val|
+        table[sid] += 1 if AttendanceHelper::present_ish? val
+      end
+    end
+
+    table
   end
 
   private

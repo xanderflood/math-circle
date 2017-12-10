@@ -25,6 +25,12 @@ class Teacher::StudentsController < Teacher::BaseController
     @student.waiver_force = true
 
     if @student.save
+      begin
+        RemindersMailer.after_profile(@student.parent).deliver_now!
+      rescue => e
+        LotteryError.save!(e)
+      end
+
       redirect_to teacher_student_path(@student), notice: 'Student was successfully created.'
     else
       render :new

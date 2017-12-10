@@ -15,6 +15,10 @@ module AttendanceHelper
     @@okay       ||= self.to_struct_list(PRESENT_ISH)
   end
 
+  def self.present_ish? status
+    PRESENT_ISH.include? STATES[status]
+  end
+
   protected
     def self.to_struct_list(states)
       states.map do |state|

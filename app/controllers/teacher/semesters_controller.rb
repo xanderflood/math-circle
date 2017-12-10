@@ -54,7 +54,7 @@ class Teacher::SemestersController < Teacher::BaseController
 
   # GET /teacher/semesters/new
   def new
-    @semester = Semester.new(current: true)
+    @semester = Semester.new
   end
 
   def show
@@ -71,7 +71,7 @@ class Teacher::SemestersController < Teacher::BaseController
 
     respond_to do |format|
       if @semester.save
-        format.html { redirect_to teacher_semesters_path, alert: 'Semester was successfully created.' }
+        format.html { redirect_to priorities_manage_teacher_semesters_path, alert: 'Semester was successfully created.' }
         format.json { render :show, status: :created, location: @semester }
       else
         format.html { render :new }
