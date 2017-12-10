@@ -16,7 +16,7 @@ class Student < ApplicationRecord
   validates :birthdate, presence: true
   validates :waiver_submitted, inclusion: {
       in: [true],
-      message: " is required."
+      message: "is required"
     }, unless: :waiver_force
   validates :school_grade, numericality: {
       only_integer: true,
