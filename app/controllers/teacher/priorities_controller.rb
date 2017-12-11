@@ -32,8 +32,7 @@ class Teacher::PrioritiesController < ApplicationController
   end
 
   def set_last_semester
-    ss = Semester.all
-    @last_semester = ss[-2]
+    @last_semester = Semester.limit(2).order(start: :desc)[1]
 
     unless @last_semester
       flash[:alert] = "There is only one semester. In order to reset student priorities, you need to have a past semester."
