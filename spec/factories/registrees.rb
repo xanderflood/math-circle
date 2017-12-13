@@ -3,6 +3,6 @@ FactoryGirl.define do
     student nil
     course nil
     section nil
-    preferences "MyText"
+    preferences []
   end
 end
