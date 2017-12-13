@@ -2,13 +2,21 @@ require 'rails_helper'
 
 RSpec.describe "parent/registrees/new", type: :view do
   before(:each) do
-    assign(:parent_registree, Registree.new())
+    @semester = FactoryGirl.create(:finished_lottery).semester
+    @course = @semester.courses.first
+    @section = @course.sections.first
+    @student = FactoryGirl.create(:student, level: @course.level)
+    assign(:registree, Registree.new(
+      student: @student,
+      semester: @semester,
+      course: @course,
+      section: @section))
   end
 
   it "renders new parent_registree form" do
     render
 
-    assert_select "form[action=?][method=?]", registrees_path, "post" do
+    assert_select "form[action=?][method=?]", teacher_studentregistrees_path, "post" do
     end
   end
 end

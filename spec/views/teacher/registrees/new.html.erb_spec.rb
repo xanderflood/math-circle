@@ -5,6 +5,7 @@ RSpec.describe "teacher/registrees/new", type: :view do
     @semester = FactoryGirl.create(:finished_lottery).semester
     @course = @semester.courses.first
     @section = @course.sections.first
+    @student = FactoryGirl.create(:student, level: @course.level)
     assign(:registree, Registree.new(
       student: @student,
       semester: @semester,
