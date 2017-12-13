@@ -7,10 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # attendance example (executed lottery)
-puts "+++ Buidling a run-lottery example +++"
-lottery = FactoryGirl.create(:lottery)
-puts "  Running the lottery"
-lottery.commit
+puts "+++ Buidling a finished-lottery example +++"
+lottery = FactoryGirl.create(:finished_lottery)
 
 # lottery example
 puts "+++ Buidling an un-run-lottery example +++"
