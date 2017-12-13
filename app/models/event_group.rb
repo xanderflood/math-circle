@@ -15,9 +15,8 @@ class EventGroup < ApplicationRecord
   enum wday: DayHelper::DAYS
 
   ### methods ###
-  def full?
-    roster.count >= capacity
-  end
+  def full?; roster.count >= capacity; end
+  def space; roster.count - capacity; end
 
   def time_str
     I18n.l self[:time]
@@ -28,7 +27,11 @@ class EventGroup < ApplicationRecord
   end
 
   def roster
-    @roster ||= Registree.where(section: self).includes(:student).map(&:student)
+    @roster = Registree.where(section: self).includes(:student).map(&:student)
+  end
+
+  def waitlist
+    self.course.waitlist_registrees.select { |reg| reg.preferences.include? self.id }
   end
 
   def description
@@ -70,16 +73,11 @@ class EventGroup < ApplicationRecord
     output
   end
 
-  def waitlist
-    self.course.waitlist_registrees.select { |reg| reg.preferences.include? self.id }
-  end
-
   def shift
-    # should never shift by more than one
-    # TODO: is that thread-safe?
-    unless self.full? || (nw = waitlist.first).nil?
-      nw.shift(self)
+    Registree.transaction do
+      self.waitlist.limit(self.space).update(section_id: self.id)
     end
+  rescue
   end
 
   ### callbacks ###

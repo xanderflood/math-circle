@@ -19,8 +19,8 @@ class Course < ApplicationRecord
 
   def waitlist_registrees
     @waitlist_registrees ||= Registree.where(course: self, section: nil)
-                              .order(updated_at: :asc)
-                              .includes(:student)
+                             .joins(:student)
+                             .order("students.priority DESC", updated_at: :asc)
   end
 
   def waitlist
@@ -39,6 +39,6 @@ class Course < ApplicationRecord
     end
   end
 
-  # this is a callback, but also a public method used
+  # this is a callback, but also a public method
   def shift; self.sections.each(&:shift); end
 end

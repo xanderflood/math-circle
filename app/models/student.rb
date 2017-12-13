@@ -41,8 +41,8 @@ class Student < ApplicationRecord
     end
   end
 
-  def registree
-    @registree ||= Registree.find_by(student: self, semester: Semester.current)
+  def registree(semester=Semester.current)
+    @registree ||= Registree.find_by(student: self, semester: semester)
   end
 
   #

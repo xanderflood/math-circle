@@ -32,7 +32,7 @@
     <% if full_sections.any? %>
       <div class="field">
         <%= f.label "Waitlist" %>
-        <%= f.radio_button :section_id, "waitlist", class: "waitlist-radio-button", checked: registree.section.nil? %>
+        <%= f.radio_button :section_id, nil, class: "waitlist-radio-button", checked: registree.section.nil? %>
       </div>
 
       (Preferences are only used if you select "Waitlist" above.)
