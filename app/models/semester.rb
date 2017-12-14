@@ -81,7 +81,7 @@ class Semester < ApplicationRecord
 
   # TODO: this should be a validation, when a semseter gets published
   # def ensure_all_other_semesters_are_closed
-  #   Semester.all.all? { |s| s.closed? } # returns fall unles all semesters are closed
+  #   Semester.all.all? { |s| s.closed? } # returns false unless all semesters are closed
   # end
 
   def end_after_start
