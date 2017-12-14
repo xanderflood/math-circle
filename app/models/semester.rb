@@ -19,7 +19,7 @@ class Semester < ApplicationRecord
     # TODO: put email callbacks here
 
     before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
-    before_transition                          hidden:    :lottery_open, do: :reset_all_levels
+    before_transition                             all:    :closed, do: :reset_all_levels
 
     event(:publish) { transition         hidden:    :lottery_open }
     # event(:hide)    { transition all - [:hidden] => :hidden       }
