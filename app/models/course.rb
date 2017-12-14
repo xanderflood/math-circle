@@ -2,8 +2,9 @@ class Course < ApplicationRecord
   default_scope{ order(created_at: :desc) }
 
   belongs_to :semester
-  has_many :sections, class_name: "EventGroup"
-  has_many :ballots
+  has_many :sections, dependent: :destroy, class_name: "EventGroup"
+  has_many :ballots, dependent: :destroy
+  has_many :registrees, dependent: :destroy
 
   validates :level, presence:  { allow_blank: false, message: "must be specified." },
                     exclusion: { in: ['unspecified'], message: "must be specified." }

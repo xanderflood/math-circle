@@ -6,7 +6,7 @@ class Parent < ApplicationRecord
 
   has_many :students, dependent: :destroy
   has_one :parent_profile, dependent: :destroy
-  has_many :special_registrees
+  has_many :special_registrees, dependent: :destroy
 
   alias :profile :parent_profile
 
