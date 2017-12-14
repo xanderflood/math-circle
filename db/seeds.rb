@@ -18,7 +18,7 @@ puts "+++ Setting up preview accounts +++"
 
 # logins
 Teacher.create(email: "test@emory.edu", password: "password")
-parent = Parent.create(email: "test@emory.edu", password: "password")
+parent = FactoryGirl.create(:parent, email: "test@emory.edu", password: "password")
 
 # students
 FactoryGirl.create(:student, parent: parent, level: :A, name: "Bobby McNamara")
