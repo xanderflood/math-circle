@@ -20,7 +20,6 @@ class Semester < ApplicationRecord
 
     before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
     before_transition                          hidden:    :lottery_open, do: :reset_all_levels
-    before_transition                          hidden:    :lottery_open, do: :hide_other_semesters
 
     event(:publish) { transition         hidden:    :lottery_open }
     # event(:hide)    { transition all - [:hidden] => :hidden       }
@@ -80,9 +79,10 @@ class Semester < ApplicationRecord
     Student.update_all(level: :unspecified)
   end
 
-  def hide_other_semesters
-    Semester.where.not(id: self.id).all.each { |s| s.hide }
-  end
+  # TODO: this should be a validation, when a semseter gets published
+  # def ensure_all_other_semesters_are_closed
+  #   Semester.all.all? { |s| s.closed? } # returns fall unles all semesters are closed
+  # end
 
   def end_after_start
     errors.add(:end, 'must be later than the start date.') if self.end <= self.start

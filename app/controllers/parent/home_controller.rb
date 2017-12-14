@@ -15,8 +15,10 @@ class Parent::HomeController < Parent::BaseController
   end
 
   def schedule
-    @events = current_parent.students
-                .map(&:registree).map(&:section)
-                .compact.map(&:events).inject([], :+)
+    @events = current_parent
+              .students
+              .map(&:registree).compact
+              .map(&:section).compact
+              .map(&:events).inject([], :+)
   end
 end
