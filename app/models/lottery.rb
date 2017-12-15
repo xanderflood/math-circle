@@ -45,9 +45,9 @@ class Lottery < ApplicationRecord
     self.contents.each do |student_id, section_id|
       if section_id
         course_id = EventGroup.find(section_id).course_id
-        lottery_hash[course_id][:rosters][section_id] << student_id 
+        lottery_hash[course_id][:rosters][section_id] << student_id
       else
-        course_id = Student.find(student_id).ballot.course_id
+        course_id = Student.find(student_id).ballot(semester).course_id
         lottery_hash[course_id][:waitlist] << student_id
       end
     end
@@ -55,72 +55,39 @@ class Lottery < ApplicationRecord
     lottery_hash
   end
 
-  protected
-  ### lottery logic ###
-  # NOT ACCESSIBLE except on new records
-  class CourseRoster
-    attr_accessor :id
-
-    def initialize(course)
-      @course        = course
-      self.id        = course.id
-      @waitlist      = []
-
-      @section_rosters = course.sections.map do |section|
-        [section.id, SectionRoster.new(section)]
-      end.to_h
-
-      # sort descending by priority, break ties randomly
-      @course.ballots.all.sort_by do |ballot|
-        [-ballot.student.priority, rand]
-      end.each { |ballot| add_student(ballot) }
-    end
-
-    def add_student(ballot)
-      enrolled = false
-      ballot.preferences.each do |pref|
-        enrolled = @section_rosters[pref].add_student(ballot.student_id)
-
-        break if enrolled
-      end
-
-      @waitlist << ballot.student_id unless enrolled
-    end
-
-    def to_a
-      enrolled = @section_rosters.map do |section_id, sr|
-        sr.roster.map{ |student| [student, section_id] }
-      end.inject([], :+)
-
-      enrolled + @waitlist.map{ |w| [w, nil] }
-    end
-  end
-
-  class SectionRoster
-    attr_accessor :roster
-
-    def initialize(section)
-      @section    = section
-      self.roster = []
-      @space      = section.capacity
-    end
-
-    # this should not be called if @section is already full
-    def add_student(student_id)
-      return false unless @space > 0
-
-      self.roster << student_id
-      @space -= 1
-      return true
-    end
-  end
-
+  private
   ### callbacks ###
+  BallotInfo = Struct.new(:student_id, :course_id, :priority, :preferences, :section_id)
   def compute_contents
-    @course_rosters = self.semester.courses.map do |course|
-      CourseRoster.new(course)
-    end
+    # queries
+    capacities = EventGroup.joins(:course)
+                 .where('courses.semester': self.semester)
+                 .map { |s| [s.id, s.capacity] }.to_h
 
-    self.contents = Hash[@course_rosters.map(&:to_a).inject([], :+)]
+    ballot_infos = Ballot.where(semester: self.semester)
+    .includes(:student).map do |b|
+      BallotInfo.new(b.student.id,
+                     b.course_id,
+                     b.student.priority,
+                     b.preferences,
+                     nil)
+    end
+    .sort_by{ |bi| [-bi.priority, rand] }
+    .group_by(&:course_id)
+
+    # do the lottery
+    counts = Hash.new 0
+    self.contents = {}
+    rosters = ballot_infos.map do |course_id, applicants|
+
+      applicants.map do |a|
+        enrolled = false
+
+        section_id = a.preferences.find { |p| counts[p] < capacities[p] }
+        counts[section_id] += 1 if section_id
+
+        self.contents[a.student_id] = section_id
+      end
+    end.inject([], :+)
   end
 end
