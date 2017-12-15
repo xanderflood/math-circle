@@ -4,6 +4,7 @@ RSpec.describe "teacher/registrees/edit", type: :view do
   before(:each) do
     @semester = FactoryGirl.create(:finished_lottery).semester
     @registree = Registree.find_by(semester: @semester)
+    @student = @registree.student
   end
 
   it "renders the edit teacher_registree form" do
