@@ -64,7 +64,7 @@
               <td><%= "#{student.name} (#{student.id})" %></td>
               <td><%= student.school_grade %></td>
               <td><%= student.priority > 0 ? "Yes" : "No" %></td>
-              <td><%= student.ballot.preferences.map do |section_id|
+              <td><%= student.ballot(@lottery.semester).preferences.map do |section_id|
                         EventGroup.find(section_id).description
                       end.join(", ") %></td>
             </tr>

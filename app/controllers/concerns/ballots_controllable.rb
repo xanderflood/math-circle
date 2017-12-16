@@ -31,7 +31,6 @@ module BallotsControllable
 
   def update
     if @ballot.update(ballot_params)
-      binding.pry
       redirect_to [self.class.role, :students], notice: 'Ballot was successfully updated.'
     else
       render :edit

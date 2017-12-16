@@ -26,7 +26,7 @@ class Student < ApplicationRecord
 
   ### non-rails associations ###
   def ballot(semester=Semester.current)
-    @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
+    @ballot ||= Ballot.find_by(student: self, semester: semester)
   end
 
   def enrollment_status
