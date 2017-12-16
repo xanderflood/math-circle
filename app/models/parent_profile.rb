@@ -8,6 +8,7 @@ class ParentProfile < ApplicationRecord
 
   validates :phone, phone: true
   validates :email, format: { with: EmailHelper::OPTIONAL_EMAIL }
+  after_save :update_login_email
 
   validates :street1, presence: true
   validates :city, presence: true
@@ -33,5 +34,15 @@ class ParentProfile < ApplicationRecord
     @address << "#{self.city}, #{self.state} #{self.zip}"
 
     @address = @address.join "\n"
+  end
+
+  private
+  ### callbacks
+  def update_login_email
+    if self.email != self.parent.email
+      self.parent.update!(email: self.email)
+    end
+  rescue => e
+    LotteryError.save!(e)
   end
 end
