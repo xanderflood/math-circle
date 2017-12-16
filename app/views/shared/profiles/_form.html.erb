@@ -54,7 +54,7 @@
 
     <div class="field">
       <%= f.label :state %>
-      <%= f.select :state, options_for_select(StatesHelper::US_STATES) %>
+      <%= f.select :state, options_for_select(StatesHelper::US_STATES, f.object.state), include_blank: true %>
     </div>
 
     <div class="field">
@@ -62,7 +62,7 @@
       <%= f.text_field :zip, onkeyup: "this.value = this.value.replace(/[^0-9\-]/, '')" %>
     </div>
   </div>
-  
+
   <div class="emergency-fields emergency-1">
     <h3>Emergency Contact 1</h3>
 
