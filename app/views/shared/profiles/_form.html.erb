@@ -32,7 +32,8 @@
 
   <div class="field">
     <%= f.label :email %>
-    <%= f.email_field :email %>
+    <%= f.email_field :email %> <br>
+    <small><b>Note:</b> This email address will be used to log into your account, and also to receive email notifications.</small>
   </div>
 
   <div class="address-fields">
@@ -54,7 +55,7 @@
 
     <div class="field">
       <%= f.label :state %>
-      <%= f.select :state, options_for_select(StatesHelper::US_STATES) %>
+      <%= f.select :state, options_for_select(StatesHelper::US_STATES, f.object.state), include_blank: true %>
     </div>
 
     <div class="field">
@@ -62,7 +63,7 @@
       <%= f.text_field :zip, onkeyup: "this.value = this.value.replace(/[^0-9\-]/, '')" %>
     </div>
   </div>
-  
+
   <div class="emergency-fields emergency-1">
     <h3>Emergency Contact 1</h3>
 

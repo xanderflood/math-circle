@@ -8,7 +8,6 @@ FactoryGirl.define do
     first_name { "#{rand}Parent" }
     last_name { "#{rand}McParentus" }
 
-    email "parent@parent.parent"
     phone "248-555-5555"
 
     street1 "1600 Pennsylvania Ave"
