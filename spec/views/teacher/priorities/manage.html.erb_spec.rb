@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "priorities/manage.html.erb", type: :view do
+RSpec.describe "teacher/priorities/manage.html.erb", type: :view do
   it "renders the reset-priorities form" do
     render
 

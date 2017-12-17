@@ -3,8 +3,9 @@ require 'csv'
 class EventGroup < ApplicationRecord
   default_scope{ order(created_at: :desc)}
 
-  has_many :events, foreign_key: :section_id, dependent: :destroy
   belongs_to :course
+  has_many :events, foreign_key: :section_id, dependent: :destroy
+  has_many :registrees, foreign_key: :section_id, dependent: :destroy
 
   after_initialize :copy_course_capacity, if: :new_record?
   after_create :populate_events
@@ -27,6 +28,7 @@ class EventGroup < ApplicationRecord
   end
 
   def roster
+    binding.pry
     @roster = Registree.where(section: self).includes(:student).map(&:student)
   end
 
