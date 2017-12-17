@@ -43,6 +43,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Register' %>
+    <%= f.submit 'Register', onclick: "if ($('.waitlist-radio-button:checked').length > 0) { return confirm(\"Submitting these changes will reset your waitlist posisition, if you have one. Are you sure you want to continue?\"); }" %>
   </div>
 <% end %>

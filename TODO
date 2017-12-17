@@ -32,6 +32,11 @@ Change the stuff to require a waiver to be submitted before registration (if the
 
 - If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
 
+3 Dangerous ops and warnings:
+  - Registration form submissions that could result in un-enrollment.
+  - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
+  - inform teachers that force-adding a student -permenantly- increases the capacity of the section
+
 - Better tracking of "Back" link, or else clearer naming
 
 - Bring back 'current' and make it a separate thing from semester state so that teachers can work freely on old semesters
