@@ -1,0 +1,43 @@
+<%
+  registrees = Registree.where(student: student)
+  .includes(:course, :semester, section: [:events, :rollcalls])
+  .order('semesters.start desc')
+
+  course_data = registrees.map do |reg|
+    sct = reg.section
+
+    {
+      semester_name: reg.semester.name,
+      course_name: reg.course.name,
+      section_name: sct ? sct.name : "N/A",
+      att_total: sct.events.count,
+      att_record: sct ? sct.rollcalls.count { |rc| rc.present_ish?(student_id) } : "Waitlist"
+    }
+  end
+%>
+
+<% if registrees.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Semester</th>
+        <th>Course</th>
+        <th>Section</th>
+        <th>Attendance</th>
+      </tr>
+    </thead>
+
+    <tbody class="alternating">
+      <% course_data.each do |data| %>
+        <tr>
+          <td><%= data[:semester_name] %></td>
+          <td><%= data[:course_name] %></td>
+          <td><%= data[:section_name] %></td>
+          <td><%= "#{data[:att_record]} / #{data[:add_total]}" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  This student does not have any enrollment history yet.
+<% end %>
