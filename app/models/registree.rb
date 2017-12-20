@@ -3,6 +3,7 @@ class Registree < ApplicationRecord
   model_name.instance_variable_set(:@route_key, 'registree')
 
   ### attributes ###
+  # TODO: after creation, validate that `semester` is never changed
   belongs_to :semester
   belongs_to :student
   belongs_to :course

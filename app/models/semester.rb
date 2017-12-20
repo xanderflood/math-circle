@@ -2,11 +2,16 @@ class Semester < ApplicationRecord
   default_scope { order(start: :desc) }
 
   has_many :courses, dependent: :destroy
-  has_many :special_events, dependent: :destroy
   has_many :sections, through: :courses, dependent: :destroy
+  has_many :events, through: :sections
+  has_many :rollcalls, through: :events
+
   has_many :ballots, dependent: :destroy
   has_many :registrees, dependent: :destroy
   has_many :lotteries, dependent: :destroy
+
+  has_many :special_events, dependent: :destroy
+  has_many :special_registrees, through: :special_events
 
   attr_accessor :transition_errors
   attr_accessor :target_lottery

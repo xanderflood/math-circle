@@ -6,6 +6,7 @@ class EventGroup < ApplicationRecord
   belongs_to :course
   has_many :events, foreign_key: :section_id, dependent: :destroy
   has_many :registrees, foreign_key: :section_id, dependent: :destroy
+  has_many :rollcalls, through: :events
 
   after_initialize :copy_course_capacity, if: :new_record?
   after_create :populate_events
