@@ -1,0 +1,47 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name:</th>
+      <th><%= @student.name %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Email:</td>
+      <td><%= @student.email %></td>
+    </tr>
+    <tr>
+      <td>Birthdate:</td>
+      <td><%= @student.birthdate %></td>
+    </tr>
+    <tr>
+      <td>Level:</td>
+      <td><%= @student.level %></td>
+    </tr>
+    <tr>
+      <td>School:</td>
+      <td><%= @student.school %></td>
+    </tr>
+    <tr>
+      <td>Grade:</td>
+      <td><%= @student.school_grade %></td>
+    </tr>
+    <tr>
+      <td>Current math class:</td>
+      <td><%= @student.highest_math_class %></td>
+    </tr>
+    <tr>
+      <td>Waiver submitted:</td>
+      <td><%= (@student.waiver_submitted? ? "Yes" : "No" ) %></td>
+    </tr>
+    <tr>
+      <td>Waiver confirmed:</td>
+      <td><%= (@student.waiver_confirmed? ? "Yes" : "No" ) %></td>
+    </tr>
+    <tr>
+      <td>Accommodations:</td>
+      <td><%= @student.accommodations %></td>
+    </tr>
+  </tbody>
+</table>
