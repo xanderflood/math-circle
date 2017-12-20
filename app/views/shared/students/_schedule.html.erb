@@ -1,0 +1,27 @@
+<%
+  semester ||= Semester.current
+  registree = Registree.where(semester: semester, student: student).first
+%>
+
+<% if !registree %>
+  This student is not registered for this semester.
+<% elsif !registree.section %>
+  This student is currently on the waitlist for the course <%= @student.registree.course.name %>.
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+
+    <tbody class="alternating">
+      <% events.each do |event| %>
+        <tr>
+          <td><%= I18n.l event.when %> @ <%= I18n.l event.time %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
