@@ -5,21 +5,6 @@ RSpec.describe EventGroup, type: :model do
   fixtures :courses
   fixtures :event_groups
 
-
-  it 'should reject an event_group with a roster that is too large' do
-    section = Course.first.sections.new(
-      wday: :monday,
-      time: Time.now,
-      roster: [1, 2, 3],
-      capacity: 2)
-
-    expect(section.save).to eq false
-
-    section.capacity = 3
-
-    expect(section.save).to eq true
-  end
-
   it 'should reject an event_group without a valid weekday and time' do
     section = Course.first.sections.new(
       wday: :monday,
@@ -44,12 +29,12 @@ RSpec.describe EventGroup, type: :model do
   end
 
   it 'should accept an event_group with a course, weekday, and time' do
-    section = Course.first.sections.create!(
+    course = Course.first
+    section = course.sections.create!(
       wday: :monday,
       time: Time.now,
       capacity: 10)
 
-    binding.pry
     expect(section.save).to eq true
     expect(section.roster).to eq []
     expect(section.waitlist).to eq []
