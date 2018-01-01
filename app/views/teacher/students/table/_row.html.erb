@@ -4,6 +4,7 @@
   <td><%= student.school_grade %></td>
   <td><%= student.level %></td>
   <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
+  <td><%= student.accommodations? ? "Yes" : "No" %></td>
   <td><%= link_to student.parent.name, teacher_parent_profile_path(student.parent) %></td>
 
   <td>
