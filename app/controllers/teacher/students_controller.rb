@@ -43,8 +43,16 @@ class Teacher::StudentsController < Teacher::BaseController
   end
 
   def search
-    @students = Student.where("first_name ILIKE ?", "%#{params[:search][:first_name]}%")
-                       .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
+    @students = if params[:search][:id]
+      p = Student.find_by_id(params[:search][:id].to_i)
+
+      [p].compact
+    else
+      Student.where("first_name ILIKE ?", "%#{params[:search][:first_name]}%")
+      .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
+      .where("email ILIKE ?",  "%#{params[:search][:email]}%")
+      .where("id ILIKE ?",  "%#{params[:search][:id]}%")
+    end
   end
 
   def search_form

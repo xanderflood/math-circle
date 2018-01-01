@@ -7,8 +7,16 @@ class Teacher::ParentsController < Teacher::BaseController
   end
 
   def search
-    @profiles = ParentProfile.where("first_name ILIKE ?", "%#{params[:search][:first_name]}%")
-                     .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
+    @profiles = if params[:search][:id]
+      p = ParentProfile.find_by_id(params[:search][:id].to_i)
+
+      [p].compact
+    else
+      ParentProfile.where("first_name ILIKE ?", "%#{params[:search][:first_name]}%")
+      .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
+      .where("email ILIKE ?",  "%#{params[:search][:email]}%")
+      .where("id ILIKE ?",  "%#{params[:search][:id]}%")
+    end
   end
 
   def destroy
