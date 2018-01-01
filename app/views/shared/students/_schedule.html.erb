@@ -17,7 +17,7 @@
     </thead>
 
     <tbody class="alternating">
-      <% events.each do |event| %>
+      <% registree.section.events.each do |event| %>
         <tr>
           <td><%= I18n.l event.when %> @ <%= I18n.l event.time %></td>
         </tr>
