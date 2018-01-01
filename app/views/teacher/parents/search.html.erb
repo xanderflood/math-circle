@@ -3,21 +3,12 @@
 <% else %>
   <table>
     <thead>
-      <tr><%= @profiles.count %> results:</tr>
-      <tr>
-        <th>Name</th>
-        <th colspan="4">ID</th>
-      </tr>
+      <tr><th colspan="10000"><%= @profiles.count %> result(s)</th></tr>
+      <%= render partial: "teacher/parents/table/header" %>
     </thead>
     <tbody class="alternating">
       <% @profiles.each do |profile| %>
-        <tr>
-          <td><%= profile.name %></td>
-          <td><%= link_to 'Students', teacher_parent_students_path(profile.parent) %></td>
-          <td><%= link_to 'Show', teacher_parent_profile_path(profile.parent) %></td>
-          <td><%= link_to 'Edit', edit_teacher_parent_profile_path(profile.parent) %></td>
-          <td><%= link_to 'Delete', teacher_parent_path(profile.parent), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <%= render partial: "teacher/parents/table/row", locals: { profile: profile } %>
       <% end %>
     </tbody>
   </table>
