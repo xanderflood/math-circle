@@ -21,55 +21,12 @@
 <% if @students.any? %>
   <table>
     <thead>
-      <tr>
-        <th>Name</th>
-        <th>ID</th>
-        <th>Grade</th>
-        <th>Level</th>
-        <th>Waiver</th>
-        <th>Parent</th>
-        <th colspan="4"></th>
-      </tr>
+      <%= render partial: "teacher/students/table/header" %>
     </thead>
 
     <tbody class="alternating">
       <% @students.each do |student| %>
-        <tr>
-          <td><%= student.name %></td>
-          <td><%= student.id %></td>
-          <td><%= student.school_grade %></td>
-          <td><%= student.level %></td>
-          <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
-          <td><%= link_to student.parent.name, teacher_parent_profile_path(student.parent) %></td>
-
-          <td>
-            <% if Semester.current.lottery_open? %>
-              <% if student.level == 'unspecified' %>
-                Before you can register, you'll need to
-                <%= link_to "enter your grade and Math-Circle level", edit_teacher_student_path(student) %>.
-              <% elsif student.ballot %>
-                <%= link_to 'Edit registration', edit_teacher_student_ballot_path(student) %>
-              <% else %>
-                <%= link_to 'Register', new_teacher_student_ballot_path(student) %>
-              <% end %>
-            <% elsif Semester.current.registration_open? %>
-              <% if student.level == 'unspecified' %>
-                Before you can register, you'll need to
-                <%= link_to "enter your grade and Math-Circle level", edit_teacher_student_path(student) %>.
-              <% elsif student.registree %>
-                <%= link_to 'Edit registration', edit_teacher_student_registree_path(student) %>
-              <% else %>
-                <%= link_to 'Register', new_teacher_student_registree_path(student) %>
-              <% end %>
-            <% else %>
-              Registration is currently closed.
-            <% end %>
-          </td>
-
-          <td><%= link_to 'Show', teacher_student_path(student) %></td>
-          <td><%= link_to 'Edit', edit_teacher_student_path(student) %></td>
-          <td><%= link_to 'Delete', teacher_student_path(student), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <%= render partial: "teacher/students/table/row", locals: { student: student } %>
       <% end %>
     </tbody>
   </table>
