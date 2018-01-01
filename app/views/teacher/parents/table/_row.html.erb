@@ -1,5 +1,6 @@
 <tr>
   <td><%= profile.name %></td>
+  <td><%= profile.id %></td>
   <td><%= link_to 'Students', teacher_parent_students_path(profile.parent) %></td>
   <td><%= link_to 'Show', teacher_parent_profile_path(profile.parent) %></td>
   <td><%= link_to 'Edit', edit_teacher_parent_profile_path(profile.parent) %></td>
