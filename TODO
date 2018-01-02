@@ -1,14 +1,24 @@
 TODO:
 -----
 
+- Add in more CSV exports (parents, students, with class history?)
+Add:
+  - Semester attendance
+  - Parents index
+  - Students index (with history and attendance)
+  - Parents/students index by semester
+
+- Emphasize the course schedule more prominently for parents, rather than putting the day/time out front
+  - The text "Sat @ 5" is used as the name of each section, so I'll also add in a disclaimer on any relevant page to explain that the schedule can differ from that
+- Send out a "next steps" email after creating profile, reminding parents to register
+  - I'll also put a reminder on the homepage if the parent has unregistered students, in case they don't check email the
+
 ==================================
 Dangerous ops and warnings:
 - Hide and other semester state actions
 - Registration form submissions that could result in un-enrollment.
 - warn students that moving to the waitlist will relinquish their current spot
 - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
-
-+ implement rollcall extras
 ==================================
 
 - clean up specs?
