@@ -1,11 +1,11 @@
 <% student_id ||= nil %>
 
 <tr class="attendance-row unexpected-row">
+  <td class="student-name"><%=  %></td>
+  <td><%= number_field_tag "", student_id, min: 0, step: 1, class: "student-id no-submit" %></td>
   <td>
     <%= link_to "Find student ID",  search_form_teacher_students_path, target: :_blank %>
   </td>
-  <td><%= number_field_tag "", student_id, min: 0, step: 1, class: "student-id no-submit" %></td>
-  <td></td>
   <td>
     <%= select_tag "", options_from_collection_for_select(AttendanceHelper.unexpected, :id, :name, AttendanceHelper::IDS[:unexpected]), { class: "status-select no-submit" } %>
   </td>

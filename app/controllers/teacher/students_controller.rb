@@ -58,6 +58,15 @@ class Teacher::StudentsController < Teacher::BaseController
   def search_form
   end
 
+  def name
+    student = Student.find_by_id(params[:id])
+    if student
+      render :ok, json: { id: student.id, name: student.name }
+    else
+      render json: {}, status: :not_found
+    end
+  end
+
   private
     def set_parent
       @parent = Parent.find(params[:parent_id])
