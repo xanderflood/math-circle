@@ -10,8 +10,7 @@
       semester_name: reg.semester.name,
       course_name: reg.course.name,
       section_name: sct ? sct.name : "N/A",
-      att_total: sct.events.count,
-      att_record: sct ? sct.rollcalls.count { |rc| rc.present_ish?(student_id) } : "Waitlist"
+      att_text: sct ? "#{sct.rollcalls.count { |rc| rc.present_ish?(student_id) }} / #{sct.events.count}}" : "Waitlist"
     }
   end
 %>
@@ -33,7 +32,7 @@
           <td><%= data[:semester_name] %></td>
           <td><%= data[:course_name] %></td>
           <td><%= data[:section_name] %></td>
-          <td><%= "#{data[:att_record]} / #{data[:add_total]}" %></td>
+          <td><%= data[:att_text] %></td>
         </tr>
       <% end %>
     </tbody>
