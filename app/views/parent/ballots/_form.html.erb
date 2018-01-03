@@ -31,35 +31,10 @@
     <%= link_to 'Open course catalog', parent_catalog_path, target: :_blank %>
   </div>
 
-  <%= f.fields_for :preferences_hash do |pref_fields| %>
-    <% ballot.courses.each do |course| %>
-
-      <div class="field preferences-fields preferences-detach" data-course-id="<%= course.id %>">
-        <%= pref_fields.label :preferences %>
-
-        <table>
-          <thead>
-            <tr>
-              <th colspan="1">Preference</th>
-              <th colspan="1">Section</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @preferences = @ballot.preferences %>
-            <% (1..course.sections.count).each do |pref| %>
-              <tr>
-                <td><%= pref %></td>
-                <td>
-                  <%= pref_fields.select pref, options_for_select(course.sections.map { |section| [section.description, section.id] }, ballot.preferences_hash[pref.to_s]), include_blank: true %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-
-    <% end %>
+  <% ballot.courses.each do |course| %>
+    <div class="field preferences-fields preferences-detach" data-course-id="<%= course.id %>">
+      <%= render partial: "shared/preferences", locals: { f: f, target: ballot, sections: course.sections } %>
+    </div>
   <% end %>
 
   <div class="actions">
