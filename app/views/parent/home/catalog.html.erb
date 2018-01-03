@@ -13,7 +13,7 @@
       </tr>
       <% course.sections.each do |section| %>
       <tr>
-        <td style="width: 100;"><%= section.description %></td>
+        <td style="width: 100;"><%= section.description %> <b>*</b></td>
         <td style="width: 100;">Capacity: <%= section.capacity %> students</td>
       </tr>
       <% end %>
@@ -21,3 +21,4 @@
   </tbody>
 </table>
 
+<%= render partial: 'shared/section_name_warning' %>
