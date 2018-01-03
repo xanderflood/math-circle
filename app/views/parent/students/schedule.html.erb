@@ -19,4 +19,6 @@
   </table>
 <% else %>
   This student is currently on the waitlist for the course <%= @student.registree.course.name %>.
+<% else %>
+  This student is not currently enrolled in a section.
 <% end %>
