@@ -8,19 +8,14 @@ Add:
   - Students index (with history and attendance)
   - Parents/students index by semester
 
+PLAN:
+=====
+
 - Send out a "next steps" email after creating profile, reminding parents to register
   - I'll also put a reminder on the homepage if the parent has unregistered students, in case they don't check email the
 + just test this
 
-PLAN:
-=====
-
-- Emphasize the course schedule more prominently for parents, rather than putting the day/time out front
-+ parent/catalog
-+ parent/schedule
-+ parent/students
-+ parent/students/(:id)/ballot/new
-+ parent/students/(:id)/registree/new
+Also make sure the actual course schedule can be checked before registering
 
 ==================================
 Dangerous ops and warnings:
