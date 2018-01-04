@@ -1,5 +1,3 @@
-require 'csv'
-
 class EventGroup < ApplicationRecord
   default_scope{ order(created_at: :desc)}
 
@@ -17,23 +15,9 @@ class EventGroup < ApplicationRecord
   enum wday: DayHelper::DAYS
 
   ### methods ###
-  def full?; roster.count >= capacity; end
-  def space; roster.count - capacity; end
-
+  # presentation
   def time_str
     I18n.l self[:time]
-  end
-
-  def rollcalls
-    events.map(&:rollcall).compact
-  end
-
-  def roster
-    @roster = Registree.where(section: self).includes(:student).map(&:student)
-  end
-
-  def waitlist
-    self.course.waitlist_registrees.select { |reg| reg.preferences.include? self.id }
   end
 
   def description
@@ -44,6 +28,26 @@ class EventGroup < ApplicationRecord
     end
   end
 
+  # enrollment
+  def full?; roster.count >= capacity; end
+  def space; roster.count - capacity; end
+
+  def roster
+    @roster = Registree.where(section: self).includes(:student).map(&:student)
+  end
+
+  def waitlist
+    self.course.waitlist_registrees.select { |reg| reg.preferences.include? self.id }
+  end
+
+  def shift
+    Registree.transaction do
+      self.waitlist.limit(self.space).update(section_id: self.id)
+    end
+  rescue
+  end
+
+  # for attendance CSV
   def attendance_file_name
     if name.nil? || name.empty?
       "#{wday}_#{time_str}.csv"
@@ -52,34 +56,24 @@ class EventGroup < ApplicationRecord
     end
   end
 
-  def attendance_csv_data
-    rollcall_list = rollcalls
-
-    students = rollcall_list.map(&:student_ids).inject([], :|).
-                map { |i| Student.find(i) }.sort_by(&:sorting_name)
-
+  def attendance_headers
     header = ["Student", "Student ID", "Total"] +
-              rollcall_list.map(&:event).map(&:when).map(&:to_s)
-    output = CSV.generate_line(header)
-    students.each do |student|
-      record = rollcall_list.map do |rollcall|
-        val = rollcall.attendance_hash[student.id] || 1 #default to absent
+              self.rollcalls.map(&:event).map(&:when).map(&:to_s)
+  end
 
-        AttendanceHelper::STATES[val]
+  def attendance_rows
+    students = self.roster | self.rollcalls.map(&:student_ids).inject([], :|)
+               .map { |i| Student.find(i) }
+    students = students.sort_by(&:sorting_name)
+
+    students.map do |student|
+      record = self.rollcalls.map do |rollcall|
+        AttendanceHelper::STATES[rollcall.attendance_hash[student.id] || 1]
       end
       total = record.count { |status| AttendanceHelper::PRESENT_ISH.include?(status) }
 
-      output << CSV.generate_line([student.name, student.id, total] + record)
+      [student.name, student.id, total] + record
     end
-
-    output
-  end
-
-  def shift
-    Registree.transaction do
-      self.waitlist.limit(self.space).update(section_id: self.id)
-    end
-  rescue
   end
 
   ### callbacks ###

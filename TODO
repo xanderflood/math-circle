@@ -4,6 +4,7 @@ TODO:
 - Add in more CSV exports (parents, students, with class history?)
 Add:
   - Semester attendance
+    use Rails's Date#beginning_of_week to group these
   - Parents index
   - Students index (with history and attendance)
   - Parents/students index by semester
