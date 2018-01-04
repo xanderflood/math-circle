@@ -22,7 +22,7 @@
       <% if course.sections.any? %>
         <% course.sections.each do |section| %>
           <tr class="collapse out multi-collapse-target" data-multi-collapse-id="<%= multi_collapse_id %>">
-            <td colspan=2><%= "#{section.description}" %></td>
+            <td colspan="2"><%= "#{section.description}" %></td>
             <td><%= link_to 'Edit', edit_teacher_section_path(section) %></td>
             <td><%= link_to 'Delete', teacher_section_path(section), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
