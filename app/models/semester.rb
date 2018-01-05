@@ -41,7 +41,7 @@ class Semester < ApplicationRecord
   end
 
   def self.current
-    self.where.not(state: 'hidden').limit(1).first
+    self.where.not(state: 'hidden').where.not(state: 'closed').limit(1).first
   end
 
   def self.current_courses(level=nil)
