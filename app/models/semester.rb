@@ -24,13 +24,11 @@ class Semester < ApplicationRecord
     # TODO: put email callbacks here
 
     before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
-    before_transition                             all:    :closed, do: :reset_all_levels
+    before_transition                             all:    :closed,       do: :reset_all_levels
 
     event(:publish) { transition         hidden:    :lottery_open }
-    # event(:hide)    { transition all - [:hidden] => :hidden       }
 
     event(:close_lottery) { transition                    lottery_open:    :lottery_closed }
-    # event(:open_lottery)  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
 
     event(:run) { transition [:lottery_closed, :lottery_done] => :lottery_done }
 
@@ -39,6 +37,9 @@ class Semester < ApplicationRecord
 
     event(:close_registration) { transition registration_open: :closed }
   end
+
+  LOTTERY_STATES = [:lottery_closed, :lottery_done, :lottery_open]
+  REGISTRATION_STATE = [:registration_open, :closed]
 
   def self.current
     self.where.not(state: 'hidden').where.not(state: 'closed').limit(1).first
@@ -58,6 +59,14 @@ class Semester < ApplicationRecord
   def current?; Semester.current == self; end
 
   ### methods ###
+  def lottery?
+    LOTTERY_STATES.include? self.state
+  end
+
+  def registration?
+    REGISTRATION_STATE.include? self.state
+  end
+
   def applicants
     self.ballots.map(&:student)
   end
