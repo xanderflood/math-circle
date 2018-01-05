@@ -79,7 +79,7 @@ class EventGroup < ApplicationRecord
   ### callbacks ###
   protected
   def copy_course_capacity
-    capacity = course.capacity if course
+    capacity ||= course.capacity if course
   end
 
   def populate_events
