@@ -2,7 +2,9 @@
 
 (This page only displays the schedule for this student. You can <%= link_to "view your full schedule here", parent_schedule_path %>, including all of your registered students and special events.)
 
-<% if @student.registree.section %>
+<br />
+
+<% if @student.registered? %>
   <table>
     <thead>
       <tr>
@@ -17,7 +19,7 @@
       <% end %>
     </tbody>
   </table>
-<% else %>
+<% elsif @student.waitlisted? %>
   This student is currently on the waitlist for the course <%= @student.registree.course.name %>.
 <% else %>
   This student is not currently enrolled in a section.
