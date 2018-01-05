@@ -5,12 +5,12 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @event.when %>
+  <%= @event.date_str %>
 </p>
 
 <p>
   <strong>Time:</strong>
-  <%= @event.time %>
+  <%= @event.time_str %>
 </p>
 
 <%= link_to 'Edit', edit_teacher_event_path(@event) %> |
