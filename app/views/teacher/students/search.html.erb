@@ -4,11 +4,11 @@
   <table>
     <thead>
       <tr><th colspan="10000"><%= @students.count %> result(s)</th></tr>
-      <%= render partial: "teacher/students/table/header" %>
+      <%= render partial: "shared/students/table/header", locals: { role: :teacher } %>
     </thead>
     <tbody class="alternating">
       <% @students.each do |student| %>
-        <%= render partial: "teacher/students/table/row", locals: { student: student } %>
+        <%= render partial: "shared/students/table/row", locals: { student: student, role: :teacher } %>
       <% end %>
     </tbody>
   </table>

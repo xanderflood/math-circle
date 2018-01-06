@@ -21,12 +21,12 @@
 <% if @students.any? %>
   <table>
     <thead>
-      <%= render partial: "teacher/students/table/header" %>
+      <%= render partial: "shared/students/table/header", locals: { role: :teacher } %>
     </thead>
 
     <tbody class="alternating">
       <% @students.each do |student| %>
-        <%= render partial: "teacher/students/table/row", locals: { student: student } %>
+        <%= render partial: "shared/students/table/row", locals: { student: student, role: :teacher } %>
       <% end %>
     </tbody>
   </table>

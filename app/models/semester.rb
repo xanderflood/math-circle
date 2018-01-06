@@ -38,11 +38,11 @@ class Semester < ApplicationRecord
     event(:close_registration) { transition registration_open: :closed }
   end
 
-  LOTTERY_STATES = [:lottery_closed, :lottery_done, :lottery_open]
-  REGISTRATION_STATE = [:registration_open, :closed]
+  LOTTERY_STATES = ["lottery_closed", "lottery_done", "lottery_open"]
+  REGISTRATION_STATE = ["registration_open", "closed"]
 
   def self.current
-    self.where.not(state: 'hidden').where.not(state: 'closed').limit(1).first
+    self.where.not(state: 'hidden').limit(1).first
   end
 
   def self.current_courses(level=nil)
