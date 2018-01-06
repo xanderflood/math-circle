@@ -26,7 +26,11 @@ Dangerous ops and warnings:
 - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
 ==================================
 
-+ Change all fictures to factories, and see if that fixed the issues with event_group_spec 
++ write elaborate case specs for views/shared/students/table/_header and _row
+
++ Change all fictures to factories, and see if that fixed the issues with event_group_spec
+
++ Fix empty tables (on the rollcall form, for instance)
 
 - clean up specs?
 + Add delete specs for all models with associations
