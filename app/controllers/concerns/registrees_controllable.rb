@@ -7,6 +7,7 @@ module RegistreesControllable
     before_action :set_student
     before_action :set_semester
     before_action :set_registree, only: [:show, :edit, :update, :destroy]
+    before_action :set_params, only: [:create, :update]
   end
 
   def new
