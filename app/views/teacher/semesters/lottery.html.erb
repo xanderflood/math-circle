@@ -20,7 +20,7 @@
       <table>
         <thead>
           <tr>
-            <th colspan="2"><%= section.description %></th>
+            <th colspan="100000"><%= section.description %></th>
           </tr>
           <tr>
             <th>Student</th>
@@ -39,6 +39,8 @@
           <% end %>
         </tbody>
       </table>
+
+      <br />
     <% end %>
     </div>
   </div>
@@ -51,22 +53,28 @@
       <table>
         <thead>
           <tr>
-            <td>Student</td>
+            <th>Student</th>
             <th>Grade</th>
-            <td>Priority</td>
-            <td>Preference list</td>
+            <th>Priority</th>
+            <th>Preference list</th>
           </tr>
         </thead>
         <tbody class="alternating">
-          <% course_hash[:waitlist].each do |student_id| %>
-            <% student = Student.find(student_id) %>
+          <% if course_hash[:waitlist].any? %>
+            <% course_hash[:waitlist].each do |student_id| %>
+              <% student = Student.find(student_id) %>
+              <tr>
+                <td><%= "#{student.name} (#{student.id})" %></td>
+                <td><%= student.school_grade %></td>
+                <td><%= student.priority > 0 ? "Yes" : "No" %></td>
+                <td><%= student.ballot(@lottery.semester).preferences.map do |section_id|
+                          EventGroup.find(section_id).description
+                        end.join(", ") %></td>
+              </tr>
+            <% end %>
+          <% else %>
             <tr>
-              <td><%= "#{student.name} (#{student.id})" %></td>
-              <td><%= student.school_grade %></td>
-              <td><%= student.priority > 0 ? "Yes" : "No" %></td>
-              <td><%= student.ballot(@lottery.semester).preferences.map do |section_id|
-                        EventGroup.find(section_id).description
-                      end.join(", ") %></td>
+              <td colspan="20">There are no students on this waitlist.</td>
             </tr>
           <% end %>
         </tbody>
