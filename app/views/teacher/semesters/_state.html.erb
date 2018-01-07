@@ -6,4 +6,10 @@
       <%= render partial: "teacher/semesters/transitions/#{event}", locals: { semester: @semester } %>
     </div>
   <% end %>
+
+  <% if semester.lottery_open? %>
+    <div class="semester-transition card" data-event="run">
+      <%= render partial: "teacher/semesters/transitions/run", locals: { semester: @semester, disabled: true } %>
+    </div>
+  <% end %>
 </div>

@@ -14,7 +14,7 @@ class Teacher::SemestersController < Teacher::BaseController
       return
     end
 
-    # otherwise, render the lottery view
+   @disabled = params[:disabled].present?
   end
 
   def act
@@ -46,13 +46,10 @@ class Teacher::SemestersController < Teacher::BaseController
     end
   end
 
-  # GET /teacher/semesters
-  # GET /teacher/semesters.json
   def index
     @semesters = Semester.all
   end
 
-  # GET /teacher/semesters/new
   def new
     @semester = Semester.new
   end
@@ -60,12 +57,9 @@ class Teacher::SemestersController < Teacher::BaseController
   def show
   end
 
-  # GET /teacher/semesters/1/edit
   def edit
   end
 
-  # POST /teacher/semesters
-  # POST /teacher/semesters.json
   def create
     @semester = Semester.new(semester_params)
 
@@ -80,8 +74,6 @@ class Teacher::SemestersController < Teacher::BaseController
     end
   end
 
-  # PATCH/PUT /teacher/semesters/1
-  # PATCH/PUT /teacher/semesters/1.json
   def update
     respond_to do |format|
       if @semester.update(semester_params)
@@ -94,8 +86,6 @@ class Teacher::SemestersController < Teacher::BaseController
     end
   end
 
-  # DELETE /teacher/semesters/1
-  # DELETE /teacher/semesters/1.json
   def destroy
     @semester.destroy
     respond_to do |format|

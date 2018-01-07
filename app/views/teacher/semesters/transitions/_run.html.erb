@@ -1,1 +1,2 @@
-<%= link_to 'Preview lottery.', teacher_semester_lottery_path(semester) %>
+<% disabled ||= nil %>
+<%= link_to 'Preview lottery.', teacher_semester_lottery_path(semester, disabled: disabled) %>
