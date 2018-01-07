@@ -25,7 +25,7 @@
     <%= render partial: "teacher/parents/table/header" %>
   </thead>
 
-  <tbody>
+  <tbody class="alternating">
     <% @profiles.each do |profile| %>
       <%= render partial: "teacher/parents/table/row", locals: { profile: profile } %>
     <% end %>

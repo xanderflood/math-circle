@@ -2,6 +2,9 @@ class Teacher::StudentsController < Teacher::BaseController
   before_action :set_parent, only: [:create]
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
+  include Searchable
+  search :students
+
   def index
     @students = Student.order(:first_name, :last_name).paginate(page: params[:page], per_page: 50)
   end
@@ -40,22 +43,6 @@ class Teacher::StudentsController < Teacher::BaseController
   def destroy
     @student.destroy
     redirect_to teacher_students_url, notice: 'Student was successfully destroyed.'
-  end
-
-  def search
-    @students = if params[:search][:id]
-      p = Student.find_by_id(params[:search][:id].to_i)
-
-      [p].compact
-    else
-      Student.where("first_name ILIKE ?", "%#{params[:search][:first_name]}%")
-      .where("last_name ILIKE ?",  "%#{params[:search][:last_name]}%")
-      .where("email ILIKE ?",  "%#{params[:search][:email]}%")
-      .where("id ILIKE ?",  "%#{params[:search][:id]}%")
-    end
-  end
-
-  def search_form
   end
 
   def name
