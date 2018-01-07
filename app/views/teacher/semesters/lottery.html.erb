@@ -8,7 +8,10 @@
   </div>
 </div>
 
-<% @lottery.to_h.each do |course_id, course_hash| %>
+<% @lottery.to_h
+   .sort_by { |l| l[1][:level] }
+   .each do |course_id, course_hash| %>
+
   <% course = Course.find(course_id) %>
   <h3>
     <%= course.name %>

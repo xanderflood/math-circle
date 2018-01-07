@@ -39,6 +39,7 @@ class Lottery < ApplicationRecord
     .map do |course_id, course_info|
       [ course_id,
         {
+          level: Course.find(course_id).level,
           enrollment: course_info.length,
           waitlist: course_info.reject(&:section_id).map(&:student_id),
           rosters: course_info.select(&:section_id)
