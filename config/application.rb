@@ -14,6 +14,7 @@ module MathCircle
 
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_types = [:datetime, :time]
 
     config.action_mailer.default_url_options = { :host => 'localhost' }
   end

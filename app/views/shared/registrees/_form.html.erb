@@ -32,7 +32,7 @@
     <% if full_sections.any? %>
       <div class="field">
         <%= f.label "Waitlist" %>
-        <%= f.radio_button :section_id, "waitlist", class: "waitlist-radio-button", checked: registree.section.nil? %>
+        <%= f.radio_button :section_id, nil, class: "waitlist-radio-button", checked: registree.section.nil? %>
       </div>
 
       (Preferences are only used if you select "Waitlist" above.)
@@ -43,6 +43,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Register' %>
+    <%= f.submit 'Register', onclick: "if ($('.waitlist-radio-button:checked').length > 0) { return confirm(\"Submitting these changes will reset your waitlist position, if you have one. Are you sure you want to continue?\"); }" %>
   </div>
 <% end %>

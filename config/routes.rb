@@ -60,6 +60,7 @@ Rails.application.routes.draw do
         collection do
           get 'search_form'
           get 'search'
+          get 'name'
         end
 
         resource :ballot,    except: [:show, :index]

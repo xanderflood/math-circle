@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe RemindersMailer, type: :mailer do
   describe "after_profile" do
-    let(:mail) { RemindersMailer.after_profile }
+    let(:mail) { RemindersMailer.after_profile(Parent.first) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("After profile")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
+      @parent = Parent.first
+      expect(mail.subject).to eq("Register for classes")
+      expect(mail.to).to eq([@parent.email])
+      expect(mail.from).to eq(["no-reply-math-circle@math.cs.emory.edu"])
     end
 
     it "renders the body" do

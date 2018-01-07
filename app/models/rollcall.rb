@@ -1,7 +1,7 @@
 class Rollcall < ApplicationRecord
   belongs_to :event
 
-  after_initialize :set_date_to_today
+  after_initialize :set_date_to_today, if: :new_record?
   after_initialize :initialize_attendance, if: :new_record?
 
   validates :event, uniqueness: { message: "already has a rollcall record." }
@@ -65,6 +65,6 @@ class Rollcall < ApplicationRecord
   end
 
   def initialize_attendance
-    self.attendance = enrollees.map { |e| [e.id, 1] }.to_h.to_json
+    self.attendance ||= enrollees.map { |e| [e.id, 1] }.to_h.to_json
   end
 end

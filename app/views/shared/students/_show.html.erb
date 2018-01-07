@@ -1,72 +1,64 @@
-<p id="notice"><%= notice %></p>
-
-<% if @student.enrolled? %>
-  Currently enrolled in <%= @student.section.description %>.
-<% elsif @student.waitlisted? %>
-  Currently at waitlist position <%= @student.waitlist_position %> for <%=  %>. (Your student will only be ebrolled when an opening occurs in a section listed on your student's registration ballot.)
-<% elsif @student.registered? %>
+<% if student.enrolled? %>
+  Currently enrolled in <%= student.section.description %>.
+<% elsif student.waitlisted? %>
+  Currently at waitlist position <%= student.waitlist_position %> for <%= student.waitlist_course %>. (Your student will only be enrolled when an opening occurs in a section listed on your student's registration ballot.)
+<% elsif student.registered? %>
   Currently registered. Course assignments have not yet been made.
 <% else %>
   Not currently registered. To register this student, return to your students page and click "register".
 <% end %>
 
-<% if @student.priority.is_a?(Integer) && @student.priority > 0 %>
+<% if student.priority.is_a?(Integer) && student.priority > 0 %>
   <br/><br/>
   This student has priority status for registration.
 <% end %>
 
 <br/> <br/>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name:</th>
-      <th><%= @student.name %></th>
-    </tr>
-  </thead>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="studentProfilePanel">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <%= student.name %>'s profile
+        </a>
+      </h5>
+    </div>
 
-  <tbody>
-    <tr>
-      <td>Email:</td>
-      <td><%= @student.email %></td>
-    </tr>
-    <tr>
-      <td>Birthdate:</td>
-      <td><%= @student.birthdate %></td>
-    </tr>
-    <tr>
-      <td>Level:</td>
-      <td><%= @student.level %></td>
-    </tr>
-    <tr>
-      <td>School:</td>
-      <td><%= @student.school %></td>
-    </tr>
-    <tr>
-      <td>Grade:</td>
-      <td><%= @student.school_grade %></td>
-    </tr>
-    <tr>
-      <td>Current math class:</td>
-      <td><%= @student.highest_math_class %></td>
-    </tr>
-    <tr>
-      <td>Waiver submitted:</td>
-      <td><%= (@student.waiver_submitted? ? "Yes" : "No" ) %></td>
-    </tr>
-    <tr>
-      <td>Waiver confirmed:</td>
-      <td><%= (@student.waiver_confirmed? ? "Yes" : "No" ) %></td>
-    </tr>
-    <tr>
-      <td>Accommodations:</td>
-      <td><%= @student.accommodations %></td>
-    </tr>
-  </tbody>
-</table>
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-block">
+        <%= render partial: 'shared/students/show_main', locals: { student: student } %>
+      </div>
+    </div>
+  </div>
 
-<br/> <br/>
+  <div class="card">
+    <div class="card-header" role="tab" id="courseSchedulePanel">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Course Schedule
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="card-block">
+        <%= render partial: 'shared/students/schedule', locals: { student: student } %>
+      </div>
+    </div>
+  </div>
 
-<% if @student.enrolled? %>
-  Total attendance this semester: <%= @student.attendance_count %> out of <%= @student.section.rollcalls.count %>
-<% end %>
+  <div class="card">
+    <div class="card-header" role="tab" id="enrollmentHistoryPanel">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Enrollment History
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="card-block">
+        <%= render partial: 'shared/students/history', locals: { student: student } %>
+      </div>
+    </div>
+  </div>
+</div>

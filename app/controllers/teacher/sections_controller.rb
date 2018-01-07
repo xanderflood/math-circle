@@ -1,11 +1,13 @@
 class Teacher::SectionsController < Teacher::BaseController
   before_action :set_section, except: [:new, :create, :index]
 
-  def attendance
-    send_data @section.attendance_csv_data,
-      filename: @section.attendance_file_name,
-      type: 'text/csv'
-  end
+  include CsvDownloads
+
+  csv_download :attendance,
+    object:   :@section,
+    filename: ->(section) { section.attendance_file_name },
+    header:   ->(section) { section.attendance_headers   },
+    data:     ->(section) { section.attendance_rows      }
 
   # GET /teacher/events/1
   # GET /teacher/events/1.json

@@ -1,4 +1,4 @@
-class Teacher::PrioritiesController < ApplicationController
+class Teacher::PrioritiesController < Teacher::BaseController
   before_action :set_threshold
   before_action :set_last_semester
 

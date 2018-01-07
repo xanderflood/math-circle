@@ -56,6 +56,20 @@ $(function() {
     $(this).closest("tr.attendance-row").remove();
   });
 
+  // Update student name
+  $("table.rollcall-table tbody.extras tr.unexpected-row input.student-id").change(function(e) {
+    nameCell = $(this).closest("tr.unexpected-row").find("td.student-name");
+    $.ajax("/teacher/students/name?id=" + $(this).val(), {
+      success: function(data, textStatus, jqXHR) {
+        nameCell.html("<a href=\"/teacher/students/"
+          + data.id + "\">" + data.name + " (" + data.id + ")" + "</a>");
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        nameCell.text("(Not found)");
+      }
+    });
+  });
+
   // // // THEN, copy the models, this way they have the necessary events // // //
   modelGroup = $("table.rollcall-table tbody.extras.models");
   window.attendanceForm.unexpectedModel   = modelGroup.find(".unexpected-row");

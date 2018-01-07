@@ -3,13 +3,17 @@ class Registree < ApplicationRecord
   model_name.instance_variable_set(:@route_key, 'registree')
 
   ### attributes ###
+  # TODO: after creation, validate that `semester` is never changed
   belongs_to :semester
   belongs_to :student
   belongs_to :course
   belongs_to :section, class_name: "EventGroup"
   serialize :preferences, Array
 
+  attr_accessor :courses
   # only used internally on new records
+  # TODO: should go in a concern, together with
+  #  all waitlist-related code?
   attr_accessor :waitlisted
 
   ### callbacks ###
@@ -19,11 +23,6 @@ class Registree < ApplicationRecord
   validate :preferences_nonempty_and_unique
   validate :course_in_semester
   # validate :student_waived, if: :new_record?
-
-  after_initialize :require_level, :if => :new_record?
-  after_initialize :set_semester,  :if => :new_record?
-  after_initialize :set_course,    :if => :new_record?
-  after_initialize :set_section,   :if => :new_record?
 
   after_save :shift_course
   after_destroy :shift_course
@@ -35,17 +34,6 @@ class Registree < ApplicationRecord
 
   def sections
     @sections ||= self.course.sections
-  end
-
-  # override to handle wiatlist
-  def section_id= id
-    if id == "waitlist"
-      super nil
-
-      self.waitlisted = true # make sure the nil isn't overwritten
-    else
-      super id
-    end
   end
 
   # write a concern or a class method to do:
@@ -68,33 +56,7 @@ class Registree < ApplicationRecord
       map     { |obj| obj[1].to_i }
   end
 
-  def shift(section)
-    self.update(section: section)
-  end
-
   # callbacks
-  class NoCoursesError < StandardError; end
-  class NoLevelError < StandardError; end
-
-  def require_level
-    raise NoLevelError if self.student.level == 'unspecified'
-  end
-
-  def set_semester
-    self.semester ||= Semester.current
-  end
-
-  def set_course
-    self.course ||= self.courses.first
-    raise NoCoursesError if self.course.nil?
-  end
-
-  def set_section
-    return if self.waitlisted # nil section could be intentional
-
-    self.section ||= self.sections.reject(&:full?).first
-  end
-
   def section_xor_preferences
     self.preferences = [] if self.section
   end
@@ -115,7 +77,7 @@ class Registree < ApplicationRecord
   end
 
   def shift_course
-    self.course.shift
+    self.semester.courses.map(&:shift)
   rescue => e
     # TODO is this a good long-term idea?
     LotteryError.save!(e)

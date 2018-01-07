@@ -1,17 +1,39 @@
 TODO:
 -----
 
+- Add in more CSV exports (parents, students, with class history?)
+Add:
+  - Semester attendance
+    use Rails's Date#beginning_of_week to group these
+  - Parents index
+  - Students index (with history and attendance)
+  - Parents/students index by semester
+
+PLAN:
+=====
+
+- Send out a "next steps" email after creating profile, reminding parents to register
+  - I'll also put a reminder on the homepage if the parent has unregistered students, in case they don't check email the
++ just test this
+
+Also make sure the actual course schedule can be checked before registering
+
 ==================================
 Dangerous ops and warnings:
 - Hide and other semester state actions
 - Registration form submissions that could result in un-enrollment.
 - warn students that moving to the waitlist will relinquish their current spot
 - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
-
-+ implement rollcall extras
 ==================================
 
++ write elaborate case specs for views/shared/students/table/_header and _row
+
++ Change all fictures to factories, and see if that fixed the issues with event_group_spec
+
++ Fix empty tables (on the rollcall form, for instance)
+
 - clean up specs?
++ Add delete specs for all models with associations
 
 - write specs for waitlist logic
 - write a spec to ensure that new waitlist registrees are added to the BACK of the list
@@ -31,6 +53,11 @@ If you try to run a lottery on a non-current semester, you get a failure at lott
 Change the stuff to require a waiver to be submitted before registration (if the student was force-created by a teacher, for instance)
 
 - If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
+
+3 Dangerous ops and warnings:
+  - Registration form submissions that could result in un-enrollment.
+  - destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
+  - inform teachers that force-adding a student -permenantly- increases the capacity of the section
 
 - Better tracking of "Back" link, or else clearer naming
 

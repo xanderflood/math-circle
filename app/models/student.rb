@@ -25,8 +25,35 @@ class Student < ApplicationRecord
     }
 
   ### non-rails associations ###
-  def ballot
-    @ballot ||= Ballot.find_by(student: self, semester: Semester.current)
+  def ballot(semester=Semester.current)
+    @ballot ||= Ballot.find_by(student: self, semester: semester)
+  end
+
+  def registree(semester=Semester.current)
+    @registree ||= Registree.find_by(student: self, semester: semester)
+  end
+
+  # TODO: rewrite some of this to use some better
+  # state functions on the Semester model, like
+  # Semester#during_lottery?, #during_registration?
+  def lottery_registered?(semester=Semester.current)
+    self.ballot(semester).present?
+  end
+
+  def registered?(semester=Semester.current)
+    self.registree(semester).present? || self.ballot(semester).nil?
+  end
+
+  def waitlisted?(semester=Semester.current)
+    self.registree(semester).present? && self.registree.section.nil?
+  end
+
+  def enrolled?(semester=Semester.current)
+    self.registree(semester).present? && self.registree.section.present?
+  end
+
+  def permitted?
+    self.school_grade > 5 && !self.D?
   end
 
   def enrollment_status
@@ -41,18 +68,13 @@ class Student < ApplicationRecord
     end
   end
 
-  def registree
-    @registree ||= Registree.find_by(student: self, semester: Semester.current)
-  end
-
   #
   # TODO: These two functions sometimes return nil even when
   #   `self.registrees` would indicate otherwise. When
   #   exactly will these two disagree?
   #
 
-  def section
-    semester = Semester.current
+  def section(semester=Semester.current)
     @section ||= semester ? semester.sections.all.find { |section| section.roster.include?(id) } : nil
   end
 
@@ -76,27 +98,8 @@ class Student < ApplicationRecord
     [self.first_name, self.last_name].join " "
   end
 
-  def waitlisted?
-    !self.waitlist_course.nil?
-  end
-
   def waitlist_position
     self.waitlist_course.waitlist.index(id) if waitlisted?
-  end
-
-  def registered?
-    semester = Semester.current
-    return false if semester.nil?
-
-    !semester.ballots.where(student_id: id).first.nil?
-  end
-
-  def enrolled?
-    !section.nil?
-  end
-
-  def ready_to_register?
-    self.level != "unspecified" || self.grade <= 5
   end
 
   # returns false if section is nil

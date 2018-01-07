@@ -5,19 +5,31 @@
     </tr>
   </thead>
 
-  <tbody style="table-layout: fixed; width: 200;">
-    <% @semester.courses.each do |course| %>
+  <% @semester.courses.each do |course| %>
+    <tbody style="table-layout: fixed; width: 200;">
       <tr class="catalog-course-row">
-        <td style="width: 100;"><%= course.name %></td>
+        <td style="width: 100;"><%= course.name %> (Click each section name to view schedule)</td>
         <td style="width: 100;"><%= course.overview %></td>
       </tr>
+
       <% course.sections.each do |section| %>
-      <tr>
-        <td style="width: 100;"><%= section.description %></td>
-        <td style="width: 100;">Capacity: <%= section.capacity %> students</td>
-      </tr>
+        <% multi_collapse_id = "section-#{section.id}" %>
+        <tr class="catalog-section-row">
+          <td style="width: 100;"><a class="multi-collapse-control" data-multi-collapse-id="<%= multi_collapse_id %>"><%= section.description %> <b>*</b></a></td>
+          <td style="width: 100;">Capacity: <%= section.capacity %> students</td>
+        </tr>
+
+        <% if section.events.any? %>
+          <% section.events.each do |event| %>
+            <tr class="collapse out multi-collapse-target catalog-event-row" data-multi-collapse-id="<%= multi_collapse_id %>">
+              <td colspan="2"><%= event.description %></td>
+            </tr>
+          <% end %>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
+
+    </tbody>
+  <% end %>
 </table>
 
+<%= render partial: 'shared/section_name_warning' %>

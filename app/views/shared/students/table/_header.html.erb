@@ -1,0 +1,21 @@
+<% semester = Semester.current %>
+
+<tr>
+  <th>Name</th>
+  <th>ID</th>
+  <th>Grade</th>
+  <th>Level</th>
+  <th>Waiver</th>
+  <th>Accomodations</th>
+
+  <% if role == :teacher %>
+    <th>Parent</th>
+  <% end %>
+
+  <% if semester && (semester.registration? || semester.lottery?) %>
+    <th>Enrollment</th>
+  <% end %>
+
+  <th>Registration</th>
+  <th colspan="3"></th>
+</tr>

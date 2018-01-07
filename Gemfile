@@ -8,16 +8,16 @@ end
 
 # Platform
 gem 'rails', '~> 5.0.3'
-gem 'pg'
+gem 'pg', '~> 0.19'
 gem 'puma', '~> 3.0'
 
 # Assets
-gem 'jquery-rails'
-gem 'coffee-rails'
+gem 'jquery-rails', '~> 4.3'
+gem 'coffee-rails', '~> 4.2'
 gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '~> 4.7'
 gem 'carmen-rails', '~> 1.0.0'
 gem 'popper_js', '~> 1.9.9'
 gem 'jt-rails-address', '~> 1.0'
@@ -25,14 +25,14 @@ gem 'jt-rails-address', '~> 1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'devise'
-gem 'ice_cube'
-gem 'phonelib'
-gem 'mainstreet'#, github: 'robhurring/address-validator'
-gem 'will_paginate'
-gem 'state_machines-activerecord'
+gem 'devise', '~> 4.2'
+gem 'ice_cube', '~> 0.16'
+gem 'phonelib', '~> 0.6'
+gem 'mainstreet', '~> 0.1'
+gem 'will_paginate', '~> 3.1'
+gem 'state_machines-activerecord', '~> 0.5'
 
-gem 'sendgrid-ruby'
+gem 'sendgrid-ruby', '~> 5.0'
 
 # Maybes
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

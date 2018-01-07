@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Lottery, type: :model do
   before(:all) do
-    @semester = Semester.find_by(name: "Semster with lottery done")
-    @lottery = Lottery.find_by(semester: @semester)
+    @lottery = FactoryGirl.create(:finished_lottery)
+    @semester = @lottery.semester
 
     # If this fails because lottery is nil, you have to `rake db:seed RAILS_ENV=test`
     @ballots = @lottery.semester.courses.collect do |course|

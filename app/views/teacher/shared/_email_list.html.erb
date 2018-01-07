@@ -1,4 +1,7 @@
-<% collase_id = rand(1000000000000) %>
+<%
+  collase_id ||= rand(1000000000000)
+  delimiter  ||= ";"
+%>
 
 <div class="card">
   <div class="card-header" role="tab" id="headingOne">
@@ -11,28 +14,27 @@
 
   <div id="collapse_<%= collase_id %>" class="collapse" role="tabpanel">
     <div class="card-block">
-    	<% if students.empty? %>
-			  There are no addresses in this list.
-			<% else %>
-				<div class="email-list">
-				  Students:
-					<% contents_s = students.map(&:email).compact.uniq.join(",") %>
-					<%= text_field_tag "email_list", contents_s, onfocus: "$(this).select();" %>
-				</div>
+      <% if students.empty? %>
+        There are no addresses in this list.
+      <% else %>
+        <div class="email-list">
+          Students:
+          <% contents_s = students.map(&:email).compact.uniq.join(delimiter) %>
+          <%= text_field_tag "email_list", contents_s, onfocus: "$(this).select();" %>
+        </div>
 
-				<div class="email-list">
-				  Parents:
-					<% contents_p = students.map(&:parent).map(&:email).compact.uniq.join(",") %>
-					<%= text_field_tag "email_list", contents_p, onfocus: "$(this).select();" %>
-				</div>
+        <div class="email-list">
+          Parents:
+          <% contents_p = students.map(&:parent).map(&:email).compact.uniq.join(delimiter) %>
+          <%= text_field_tag "email_list", contents_p, onfocus: "$(this).select();" %>
+        </div>
 
-				<div class="email-list">
-				  All:
-					<% contents = [contents_s, contents_p].join(",") %>
-					<%= text_field_tag "email_list", contents, onfocus: "$(this).select();" %>
-				</div>
-
-			<% end %>
+        <div class="email-list">
+          All:
+          <% contents = [contents_s, contents_p].join(delimiter) %>
+          <%= text_field_tag "email_list", contents, onfocus: "$(this).select();" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

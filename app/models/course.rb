@@ -2,8 +2,9 @@ class Course < ApplicationRecord
   default_scope{ order(created_at: :desc) }
 
   belongs_to :semester
-  has_many :sections, class_name: "EventGroup"
-  has_many :ballots
+  has_many :sections, dependent: :destroy, class_name: "EventGroup"
+  has_many :ballots, dependent: :destroy
+  has_many :registrees, dependent: :destroy
 
   validates :level, presence:  { allow_blank: false, message: "must be specified." },
                     exclusion: { in: ['unspecified'], message: "must be specified." }
@@ -19,8 +20,8 @@ class Course < ApplicationRecord
 
   def waitlist_registrees
     @waitlist_registrees ||= Registree.where(course: self, section: nil)
-                              .order(updated_at: :asc)
-                              .includes(:student)
+                             .joins(:student)
+                             .order("students.priority DESC", updated_at: :asc)
   end
 
   def waitlist
@@ -39,6 +40,6 @@ class Course < ApplicationRecord
     end
   end
 
-  # this is a callback, but also a public method used
+  # this is a callback, but also a public method
   def shift; self.sections.each(&:shift); end
 end

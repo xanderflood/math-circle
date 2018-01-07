@@ -1,11 +1,17 @@
 class Semester < ApplicationRecord
   default_scope { order(start: :desc) }
 
-  has_many :courses
-  has_many :special_events
-  has_many :sections, through: :courses
-  has_many :ballots
-  has_many :registrees
+  has_many :courses, dependent: :destroy
+  has_many :sections, through: :courses, dependent: :destroy
+  has_many :events, through: :sections
+  has_many :rollcalls, through: :events
+
+  has_many :ballots, dependent: :destroy
+  has_many :registrees, dependent: :destroy
+  has_many :lotteries, dependent: :destroy
+
+  has_many :special_events, dependent: :destroy
+  has_many :special_registrees, through: :special_events
 
   attr_accessor :transition_errors
   attr_accessor :target_lottery
@@ -18,13 +24,11 @@ class Semester < ApplicationRecord
     # TODO: put email callbacks here
 
     before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
-    before_transition                          hidden:    :lottery_open, do: :reset_all_levels
+    before_transition                             all:    :closed,       do: :reset_all_levels
 
     event(:publish) { transition         hidden:    :lottery_open }
-    # event(:hide)    { transition all - [:hidden] => :hidden       }
 
     event(:close_lottery) { transition                    lottery_open:    :lottery_closed }
-    # event(:open_lottery)  { transition [:lottery_closed, :lottery_done] => :lottery_open   }
 
     event(:run) { transition [:lottery_closed, :lottery_done] => :lottery_done }
 
@@ -33,6 +37,9 @@ class Semester < ApplicationRecord
 
     event(:close_registration) { transition registration_open: :closed }
   end
+
+  LOTTERY_STATES = ["lottery_closed", "lottery_done", "lottery_open"]
+  REGISTRATION_STATE = ["registration_open", "closed"]
 
   def self.current
     self.where.not(state: 'hidden').limit(1).first
@@ -52,6 +59,14 @@ class Semester < ApplicationRecord
   def current?; Semester.current == self; end
 
   ### methods ###
+  def lottery?
+    LOTTERY_STATES.include? self.state
+  end
+
+  def registration?
+    REGISTRATION_STATE.include? self.state
+  end
+
   def applicants
     self.ballots.map(&:student)
   end
@@ -80,7 +95,7 @@ class Semester < ApplicationRecord
 
   # TODO: this should be a validation, when a semseter gets published
   # def ensure_all_other_semesters_are_closed
-  #   Semester.all.all? { |s| s.closed? } # returns fall unles all semesters are closed
+  #   Semester.all.all? { |s| s.closed? } # returns false unless all semesters are closed
   # end
 
   def end_after_start

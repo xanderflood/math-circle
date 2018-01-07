@@ -1,0 +1,96 @@
+<%
+  semester ||= Semester.current
+
+  def enrollment_text role, url, &block
+    if role == :parent
+      link_to url, &block
+    else
+      capture &block
+    end
+  end
+%>
+
+<tr data-student-id=<%= student.id %>>
+  <td><%= student.name %></td>
+  <td><%= student.id %></td>
+  <td><%= student.school_grade %></td>
+  <td><%= student.level %></td>
+  <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
+  <td><%= student.accommodations? ? "Yes" : "No" %></td>
+
+  <% if role == :teacher %>
+    <td><%= link_to student.parent.name, teacher_parent_profile_path(student.parent) %></td>
+  <% end %>
+
+  <% if semester && (semester.registration? || semester.lottery?) %>
+    <td>
+      <% if semester.registration? %>
+        <% if student.enrolled? %>
+          <%= enrollment_text role, parent_catalog_path do %>
+            <%= student.registree.section.description %>
+            <b>*</b>
+          <% end %>
+        <% elsif student.waitlisted? %>
+          Currently on the waitlist for
+          <%= enrollment_text role, parent_catalog_path do %>
+            <%= student.registree.course.description %>
+          <% end %>
+        <% else %>
+          <%= enrollment_text role, parent_catalog_path do %>
+            Not currently registered.
+          <% end %>
+        <% end %>
+      <% elsif semester.lottery? %>
+        <% if student.lottery_registered? %>
+          <%= enrollment_text role, parent_catalog_path do %>
+            Registered for the lottery.
+          <% end %>
+        <% else %>
+          <%= enrollment_text role, parent_catalog_path  do %>
+            Not currently registered.
+          <% end %>
+        <% end %>
+      <% end %>
+    </td>
+  <% end %>
+
+  <td>
+    <% if semester %>
+      <% if semester.lottery_open? %>
+        <% if student.level == 'unspecified' %>
+          Before you can register, you'll need to
+          <%= link_to "enter your grade and Math-Circle level", [:edit, role, student] %>.
+        <% elsif student.ballot %>
+          <%= link_to 'View or edit status', [:edit, role, student, :ballot] %>
+        <% else %>
+          <% if role == :parent && !student.permitted? %>
+            (Contact Math-Circle to register elementary school students and level D students.)
+          <% else %>
+            <%= link_to 'Register', [:new, role, student, :ballot] %>
+          <% end %>
+        <% end %>
+      <% elsif semester.registration_open? %>
+        <% if student.level == 'unspecified' %>
+          Before you can register, you'll need to
+          <%= link_to "enter your grade and Math-Circle level", [:edit, role, student] %>.
+        <% elsif student.registree %>
+          <%= link_to 'View or edit status', [:edit, role, student, :registree] %>
+        <% else %>
+          <% if role == :parent && !student.permitted? %>
+            (Contact Math-Circle to register elementary school students and level D students.)
+          <% else %>
+            <%= link_to 'Register', [:new, role, student, :registree] %>
+          <% end %>
+        <% end %>
+      <% else %>
+        Registration is currently closed.
+      <% end %>
+    <% else %>
+      Registration is currently closed.
+    <% end %>
+  </td>
+
+  <td><%= link_to 'Show', [role, student] %></td>
+  <td><%= link_to 'Edit', [:edit, role, student] %></td>
+  <td><%= link_to 'Delete', [role, student], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

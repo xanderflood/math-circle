@@ -3,6 +3,10 @@ class LotteryError < ApplicationRecord
   serialize :backtrace, Array
 
   # TODO: after_save :notify_someone!
+  # TODO: Turn this whole thing into a gem, and give
+  #   it a configto notify a particular "administrator_email".
+  #   In the app, set that config to an envar, and then
+  #   specify it from Heroku
 
   def self.save!(e=nil)
     LotteryError.new(exception: e).save!

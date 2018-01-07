@@ -1,9 +1,9 @@
 class SpecialEvent < ApplicationRecord
   belongs_to :semester
 
-  has_many :parents, through: :special_registrees
-  has_many :special_registrees
+  has_many :special_registrees, dependent: :destroy
   alias_attribute :registrees, :special_registrees
+  has_many :parents, through: :special_registrees
 
   def unlimited?; self.capacity.nil? || self.capacity == 0; end
 

@@ -9,6 +9,16 @@
     <%= text_field_tag :'search[last_name]' %>
   </div>
 
+  <div class="field">
+    <%= label_tag :email %>
+    <%= text_field_tag :'search[email]' %>
+  </div>
+
+  <div class="field">
+    <%= label_tag "ID" %>
+    <%= number_field_tag :'search[id]' %>
+  </div>
+
   <div class="actions">
     <%= submit_tag 'Search' %>
   </div>

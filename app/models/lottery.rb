@@ -1,7 +1,7 @@
 class Lottery < ApplicationRecord
   belongs_to :semester
 
-  serialize :contents, Hash
+  serialize :contents, Array
 
   before_create :compute_contents
 
@@ -9,12 +9,13 @@ class Lottery < ApplicationRecord
   def commit
     errors = []
 
-    self.contents.each do |student_id, section_id|
-      ballot    = Ballot.find_by(student_id: student_id)
+    ballots = Ballot.find(self.contents.map(&:ballot_id)).group_by(&:id)
+    self.contents.each do |ballot_info|
+      ballot    = ballots[ballot_info.ballot_id].first
       registree = ballot.registree_or_new
 
-      registree.section_id  = section_id
-      registree.preferences = ballot.preferences unless section_id
+      registree.section_id  = ballot_info.section_id
+      registree.preferences = ballot_info.preferences unless ballot_info.section_id
 
       errors << registree unless registree.save
     end
@@ -33,94 +34,54 @@ class Lottery < ApplicationRecord
   end
 
   def to_h
-    lottery_hash = {}
-    self.semester.courses.each do |course|
-      lottery_hash[course.id] = { waitlist: [], rosters: {} }
+    h = self.contents
+    .group_by(&:course_id)
+    .map do |course_id, course_info|
+      [ course_id,
+        {
+          waitlist: course_info.reject(&:section_id).map(&:student_id),
+          rosters: course_info.select(&:section_id)
+                  .group_by(&:section_id).map do |section_id, section_info|
+                    [section_id, section_info.map(&:student_id)]
+                  end.to_h
+        }]
+    end.to_h
 
-      course.section_ids.each do |section_id|
-        lottery_hash[course.id][:rosters][section_id] = []
-      end
-    end
-
-    self.contents.each do |student_id, section_id|
-      if section_id
-        course_id = EventGroup.find(section_id).course_id
-        lottery_hash[course_id][:rosters][section_id] << student_id 
-      else
-        course_id = Student.find(student_id).ballot.course_id
-        lottery_hash[course_id][:waitlist] << student_id
-      end
-    end
-
-    lottery_hash
+    h
   end
 
-  protected
-  ### lottery logic ###
-  # NOT ACCESSIBLE except on new records
-  class CourseRoster
-    attr_accessor :id
-
-    def initialize(course)
-      @course        = course
-      self.id        = course.id
-      @waitlist      = []
-
-      @section_rosters = course.sections.map do |section|
-        [section.id, SectionRoster.new(section)]
-      end.to_h
-
-      # sort descending by priority, break ties randomly
-      @course.ballots.all.sort_by do |ballot|
-        [-ballot.student.priority, rand]
-      end.each { |ballot| add_student(ballot) }
-    end
-
-    def add_student(ballot)
-      enrolled = false
-      ballot.preferences.each do |pref|
-        enrolled = @section_rosters[pref].add_student(ballot.student_id)
-
-        break if enrolled
-      end
-
-      @waitlist << ballot.student_id unless enrolled
-    end
-
-    def to_a
-      enrolled = @section_rosters.map do |section_id, sr|
-        sr.roster.map{ |student| [student, section_id] }
-      end.inject([], :+)
-
-      enrolled + @waitlist.map{ |w| [w, nil] }
-    end
-  end
-
-  class SectionRoster
-    attr_accessor :roster
-
-    def initialize(section)
-      @section    = section
-      self.roster = []
-      @space      = section.capacity
-    end
-
-    # this should not be called if @section is already full
-    def add_student(student_id)
-      return false unless @space > 0
-
-      self.roster << student_id
-      @space -= 1
-      return true
-    end
-  end
-
+  private
   ### callbacks ###
+  # TODO: making this into a full-blown ballots-lotteries join table
+  # model, backed by ActiveRecord, could simplify a lot of logic.
+  # Could that be done without significant performance losses?
+  BallotInfo = Struct.new(:ballot_id, :student_id, :course_id, :priority, :preferences, :section_id)
   def compute_contents
-    @course_rosters = self.semester.courses.map do |course|
-      CourseRoster.new(course)
-    end
+    # query the database and sort the ballots
+    counts     = Hash.new 0
+    capacities = EventGroup.joins(:course)
+                 .where('courses.semester': self.semester)
+                 .map { |s| [s.id, s.capacity] }.to_h
 
-    self.contents = Hash[@course_rosters.map(&:to_a).inject([], :+)]
+    self.contents = Ballot.where(semester: self.semester)
+    .includes(:student).map do |b|
+      BallotInfo.new(b.id,
+                     b.student.id,
+                     b.course_id,
+                     b.student.priority,
+                     b.preferences,
+                     nil)
+    end
+    .sort_by{ |bi| [-bi.priority, rand] }
+
+    # do the lottery
+    self.contents.each do |applicant|
+      enrolled = false
+
+      section_id = applicant.preferences.find { |p| counts[p] < capacities[p] }
+      counts[section_id] += 1 if section_id
+
+      applicant.section_id = section_id
+    end
   end
 end
