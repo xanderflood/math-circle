@@ -10,7 +10,11 @@
 
 <% @lottery.to_h.each do |course_id, course_hash| %>
   <% course = Course.find(course_id) %>
-  <h3><%= course.name %></h3>
+  <h3>
+    <%= course.name %>
+    (<%= pluralize(course_hash[:enrollment], 'student') %>)
+  </h3>
+
   <div class="panel panel-default">
     <div class="panel-heading"><%= course.description %></div>
     <div class="panel-body">
@@ -20,7 +24,10 @@
       <table>
         <thead>
           <tr>
-            <th colspan="100000"><%= section.description %></th>
+            <th colspan="100000">
+              <%= section.description %>
+              (<%= pluralize(roster.length, 'student') %>)
+            </th>
           </tr>
           <tr>
             <th>Student</th>
@@ -46,7 +53,10 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Waitlist</div>
+    <div class="panel-heading">
+      Waitlist
+      (<%= pluralize(course_hash[:waitlist].length, 'student') %>)
+    </div>
 
     <div class="panel-body">
 
