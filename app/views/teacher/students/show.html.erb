@@ -1,4 +1,4 @@
-<%= render partial: 'shared/students/show', locals: { student: @student } %>
+<%= render partial: 'shared/students/show', locals: { student: @student, role: :teacher } %>
 
 <%= link_to 'Edit', edit_teacher_student_path(@student) %> |
 <%= link_to 'Back', teacher_students_path %>

@@ -1,11 +1,26 @@
-<% if student.enrolled? %>
-  Currently enrolled in <%= student.section.description %>.
-<% elsif student.waitlisted? %>
-  Currently at waitlist position <%= student.waitlist_position %> for <%= student.waitlist_course %>. (Your student will only be enrolled when an opening occurs in a section listed on your student's registration ballot.)
-<% elsif student.registered? %>
-  Currently registered. Course assignments have not yet been made.
+<% semester = Semester.current %>
+
+<% if semester.registration? %>
+  <% if student.enrolled? %>
+    Currently enrolled in <%= student.section.description %>.
+    <%= link_to "Edit.", [:edit, role, student, :registree] %>
+  <% elsif student.waitlisted? %>
+    Currently at waitlist position <%= student.waitlist_position %> for <%= student.waitlist_course %>. (Your student will only be enrolled when an opening occurs in a section listed on your student's registration ballot.)
+    <%= link_to "Edit.", [:edit, role, student, :registree] %>
+  <% else %>
+    Not currently registered.
+    <%= link_to "Register", [:new, role, student, :registree] %>
+  <% end %>
+<% elsif semester.lottery? %>
+  <% if student.lottery_registered? %>
+    Currently registered. Course assignments have not yet been made.
+    <%= link_to "Edit your registration.", [:edit, role, student, :ballot] %>
+  <% else %>
+    Not currently registered.
+    <%= link_to "Register", [:new, role, student, :ballot] %>
+  <% end %>
 <% else %>
-  Not currently registered. To register this student, return to your students page and click "register".
+  Registration is not currently open.
 <% end %>
 
 <% if student.priority.is_a?(Integer) && student.priority > 0 %>
