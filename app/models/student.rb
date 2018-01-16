@@ -68,19 +68,13 @@ class Student < ApplicationRecord
     end
   end
 
-  #
-  # TODO: These two functions sometimes return nil even when
-  #   `self.registrees` would indicate otherwise. When
-  #   exactly will these two disagree?
-  #
-
   def section(semester=Semester.current)
-    @section ||= semester ? semester.sections.all.find { |section| section.roster.include?(id) } : nil
+    self.registree ? self.registree.section : nil
   end
 
   def waitlist_course
     semester = Semester.current
-    @waitlist_course ||= semester ? semester.courses.all.find { |course| course.waitlist.include?(id) } : nil
+    self.waitlisted? ? self.registree.course : nil
   end
 
   ### methods ###
