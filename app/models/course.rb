@@ -6,10 +6,7 @@ class Course < ApplicationRecord
   has_many :ballots, dependent: :destroy
   has_many :registrees, dependent: :destroy
 
-  validates :level, presence:  { allow_blank: false, message: "must be specified." },
-                    exclusion: { in: ['unspecified'], message: "must be specified." }
-
-  enum level: LevelsHelper::LEVELS
+  belongs_to :level
 
   after_update :shift
 

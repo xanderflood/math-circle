@@ -4,12 +4,13 @@ class Student < ApplicationRecord
   has_many :ballots, dependent: :destroy
   has_many :registrees, dependent: :destroy
 
-  enum level: LevelsHelper::LEVELS
+  belongs_to :level
 
   attr_accessor :waiver_force
 
   after_update :maybe_clear_ballot
 
+  validate :has_active_level
   validates_format_of :email, with: EmailHelper::OPTIONAL_EMAIL
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -115,6 +116,12 @@ class Student < ApplicationRecord
     if self.school_grade_changed? || self.level_changed?
       self.registree.destroy if self.registree && self.registree.semester.current?
       self.ballot.destroy if self.ballot && self.ballot.semester.current?
+    end
+  end
+
+  def has_active_level
+    if !self.level || !self.level.active?
+      errors.add(:level, "system has changed - please select a new Math-Circle level for this student.")
     end
   end
 end
