@@ -1,0 +1,29 @@
+<!-- accept a form and a level to this partial -->
+<!-- if the ID is nil, disable everything and apply a certain class -->
+<tr class="level-row">
+  <td>
+    <input class="position" type="numeric" step="1" min="0" />
+  </td>
+  <td>
+    <input class="name" type="text" />
+  </td>
+  <td>
+    <% select_tag "", options_for_select([""] + (1..12).map(&:itself)) class: "min-grade" %>
+  </td>
+  <td>
+    <% select_tag "", options_for_select([""] + (1..12).map(&:itself)) class: "max-grade" %>
+  </td>
+  <td>
+    <input class="restricted" type="checkbox" />
+  </td>
+  <td>
+    <input class="active" type="checkbox" />
+  </td>
+  <td>
+    <div class="invalid-icon"></div>
+  </td>
+  <td>
+    <input class="delete" type="submit" value="Delete" />
+    <input class="id" type="hidden" />
+  </td>
+</tr>
