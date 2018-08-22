@@ -20,6 +20,10 @@ class EventGroup < ApplicationRecord
     I18n.l self[:time]
   end
 
+  def time
+    self.events.first.time
+  end
+
   def description
     if name.nil? || name.empty?
       "#{wday} @ #{time_str}"
