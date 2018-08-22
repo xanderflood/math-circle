@@ -2,20 +2,61 @@
 window.levelsManager = window.levelsManager || (func () {
   //public
   var _newRow = function(e) {
-    //TODO: duplicate the first row, reset it,
-    //and attach it at the end
-    //if there was only one before, re-enable
-    //its delete button
+    modelRow = $("table.level-table tr.level-row").first();
+    newRow = modelRow.clone(true);
+    _resetRow(newRow);
+
+    body = $("table.level-table tbody.levels-tbody");
+    body.append(newRow)
+
+    if $("table.level-table tr.level-row").length > 1 {
+      _setDeletable(table.find("tr.level-row"), true)
+    }
   }
 
   var _deleteRow = function(e) {
-    //TODO: delete the row - if there's only
-    //one left
+    row = $(this);
+    table = row.closest("table.level-table")
+
+    if table.find("tr.level-row").length == 1 {
+      return
+    }
+
+    row.remove();
+    _resetRowNumbers(table);
+
+    if table.find("tr.level-row").length == 1 {
+      _setDeletable(table.find("tr.level-row"), false)
+    }
   }
 
   var _validateRow = function(e) {
-    //TODO: check some validations and then
-    //add or remove a market
+    names = {}
+    invalid = false
+
+    $("tr.level-row input.name").each(function(i, input) {
+      name = $(input).value()
+      if names[name] {
+        invalid = true
+        return false
+      }
+      names[name] = true
+    });
+
+    row = $(this).closest(".level-row")
+    if invalid {
+      _setExclamation(row, true)
+      return
+    }
+
+    minGrade = row.find(".min-grade")
+    maxGrade = row.find(".max-grade")
+    if maxGrade < minGrade {
+      _setExclamation(row, true)
+      return
+    }
+
+    _setExclamation(row, false)
   }
 
   var _moveRow = function(e) {
@@ -28,28 +69,40 @@ window.levelsManager = window.levelsManager || (func () {
     //and submit (if valid)
   }
 
-  var restrictJSON = function(e) {
+  var restrictRow = function(e) {
     //TODO: grey out the min and max grades
     // or un-grey them
   }
 
   //private
   var _resetRowNumbers = function(table) {
-    //TODO: reset all the row numbers to match
-    //their positions
+    table.find("tr.level-row input.position").each(function(i, input) {
+      $(input).find(":nth-child("+(i+1)+")").prop('selected', true);
+    });
   }
 
   var _resetRow = function(row) {
-    //TODO: empty out the inputs and set the
-    //order to equal it's current position
+    row.find("input.name").value("")
+    row.find("input.min-grade :nth-child(1)").prop('selected', true);
+    row.find("input.max-grade :nth-child(1)").prop('selected', true);
+    row.find("input.restricted").prop('checked', false);
+    row.find("input.active").prop('checked', false);
+    row.find("input.id").value("")
   }
 
   var _setExclamation = function(row, value) {
-    //TODO: turn the excalation on/off
+    if value {
+      row.addClass("field_with_errors")
+    } else {
+      row.removeClass("field_with_errors")
   }
 
   var _setDeletable = function(row, value) {
-    //TODO: turn the delete button on/off
+    if value {
+      row.find("input.delete").prop('disabled', false);
+    } else {
+      row.find("input.delete").prop('disabled', true);
+    }
   }
 
   return {
