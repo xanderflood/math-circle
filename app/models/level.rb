@@ -1,6 +1,8 @@
 class Level < ApplicationRecord
-  default_scope { where(active: true) }
-  scope :all_levels, -> { unscope(:active) }
+  default_scope { order(:position) }
+
+  has_many :courses
+  has_many :students
 
   def permitted? student
     if self.min_grade && self.min_grade > student.grade
