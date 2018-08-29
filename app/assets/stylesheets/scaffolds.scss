@@ -83,6 +83,14 @@ div {
   display: table;
 }
 
+.row_with_errors {
+  padding: 2px;
+}
+
+.row_with_errors td {
+  background-color: red;
+}
+
 #error_explanation {
   width: 450px;
   border: 2px solid red;

@@ -1,0 +1,47 @@
+<table class="levelstable">
+  <%= render partial: "teacher/levels/header" %>
+
+  <tbody class="unspecified-tbody">
+    <tr class="unspecified-row">
+      <td>
+        <input type="numeric" step="1" min="1" value="0" disabled="disabled" />
+      </td>
+      <td>
+        <input type="text" value="unspecified" disabled="disabled" />
+      </td>
+      <td>
+        <select disabled="disabled"><option>1</option></select>
+      </td>
+      <td>
+        <select disabled="disabled"><option>12</option></select>
+      </td>
+      <td>
+        <input type="checkbox" disabled="disabled" />
+      </td>
+      <td>
+        <input type="checkbox" disabled="disabled" />
+      </td>
+      <td>
+        <input type="submit" value="Delete" disabled="disabled" />
+      </td>
+    </tr>
+  </tbody>
+
+  <tbody class="level-tbody alternating">
+    <% if !levels.blank? %>
+      <% for level in levels %>
+        <%= render partial: "teacher/levels/row", locals: {level: level} %>
+      <% end %>
+    <% else %>
+      No levels currently exist.
+    <% end %>
+  </tbody>
+
+  <tbody class="controls">
+    <tr>
+      <td>
+        <input type="submit" value="New" class="create" />
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -2,28 +2,25 @@
 <!-- if the ID is nil, disable everything and apply a certain class -->
 <tr class="level-row">
   <td>
-    <input class="position" type="numeric" step="1" min="0" />
+    <input class="position" type="numeric" step="1" min="0" value="<%= level.position %>" />
   </td>
   <td>
-    <input class="name" type="text" />
+    <input class="name" type="text" value="<%= level.name %>" />
   </td>
   <td>
-    <% select_tag "", options_for_select([""] + (1..12).map(&:itself)) class: "min-grade" %>
+    <%= select_tag "", options_for_select([""] + (1..12).map(&:itself)), class: "min-grade", value: level.min_grade %>
   </td>
   <td>
-    <% select_tag "", options_for_select([""] + (1..12).map(&:itself)) class: "max-grade" %>
+    <%= select_tag "", options_for_select([""] + (1..12).map(&:itself)), class: "max-grade", value: level.max_grade %>
   </td>
   <td>
-    <input class="restricted" type="checkbox" />
+    <input class="restricted" type="checkbox" value="<%= level.restricted %>" />
   </td>
   <td>
-    <input class="active" type="checkbox" />
-  </td>
-  <td>
-    <div class="invalid-icon"></div>
+    <input class="active" type="checkbox" value="<%= level.active %>" />
   </td>
   <td>
     <input class="delete" type="submit" value="Delete" />
-    <input class="id" type="hidden" />
+    <input class="id" type="hidden" value="<%= level.id %>" />
   </td>
 </tr>
