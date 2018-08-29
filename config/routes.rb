@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     namespace :teacher do
       get '/', to: 'home#index', as: 'home'
 
+      get  '/levels', to: 'levels#manage', as: 'levels'
+      post '/levels', to: 'levels#update', as: 'update_levels'
+
       resources :semesters do
         post 'act/:transition(/:lottery_id)', action: 'act', as: 'act'
 
