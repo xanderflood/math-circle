@@ -14,7 +14,7 @@
     <%= select_tag "", options_for_select([""] + (1..12).map(&:itself)), class: "max-grade", value: level.max_grade %>
   </td>
   <td>
-    <input class="restricted" type="checkbox" value="<%= level.restricted %>" />
+    <input class="restricted" type="checkbox" <%= "checked" if level.restricted %> />
   </td>
   <td>
     <input class="active" type="checkbox" value="<%= level.active %>" />

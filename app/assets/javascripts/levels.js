@@ -29,7 +29,7 @@ window.levelsManager = window.levelsManager || (function () {
     }
   }
 
-  var _validateAllRows = function(e) {
+  var _validateAllRows = function() {
     $("tr.level-row").each(function(i, input) {
        _validateRowFromElement($(input));
     })
@@ -38,7 +38,7 @@ window.levelsManager = window.levelsManager || (function () {
   var _validateRow = function (e) {
     _validateRowFromElement($(this).closest(".level-row"));
   }
- 
+
   var _validateRowFromElement = function(row) {
     invalid = false;
 
@@ -91,7 +91,7 @@ window.levelsManager = window.levelsManager || (function () {
 
     row.detach()
     rows$ = tbody.find("tr")
-    
+
     if (newPos <= 1) {
       row.insertBefore(rows$[0]);
     } else {
@@ -106,8 +106,17 @@ window.levelsManager = window.levelsManager || (function () {
     //and submit (if valid)
   }
 
+  var _restrictAllRows = function() {
+    $("tr.level-row input.restricted").each(function(i, input) {
+      _restrictRowFromElement($(input))
+    })
+  }
+
   var _restrictRow = function(e) {
-    input = $(this)
+    _restrictRowFromElement($(this))
+  }
+
+  var _restrictRowFromElement = function(input) {
     restricted = input.is(":checked")
     row = input.closest("tr.level-row")
 
@@ -158,6 +167,7 @@ window.levelsManager = window.levelsManager || (function () {
     prepareJSON:     _prepareJSON,
     validateAllRows: _validateAllRows,
     validateRow:     _validateRow,
+    restrictAllRows: _restrictAllRows,
     restrictRow:     _restrictRow,
     moveRow:         _moveRow
   }
@@ -183,12 +193,10 @@ $(function() {
   $("tr.level-row input.validate").change(window.levelsManager.validateRow);
   $("tr.level-row input.restricted").change(window.levelsManager.validateRow);
 
-  //keyup hooks
-  //TODO: some keyup hooks?
-
   //submit form
   $("table.level-table input.submit").change(window.levelsManager.prepareJSON);
 
   //validate
   window.levelsManager.validateAllRows();
+  window.levelsManager.restrictAllRows();
 });
