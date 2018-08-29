@@ -11,12 +11,12 @@ class CreateLevels < ActiveRecord::Migration[5.0]
     end
 
     level_ids = {}
-    ["unspecified", "A", "B", "C", "D"].each.with_index do |level_name, i|
+    ["A", "B", "C", "D"].each.with_index do |level_name, i|
       level = Level.create!(name: level_name, active: true, position: i, min_grade: 6)
       level_ids[level_name] = level.id
     end
 
-    Level.first(name: "D").update!(min_grade: nil, restricted: true)
+    Level.where(name: "D").first.update!(min_grade: nil, restricted: true)
 
     ### migrate existing data ###
     add_reference :courses, :level
