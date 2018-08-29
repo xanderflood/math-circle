@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216214510) do
+ActiveRecord::Schema.define(version: 20180815232455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,13 @@ ActiveRecord::Schema.define(version: 20171216214510) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
-    t.integer  "level"
     t.integer  "semester_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "overview"
     t.integer  "capacity",    default: 10, null: false
+    t.integer  "level_id"
+    t.index ["level_id"], name: "index_courses_on_level_id", using: :btree
     t.index ["semester_id"], name: "index_courses_on_semester_id", using: :btree
   end
 
@@ -69,6 +70,15 @@ ActiveRecord::Schema.define(version: 20171216214510) do
     t.date     "when",       default: '2017-07-31'
     t.time     "time",       default: '2000-01-01 16:22:36'
     t.index ["section_id"], name: "index_events_on_section_id", using: :btree
+  end
+
+  create_table "levels", force: :cascade do |t|
+    t.string  "name"
+    t.integer "position",                  null: false
+    t.integer "max_grade",  default: 1,    null: false
+    t.integer "min_grade",  default: 12,   null: false
+    t.boolean "restricted"
+    t.boolean "active",     default: true
   end
 
   create_table "lotteries", force: :cascade do |t|
@@ -191,7 +201,6 @@ ActiveRecord::Schema.define(version: 20171216214510) do
     t.integer  "parent_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.integer  "level",              default: 0,     null: false
     t.integer  "priority",           default: 0,     null: false
     t.string   "email"
     t.string   "first_name"
@@ -202,6 +211,8 @@ ActiveRecord::Schema.define(version: 20171216214510) do
     t.date     "birthdate"
     t.boolean  "waiver_submitted",   default: false
     t.boolean  "waiver_confirmed",   default: false
+    t.integer  "level_id"
+    t.index ["level_id"], name: "index_students_on_level_id", using: :btree
     t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
   end
 

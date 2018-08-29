@@ -21,11 +21,7 @@ class Level < ApplicationRecord
   validate :check_grades
 
   def permitted? student
-    if self.min_grade && self.min_grade > student.grade
-      return false
-    end
-
-    if self.max_grade && self.max_grade < student.grade
+    if (self.min_grade > student.grade) || (self.max_grade < student.grade)
       return false
     end
 
