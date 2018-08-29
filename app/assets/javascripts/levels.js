@@ -1,67 +1,104 @@
-
-window.levelsManager = window.levelsManager || (func () {
+window.levelsManager = window.levelsManager || (function () {
   //public
   var _newRow = function(e) {
     modelRow = $("table.level-table tr.level-row").first();
     newRow = modelRow.clone(true);
     _resetRow(newRow);
 
-    body = $("table.level-table tbody.levels-tbody");
-    body.append(newRow)
+    body = $("table.level-table tbody.level-tbody");
+    body.append(newRow);
 
-    if $("table.level-table tr.level-row").length > 1 {
-      _setDeletable(table.find("tr.level-row"), true)
+    if ($("table.level-table tr.level-row").length > 1) {
+      _setDeletable(table.find("tr.level-row"), true);
     }
   }
 
   var _deleteRow = function(e) {
-    row = $(this);
-    table = row.closest("table.level-table")
+    row = $(this).closest(".level-row");
+    table = row.closest("table.level-table");
 
-    if table.find("tr.level-row").length == 1 {
-      return
+    if (table.find("tr.level-row").length == 1) {
+      return;
     }
 
     row.remove();
     _resetRowNumbers(table);
 
-    if table.find("tr.level-row").length == 1 {
-      _setDeletable(table.find("tr.level-row"), false)
+    if (table.find("tr.level-row").length == 1) {
+      _setDeletable(table.find("tr.level-row"), false);
     }
   }
 
-  var _validateRow = function(e) {
-    names = {}
-    invalid = false
+  var _validateAllRows = function(e) {
+    $("tr.level-row").each(function(i, input) {
+       _validateRowFromElement($(input));
+    })
+  }
 
+  var _validateRow = function (e) {
+    _validateRowFromElement($(this).closest(".level-row"));
+  }
+ 
+  var _validateRowFromElement = function(row) {
+    invalid = false;
+
+    nameField = row.find("input.name");
+    thisName = nameField.val();
     $("tr.level-row input.name").each(function(i, input) {
-      name = $(input).value()
-      if names[name] {
-        invalid = true
-        return false
+      name = $(input).val();
+      if (name == thisName && input != nameField[0]) {
+        invalid = true;
+        return false;
       }
-      names[name] = true
     });
 
-    row = $(this).closest(".level-row")
-    if invalid {
-      _setExclamation(row, true)
-      return
+    if (invalid) {
+      _setExclamation(row, true);
+      return;
     }
 
-    minGrade = row.find(".min-grade")
-    maxGrade = row.find(".max-grade")
-    if maxGrade < minGrade {
-      _setExclamation(row, true)
-      return
+    restricted = row.find(".restricted").is(":checked");
+    if (!restricted) {
+      minGrade = parseInt(row.find("select.min-grade").val());
+      maxGrade = parseInt(row.find("select.max-grade").val());
+      if (minGrade > maxGrade) {
+        _setExclamation(row, true);
+        return;
+      }
     }
 
-    _setExclamation(row, false)
+    _setExclamation(row, false);
   }
 
   var _moveRow = function(e) {
-    //TODO: move this row to the specified position
-    //and then reset all the numbders
+    row = $(e.target).closest("tr.level-row");
+    newPos = parseInt(row.find(".position").val());
+    //TODO if negative or out of bounds?
+
+    tbody = $(e.target).closest("tbody.level-tbody");
+    rows$ = tbody.find("tr");
+    origPos = rows$.index(row[0])+1;
+    if (origPos < 0) {
+      console.log("row not found") //TODO delete?
+      return; //TODO invalidate?
+    }
+
+    if (newPos == origPos) {
+      return;
+    }
+
+    //TODO check for newPos NaNs
+
+    row.detach()
+    rows$ = tbody.find("tr")
+    
+    if (newPos <= 1) {
+      row.insertBefore(rows$[0]);
+    } else {
+      row.insertAfter(rows$[newPos-2]);
+    }
+
+    _resetRowNumbers(tbody);
   }
 
   var _prepareJSON = function(e) {
@@ -69,36 +106,46 @@ window.levelsManager = window.levelsManager || (func () {
     //and submit (if valid)
   }
 
-  var restrictRow = function(e) {
-    //TODO: grey out the min and max grades
-    // or un-grey them
+  var _restrictRow = function(e) {
+    input = $(this)
+    restricted = input.is(":checked")
+    row = input.closest("tr.level-row")
+
+    if (restricted) {
+      row.find(".min-grade").prop("disabled", true)
+      row.find(".max-grade").prop("disabled", true)
+    } else {
+      row.find(".min-grade").prop("disabled", false)
+      row.find(".max-grade").prop("disabled", false)
+    }
   }
 
   //private
-  var _resetRowNumbers = function(table) {
-    table.find("tr.level-row input.position").each(function(i, input) {
-      $(input).find(":nth-child("+(i+1)+")").prop('selected', true);
+  var _resetRowNumbers = function(tbody) {
+    tbody.find("tr.level-row").each(function(i, row) {
+      $(row).find("input.position").val(i+1);
     });
   }
 
   var _resetRow = function(row) {
-    row.find("input.name").value("")
-    row.find("input.min-grade :nth-child(1)").prop('selected', true);
-    row.find("input.max-grade :nth-child(1)").prop('selected', true);
+    row.find("input.name").val("");
+    row.find("select.min-grade :nth-child(1)").prop('selected', true);
+    row.find("select.max-grade :nth-child(1)").prop('selected', true);
     row.find("input.restricted").prop('checked', false);
     row.find("input.active").prop('checked', false);
-    row.find("input.id").value("")
+    row.find("input.id").val("");
   }
 
   var _setExclamation = function(row, value) {
-    if value {
-      row.addClass("field_with_errors")
+    if (value) {
+      row.addClass("row_with_errors");
     } else {
-      row.removeClass("field_with_errors")
+      row.removeClass("row_with_errors");
+    }
   }
 
   var _setDeletable = function(row, value) {
-    if value {
+    if (value) {
       row.find("input.delete").prop('disabled', false);
     } else {
       row.find("input.delete").prop('disabled', true);
@@ -106,30 +153,42 @@ window.levelsManager = window.levelsManager || (func () {
   }
 
   return {
-    newRow:      _newRow,
-    deleteRow:   _deleteRow,
-    prepareJSON: _prepareJSON,
-    validateRow: _validateRow,
-    restrictRow: _restrictRow,
-    moveRow:     _moveRow
+    newRow:          _newRow,
+    deleteRow:       _deleteRow,
+    prepareJSON:     _prepareJSON,
+    validateAllRows: _validateAllRows,
+    validateRow:     _validateRow,
+    restrictRow:     _restrictRow,
+    moveRow:         _moveRow
   }
 })()
 
 $(function() {
-  //row management
-  $("tr.level-row input.position").change(window.levelsManager.moveRow)
-  $("tr.level-row input.delete").click(window.levelsManager.deleteRow)
-  $("form.level-form input.create").click(window.levelsManager.newRow)
+  //row order
+  $("tr.level-row input.position").change(window.levelsManager.moveRow);
+  $("tr.level-row input.position").keyup(window.levelsManager.validateAllRows);
+
+  //row create/delete
+  $("tr.level-row input.delete").click(window.levelsManager.deleteRow);
+  $("table.level-table input.create").click(window.levelsManager.newRow);
 
   //restricted overrides min/max grades
-  $("tr.level-row input.restricted").change(window.levelsManager.restrictRow)
+  $("tr.level-row input.restricted").change(window.levelsManager.restrictRow);
 
   //validations
-  $("tr.level-row input.position").change(window.levelsManager.validateRow)
-  $("tr.level-row input.name").change(window.levelsManager.validateRow)
-  $("tr.level-row input.min-grade").change(window.levelsManager.validateRow)
-  $("tr.level-row input.max-grade").change(window.levelsManager.validateRow)
+  $("tr.level-row input.name").change(window.levelsManager.validateAllRows);
+  $("tr.level-row input.name").keyup(window.levelsManager.validateAllRows);
+  $("tr.level-row select.min-grade").change(window.levelsManager.validateRow);
+  $("tr.level-row select.max-grade").change(window.levelsManager.validateRow);
+  $("tr.level-row input.validate").change(window.levelsManager.validateRow);
+  $("tr.level-row input.restricted").change(window.levelsManager.validateRow);
+
+  //keyup hooks
+  //TODO: some keyup hooks?
 
   //submit form
-  $("form.level-form input.submit").change(window.levelsManager.prepareJSON)
+  $("table.level-table input.submit").change(window.levelsManager.prepareJSON);
+
+  //validate
+  window.levelsManager.validateAllRows();
 });
