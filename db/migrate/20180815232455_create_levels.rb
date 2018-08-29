@@ -2,12 +2,12 @@ class CreateLevels < ActiveRecord::Migration[5.0]
   def change
     ### setup the new tables ###
     create_table :levels do |t|
-      t.string :name
-      t.integer :position
-      t.integer :max_grade
-      t.integer :min_grade
+      t.string :name, unique: true
+      t.integer :position, unique: true
+      t.integer :max_grade, default: 1
+      t.integer :min_grade, default: 12
       t.boolean :restricted
-      t.boolean :active
+      t.boolean :active, default: true
     end
 
     level_ids = {}
