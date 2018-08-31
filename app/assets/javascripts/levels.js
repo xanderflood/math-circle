@@ -1,16 +1,21 @@
 window.levelsManager = window.levelsManager || (function () {
   //public
   var _newRow = function(e) {
-    modelRow = $("table.level-table tr.level-row").first();
+    modelRow = $("tr.level-row").first();
     newRow = modelRow.clone(true);
     _resetRow(newRow);
+
 
     body = $("table.level-table tbody.level-tbody");
     body.append(newRow);
 
     if ($("table.level-table tr.level-row").length > 1) {
-      _setDeletable(table.find("tr.level-row"), true);
+      _setDeletable($("table.level-table tr.level-row"), true);
     }
+
+    _resetRowNumbers($("tbody.level-tbody"));
+    _validateAllRows();
+    _restrictAllRows();
   }
 
   var _deleteRow = function(e) {
@@ -22,11 +27,14 @@ window.levelsManager = window.levelsManager || (function () {
     }
 
     row.remove();
-    _resetRowNumbers(table);
 
     if (table.find("tr.level-row").length == 1) {
       _setDeletable(table.find("tr.level-row"), false);
     }
+
+    _resetRowNumbers(table);
+    _validateAllRows();
+    _restrictAllRows();
   }
 
   var _validateAllRows = function() {
@@ -101,7 +109,25 @@ window.levelsManager = window.levelsManager || (function () {
     _resetRowNumbers(tbody);
   }
 
-  var _prepareJSON = function(e) {
+  var _submitJSON = function(e) {
+    //TODO: validate all rows
+
+    result = $("tr.level-row").map(function(i, row) {
+      obj = {};
+
+      obj["position"]   = parseInt($(row).find("input.position").val());
+      obj["name"]       = $(row).find("input.name").val();
+      obj["min_grade"]  = parseInt($(row).find("select.min_grade").val());
+      obj["max_grade"]  = parseInt($(row).find("select.max_grade").val());
+      obj["restricted"] = $(row).find("input.restricted").is(":checked");
+      obj["active"]     = $(row).find("input.active").is(":checked");
+      obj["id"]         = parseInt($(row).find("input.id").val());
+
+      return obj
+    });
+
+    return result
+
     //TODO: validate all rows, generate JSON,
     //and submit (if valid)
   }
@@ -113,7 +139,7 @@ window.levelsManager = window.levelsManager || (function () {
   }
 
   var _restrictRow = function(e) {
-    _restrictRowFromElement($(this))
+    _restrictRowFromElement($(this));
   }
 
   var _restrictRowFromElement = function(input) {
@@ -141,7 +167,7 @@ window.levelsManager = window.levelsManager || (function () {
     row.find("select.min-grade :nth-child(1)").prop('selected', true);
     row.find("select.max-grade :nth-child(1)").prop('selected', true);
     row.find("input.restricted").prop('checked', false);
-    row.find("input.active").prop('checked', false);
+    row.find("input.active").prop('checked', true);
     row.find("input.id").val("");
   }
 
@@ -164,7 +190,7 @@ window.levelsManager = window.levelsManager || (function () {
   return {
     newRow:          _newRow,
     deleteRow:       _deleteRow,
-    prepareJSON:     _prepareJSON,
+    submitJSON:      _submitJSON,
     validateAllRows: _validateAllRows,
     validateRow:     _validateRow,
     restrictAllRows: _restrictAllRows,
@@ -194,7 +220,7 @@ $(function() {
   $("tr.level-row input.restricted").change(window.levelsManager.validateRow);
 
   //submit form
-  $("table.level-table input.submit").change(window.levelsManager.prepareJSON);
+  $("table.level-table input.submit").change(window.levelsManager.submitJSON);
 
   //validate
   window.levelsManager.validateAllRows();
