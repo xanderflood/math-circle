@@ -9,10 +9,10 @@
   </td>
   <td>
     <!-- TODO: the default values don't seem to be working... maybe set them by JS? -->
-    <%= select_tag "", options_for_select([""] + (1..12).map(&:itself), level.min_grade), class: "min-grade" %>
+    <%= select_tag "", options_for_select((1..12).map(&:itself), level.min_grade), class: "min-grade" %>
   </td>
   <td>
-    <%= select_tag "", options_for_select([""] + (1..12).map(&:itself), level.max_grade), class: "max-grade" %>
+    <%= select_tag "", options_for_select((1..12).map(&:itself), level.max_grade), class: "max-grade" %>
   </td>
   <td>
     <input class="restricted" type="checkbox" <%= "checked" if level.restricted %> />

@@ -52,6 +52,11 @@ window.levelsManager = window.levelsManager || (function () {
 
     nameField = row.find("input.name");
     thisName = nameField.val();
+    if (thisName == "") { //TODO better regexp
+      _setExclamation(row, true);
+      return;
+    }
+
     $("tr.level-row input.name").each(function(i, input) {
       name = $(input).val();
       if (name == thisName && input != nameField[0]) {
@@ -110,26 +115,34 @@ window.levelsManager = window.levelsManager || (function () {
   }
 
   var _submitJSON = function(e) {
-    //TODO: validate all rows
+    e.preventDefault();
 
-    result = $("tr.level-row").map(function(i, row) {
+    //build the object
+    result = {};
+    $("tr.level-row").map(function(i, row) {
       obj = {};
 
       obj["position"]   = parseInt($(row).find("input.position").val());
       obj["name"]       = $(row).find("input.name").val();
-      obj["min_grade"]  = parseInt($(row).find("select.min_grade").val());
-      obj["max_grade"]  = parseInt($(row).find("select.max_grade").val());
+      obj["min_grade"]  = parseInt($(row).find("select.min-grade :selected").val());
+      obj["max_grade"]  = parseInt($(row).find("select.max-grade :selected").val());
       obj["restricted"] = $(row).find("input.restricted").is(":checked");
       obj["active"]     = $(row).find("input.active").is(":checked");
       obj["id"]         = parseInt($(row).find("input.id").val());
 
-      return obj
+      result[i] = obj;
     });
 
-    return result
+    $(this).find("input.select").prop("disabled", true)
 
-    //TODO: validate all rows, generate JSON,
-    //and submit (if valid)
+    //validate the result
+    //TODO: validate the result
+    //      (this is probably better than
+    //      validating the rows themselves)
+    //TODO: validation messages?
+
+    //TODO submit form
+    $(this).find("input.submit").val(JSON.stringify(result));
   }
 
   var _restrictAllRows = function() {
@@ -220,7 +233,7 @@ $(function() {
   $("tr.level-row input.restricted").change(window.levelsManager.validateRow);
 
   //submit form
-  $("table.level-table input.submit").change(window.levelsManager.submitJSON);
+  $("table.level-table form#level-form").submit(window.levelsManager.submitJSON);
 
   //validate
   window.levelsManager.validateAllRows();
