@@ -52,7 +52,7 @@ window.levelsManager = window.levelsManager || (function () {
 
     nameField = row.find("input.name");
     thisName = nameField.val();
-    if (thisName == "") { //TODO better regexp
+    if ($.trim(thisName) == "") {
       _setExclamation(row, true);
       return;
     }
@@ -86,21 +86,15 @@ window.levelsManager = window.levelsManager || (function () {
   var _moveRow = function(e) {
     row = $(e.target).closest("tr.level-row");
     newPos = parseInt(row.find(".position").val());
-    //TODO if negative or out of bounds?
+    if (isNaN(newPos) || (typeof(newPos) == "undefined") || (newPos < 1)) { newPos = 1; }
 
     tbody = $(e.target).closest("tbody.level-tbody");
     rows$ = tbody.find("tr");
-    origPos = rows$.index(row[0])+1;
-    if (origPos < 0) {
-      console.log("row not found") //TODO delete?
-      return; //TODO invalidate?
-    }
 
-    if (newPos == origPos) {
+    if (tbody.find("tr.level-row:nth-child(" + newPos + ")")[0] == row[0]) {
+      _resetRowNumbers(tbody);
       return;
     }
-
-    //TODO check for newPos NaNs
 
     row.detach()
     rows$ = tbody.find("tr")
@@ -108,18 +102,24 @@ window.levelsManager = window.levelsManager || (function () {
     if (newPos <= 1) {
       row.insertBefore(rows$[0]);
     } else {
-      row.insertAfter(rows$[newPos-2]);
+      anchor = rows$[newPos-2];
+      if (typeof(anchor) == 'undefined') {
+        row.insertAfter(rows$.last());
+      } else {
+        row.insertAfter(anchor);
+      }
     }
 
     _resetRowNumbers(tbody);
   }
 
   var _submitJSON = function(e) {
-    e.preventDefault();
+    //disable the button
+    $(this).find("input.select").prop("disabled", false);
 
     //build the object
     result = {};
-    $("tr.level-row").map(function(i, row) {
+    $("tr.level-row").each(function(i, row) {
       obj = {};
 
       obj["position"]   = parseInt($(row).find("input.position").val());
@@ -133,16 +133,19 @@ window.levelsManager = window.levelsManager || (function () {
       result[i] = obj;
     });
 
-    $(this).find("input.select").prop("disabled", true)
-
     //validate the result
     //TODO: validate the result
     //      (this is probably better than
     //      validating the rows themselves)
     //TODO: validation messages?
 
-    //TODO submit form
-    $(this).find("input.submit").val(JSON.stringify(result));
+    if (invalid) {
+      e.preventDefault();
+      $(this).find("input.select").prop("disabled", false);
+    }
+
+    //set the value
+    $(this).find("input#level-data").val(JSON.stringify(result));
   }
 
   var _restrictAllRows = function() {
