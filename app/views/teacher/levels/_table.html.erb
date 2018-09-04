@@ -40,10 +40,10 @@
   <tbody class="controls">
     <tr>
       <td>
-        <form id="level-form" action="<%= %>">
+        <%= form_tag(teacher_update_levels_path, method: :post, id: "level-form") do %>
           <input type="hidden" id="level-data" name="levels" />
           <input type="submit" value="Save Changes" class="submit" />
-        </form>
+        <% end %>
       </td>
       <td>
         <input type="submit" value="New" class="create" />
