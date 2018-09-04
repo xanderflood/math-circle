@@ -118,7 +118,7 @@ window.levelsManager = window.levelsManager || (function () {
     $(this).find("input.select").prop("disabled", false);
 
     //build the object
-    result = {};
+    result = [];
     $("tr.level-row").each(function(i, row) {
       obj = {};
 
