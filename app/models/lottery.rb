@@ -1,6 +1,13 @@
 class Lottery < ApplicationRecord
   belongs_to :semester
 
+  # TODO: test this logic THOROUGHLY before any re-deploy
+
+  # TODO: lottery should respect existing assignments if
+  # some registrees already exist.
+  # Maybe this comes as part of merging the registree and
+  #   ballot tables?
+
   serialize :contents, Array
 
   before_create :compute_contents

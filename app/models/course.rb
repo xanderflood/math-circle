@@ -1,6 +1,9 @@
 class Course < ApplicationRecord
   default_scope{ order(created_at: :desc) }
 
+  # TODO: how does editing capacity work, for
+  # both courses and sections?
+
   belongs_to :semester
   has_many :sections, dependent: :destroy, class_name: "EventGroup"
   has_many :ballots, dependent: :destroy
