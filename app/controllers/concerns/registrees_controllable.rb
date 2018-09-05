@@ -8,6 +8,7 @@ module RegistreesControllable
     before_action :set_semester
     before_action :set_registree, only: [:show, :edit, :update, :destroy]
     before_action :set_params, only: [:create, :update]
+    before_action :set_course, only: [:new, :edit]
   end
 
   def new
@@ -78,10 +79,22 @@ module RegistreesControllable
       @student_id ||= params[:student_id] || params[:id]
     end
 
+    def set_course
+      course_id = params["course_id"]
+      if course_id.present?
+        @registree.course_id = course_id
+      end
+    end
+
     # Only allow a trusted parameter "white list" through.
     attr_reader :registree_params
     def set_params
-      @registree_params = params.require(:registree).permit(:student_id, :semester_id, :course_id, :section_id, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
+      @registree_params = params.require(:registree).permit(
+        :student_id,
+        :semester_id,
+        :course_id,
+        :section_id,
+        preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
 
       @registree_params[:section_id] ||= nil
       @registree_params[:student_id] ||= @student_id
