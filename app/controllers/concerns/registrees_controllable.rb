@@ -6,17 +6,34 @@ module RegistreesControllable
 
     before_action :set_student
     before_action :set_semester
-    before_action :set_registree, only: [:show, :edit, :update, :destroy]
+    before_action :set_course, only: [:new, :edit, :courses]
+    before_action :set_registree, only: [:show, :edit, :update, :destroy, :courses]
     before_action :set_params, only: [:create, :update]
-    before_action :set_course, only: [:new, :edit]
+  end
+
+  def courses
+    target = params["target"]
+
+    if @registree.present?
+      @courses = @registree.courses
+      @course_id = @registree.course_id
+    else
+      @courses = Semester.current_courses(@student.level)
+    end
+
+    @url_template = polymorphic_path([target, self.class.role, @student, :registree], course_id: "courseID")
+
+    render 'shared/registrees/courses'
   end
 
   def new
     @registree = Registree.new(
       student: @student,
-      semester: @semester)
+      semester: @semester,
+      course_id: @course_id)
 
-    @registree.course ||= @registree.courses.first
+    # TODO: if @registree.course, then redirect to courses?
+    @registree.course_id ||= @registree.courses.first.id
     unless @registree.waitlisted
       @registree.section ||= @registree.sections.reject(&:full?).first
     end
@@ -73,6 +90,10 @@ module RegistreesControllable
     # Use callbacks to share common setup or constraints between actions.
     def set_registree
       @registree = @student.registree
+
+      if @course_id.present? && @registree.present?
+        @registree.course = Course.find(@course_id)
+      end
     end
 
     def student_id
@@ -80,10 +101,7 @@ module RegistreesControllable
     end
 
     def set_course
-      course_id = params["course_id"]
-      if course_id.present?
-        @registree.course_id = course_id
-      end
+      @course_id = params["course_id"]
     end
 
     # Only allow a trusted parameter "white list" through.
