@@ -18,10 +18,11 @@
     <input class="restricted" type="checkbox" <%= "checked" if level.restricted %> />
   </td>
   <td>
-    <input class="active" type="checkbox" value="<%= level.active %>" />
+    <% #binding.pry if level.active %>
+    <input class="active" type="checkbox" <%= "checked" if level.active %> />
   </td>
   <td>
-    <input class="delete" type="submit" value="Delete" />
+    <input class="delete" type="submit" value="Delete" onClick='alert("A level cannot be deleted if there are still courses or students using it. This choice will not take effect until you save your changes.")' />
     <input class="id" type="hidden" value="<%= level.id %>" />
   </td>
 </tr>

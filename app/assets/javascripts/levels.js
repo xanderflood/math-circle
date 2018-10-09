@@ -134,14 +134,8 @@ window.levelsManager = window.levelsManager || (function () {
     });
 
     //validate the result
-    //TODO: validate the result
-    //      (this is probably better than
-    //      validating the rows themselves)
-    //TODO: validation messages?
-
     if (invalid) {
       e.preventDefault();
-      $(this).find("input.select").prop("disabled", false);
     }
 
     //set the value
