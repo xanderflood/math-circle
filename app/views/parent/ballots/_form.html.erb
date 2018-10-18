@@ -18,13 +18,13 @@
 
   <div class="field">
     <%= f.label :semester %>
-    <%= f.collection_select :semester_id, [Semester.current], :id, :name, {}, {disabled: 'diabled'} %>
+    <%= f.collection_select :semester_id, [@semester], :id, :name, {}, {disabled: 'diabled'} %>
     <%= f.hidden_field :semester_id %>
   </div>
 
   <div class="field">
     <%= f.label :course %>
-    <%= f.collection_select :course_id, Semester.current_courses(ballot.student.level), :id, :name, {}, {class: 'ballot-course-selector'} %>
+    <%= f.collection_select :course_id, @courses, :id, :name, {}, {class: 'ballot-course-selector'} %>
   </div>
 
   <div class="field">

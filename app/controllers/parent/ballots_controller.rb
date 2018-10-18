@@ -6,8 +6,8 @@ class Parent::BallotsController < Parent::BaseController
 
   private
     def check_levels
-      if @student.school_grade < 6 || @student.level == 'D'
-        redirect_to :back, notice: 'Elementary students and students registering for level D will need to contact Math-Circle directly to register.'
+      unless @student.permitted?
+        redirect_to :back, notice: "Grade #{@student.grade} students registering in level #{@student.level} must be manually registered by a Math-Circle teacher."
       end
     end
 end

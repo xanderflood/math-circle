@@ -29,7 +29,7 @@
 
   <div class="field">
     <%= f.label :level %>
-    <%= f.select :level, collection: Course.levels.keys.to_a %>
+    <%= f.level_select :level_id %>
   </div>
 
   <div class="field">

@@ -34,9 +34,9 @@ class Course < ApplicationRecord
 
   def description
     if name
-      "#{name} (level #{level})"
+      "#{name} (Level #{level.to_s})"
     else
-      "level #{level}"
+      "Level #{level.to_s}"
     end
   end
 

@@ -14,7 +14,7 @@
   <td><%= student.name %></td>
   <td><%= student.id %></td>
   <td><%= student.school_grade %></td>
-  <td><%= student.level %></td>
+  <td><%= Level.get_name(student.level) %></td>
   <td><%= student.waiver_confirmed? ? "Yes" : "No" %></td>
   <td><%= student.accommodations? ? "Yes" : "No" %></td>
 
@@ -57,27 +57,27 @@
   <td>
     <% if semester %>
       <% if semester.lottery_open? %>
-        <% if student.level == 'unspecified' %>
+        <% if !student.level_ok? || student.school_grade.nil? %>
           Before you can register, you'll need to
           <%= link_to "enter your grade and Math-Circle level", [:edit, role, student] %>.
         <% elsif student.ballot %>
           <%= link_to 'View or edit status', [:edit, role, student, :ballot] %>
         <% else %>
           <% if role == :parent && !student.permitted? %>
-            (Contact Math-Circle to register elementary school students and level D students.)
+            Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle driectly to register.
           <% else %>
             <%= link_to 'Register', [:new, role, student, :ballot] %>
           <% end %>
         <% end %>
       <% elsif semester.registration_open? %>
-        <% if student.level == 'unspecified' %>
+        <% if !student.level_ok? || student.school_grade.nil? %>
           Before you can register, you'll need to
           <%= link_to "enter your grade and Math-Circle level", [:edit, role, student] %>.
         <% elsif student.registree %>
           <%= link_to 'View or edit status', [:edit, role, student, :registree] %>
         <% else %>
           <% if role == :parent && !student.permitted? %>
-            (Contact Math-Circle to register elementary school students and level D students.)
+            Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle driectly to register.
           <% else %>
             <%= link_to 'Register', [:new, role, student, :registree] %>
           <% end %>

@@ -5,7 +5,7 @@
     <input class="position" type="numeric" step="1" min="0" value="<%= level.position %>" />
   </td>
   <td>
-    <input class="name" type="text" value="<%= level.name %>" />
+    <input class="name" type="text" value="<%= Level.get_name(level) %>" />
   </td>
   <td>
     <!-- TODO: the default values don't seem to be working... maybe set them by JS? -->
@@ -18,7 +18,6 @@
     <input class="restricted" type="checkbox" <%= "checked" if level.restricted %> />
   </td>
   <td>
-    <% #binding.pry if level.active %>
     <input class="active" type="checkbox" <%= "checked" if level.active %> />
   </td>
   <td>

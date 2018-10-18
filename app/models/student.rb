@@ -53,8 +53,12 @@ class Student < ApplicationRecord
     self.registree(semester).present? && self.registree.section.present?
   end
 
+  def level_ok?
+    !self.level.nil? && self.level.active?
+  end
+
   def permitted?
-    self.school_grade > 5 && !self.D?
+    self.level.permitted? self
   end
 
   def enrollment_status
@@ -74,7 +78,6 @@ class Student < ApplicationRecord
   end
 
   def waitlist_course
-    semester = Semester.current
     self.waitlisted? ? self.registree.course : nil
   end
 
@@ -113,15 +116,15 @@ class Student < ApplicationRecord
   protected
   ### callbacks ###
   def maybe_clear_ballot
-    if self.school_grade_changed? || self.level_changed?
+    if self.school_grade_changed? || self.level_id_changed?
       self.registree.destroy if self.registree && self.registree.semester.current?
       self.ballot.destroy if self.ballot && self.ballot.semester.current?
     end
   end
 
   def has_active_level
-    if !self.level || !self.level.active?
-      errors.add(:level, "system has changed - please select a new Math-Circle level for this student.")
+    if !self.level_ok?
+      errors.add(:base, "Please select a new Math-Circle level for this student.")
     end
   end
 end

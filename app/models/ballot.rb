@@ -17,7 +17,6 @@ class Ballot < ApplicationRecord
   validate :sections_in_course
   # validate :student_waived, if: :new_record?
 
-  after_initialize :require_level, if: :new_record?
   after_initialize :set_course,    if: :new_record?
 
   ### methods ###
@@ -32,9 +31,11 @@ class Ballot < ApplicationRecord
   # for translating the form data into the database format
   def preferences_hash
     self.preferences ||= []
-    Hash[(0..padded_size-1).collect do |i|
-      [(i+1).to_s, self.preferences[i].to_s]
-    end]
+    Hash[
+      (0..padded_size-1).collect do |i|
+        [(i+1).to_s, self.preferences[i].to_s]
+      end
+    ]
   end
 
   def preferences_hash=(hash)
@@ -45,27 +46,25 @@ class Ballot < ApplicationRecord
   end
 
   def registree
-    Registree.find_by(student: self.student,
-      semester: self.semester, course: self.course)
+    Registree.find_by(
+      student: self.student,
+      semester: self.semester,
+      course: self.course,
+    )
   end
 
   def registree_or_new
-    registree || Registree.new(student: self.student,
-      semester: self.semester, course: self.course)
+    registree || Registree.new(
+      student: self.student,
+      semester: self.semester,
+      course: self.course,
+    )
   end
 
   protected
   ### callbacks ###
-  class NoCoursesError < StandardError; end
-  class NoLevelError < StandardError; end
-
-  def require_level
-    raise NoLevelError if self.student.level == 'unspecified'
-  end
-
   def set_course
     self.course ||= self.courses.first
-    raise NoCoursesError if self.course.nil?
   end
 
   # validations

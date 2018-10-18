@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>Name:</th>
-      <th><%= @student.name %></th>
+      <th><%= Level.get_name(@student) %></th>
     </tr>
   </thead>
 
@@ -17,7 +17,7 @@
     </tr>
     <tr>
       <td>Level:</td>
-      <td><%= @student.level %></td>
+      <td><%= Level.get_name(@student.level) %></td>
     </tr>
     <tr>
       <td>School:</td>

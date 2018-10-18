@@ -15,7 +15,7 @@
       <tr>
         <td><%= link_to course.name, teacher_course_path(course) %></td>
         <td><%= course.semester.name %></td>
-        <td><%= course.level %></td>
+        <td><%= Level.get_name(course.level) %></td>
         <td><%= link_to 'Edit', edit_teacher_course_path(course) %></td>
         <td><%= link_to 'Destroy', teacher_course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

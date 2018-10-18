@@ -68,7 +68,7 @@ class Parent::StudentsController < Parent::BaseController
         :first_name,
         :birthdate,
         :email,
-        :level,
+        :level_id,
         :accommodations,
         :school,
         :school_grade,

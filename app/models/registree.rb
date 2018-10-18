@@ -36,7 +36,7 @@ class Registree < ApplicationRecord
     @sections ||= self.course.sections
   end
 
-  # write a concern or a class method to do:
+  # TODO write a concern or a class method to do:
   # preferences :preferences
   def padded_size
     self.course.sections.count

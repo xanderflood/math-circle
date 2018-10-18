@@ -90,7 +90,7 @@ class Semester < ApplicationRecord
   protected
   ### callbacks ###
   def reset_all_levels
-    Student.update_all(level: :unspecified)
+    Student.update_all(level_id: nil)
   end
 
   # TODO: this should be a validation, when a semseter gets published

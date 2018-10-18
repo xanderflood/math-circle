@@ -13,7 +13,7 @@
       <% multi_collapse_id = "course#{course.id}" %>
       <tr class="heavy-bordered-row">
         <td><%= link_to course.name, '#', class: 'multi-collapse-control', data: {multi_collapse_id: multi_collapse_id} %></td>
-        <td>Level <%= course.level %></td>
+        <td>Level <%= Level.get_name(course.level) %></td>
         <td><%= course.semester.name %></td>
         <td><%= course.overview.present? ? course.overview : "None" %></td>
       </tr>

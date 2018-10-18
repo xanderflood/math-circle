@@ -1,5 +1,6 @@
 class Level < ApplicationRecord
   default_scope { order(:position) }
+  scope :active, -> { where(active: true) }
 
   has_many :courses
   has_many :students
@@ -34,5 +35,14 @@ class Level < ApplicationRecord
     if !self.restricted && (self.max_grade < self.min_grade)
       errors.add(:base, "Maximum grade is less than minimum grade.")
     end
+  end
+
+  def to_s
+    name
+  end
+
+  def self.get_name(level)
+    return "unspecified" unless level
+    return level.name
   end
 end

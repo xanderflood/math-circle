@@ -36,8 +36,8 @@
 
   <div class="field">
     <%= f.label "Math-Circle level" %>
-    <%= f.select :level, collection: Student.levels.keys.to_a %>
-    <small>Note: Changing a student's Math-Circle level will un-register them from the lottery.</small>
+    <%= f.level_select :level_id %>
+    <small>Note: Changing a student's Math-Circle level will un-register them for the current semester.</small>
   </div>
 
   <div class="field">
@@ -48,7 +48,7 @@
   <div class="field">
     <%= f.label :school_grade %>
     <%= f.select :school_grade, collection: (1..12).map{ |i| [i, i] } %>
-    <small>Note: Changing a student's grade will un-register them from the lottery.</small>
+    <small>Note: Changing a student's grade will un-register them for the current semester.</small>
   </div>
 
   <div class="field">

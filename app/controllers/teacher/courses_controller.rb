@@ -41,13 +41,13 @@ class Teacher::CoursesController < Teacher::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def course_params
-      params.fetch(:course, {}).permit(:name, :level, :capacity, :semester_id, :overview)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def course_params
+    params.fetch(:course, {}).permit(:name, :level_id, :capacity, :semester_id, :overview)
+  end
 end

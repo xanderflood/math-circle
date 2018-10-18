@@ -10,6 +10,17 @@ class CreateLevels < ActiveRecord::Migration[5.0]
       t.boolean :active,                 default: true
     end
 
+    # bypass lots of ActiveRecords hooks
+    Level.after_save.clear
+    Level.after_create.clear
+    Level.after_update.clear
+    Level.before_update.clear
+    Course.after_update.clear
+    Course.before_update.clear
+    Student.after_update.clear
+    Student.before_update.clear
+
+    # create the placeholder levels
     level_ids = {}
     ["A", "B", "C", "D"].each.with_index do |level_name, i|
       level = Level.create!(
@@ -18,23 +29,25 @@ class CreateLevels < ActiveRecord::Migration[5.0]
         position: i+1,
         min_grade: 6,
         max_grade: 12)
+
       level_ids[level_name] = level.id
     end
+    # level_ids['unspecified'] == nil
 
     Level.where(name: "D").first.update!(restricted: true)
 
-    ### migrate existing data ###
+    # migrate existing data
     add_reference :courses, :level
     add_reference :students, :level
 
     Course.all.each do |c|
-      #TODO: how to directly reference the old `level` column value?
-      c.update!(level_id: level_ids[c[:level].to_s])
+      c[:level_id] = level_ids[c[:level].to_s]
+      c.save(validate: false)
     end
 
     Student.all.each do |s|
-      #TODO: how to directly reference the old `level` column value?
-      s.update!(level_id: level_ids[s[:level].to_s])
+      s[:level_id] = level_ids[s[:level].to_s]
+      s.save(validate: false)
     end
 
     remove_column :courses, :level, :integer
