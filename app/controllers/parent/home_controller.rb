@@ -21,4 +21,8 @@ class Parent::HomeController < Parent::BaseController
               .map(&:section).compact
               .map(&:events).inject([], :+)
   end
+
+  def levels
+    @levels = Level.active
+  end
 end

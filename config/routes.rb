@@ -79,6 +79,7 @@ Rails.application.routes.draw do
       get '/',        to: 'home#index',    as: 'home'
       get 'catalog',  to: 'home#catalog',  as: 'catalog'
       get 'schedule', to: 'home#schedule', as: 'schedule'
+      get 'levels',   to: 'home#levels',   as: 'levels'
 
       resources :special_events, only: [:index] do
         resource :special_registree, except: [:index, :new, :edit]

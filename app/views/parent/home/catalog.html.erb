@@ -1,7 +1,7 @@
 <table>
   <thead>
     <tr>
-      <th colspan="2">Courses</th>
+      <th colspan="1000">Courses</th>
     </tr>
   </thead>
 
@@ -10,6 +10,7 @@
       <tr class="catalog-course-row">
         <td style="width: 100;"><%= course.name %> (Click each section name to view schedule)</td>
         <td style="width: 100;"><%= course.overview %></td>
+        <td style="width: 200;"><%= level_restriction_text(course.level) %></td>
       </tr>
 
       <% course.sections.each do |section| %>
@@ -17,12 +18,15 @@
         <tr class="catalog-section-row">
           <td style="width: 100;"><a class="multi-collapse-control" data-multi-collapse-id="<%= multi_collapse_id %>"><%= section.description %> <b>*</b></a></td>
           <td style="width: 100;">Capacity: <%= section.capacity %> students</td>
+          <td></td>
         </tr>
 
         <% if section.events.any? %>
           <% section.events.each do |event| %>
             <tr class="collapse out multi-collapse-target catalog-event-row" data-multi-collapse-id="<%= multi_collapse_id %>">
-              <td colspan="2"><%= event.description %></td>
+              <td><%= event.when %></td>
+              <td></td>
+              <td></td>
             </tr>
           <% end %>
         <% end %>

@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Grade range</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @levels.each do |level| %>
+      <tr>
+        <td><%= level.name %></td>
+        <td>
+          <%= level_restriction_text(level) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

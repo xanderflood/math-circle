@@ -32,21 +32,22 @@ class CreateLevels < ActiveRecord::Migration[5.0]
 
       level_ids[level_name] = level.id
     end
-    # level_ids['unspecified'] == nil
+    level_ids['unspecified'] = nil
 
     Level.where(name: "D").first.update!(restricted: true)
 
     # migrate existing data
-    add_reference :courses, :level
+    add_reference :courses, :level, null: false, default: level_ids["A"]
     add_reference :students, :level
 
+    translation = ["unspecified", "A", "B", "C", "D"]
     Course.all.each do |c|
-      c[:level_id] = level_ids[c[:level].to_s]
+      c[:level_id] = level_ids[translation[c[:level]]]
       c.save(validate: false)
     end
 
     Student.all.each do |s|
-      s[:level_id] = level_ids[s[:level].to_s]
+      s[:level_id] = level_ids[translation[c[:level]]]
       s.save(validate: false)
     end
 

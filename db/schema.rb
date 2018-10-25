@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20180815232455) do
     t.datetime "updated_at",               null: false
     t.string   "overview"
     t.integer  "capacity",    default: 10, null: false
-    t.integer  "level_id"
+    t.integer  "level_id",    default: 1,  null: false
     t.index ["level_id"], name: "index_courses_on_level_id", using: :btree
     t.index ["semester_id"], name: "index_courses_on_semester_id", using: :btree
   end
