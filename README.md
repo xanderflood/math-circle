@@ -68,7 +68,7 @@ Visit `http://localhost:3000/` and log in using these credentials. From the teac
 - Courses: group together sections that cover the same content.
 - Parents/students: are the other users. Teachers can view and manage these, but new ones can only be created from the parent portal.
 
-As currently implemented, there is not accessible teacher registration page. The parent registration page is publically accessible, and after creating an account, parents can:
+As currently implemented, there is not an accessible teacher registration page. The parent registration page is publicly accessible, and after creating an account, parents can:
 
 - Add and manage multiple students, including emergency contacts, registration info, and special needs.
 - For each student, when a semester is marked active, the parent can select one course and submit their lottery preferences, a ranked list of that course's sections.
