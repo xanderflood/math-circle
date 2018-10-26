@@ -4,7 +4,7 @@ module RegistreesControllable
   included do
     class_attribute :role
 
-    before_action :set_student,     only: [:edit, :new]
+    before_action :set_student
     before_action :set_semester
     before_action :set_registree,   only: [:edit, :update, :destroy]
     before_action :set_params,      only: [:create, :update]
@@ -53,7 +53,7 @@ module RegistreesControllable
   def set_student
     @student = Student.find(student_id)
 
-    if !student.level_ok?
+    if !@student.level_ok?
       redirect_to :back, notice: 'You must specify a Math-Circle level for this student before registering.'
     end
   end
@@ -61,7 +61,7 @@ module RegistreesControllable
   def set_semester
     @semester = Semester.current
     @courses = @semester.courses.where(level_id: @student.level_id)
-    @sections_by_course = @courses.joins(:sections).count
+    @sections_by_course = @courses.joins(:sections)
 
     unless @sections_by_course.count > 0
       redirect_to :back, notice: 'No sections are currently scheduled for this Math-Circle level.'

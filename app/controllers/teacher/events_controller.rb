@@ -31,7 +31,7 @@ class Teacher::EventsController < Teacher::BaseController
 
   # GET /events/new
   def new
-    @event = Event.new(section_id: params[:section_id])
+    @event = ::Event.new(section_id: params[:section_id])
   end
 
   # GET /events/1/edit
@@ -40,7 +40,7 @@ class Teacher::EventsController < Teacher::BaseController
 
   # POST /events
   def create
-    @event = Event.new(event_params)
+    @event = ::Event.new(event_params)
 
     if @event.save
       redirect_to teacher_section_path(@event.section), notice: 'Event was successfully created.'

@@ -47,7 +47,7 @@ class CreateLevels < ActiveRecord::Migration[5.0]
     end
 
     Student.all.each do |s|
-      s[:level_id] = level_ids[translation[c[:level]]]
+      s[:level_id] = level_ids[translation[s[:level]]]
       s.save(validate: false)
     end
 

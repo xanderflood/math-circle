@@ -9,19 +9,24 @@ class EventGroup < ApplicationRecord
   after_initialize :copy_course_capacity, if: :new_record?
   after_create :populate_events
 
-  validates :wday, presence: { allow_blank: false, message: "must be specified"}
-  validates :time, presence: { allow_blank: false, message: "must be specified"}
+  validates :wday,
+    presence: { allow_blank: false, message: "must be specified"}
+  validates :event_time, on: :create,
+    presence: { allow_blank: false, message: "must be specified"}
+
+  attr_accessor :event_time
 
   enum wday: DayHelper::DAYS
 
   ### methods ###
   # presentation
   def time_str
-    I18n.l self[:time]
+    I18n.l self.time
   end
 
   def time
-    self.events.first.time
+    e = self.events.first
+    e.time if e
   end
 
   def description
@@ -89,12 +94,12 @@ class EventGroup < ApplicationRecord
   def populate_events
     if self.wday
       sem = self.course.semester
-      schedule = IceCube::Schedule.new(start = sem.start, end_date: sem.end) do |s|
+      schedule = IceCube::Schedule.new(sem.start, end_date: sem.end) do |s|
         s.add_recurrence_rule(IceCube::Rule.weekly.day(self.wday.to_sym))
       end
 
       schedule.occurrences_between(sem.start, sem.end).each do |occ|
-        self.events.build(name: @name, when: occ.to_date, time: self.time).save!
+        self.events.build(name: @name, when: occ.to_date, time: self.event_time).save!
       end
     end
   end

@@ -71,6 +71,6 @@ class Teacher::SectionsController < Teacher::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:event_group).permit(:name, :wday, :time, :course_id, :capacity)
+      params.require(:event_group).permit(:name, :wday, :event_time, :course_id, :capacity)
     end
 end

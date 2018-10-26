@@ -5,6 +5,13 @@ class Event < ApplicationRecord
 
   has_one :rollcall, dependent: :destroy
 
+  after_initialize :set_time, if: :new_record?
+
+  def initialize attrs={}
+    attrs[:time] ||= nil
+    super
+  end
+
   ### methods ###
   def rollcall_or_new
     Rollcall.find_by(event_id: self.id) || Rollcall.new(event: self)
@@ -24,5 +31,9 @@ class Event < ApplicationRecord
     else
       "#{name} - #{date_str} @ #{time_str}"
     end
+  end
+
+  def set_time
+    self.time ||= self.section.time
   end
 end
