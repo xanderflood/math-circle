@@ -1,0 +1,9 @@
+<h1>Available courses for level <%= @student.level %></h1>
+
+<div class="course-select">
+  <%= select_tag "", options_for_select(@courses.map{ |c| [c.name, c.id] }, @course_id), id: "course_id" %>
+</div>
+
+<div class="course-select">
+  <%= link_to "Continue", "#", id: "course_link", data: { url_template: @url_template } %>
+</div>

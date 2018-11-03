@@ -67,7 +67,9 @@ Rails.application.routes.draw do
         end
 
         resource :ballot,    except: [:show, :index]
-        resource :registree, except: [:show, :index]
+        resource :registree, except: [:show, :index] do
+          get :courses, as: 'courses'
+        end
       end
 
       get '*path', to: 'errors#not_found'
@@ -91,7 +93,9 @@ Rails.application.routes.draw do
         get 'schedule', on: :member
 
         resource :ballot,    except: [:show, :index]
-        resource :registree, except: [:show, :index]
+        resource :registree, except: [:show, :index] do
+          get :courses, as: 'courses'
+        end
       end
 
       get '*path', to: 'errors#not_found'

@@ -11,12 +11,25 @@
     </div>
   <% end %>
 
+  <h2>Course</h2>
+
+  <div class="course">
+    <select disabled="disabled" id="course_id">
+      <option value="<%= registree.course.id %>">
+        <%= registree.course.name %>
+      </option>
+    </select>
+
+    <%= link_to "Change", "", data: {url_template: polymorphic_path([:courses, role, @student, :registree], course_id: "courseID", target: mode)}, id: "course_link" %>
+  </div>
+
   <%= f.hidden_field :semester_id %>
   <%= f.hidden_field :student_id %>
   <%= f.hidden_field :course_id %>
 
+  <h2>Section</h2>
+
   <div class="sections">
-    <%= f.label :section %>
     <% registree.course.sections.each do |section| %>
       <div class="field">
         <%= f.label section.description %>

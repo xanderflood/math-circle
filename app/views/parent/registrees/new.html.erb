@@ -1,5 +1,5 @@
 <h1>Register <%= @registree.student.name %></h1>
 
-<%= render 'shared/registrees/form', registree: @registree, role: :parent %>
+<%= render 'shared/registrees/form', registree: @registree, role: :parent, mode: :new %>
 
 <%= link_to 'Back', parent_students_path %>
