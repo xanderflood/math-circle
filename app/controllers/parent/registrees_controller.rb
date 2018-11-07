@@ -7,7 +7,7 @@ class Parent::RegistreesController < Parent::BaseController
   private
     def check_levels
       unless @student.permitted?
-        redirect_to :back, notice: "Grade #{@student.grade} students registering in level #{@student.level} must be manually registered by a Math-Circle teacher."
+        redirect_to :back, notice: "Grade #{@student.school_grade} students registering in level #{@student.level} must be manually registered by a Math-Circle teacher."
       end
     end
 end

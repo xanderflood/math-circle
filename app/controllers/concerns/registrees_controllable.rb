@@ -22,9 +22,13 @@ module RegistreesControllable
       @courses = Semester.current_courses(@student.level)
     end
 
-    @url_template = polymorphic_path([target, self.class.role, @student, :registree], course_id: "courseID")
+    if @courses.length == 1
+      redirect_to [:new, self.class.role, @student, :registree]
+    else
+      @url_template = polymorphic_path([target, self.class.role, @student, :registree], course_id: "courseID")
 
-    render 'shared/registrees/courses'
+      render 'shared/registrees/courses'
+    end
   end
 
   def new
@@ -78,14 +82,17 @@ module RegistreesControllable
     def set_semester
       @semester = Semester.current
       @courses = @semester.courses.where(level_id: @student.level_id)
-      @sections_by_course = @courses.joins(:sections)
+      @sections_by_course = @courses.joins(:sections).count
 
-      unless @sections_by_course.count > 0
+      unless @sections_by_course > 0
         redirect_to :back, notice: 'No sections are currently scheduled for this Math-Circle level.'
       end
     end
 
-    # Use callbacks to share common setup or constraints between actions.
+    def set_course
+      @course_id = params["course_id"]
+    end
+
     def set_registree
       @registree = @student.registree
 
@@ -102,10 +109,6 @@ module RegistreesControllable
       redirect_to edit_teacher_student_registree_path(@student) if @registree
     end
 
-    def set_course
-      @course_id = params["course_id"]
-    end
-
     # Only allow a trusted parameter "white list" through.
     attr_reader :registree_params
     def set_params
@@ -115,12 +118,6 @@ module RegistreesControllable
         :course_id,
         :section_id,
         preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    attr_reader :registree_params
-    def set_params
-      @registree_params = params.require(:registree).permit(:student_id, :semester_id, :course_id, :section_id, preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
 
       @registree_params[:section_id] ||= nil
       @registree_params[:student_id] ||= @student_id

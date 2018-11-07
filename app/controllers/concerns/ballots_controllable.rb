@@ -4,11 +4,31 @@ module BallotsControllable
   included do
     class_attribute :role
 
-    before_action :set_student,  only: [:edit, :new]
+    before_action :set_student
     before_action :set_semester
-    before_action :set_ballot,   only: [:edit, :update, :destroy]
+    before_action :set_ballot,   only: [:edit, :update, :destroy, :courses]
     before_action :set_params,   only: [:create, :update]
+    before_action :set_course,   only: [:new, :edit, :courses]
     before_action :check_ballot, only:  :new
+  end
+
+  def courses
+    target = params["target"]
+
+    if @ballot.present?
+      @courses = @ballot.courses
+      @course_id = @ballot.course_id
+    else
+      @courses = Semester.current_courses(@student.level)
+    end
+
+    if @courses.length == 1
+      redirect_to [:new, self.class.role, @student, :ballot]
+    else
+      @url_template = polymorphic_path([target, self.class.role, @student, :registree], course_id: "courseID")
+
+      render 'shared/ballots/courses'
+    end
   end
 
   def new
@@ -16,6 +36,9 @@ module BallotsControllable
       semester: Semester.current,
       student_id: @student.id,
     )
+ 
+    # TODO: if !@ballot.course, then redirect to courses?
+    @ballot.course_id ||= @ballot.courses.first.id
   end
 
   def edit
@@ -45,41 +68,53 @@ module BallotsControllable
   end
 
   private
-  def set_student
-    @student = Student.find(student_id)
+    def set_student
+      @student = Student.find(student_id)
 
-    if !@student.level_ok?
-      redirect_to :back, notice: 'You must specify a Math-Circle level for this student before registering.'
+      if !@student.level_ok?
+        redirect_to :back, notice: 'You must specify a Math-Circle level for this student before registering.'
+      end
     end
-  end
 
-  def set_semester
-    @semester = Semester.current
-    @courses = @semester.courses.where(level_id: @student.level_id)
-    @sections_by_course = @courses.joins(:sections).count
+    def set_semester
+      @semester = Semester.current
+      @courses = @semester.courses.where(level_id: @student.level_id)
+      @sections_by_course = @courses.joins(:sections).count
 
-    unless @sections_by_course.count > 0
-      redirect_to :back, notice: 'No sections are currently scheduled for this Math-Circle level.'
+      unless @sections_by_course > 0
+        redirect_to :back, notice: 'No sections are currently scheduled for this Math-Circle level.'
+      end
     end
-  end
 
-  def set_ballot
-    @ballot = @student.ballot
-  end
+    def set_course
+      @course_id = params["course_id"]
+    end
 
-  def student_id
-    @student_id ||= params[:student_id] || params[:id]
-  end
+    def set_ballot
+      @ballot = @student.ballot
 
-  def check_ballot
-    redirect_to edit_teacher_student_ballot_path(@student) if @ballot
-  end
+      if @course_id.present? && @ballot.present?
+        @ballot.course = Course.find(@course_id)
+      end
+    end
 
-  # Only allow a trusted parameter "white list" through.
-  attr_reader :ballot_params
-  def set_params
-    @ballot_params = params.require(:ballot).permit(:student_id, :semester_id, :course_id, preferences_hash: (1..Ballot::MAX_PREFERENCES))
+    def student_id
+      @student_id ||= params[:student_id] || params[:id]
+    end
 
-    @registree_params[:student_id] ||= @student_id
-  end
+    def check_ballot
+      redirect_to edit_teacher_student_ballot_path(@student) if @ballot
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    attr_reader :ballot_params
+    def set_params
+      @ballot_params = params.require(:ballot).permit(
+        :student_id,
+        :semester_id,
+        :course_id,
+        preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
+
+      @registree_params[:student_id] ||= @student_id
+    end
 end

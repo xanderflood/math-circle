@@ -8,6 +8,10 @@
       capture &block
     end
   end
+
+  def courses_target
+
+  end
 %>
 
 <tr data-student-id=<%= student.id %>>
@@ -66,7 +70,7 @@
           <% if role == :parent && !student.permitted? %>
             Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle driectly to register.
           <% else %>
-            <%= link_to 'Register', [:new, role, student, :ballot] %>
+            <%= link_to 'Register', polymorphic_path([:courses, role, student, :ballot], target: :new) %>
           <% end %>
         <% end %>
       <% elsif semester.registration_open? %>
@@ -79,7 +83,7 @@
           <% if role == :parent && !student.permitted? %>
             Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle driectly to register.
           <% else %>
-            <%= link_to 'Register', [:new, role, student, :registree] %>
+            <%= link_to 'Register', polymorphic_path([:courses, role, student, :registree], target: :new) %>
           <% end %>
         <% end %>
       <% else %>

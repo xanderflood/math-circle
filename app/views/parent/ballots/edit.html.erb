@@ -1,6 +1,6 @@
 <h1>Editing lottery registration</h1>
 
-<%= render 'form', ballot: @ballot %>
+<%= render 'form', ballot: @ballot, role: :parent, mode: :edit %>
 
 <%= link_to 'Back', parent_students_path %> |
 <%= link_to 'Delete registration', parent_student_ballot_path, method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -66,7 +66,10 @@ Rails.application.routes.draw do
           get 'name'
         end
 
-        resource :ballot,    except: [:show, :index]
+        resource :ballot,    except: [:show, :index] do
+          get :courses, as: 'courses'
+        end
+
         resource :registree, except: [:show, :index] do
           get :courses, as: 'courses'
         end

@@ -1,4 +1,4 @@
-<%= form_for([:teacher, ballot.student, ballot]) do |f| %>
+<%= form_for([role, ballot.student, ballot]) do |f| %>
   <% if ballot.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(ballot.errors.count, "error") %> prohibited this ballot from being saved:</h2>
@@ -10,6 +10,18 @@
       </ul>
     </div>
   <% end %>
+
+  <h2>Course</h2>
+
+  <div class="course">
+    <select disabled="disabled" id="course_id">
+      <option value="<%= ballot.course.id %>">
+        <%= ballot.course.name %>
+      </option>
+    </select>
+
+    <%= link_to "Change", "", data: {url_template: polymorphic_path([:courses, role, @student, :ballot], course_id: "courseID", target: mode)}, id: "course_link" %>
+  </div>
 
   <div class="field">
     <%= f.label ballot.student.name %>
@@ -27,11 +39,15 @@
     <%= f.collection_select :course_id, @courses, :id, :name, {}, {class: 'ballot-course-selector'} %>
   </div>
 
-  <% ballot.courses.each do |course| %>
-    <div class="field preferences-fields preferences-detach" data-course-id="<%= course.id %>">
-      <%= render partial: "shared/preferences", locals: { f: f, target: ballot, sections: course.sections } %>
+  <% if role == :parent %>
+    <div class="field">
+      <%= link_to 'Open course catalog', parent_catalog_path, target: :_blank %>
     </div>
   <% end %>
+
+  <div class="field preferences-fields preferences-detach" data-course-id="<%= ballot.course.id %>">
+    <%= render partial: "shared/preferences", locals: { f: f, target: ballot, sections: ballot.course.sections } %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
