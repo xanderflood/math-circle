@@ -24,6 +24,10 @@ class EventGroup < ApplicationRecord
     I18n.l self.time
   end
 
+  def name
+    self.course.description
+  end
+
   def time
     e = self.events.first
     e.time if e
