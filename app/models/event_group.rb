@@ -24,6 +24,7 @@ class EventGroup < ApplicationRecord
     I18n.l self.time
   end
 
+  #TODO: remove EventGroup#name entirely - it's stupid
   def name
     self.course.description
   end
