@@ -10,7 +10,7 @@
       semester_name: reg.semester.name,
       course_name: reg.course.name,
       section_name: sct ? sct.name : "N/A",
-      att_text: sct ? "#{sct.rollcalls.count { |rc| rc.present_ish?(student_id) }} / #{sct.events.count}" : "Waitlist"
+      att_text: sct ? "#{sct.rollcalls.select { |rc| rc.present_ish?(student_id).count }} / #{sct.events.count}" : "Waitlist"
     }
   end
 %>

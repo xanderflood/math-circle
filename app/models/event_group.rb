@@ -70,7 +70,9 @@ class EventGroup < ApplicationRecord
       record = self.rollcalls.map do |rollcall|
         AttendanceHelper::STATES[rollcall.attendance_hash[student.id] || 1]
       end
-      total = record.count { |status| AttendanceHelper::PRESENT_ISH.include?(status) }
+      total = record.count do |status|
+        AttendanceHelper::PRESENT_ISH.include?(status)
+      end
 
       [student.name, student.id, total] + record
     end
