@@ -95,7 +95,10 @@ Rails.application.routes.draw do
       resources :students do
         get 'schedule', on: :member
 
-        resource :ballot,    except: [:show, :index]
+        resource :ballot, except: [:show, :index] do
+          get :courses, as: 'courses'
+        end
+
         resource :registree, except: [:show, :index] do
           get :courses, as: 'courses'
         end
