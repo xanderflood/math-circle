@@ -1,5 +1,39 @@
-TODO:
------
+#-----------------#
+# BUG FIXES/TESTS #
+#-----------------#
+
++ Mark all required form fields (not capacity for special events, for instance)
+
+!!!!!!!
+Dangerous ops and warnings:
+- destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
+- inform teachers that force-adding a student -permenantly- increases the capacity of the section
+!!!!!!!
+
+- inform teachers that force-adding a student -permenantly- increases the capacity of the section
+
+- If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
+
++ write elaborate case specs for views/shared/students/table/_header and _row
+
++ Change all fictures to factories, and see if that fixed the issues with event_group_spec
+
+- write specs for waitlist logic
+- write a spec to ensure that new waitlist registrees are added to the BACK of the list
+
++ Add delete specs for all models with associations
+
+- write a spec for when you move a student FROM A FULL SECTION to the waitlist for that courses. They should not be able to "prefer" the section they're already in, because it won't be full starting in a moment
+
+- Better tracking of "Back" link, or else clearer naming
+
+- make sure EventGroup#waitlist is implemented efficiently
+
+#--------------#
+# IMPROVEMENTS #
+#--------------#
+
+- Add the waitlist into teacher views, and waitlist position into parent views
 
 - Add in more CSV exports (parents, students, with class history?)
 Add:
@@ -9,42 +43,35 @@ Add:
   - Students index (with history and attendance)
   - Parents/students index by semester
 
-PLAN:
-=====
+- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off
+  - also then make sure that generating and running a new lottery will be idempotent (i.e. only generate/apply placements for unplaced students)
 
-==================================
-Dangerous ops and warnings:
-- destroy registree if a student changes their level, but ONLY do it if the Semester is current, so we don't lose the old info
-- inform teachers that force-adding a student -permenantly- increases the capacity of the section
-==================================
+- use the bootstrap card class all over, esp lottery pages
+- collapsify the lottery view to make it easier to use
 
-+ write elaborate case specs for views/shared/students/table/_header and _row
+#-------------#
+# REFACTORING #
+#-------------#
 
-+ Change all fictures to factories, and see if that fixed the issues with event_group_spec
+- confirm before deleting a ballot (already covered for registree)
+
+- Set maximum column sizes so the tables stay regular
 
 + Fix empty tables (on the rollcall form, for instance)
 
-- clean up specs?
-+ Add delete specs for all models with associations
+- as mentioned HERE:
+  http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
+  you can get around the params[:ballot_id] vs params[:id] by explicitly marking the routes as member routes
 
-- write specs for waitlist logic
-- write a spec to ensure that new waitlist registrees are added to the BACK of the list
+#----------#
+# FEATURES #
+#----------#
 
-- Add the waitlist into teacher views, and waitlist position into parent views
+- Show current semester automatically on the homepage
 
-- write a spec for when you move a student FROM A FULL SECTION to the waitlist for that courses. They should not be able to "prefer" the section they're already in, because it won't be full starting in a moment
+- See trends in student data
 
------------------------
-
-- make sure EventGroup#waitlist is implemented efficiently
-
-- If the lottery save fails because not all students have a level, it needs a more descriptive error message than "invalid state transition."
-
-- Better tracking of "Back" link, or else clearer naming
-
-- Bring back 'current' and make it a separate thing from semester state so that teachers can work freely on old semesters
-
-TODO: inform teachers that force-adding a student -permenantly- increases the capacity of the section
+- create a full lottery scaffold so the teacher can browse options?
 
 - look into ActiveMailer and MailChimp
   - https://github.com/amro/gibbon
@@ -52,40 +79,7 @@ TODO: inform teachers that force-adding a student -permenantly- increases the ca
   - http://guides.rubyonrails.org/action_mailer_basics.html
   + Send them WHENEVER something is rescheduled
 
------------
-
-Set maximum column sizes so the tables stay regular
-
-- confirm before deleting a ballot (already covered for registree)
-- refactor registree & ballot forms
-
-- photos
+- photos/thumbnails
 
 + course and special event catalog for parents
   + gem "simple_calendar", "~> 2.0"
-
-+ Mark all required form fields (not capacity for special events, for instance)
-
-----------
-BACKLOG
-----------
-
-+ Show current semester automatically on the homepage
-
-Eventual:
-+ See trends in student data
-
-- fix registration to allow several courses of the same grade
-
-- rework the lottery into separate atomic transactions, one per student. if it fails part-way through, this is actually not a big deal, you can just pick up where it left off
-
-- create a full lottery scaffold so the teacher can browse options?
-
-- use the bootstrap card class all over, esp. lotteyr pages
-- collapsify the lottery view to make it easier to use
-
-+ a helper/partial thing called "object table" or something that handles empty lists gracefully
-
-- as mentioned HERE:
-  http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
-  you can get around the params[:ballot_id] vs params[:id] by explicitly marking the routes as member routes
