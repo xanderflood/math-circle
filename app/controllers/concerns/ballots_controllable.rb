@@ -25,7 +25,7 @@ module BallotsControllable
     if @courses.length == 1
       redirect_to [:new, self.class.role, @student, :ballot]
     else
-      @url_template = polymorphic_path([target, self.class.role, @student, :registree], course_id: "courseID")
+      @url_template = polymorphic_path([target, self.class.role, @student, :ballot], course_id: "courseID")
 
       render 'shared/ballots/courses'
     end
@@ -115,6 +115,6 @@ module BallotsControllable
         :course_id,
         preferences_hash: (1..Ballot::MAX_PREFERENCES).map(&:to_s))
 
-      @registree_params[:student_id] ||= @student_id
+      @ballot_params[:student_id] ||= @student_id
     end
 end
