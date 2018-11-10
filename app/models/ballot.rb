@@ -46,7 +46,7 @@ class Ballot < ApplicationRecord
 
   def registree
     Registree.find_by(student: self.student,
-      semester: self.semester, course: self.course)
+      semester: self.semester)
   end
 
   def registree_or_new
