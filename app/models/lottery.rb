@@ -24,7 +24,7 @@ class Lottery < ApplicationRecord
     end
 
     if errors.any?
-      message = errors.map { |reg| reg.errors.first.message }.join "\n"
+      message = errors.map { |reg| reg.errors.full_messages.join("\n") }.join "\n"
       LotteryError.new(message: message).save
 
       return false
