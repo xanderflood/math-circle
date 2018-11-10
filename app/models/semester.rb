@@ -13,9 +13,6 @@ class Semester < ApplicationRecord
   has_many :special_events, dependent: :destroy
   has_many :special_registrees, through: :special_events
 
-  attr_accessor :transition_errors
-  attr_accessor :target_lottery
-
   validates :name, presence: { allow_blank: false, message: "must be provided." }
   validate :end_after_start
 
@@ -23,7 +20,6 @@ class Semester < ApplicationRecord
   state_machine(initial: :hidden) do
     # TODO: put email callbacks here
 
-    before_transition [:lottery_closed, :lottery_done] => :lottery_done, do: :commit_lottery
     before_transition hidden: :lottery_open, do: :reset_for_publish
 
     event(:publish) {
@@ -96,15 +92,11 @@ class Semester < ApplicationRecord
   protected
   ### callbacks ###
   def reset_for_publish
-    Student.update_all(level: :unspecified, grade: nil)
+    Student.update_all(level: :unspecified, school_grade: nil)
     Semester.where.not(state: [:hidden, :closed]).update(state: :closed)
   end
 
   def end_after_start
     errors.add(:end, 'must be later than the start date.') if self.end <= self.start
-  end
-
-  def commit_lottery
-    @target_lottery.commit
   end
 end

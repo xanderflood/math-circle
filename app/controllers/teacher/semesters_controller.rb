@@ -14,7 +14,7 @@ class Teacher::SemestersController < Teacher::BaseController
       return
     end
 
-   @disabled = params[:disabled].present?
+    @disabled = params[:disabled].present?
   end
 
   def act
@@ -23,26 +23,19 @@ class Teacher::SemestersController < Teacher::BaseController
       return
     end
 
-    @semester.target_lottery = Lottery.find(params[:lottery_id]) if params[:transition] == "run"
+    if params[:transition] == "run"
+      @lottery = Lottery.find(params[:lottery_id])
+
+      if !@lottery.commit
+        redirect_to teacher_semester_path(@semester), notice: "Some records could not be saved properly. Running the lottery again will attempt to assign the remaining students."
+        return
+      end
+    end
 
     if @semester.send(params[:transition])
       redirect_to teacher_semester_path(@semester), notice: SemesterStateHelper::TRANSITION_SUCCESS[params[:transition]]
     else
       redirect_to :back, notice: "Invalid semester state transition."
-    end
-  end
-
-  def commit_lottery
-    @lottery = Lottery.find(params[:lottery_id])
-
-    case @lottery.commit
-    when :some_errors
-      redirect_to teacher_semester_path(@semester), notice: "Some records could not be saved properly. Information on this error has been logged."
-    when true
-      redirect_to teacher_semester_path(@semester), notice: "Lottery results successfully saved!"
-    when false
-      flash.now[:alert] = "Failed to save lottery results, please try again."
-      render :lottery
     end
   end
 
