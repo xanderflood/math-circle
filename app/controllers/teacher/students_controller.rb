@@ -3,7 +3,19 @@ class Teacher::StudentsController < Teacher::BaseController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   include Searchable
-  search :students
+  search :students do |params, students|
+    if params[:no_waiver_only]
+      students = students.reject(&:waiver_confirmed)
+    end
+    if params[:accomodations_only]
+      students = students.select{ |s| s.accommodations.present? }
+    end
+    if params[:current_only]
+      students = students.select{ |s| s.ballot || s.registree }
+    end
+
+    students
+  end
 
   def index
     @students = Student.order(:first_name, :last_name).paginate(page: params[:page], per_page: 50)

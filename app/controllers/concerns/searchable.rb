@@ -24,6 +24,10 @@ module Searchable
           .where("email ILIKE ?",  "%#{params[:search][:email].strip}%")
         end
 
+        if block_given?
+          objs = yield(params, objs)
+        end
+
         self.instance_variable_set(:"@#{variable_name}", objs)
       end
     end
