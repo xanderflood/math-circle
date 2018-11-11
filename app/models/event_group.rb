@@ -47,7 +47,6 @@ class EventGroup < ApplicationRecord
   rescue
   end
 
-  # for attendance CSV
   def attendance_file_name
     if name.nil? || name.empty?
       "#{wday}_#{time_str}.csv"
@@ -61,6 +60,11 @@ class EventGroup < ApplicationRecord
               self.rollcalls.map(&:event).map(&:when).map(&:to_s)
   end
 
+  # for attendance CSV
+  #TODO: this logic is duplicated somewhat in
+  # Rollcall.attendance_table. The semantics are
+  # different, but the underlying calculation
+  # should be de-duped
   def attendance_rows
     students = self.roster | self.rollcalls.map(&:student_ids).inject([], :|)
                .map { |i| Student.find(i) }

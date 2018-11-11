@@ -43,6 +43,9 @@ class Rollcall < ApplicationRecord
     AttendanceHelper.present_ish? attendance_hash[student_id].to_i
   end
 
+  #TODO: this logic is duplicated somewhat in
+  # EventGroup#attendence_*. The semantics are different,
+  # but the underlying calculation should be de-duped
   def self.attendance_table(semester)
     table = Hash.new(0)
 

@@ -4,10 +4,11 @@
   <table>
     <thead>
       <tr>
-        <th colspan="1">Name</th>
-        <th colspan="1">Start date</th>
-        <th colspan="1">End date</th>
-        <th colspan="1">Status</th>
+        <th>Name</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Status</th>
+        <th>Enrollment</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
           <td><%= I18n.l semester.start %></td>
           <td><%= I18n.l semester.end %></td>
           <td><%= SemesterStateHelper::STATE_NAMES[semester.state] %></td>
+          <td><%= @enrollment[semester.id] %></td>
           <td><%= link_to 'Edit', edit_teacher_semester_path(semester) %></td>
           <td><%= link_to 'Destroy', teacher_semester_path(semester), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

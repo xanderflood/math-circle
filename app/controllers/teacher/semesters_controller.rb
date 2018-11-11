@@ -41,6 +41,7 @@ class Teacher::SemestersController < Teacher::BaseController
 
   def index
     @semesters = Semester.all
+    @enrollment = EnrollmentHelper.semester_enrollment
   end
 
   def new
@@ -48,6 +49,7 @@ class Teacher::SemestersController < Teacher::BaseController
   end
 
   def show
+    @enrollment = EnrollmentHelper.course_enrollment(@semester)
   end
 
   def edit
