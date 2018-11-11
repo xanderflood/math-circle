@@ -10,16 +10,6 @@ class CreateLevels < ActiveRecord::Migration[5.0]
       t.boolean :active,                 default: true
     end
 
-    # bypass lots of ActiveRecords hooks
-    Level.after_save.clear
-    Level.after_create.clear
-    Level.after_update.clear
-    Level.before_update.clear
-    Course.after_update.clear
-    Course.before_update.clear
-    Student.after_update.clear
-    Student.before_update.clear
-
     # create the placeholder levels
     level_ids = {}
     ["A", "B", "C", "D"].each.with_index do |level_name, i|
@@ -34,7 +24,7 @@ class CreateLevels < ActiveRecord::Migration[5.0]
     end
     level_ids['unspecified'] = nil
 
-    Level.where(name: "D").first.update!(restricted: true)
+    fail unless Level.where(name: "D").first.update_column(:restricted, true)
 
     # migrate existing data
     add_reference :courses, :level, null: false, default: level_ids["A"]
@@ -42,13 +32,11 @@ class CreateLevels < ActiveRecord::Migration[5.0]
 
     translation = ["unspecified", "A", "B", "C", "D"]
     Course.all.each do |c|
-      c[:level_id] = level_ids[translation[c[:level]]]
-      c.save(validate: false)
+      fail unless c.update_column(:level_id, level_ids[translation[c[:level]]])
     end
 
     Student.all.each do |s|
-      s[:level_id] = level_ids[translation[s[:level]]]
-      s.save(validate: false)
+      fail unless s.update_column(:level_id, level_ids[translation[s[:level]]])
     end
 
     remove_column :courses, :level, :integer
