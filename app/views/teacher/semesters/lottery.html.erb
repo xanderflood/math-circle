@@ -1,100 +1,111 @@
 <h1>Lottery results for <%= @semester.name %></h1>
 
+<br/>
 <div class="panel panel-default">
   <div class="panel-body">
     <%= form_tag teacher_semester_act_path(@semester, 'run', @lottery), method: :post do %>
+      <% if @disabled %>
+        <p><b>Note:</b> This is only a preview. Lottery results cannot be saved until lottery registration is closed. Lottery results may be different at that time.</p>
+      <% end %>
       <%= submit_tag 'Save these lottery results.', disabled: @disabled %>
     <% end %>
   </div>
 </div>
 
-<% @lottery.to_h
-   .sort_by { |l| l[1][:level] }
-   .each do |course_id, course_hash| %>
-
+<%
+  @lottery.to_h
+  .sort_by { |l| l[1][:level] }
+  .sort_by{ |k, _| k }.each do |course_id, course_hash|
+%>
   <% course = Course.find(course_id) %>
-  <h3>
-    <%= course.name %>
-    (<%= pluralize(course_hash[:enrollment], 'student') %>)
-  </h3>
+  <br/>
+  <a data-toggle="collapse" href="#collapse_course_<%= course_id %>" aria-expanded="false" aria-controls="collapse_course_<%= course_id %>">
+    <h3>
+      <%= course.name %>
+      (<%= pluralize(course_hash[:enrollment], 'student') %>)
+    </h3>
+  </a>
 
-  <div class="panel panel-default">
-    <div class="panel-heading"><%= course.description %></div>
-    <div class="panel-body">
-    <% course_hash[:rosters].each do |section_id, roster| %>
-      <% section = EventGroup.find(section_id) %>
+  <div class="collapse" id="collapse_course_<%= course_id %>">
+    <div class="card" style="padding: 10px;">
+      <h3 class="card-title"><%= course.description %></h3>
+      <% course_hash[:rosters]
+         .sort_by{ |k, _| k }.each do |section_id, roster| %>
+        <% section = EventGroup.find(section_id) %>
 
-      <table>
-        <thead>
-          <tr>
-            <th colspan="100000">
-              <%= section.description %>
-              (<%= pluralize(roster.length, 'student') %>)
-            </th>
-          </tr>
-          <tr>
-            <th>Student</th>
-            <th>Grade</th>
-            <th>ID</th>
-          </tr>
-        </thead>
-        <tbody class="alternating">
-          <% roster.each do |student_id| %>
-            <% student = Student.find(student_id) %>
-            <tr>
-              <td><%= student.name %></td>
-              <td><%= student.school_grade %></td>
-              <td><%= student_id %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+        <h4><a data-toggle="collapse" href="#collapse_section_<%= section_id %>" aria-expanded="false" aria-controls="collapse_section_<%= section_id %>">
+          <%= section.description %>
+          (<%= pluralize(roster.length, 'student') %>)
+        </a></h4>
 
-      <br />
-    <% end %>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Waitlist
-      (<%= pluralize(course_hash[:waitlist].length, 'student') %>)
-    </div>
-
-    <div class="panel-body">
-
-      <table>
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Grade</th>
-            <th>Priority</th>
-            <th>Preference list</th>
-          </tr>
-        </thead>
-        <tbody class="alternating">
-          <% if course_hash[:waitlist].any? %>
-            <% course_hash[:waitlist].each do |student_id| %>
-              <% student = Student.find(student_id) %>
+        <div class="collapse" id="collapse_section_<%= section_id %>">
+          <table>
+            <thead>
               <tr>
-                <td><%= "#{student.name} (#{student.id})" %></td>
-                <td><%= student.school_grade %></td>
-                <td><%= student.priority > 0 ? "Yes" : "No" %></td>
-                <td><%= student.ballot(@lottery.semester).preferences.map do |section_id|
-                          EventGroup.find(section_id).description
-                        end.join(", ") %></td>
+                <th>Student</th>
+                <th>Grade</th>
+                <th>ID</th>
+                <th>New assignment</th>
               </tr>
-            <% end %>
-          <% else %>
-            <tr>
-              <td colspan="20">There are no students on this waitlist.</td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+            </thead>
+            <tbody class="alternating">
+              <% roster.each do |student_id| %>
+                <% student = Student.find(student_id) %>
+                <% registree = student.registree %>
+                <tr>
+                  <td><%= student.name %></td>
+                  <td><%= student.school_grade %></td>
+                  <td><%= student_id %></td>
+                  <td><%= registree.nil? ? 'Yes' : 'No' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
 
+          <br />
+        </div> <!-- section collapse -->
+      <% end %>
+
+      <h4><a data-toggle="collapse" href="#collapse_waitlist_<%= course_id %>" aria-expanded="false" aria-controls="collapse_waitlist_<%= course_id %>">
+        Waitlist
+        (<%= pluralize(course_hash[:waitlist].length, 'student') %>)
+      </a></h4>
+
+      <div class="collapse" id="collapse_waitlist_<%= course_id %>">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Grade</th>
+                <th>Priority</th>
+                <th>Preference list</th>
+              </tr>
+            </thead>
+            <tbody class="alternating">
+              <% if course_hash[:waitlist].any? %>
+                <% course_hash[:waitlist].each do |student_id| %>
+                  <% student = Student.find(student_id) %>
+                  <tr>
+                    <td><%= "#{student.name} (#{student.id})" %></td>
+                    <td><%= student.school_grade %></td>
+                    <td><%= student.priority > 0 ? "Yes" : "No" %></td>
+                    <td><%= student.ballot(@lottery.semester).preferences.map do |section_id|
+                              EventGroup.find(section_id).description
+                            end.join(", ") %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="20">There are no students on this waitlist.</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      </div> <!-- waitlist collapse -->
     </div>
-  </div>
+  </div> <!-- course collapse -->
 <% end %>
 
 <br/>
+
+<p><b>Note:</b> Initially, the "New Assignment" field will read "Yes" for all students. In the event that saving lottery results fails, when you try again, those students whose lottery results were successfully saved will be marked with "No". Their previous assignments will be preserved, and only the students marked "Yes" will be re-assigned.</p>

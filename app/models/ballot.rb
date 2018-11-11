@@ -49,7 +49,6 @@ class Ballot < ApplicationRecord
     Registree.find_by(
       student: self.student,
       semester: self.semester,
-      course: self.course,
     )
   end
 

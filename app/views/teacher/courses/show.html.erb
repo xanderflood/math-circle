@@ -19,7 +19,7 @@ Overview:
         <th colspan="1">Weekday</th>
         <th colspan="1">Time</th>
         <th colspan="1">Meetings</th>
-        <th colspan="1">Students</th>
+        <th colspan="1">Enrollment</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -38,11 +38,21 @@ Overview:
             <% end %>
             <%= link_to '(+)', new_teacher_event_path(section_id: section.id) %>
           </td>
-          <td><%= section.roster.count %></td>
+          <td><%= @enrollment[section.id] %></td>
           <td><%= link_to 'Edit', edit_teacher_section_path(section) %></td>
           <td><%= link_to 'Delete', teacher_section_path(section), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
+
+      <tr>
+        <td>Waitlist</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @enrollment[nil] %></td>
+        <td></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
 <% else %>

@@ -3,6 +3,7 @@ class Teacher::CoursesController < Teacher::BaseController
 
   # GET /courses/1
   def show
+    @enrollment = EnrollmentHelper.section_enrollment @course
   end
 
   # GET /courses/new

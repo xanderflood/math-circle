@@ -19,6 +19,23 @@
     <%= number_field_tag :'search[id]' %>
   </div>
 
+  <% if model == :students %>
+    <div class="field">
+      <%= label_tag "Only students with no waiver" %>
+      <%= check_box_tag :no_waiver_only %>
+    </div>
+
+    <div class="field">
+      <%= label_tag "Only students with accomodations" %>
+      <%= check_box_tag :accomodations_only %>
+    </div>
+
+    <div class="field">
+      <%= label_tag "Only students registered for the current semester" %>
+      <%= check_box_tag :current_only, "1", true %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= submit_tag 'Search' %>
   </div>
