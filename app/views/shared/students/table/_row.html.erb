@@ -73,7 +73,7 @@
             <%= link_to 'Register', polymorphic_path([:courses, role, student, :ballot], target: :new) %>
           <% end %>
         <% end %>
-      <% elsif semester.registration_open? %>
+      <% elsif semester.registration_open? || (role == :teacher && semester.closed?) %>
         <% if !student.level_ok? || student.school_grade.nil? %>
           Before you can register, you'll need to
           <%= link_to "enter your grade and Math-Circle level", [:edit, role, student] %>.
