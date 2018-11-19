@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :lottery do
-    semester { FactoryGirl.create(:semester_for_lottery, name: "Semster with lottery done") }
+    semester { FactoryBot.create(:semester_for_lottery, name: "Semster with lottery done") }
 
     factory(:finished_lottery) do
       after(:create) do |lottery|

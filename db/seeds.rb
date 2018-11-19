@@ -8,19 +8,19 @@
 
 # attendance example (executed lottery)
 puts "+++ Buidling a finished-lottery example +++"
-lottery = FactoryGirl.create(:finished_lottery)
+lottery = FactoryBot.create(:finished_lottery)
 
 # lottery example
 puts "+++ Buidling an un-run-lottery example +++"
-FactoryGirl.create(:semester_for_lottery, name: "Semester with ballots")
+FactoryBot.create(:semester_for_lottery, name: "Semester with ballots")
 
 puts "+++ Setting up preview accounts +++"
 
 # logins
 Teacher.create(email: "test@emory.edu", password: "password")
-parent = FactoryGirl.create(:parent, email: "test@emory.edu", password: "password")
+parent = FactoryBot.create(:parent, email: "test@emory.edu", password: "password")
 
 # students
-FactoryGirl.create(:student, parent: parent, level: :A, name: "Bobby McNamara")
-FactoryGirl.create(:student, parent: parent, level: :B, name: "Tramelgren Didion")
-FactoryGirl.create(:student, parent: parent, level: :unspecified, name: "Big Lebowski")
+FactoryBot.create(:student, parent: parent, level: :A, name: "Bobby McNamara")
+FactoryBot.create(:student, parent: parent, level: :B, name: "Tramelgren Didion")
+FactoryBot.create(:student, parent: parent, level: :unspecified, name: "Big Lebowski")

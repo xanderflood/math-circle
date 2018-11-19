@@ -42,33 +42,33 @@ RSpec.describe EventGroup, type: :model do
 
   it 'should create the appropriate number of events for its semester' do
     # the sunday-to-saturday semester
-    section = FactoryGirl.create(:event_group,
+    section = FactoryBot.create(:event_group,
       course: courses(:As18), # grabbed from fixtures
       wday: :sunday)
     expect(section.events.count).to eq 16
 
-    section = FactoryGirl.create(:event_group,
+    section = FactoryBot.create(:event_group,
       course: courses(:As18), # grabbed from fixtures
       wday: :monday)
     expect(section.events.count).to eq 16
 
-    section = FactoryGirl.create(:event_group,
+    section = FactoryBot.create(:event_group,
       course: courses(:As18), # grabbed from fixtures
       wday: :tuesday)
     expect(section.events.count).to eq 16
 
     # the saturday-to-sunday semester
-    section = FactoryGirl.create(:event_group,
+    section = FactoryBot.create(:event_group,
       course: courses(:As17), # grabbed from fixtures
       wday: :saturday)
     expect(section.events.count).to eq 20
 
-    section = FactoryGirl.create(:event_group,
+    section = FactoryBot.create(:event_group,
       course: courses(:As17), # grabbed from fixtures
       wday: :sunday)
     expect(section.events.count).to eq 20
 
-    section = FactoryGirl.create(:event_group,
+    section = FactoryBot.create(:event_group,
       course: courses(:As17), # grabbed from fixtures
       wday: :monday)
     expect(section.events.count).to eq 19

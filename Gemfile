@@ -40,7 +40,7 @@ gem 'sendgrid-ruby', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 
-gem 'factory_girl_rails', '~> 4.8'
+gem 'factory_bot_rails', '~> 4.8'
 # gem 'active_record_query_trace'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

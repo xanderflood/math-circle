@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :semester do
     name "Spring 2016"
     start "2017-01-12"

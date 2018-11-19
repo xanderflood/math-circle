@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :event_group do
     name ""
     time "5:00 pm"

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "parent/registrees/new", type: :view do
   before(:each) do
-    @semester = FactoryGirl.create(:finished_lottery).semester
+    @semester = FactoryBot.create(:finished_lottery).semester
     @course = @semester.courses.first
     @section = @course.sections.first
-    @student = FactoryGirl.create(:student, level: @course.level)
+    @student = FactoryBot.create(:student, level: @course.level)
     assign(:registree, Registree.new(
       student: @student,
       semester: @semester,

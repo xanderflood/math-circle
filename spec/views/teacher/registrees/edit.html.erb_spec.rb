@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "teacher/registrees/edit", type: :view do
   before(:each) do
-    @semester = FactoryGirl.create(:finished_lottery).semester
+    @semester = FactoryBot.create(:finished_lottery).semester
     @registree = Registree.find_by(semester: @semester)
     @student = @registree.student
   end

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :special_registree do
     parent nil
     special_event nil

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Lottery, type: :model do
   before(:all) do
-    @lottery = FactoryGirl.create(:finished_lottery)
+    @lottery = FactoryBot.create(:finished_lottery)
     @semester = @lottery.semester
 
     # If this fails because lottery is nil, you have to `rake db:seed RAILS_ENV=test`

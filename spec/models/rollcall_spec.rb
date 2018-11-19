@@ -16,7 +16,7 @@ RSpec.describe Rollcall, type: :model do
 
     example = example_in.zip(example_out)
 
-    semester = FactoryGirl.create(:semester_with_courses)
+    semester = FactoryBot.create(:semester_with_courses)
     event = semester.courses.first.sections.first.events.first
     example.each do |k,v|
       rollcall = Rollcall.new(attendance: k, event: event)

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :parent_profile do
     initialize_with do
       attributes[:parent] = create(:parent) unless attributes.key? :parent

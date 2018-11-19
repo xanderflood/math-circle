@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:course) do
     sequence(:level) { |n| 1 + (n % (Course.levels.count-1)) }
 
