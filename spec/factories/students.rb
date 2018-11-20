@@ -4,12 +4,12 @@ FactoryBot.define do
     sequence(:first_name) { |n| "Henderleigh-#{n}" }
     sequence(:last_name) { |n| ["McNabb", "Trufflestein", "Kombucha", "Cookbook"].sample }
 
-    parent { create(:parent) }
+    parent
     birthdate { Date.today }
     waiver_submitted(true)
 
     priority { rand(2) }
     school_grade(10)
-    level(:A)
+    level { Level.random || create(:level)  }
   end
 end

@@ -25,6 +25,6 @@ FactoryBot.define do
     ec2_relation "test"
     ec2_phone "248-555-5555"
 
-    # parent { create(:parent) }
+    parent
   end
 end

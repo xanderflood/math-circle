@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :parent do
-    sequence(:email) { |n| "parent#{rand(2**(0.size * 8 -2) -1)}@sheinhartwigs.com" }
+    email { "parent#{rand(10000000000)}@sheinhartwigs.com" }
     password "password"
 
     after(:create) do |parent|

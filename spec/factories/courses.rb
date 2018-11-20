@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory(:course) do
-    sequence(:level) { |n| 1 + (n % (Course.levels.count-1)) }
+    level { Level.random || create(:level) }
+    semester { create(:semester) }
 
     name { "Level #{self.level}" }
     overview { "Super cool math funstuff for ages"\
@@ -9,7 +10,7 @@ FactoryBot.define do
     # sections
     after(:create) do |course|
       # this will be used to sequence the other attributes
-      offset = 1 + Course.levels[course.level]
+      offset = course.level.position
 
       create_list(:event_group, offset,
         course: course,

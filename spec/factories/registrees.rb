@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :registree do
-    student nil
-    course nil
-    section nil
+    student
+    course
+    section
     preferences []
   end
 end
