@@ -22,7 +22,6 @@ class Lottery < ApplicationRecord
       registree = ballot.registree_or_new
 
       next if registree.persisted?
-      binding.pry
 
       registree.section_id  = ballot_info.section_id
       registree.preferences = ballot_info.preferences unless ballot_info.section_id
