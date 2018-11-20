@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :event_group do
-    name ""
+    name { "" }
     course
-    event_time "5:00 pm"
+    event_time { "5:00 pm" }
     sequence(:wday) { |n| (Date.today.wday + n) % 7 }
-    capacity 10
+    capacity { 10 }
   end
 end

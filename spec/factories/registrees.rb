@@ -3,6 +3,6 @@ FactoryBot.define do
     student
     course
     section
-    preferences []
+    preferences { [] }
   end
 end

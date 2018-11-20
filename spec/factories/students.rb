@@ -6,10 +6,10 @@ FactoryBot.define do
 
     parent
     birthdate { Date.today }
-    waiver_submitted(true)
+    waiver_submitted { true }
 
     priority { rand(2) }
-    school_grade(10)
+    school_grade { 10 }
     level { Level.random || create(:level)  }
   end
 end
