@@ -21,6 +21,8 @@ class Level < ApplicationRecord
   }, if: :unrestricted?
   validate :check_grades
 
+  after_initialize :set_position, if: :new_record?
+
   def permitted? student
     if (self.min_grade > student.school_grade) || (self.max_grade < student.school_grade)
       return false
@@ -44,5 +46,19 @@ class Level < ApplicationRecord
   def self.get_name(level)
     return "unspecified" unless level
     return level.name
+  end
+
+  # for test building fixtures
+  def self.random
+    self.where(active: true).offset(rand()*Level.active.count).first
+  end
+
+  private
+  def set_position
+    self.position ||= Level.next_position
+  end
+
+  def self.next_position
+    self.order(:position).last.position rescue 1
   end
 end
