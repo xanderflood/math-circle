@@ -4,8 +4,8 @@ class CreateLevels < ActiveRecord::Migration[5.0]
     create_table :levels do |t|
       t.string :name,      unique: true
       t.integer :position, unique: true,              null: false
-      t.integer :max_grade,              default: 1,  null: false
-      t.integer :min_grade,              default: 12, null: false
+      t.integer :max_grade,              default: 12,  null: false
+      t.integer :min_grade,              default: 6, null: false
       t.boolean :restricted
       t.boolean :active,                 default: true
     end
