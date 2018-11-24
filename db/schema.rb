@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 20181026005947) do
   create_table "levels", force: :cascade do |t|
     t.string  "name"
     t.integer "position",                  null: false
-    t.integer "max_grade",  default: 12,    null: false
-    t.integer "min_grade",  default: 6,   null: false
+    t.integer "max_grade",  default: 12,   null: false
+    t.integer "min_grade",  default: 6,    null: false
     t.boolean "restricted"
     t.boolean "active",     default: true
   end
