@@ -15,7 +15,7 @@ class CreateLevels < ActiveRecord::Migration[5.0]
     ["A", "B", "C", "D"].each.with_index do |level_name, i|
       level = Level.create!(
         name: level_name,
-        active: true,
+        active: false,
         position: i+1,
         min_grade: 6,
         max_grade: 12)
