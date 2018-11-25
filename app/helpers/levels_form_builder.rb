@@ -1,5 +1,5 @@
 module LevelsFormBuilder
-  def level_select(method, options = {}, html_options = {}) 
+  def level_select(method, options = {}, html_options = {})
     levels = Level.active
     if options.delete(:include_inactive)
       levels = levels.where(active: true)
