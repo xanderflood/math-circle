@@ -117,8 +117,8 @@ class Student < ApplicationRecord
   ### callbacks ###
   def maybe_clear_ballot
     if self.school_grade_changed? || self.level_id_changed?
-      self.registree.destroy if self.registree && self.registree.semester.current?
-      self.ballot.destroy if self.ballot && self.ballot.semester.current?
+      self.registree.destroy if self.registree && self.registree.semester.current? && !self.registree.semester.closed?
+      self.ballot.destroy if self.ballot && self.ballot.semester.current? && !self.ballot.semester.closed?
     end
   end
 
