@@ -9,7 +9,7 @@ end
 # Platform
 gem 'rails', '~> 5.0'
 gem 'pg', '~> 0.19'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.12'
 
 # Assets
 gem 'jquery-rails', '~> 4.3'
