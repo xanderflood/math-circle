@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/ryanb/letter_opener.git
-  revision: befbe9812860ac29760a3171273569d6dca8101e
+  revision: 52787d3d43761a2125649848afc7c84dd6e67abb
   specs:
-    letter_opener (1.4.1)
+    letter_opener (1.6.0)
       launchy (~> 2.2)
 
 GIT
@@ -141,8 +141,9 @@ GEM
     popper_js (1.9.9)
     pry (0.12.2)
       coderay (~> 1.1.0)
-      method_source (~> 0.9.0)
-    public_suffix (3.0.1)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    public_suffix (3.0.3)
     puma (3.8.2)
     rack (2.0.6)
     rack-protection (2.0.4)
