@@ -51,7 +51,7 @@ group :development do
   gem 'pry'
   gem 'letter_opener', github: 'ryanb/letter_opener'
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '~> 3.1.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rspec-rails', '~> 3.8'
