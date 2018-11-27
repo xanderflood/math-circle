@@ -8,7 +8,7 @@ end
 
 # Platform
 gem 'rails', '~> 5.0'
-gem 'pg', '~> 0.19'
+gem 'pg', '~> 1.1'
 gem 'puma', '~> 3.12'
 
 # Assets
