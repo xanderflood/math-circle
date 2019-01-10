@@ -95,7 +95,7 @@ GEM
     ffi (1.9.25)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
-    geocoder (1.4.4)
+    geocoder (1.5.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     graticule (2.5.0)
@@ -124,7 +124,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mainstreet (0.1.0)
+    mainstreet (0.2.0)
       geocoder
     method_source (0.8.2)
     mini_mime (1.0.1)
@@ -271,7 +271,7 @@ DEPENDENCIES
   jt-rails-address (~> 1.0)
   letter_opener!
   listen (~> 3.1.5)
-  mainstreet (~> 0.1)
+  mainstreet (~> 0.2)
   pg (~> 1.1)
   phonelib (~> 0.6)
   popper_js (~> 1.9.9)
