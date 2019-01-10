@@ -138,7 +138,7 @@ GEM
       nokogiri (~> 1.5)
     orm_adapter (0.5.0)
     pg (1.1.4)
-    phonelib (0.6.27)
+    phonelib (0.6.28)
     popper_js (1.9.9)
     pry (0.12.2)
       coderay (~> 1.1.0)
