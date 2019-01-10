@@ -139,7 +139,7 @@ GEM
     orm_adapter (0.5.0)
     pg (1.1.4)
     phonelib (0.6.27)
-    popper_js (1.9.9)
+    popper_js (1.14.5)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -274,7 +274,7 @@ DEPENDENCIES
   mainstreet (~> 0.1)
   pg (~> 1.1)
   phonelib (~> 0.6)
-  popper_js (~> 1.9.9)
+  popper_js (~> 1.14.5)
   pry
   puma (~> 3.12)
   rails (~> 5.0)
