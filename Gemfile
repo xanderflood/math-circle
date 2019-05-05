@@ -14,8 +14,8 @@ gem 'puma', '~> 3.12'
 # Assets
 gem 'jquery-rails', '~> 4.3'
 gem 'coffee-rails', '~> 4.2'
-gem 'bootstrap', github: 'twbs/bootstrap-rubygem'
-gem 'sass-rails', '~> 5.0'
+gem 'bootstrap', '~> 4.3.1'
+# gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails', '~> 4.7'
 gem 'carmen-rails', '~> 1.0.0'
@@ -26,7 +26,7 @@ gem 'jt-rails-address', '~> 1.0'
 # gem 'therubyracer', platforms: :ruby
 
 
-gem "devise", "~> 4.6"
+gem 'devise', '~> 4.6'
 gem 'ice_cube', '~> 0.16'
 gem 'phonelib', '~> 0.6'
 gem 'mainstreet', '~> 0.1'

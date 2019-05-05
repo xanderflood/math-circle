@@ -5,15 +5,6 @@ GIT
     letter_opener (1.7.0)
       launchy (~> 2.2)
 
-GIT
-  remote: https://github.com/twbs/bootstrap-rubygem.git
-  revision: 05041b5103debd53dac3ae203b796d13b7a44ce0
-  specs:
-    bootstrap (4.3.1)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
-      sassc-rails (>= 2.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,6 +52,10 @@ GEM
       execjs
     bcrypt (3.1.12)
     bindex (0.5.0)
+    bootstrap (4.3.1)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 1.14.3, < 2)
+      sassc-rails (>= 2.0.0)
     builder (3.2.3)
     byebug (10.0.2)
     carmen (1.0.2)
@@ -199,13 +194,6 @@ GEM
     rspec-support (3.8.0)
     ruby_dep (1.5.0)
     ruby_http_client (3.3.0)
-    sass (3.4.24)
-    sass-rails (5.0.6)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -266,7 +254,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bootstrap!
+  bootstrap (~> 4.3.1)
   byebug
   carmen-rails (~> 1.0.0)
   coffee-rails (~> 4.2)
@@ -286,7 +274,6 @@ DEPENDENCIES
   puma (~> 3.12)
   rails (~> 5.0)
   rspec-rails (~> 3.8)
-  sass-rails (~> 5.0)
   sendgrid-ruby (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
