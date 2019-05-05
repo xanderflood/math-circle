@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.5.3'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -14,12 +14,12 @@ gem 'puma', '~> 3.12'
 # Assets
 gem 'jquery-rails', '~> 4.3'
 gem 'coffee-rails', '~> 4.2'
-gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'bootstrap', github: 'twbs/bootstrap-rubygem'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails', '~> 4.7'
 gem 'carmen-rails', '~> 1.0.0'
-gem 'popper_js', '~> 1.9.9'
+gem 'popper_js', '~> 1.14'
 gem 'jt-rails-address', '~> 1.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
