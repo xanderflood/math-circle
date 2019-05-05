@@ -14,12 +14,11 @@ gem 'puma', '~> 3.12'
 # Assets
 gem 'jquery-rails', '~> 4.3'
 gem 'coffee-rails', '~> 4.2'
-gem 'bootstrap', '~> 4.3.1'
-# gem 'sass-rails', '~> 5.0'
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem', ref: 'bd3d58a56c46d1f87785298706b136b73c192b8b'
+# gem 'bootstrap', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails', '~> 4.7'
 gem 'carmen-rails', '~> 1.0.0'
-gem 'popper_js', '~> 1.14'
 gem 'jt-rails-address', '~> 1.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes

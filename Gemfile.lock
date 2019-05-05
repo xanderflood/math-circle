@@ -5,6 +5,16 @@ GIT
     letter_opener (1.7.0)
       launchy (~> 2.2)
 
+GIT
+  remote: https://github.com/twbs/bootstrap-rubygem
+  revision: bd3d58a56c46d1f87785298706b136b73c192b8b
+  ref: bd3d58a56c46d1f87785298706b136b73c192b8b
+  specs:
+    bootstrap (4.0.0.alpha6)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.9.9, < 2.0)
+      sass (>= 3.4.19)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -52,10 +62,6 @@ GEM
       execjs
     bcrypt (3.1.12)
     bindex (0.5.0)
-    bootstrap (4.3.1)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
-      sassc-rails (>= 2.0.0)
     builder (3.2.3)
     byebug (10.0.2)
     carmen (1.0.2)
@@ -87,7 +93,7 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
-    ffi (1.9.25)
+    ffi (1.10.0)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
     geocoder (1.4.4)
@@ -194,15 +200,11 @@ GEM
     rspec-support (3.8.0)
     ruby_dep (1.5.0)
     ruby_http_client (3.3.0)
-    sassc (2.0.1)
-      ffi (~> 1.9)
-      rake
-    sassc-rails (2.1.1)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sendgrid-ruby (5.3.0)
       ruby_http_client (~> 3.3.0)
       sinatra (>= 1.4.7, < 3)
@@ -232,7 +234,7 @@ GEM
       state_machines-activemodel (>= 0.5.0)
     thor (0.20.3)
     thread_safe (0.3.6)
-    tilt (2.0.8)
+    tilt (2.0.9)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.20)
@@ -254,7 +256,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bootstrap (~> 4.3.1)
+  bootstrap!
   byebug
   carmen-rails (~> 1.0.0)
   coffee-rails (~> 4.2)
@@ -269,7 +271,6 @@ DEPENDENCIES
   mainstreet (~> 0.1)
   pg (~> 1.1)
   phonelib (~> 0.6)
-  popper_js (~> 1.14)
   pry
   puma (~> 3.12)
   rails (~> 5.0)
