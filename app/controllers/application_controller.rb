@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :redirect_to_https, :only => ["index", "show"]
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_role
 
@@ -23,5 +24,9 @@ class ApplicationController < ActionController::Base
   private
   def set_role
     @role = self.class.role
+  end
+
+  def redirect_to_https
+    redirect_to :protocol => "https://" unless (request.ssl? || request.local?)
   end
 end
