@@ -68,7 +68,7 @@
           <%= link_to 'View or edit status', [:edit, role, student, :ballot] %>
         <% else %>
           <% if role == :parent && !student.permitted? %>
-            Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle driectly to register.
+            Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle directly to register.
           <% else %>
             <%= link_to 'Register', polymorphic_path([:courses, role, student, :ballot], target: :new) %>
           <% end %>
@@ -81,7 +81,7 @@
           <%= link_to 'View or edit status', [:edit, role, student, :registree] %>
         <% else %>
           <% if role == :parent && !student.permitted? %>
-            Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle driectly to register.
+            Your student does not meet the grade requirements to register for this level, but can be registered manually with teacher permission. Contact Math-Circle directly to register.
           <% else %>
             <%= link_to 'Register', polymorphic_path([:courses, role, student, :registree], target: :new) %>
           <% end %>
