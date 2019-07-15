@@ -39,6 +39,6 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit (section.persisted? : "Update section" ? "Create section") %>
+    <%= f.submit (section.persisted? ? "Update section" : "Create section") %>
   </div>
 <% end %>
