@@ -76,7 +76,7 @@ class Teacher::SectionsController < Teacher::BaseController
       # Previously, we included :event_time above, which cause rails to auto-parse it and interpret it in the current time zone.
       # However, it uses the attached date fields (which is just an empty placeholder) to determine whether to use daylight savings,
       # which leads to times being off-by-one for half the year. We just want to take the raw hour and minute and leave the rest
-      sp[:event_time] = Time.new(1, 1, 1, params.require(:event_group)["event_time(4i)"], params.require(:event_group)["event_time(5i)"], 0)
+      sp[:event_time] = Time.zone.local(1, 1, 1, params.require(:event_group)["event_time(4i)"], params.require(:event_group)["event_time(5i)"], 0)
 
       sp
     end
