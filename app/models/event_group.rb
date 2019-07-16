@@ -25,6 +25,7 @@ class EventGroup < ApplicationRecord
   end
 
   #TODO: remove EventGroup#name entirely - it's stupid
+  # deprecate it and create a notification channel to see if it's ever used?
   def name
     self.course.description
   end
