@@ -20,7 +20,11 @@ class Teacher::PrioritiesController < Teacher::BaseController
     .update_all(priority: false)
 
     table.each do |id, att|
-      Student.find(id).update!(priority: (att >= @threshold))
+      begin
+        Student.find(id).update!(priority: (att >= @threshold))
+      rescue ActiveRecord::RecordNotFound => e; end
+
+      # some student's listed in last semester's attendance rolls may have been deleted - that's totally acceptable
     end
 
     redirect_to teacher_home_path, notice: "Student priorities have been reset."

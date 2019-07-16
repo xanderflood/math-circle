@@ -71,6 +71,13 @@ class Teacher::SectionsController < Teacher::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:event_group).permit(:wday, :event_time, :course_id, :capacity)
+      sp = params.require(:event_group).permit(:wday, :course_id, :capacity)
+
+      # Previously, we included :event_time above, which cause rails to auto-parse it and interpret it in the current time zone.
+      # However, it uses the attached date fields (which is just an empty placeholder) to determine whether to use daylight savings,
+      # which leads to times being off-by-one for half the year. We just want to take the raw hour and minute and leave the rest
+      sp[:event_time] = Time.zone.local(1, 1, 1, params.require(:event_group)["event_time(4i)"], params.require(:event_group)["event_time(5i)"], 0)
+
+      sp
     end
 end
