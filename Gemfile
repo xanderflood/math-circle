@@ -23,7 +23,7 @@ gem 'jt-rails-address', '~> 1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'devise', '~> 4.6'
+gem 'devise', '~> 4.6', github: 'xanderflood/devise', branch: 'xf/debug'
 gem 'ice_cube', '~> 0.16'
 gem 'phonelib', '~> 0.6'
 gem 'mainstreet', '~> 0.1'
