@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ryanb/letter_opener.git
-  revision: 8f78b59a12f9f9fc3e33cdce9927d9359468d650
+  revision: ca1cea1638939c1417b1c186bfdffdc1a8e4d64f
   specs:
     letter_opener (1.7.0)
       launchy (~> 2.2)
