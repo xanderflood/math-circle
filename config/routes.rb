@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   get 'errors/not_found'
 
-  get 'docs/waiver'
-
   devise_for :parents, controllers: { sessions: 'authentication/parent_sessions' }
   devise_for :teachers, controllers: { sessions: 'authentication/teacher_sessions' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -125,6 +123,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  get 'docs/waiver'
 end
