@@ -1,4 +1,6 @@
 module EnrollmentHelper
+ include ActiveRecord::Sanitization::ClassMethods
+
   def self.semester_enrollment
     ActiveRecord::Base.connection.execute(
       "SELECT
@@ -31,7 +33,7 @@ module EnrollmentHelper
       FROM
         courses FULL JOIN registrees
         ON registrees.course_id = courses.id
-      WHERE courses.semester_id = #{ActiveRecord::Base.sanitize_sql(semester.id)}
+      WHERE courses.semester_id = #{sanitize_sql(semester.id)}
       GROUP BY courses.id;")
     .entries.map do |e|
       [e["id"], e["count"]]
@@ -50,12 +52,12 @@ module EnrollmentHelper
               FROM
               ( SELECT *
                 FROM event_groups
-                WHERE event_groups.course_id = #{ActiveRecord::Base.sanitize_sql(course.id)}
+                WHERE event_groups.course_id = #{sanitize_sql(course.id)}
               ) AS egs
               FULL JOIN
               ( SELECT *
                 FROM registrees
-                WHERE registrees.course_id = #{ActiveRecord::Base.sanitize_sql(course.id)}
+                WHERE registrees.course_id = #{sanitize_sql(course.id)}
               ) AS regs
               ON regs.section_id = egs.id
             ) AS section_students
