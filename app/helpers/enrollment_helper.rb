@@ -1,5 +1,5 @@
 module EnrollmentHelper
- include ActiveRecord::Sanitization::ClassMethods
+ extend ActiveRecord::Sanitization::ClassMethods
 
   def self.semester_enrollment
     ActiveRecord::Base.connection.execute(
