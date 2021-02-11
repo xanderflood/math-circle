@@ -14,6 +14,8 @@ class EventGroup < ApplicationRecord
   validates :event_time, on: :create,
     presence: { allow_blank: false, message: "must be specified"}
 
+  after_update :shift
+
   attr_accessor :event_time
 
   enum wday: DayHelper::DAYS
