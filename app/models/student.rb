@@ -4,7 +4,7 @@ class Student < ApplicationRecord
   has_many :ballots, dependent: :destroy
   has_many :registrees, dependent: :destroy
 
-  belongs_to :level
+  belongs_to :level, optional: true
 
   attr_accessor :waiver_force
 

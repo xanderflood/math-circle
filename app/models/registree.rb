@@ -7,7 +7,7 @@ class Registree < ApplicationRecord
   belongs_to :semester
   belongs_to :student
   belongs_to :course
-  belongs_to :section, class_name: "EventGroup"
+  belongs_to :section, optional: true, class_name: "EventGroup"
   serialize :preferences, Array
 
   attr_accessor :courses

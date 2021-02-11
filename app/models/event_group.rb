@@ -14,6 +14,8 @@ class EventGroup < ApplicationRecord
   validates :event_time, on: :create,
     presence: { allow_blank: false, message: "must be specified"}
 
+  after_update :shift
+
   attr_accessor :event_time
 
   enum wday: DayHelper::DAYS
@@ -45,7 +47,7 @@ class EventGroup < ApplicationRecord
 
   # enrollment
   def full?; roster.count >= capacity; end
-  def space; roster.count - capacity; end
+  def space; capacity - roster.count; end
 
   def roster
     @roster = Registree.where(section: self).includes(:student).map(&:student)
@@ -56,10 +58,10 @@ class EventGroup < ApplicationRecord
   end
 
   def shift
-    Registree.transaction do
-      self.waitlist.limit(self.space).update(section_id: self.id)
+    EventGroup.transaction do
+      sid = self.id
+      self.waitlist.first(self.space).each{ |r| r.update!(section_id: sid) }
     end
-  rescue
   end
 
   def attendance_file_name
