@@ -47,7 +47,7 @@ class EventGroup < ApplicationRecord
 
   # enrollment
   def full?; roster.count >= capacity; end
-  def space; roster.count - capacity; end
+  def space; capacity - roster.count; end
 
   def roster
     @roster = Registree.where(section: self).includes(:student).map(&:student)
