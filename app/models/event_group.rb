@@ -58,10 +58,9 @@ class EventGroup < ApplicationRecord
   end
 
   def shift
-    Registree.transaction do
-      self.waitlist.limit(self.space).update(section_id: self.id)
+    EventGroup.transaction do
+      self.waitlist.first(self.space).each{ |r| r.update(section_id: self.id) }
     end
-  rescue
   end
 
   def attendance_file_name
