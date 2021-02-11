@@ -59,7 +59,8 @@ class EventGroup < ApplicationRecord
 
   def shift
     EventGroup.transaction do
-      self.waitlist.first(self.space).each{ |r| r.update(section_id: self.id) }
+      sid = self.id
+      self.waitlist.first(self.space).each{ |r| r.update!(section_id: sid) }
     end
   end
 
