@@ -2,13 +2,13 @@
   <%= semester.state_description %>
 
   <% semester.state_events.each do |event| %>
-    <div class="semester-transition card" data-event="<%= event %>">
+    <div class="semester-transition card" id="semester_transition_<%= event %>" data-event="<%= event %>">
       <%= render partial: "teacher/semesters/transitions/#{event}", locals: { semester: @semester } %>
     </div>
   <% end %>
 
   <% if semester.lottery_open? %>
-    <div class="semester-transition card" data-event="run">
+    <div class="semester-transition card" id="semester_transition_<%= event %>" data-event="run">
       <%= render partial: "teacher/semesters/transitions/run", locals: { semester: @semester, disabled: true } %>
     </div>
   <% end %>
